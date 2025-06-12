@@ -1,0 +1,6 @@
+Django
+pre-commit
+black
+isort
+flake8
+bandit
