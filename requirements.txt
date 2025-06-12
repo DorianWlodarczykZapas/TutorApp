@@ -10,3 +10,5 @@ pytest
 coverage
 python-dotenv
 dotenv-linter
+pylint-django
+django-environ
