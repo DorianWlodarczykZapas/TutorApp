@@ -1,0 +1,3 @@
+[console_scripts]
+dotenv-linter=dotenv_linter.cli:cli
+

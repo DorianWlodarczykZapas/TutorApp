@@ -1,4 +1,4 @@
-Django
+Django~=5.2.3
 pre-commit
 black
 isort
