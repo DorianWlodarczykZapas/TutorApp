@@ -6,7 +6,7 @@ class Quiz(models.Model):
         (1, "Real numbers"),
         (2, "Language of mathematics"),
         (3, "Systems of equations"),
-        (4, "Functons"),
+        (4, "Functions"),
         (5, "Linear function"),
         (6, "Planimetry"),
         (7, "Quadratic function"),
