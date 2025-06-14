@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class MatriculationTasks(models.Model):
+class MathMatriculationTasks(models.Model):
     task_link = models.URLField(max_length=500, blank=True, null=True)
     answer_link = models.URLField(max_length=500, blank=True, null=True)
     year = models.IntegerField()
@@ -50,3 +50,31 @@ class MatriculationTasks(models.Model):
     level = ((1, "Basic"), (2, "Extended"))
     type = models.IntegerField(choices=level)
     is_done = models.BooleanField(default=False)
+
+
+class MathMatriculationTrainingTasks(models.Model):
+    CATEGORY_CHOICES = [
+        (1, "Real numbers"),
+        (2, "Language of mathematics"),
+        (3, "Systems of equations"),
+        (4, "Functons"),
+        (5, "Linear function"),
+        (6, "Planimetry"),
+        (7, "Quadratic function"),
+        (8, "Polynomials"),
+        (9, "Measurable function"),
+        (10, "Trigonometry"),
+        (11, "Planimetry circles"),
+        (12, "Exponential and logarithmic functions"),
+        (13, "Trigonometric functions"),
+        (14, "Analytical geometry"),
+        (15, "Sequences"),
+        (16, "Differential calculus"),
+        (17, "Statistics"),
+        (18, "Probability"),
+        (19, "Stereometry"),
+    ]
+    type = models.IntegerField(choices=CATEGORY_CHOICES)
+    task_content = models.TextField()
+    answer = models.CharField(max_lenght=100)
+
