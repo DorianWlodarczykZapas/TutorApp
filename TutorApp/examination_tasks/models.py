@@ -74,7 +74,12 @@ class MathMatriculationTrainingTasks(models.Model):
         (18, "Probability"),
         (19, "Stereometry"),
     ]
-    type = models.IntegerField(choices=CATEGORY_CHOICES)
+    category_type = models.IntegerField(choices=CATEGORY_CHOICES)
     task_content = models.TextField()
     answer = models.CharField(max_lenght=100)
-
+    LEVEL_CHOICES = [
+        (1, "Easy"),
+        (2, "Intermediate"),
+        (3, "Advanced"),
+    ]
+    level_type=models.IntegerField(choices=LEVEL_CHOICES)
