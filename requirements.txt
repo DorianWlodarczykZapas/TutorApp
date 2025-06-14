@@ -12,3 +12,5 @@ python-dotenv
 dotenv-linter
 pylint-django
 django-environ
+pillow
+psycopg2

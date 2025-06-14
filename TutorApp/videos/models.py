@@ -35,8 +35,8 @@ class Video(models.Model):
 
 
     class VideoLevel(models.TextChoices):
-        PRIMARY = 1, _('Primary School')
-        SECONDARY = 2, _('Secondary School')
+        PRIMARY = "1", _('Primary School')
+        SECONDARY = "2", _('Secondary School')
 
     level = models.CharField(max_length=10, choices=VideoLevel.choices)
 
@@ -48,8 +48,8 @@ class Video(models.Model):
 
 class VideoTimestamp(models.Model):
     class TimestampType(models.TextChoices):
-        EXERCISE = 1, _('Exercise')
-        TASK = 2, _('Task')
+        EXERCISE = "1", _('Exercise')
+        TASK = "2", _('Task')
 
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='timestamps')
     label = models.CharField(max_length=255)
