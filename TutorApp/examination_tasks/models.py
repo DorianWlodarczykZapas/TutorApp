@@ -96,5 +96,11 @@ class MathMatriculationTrainingTasks(models.Model):
         choices=[(1, _("Easy")), (2, _("Intermediate")), (3, _("Advanced"))]
     )
 
+    done_by = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='completed_matriculation_tasks',
+        blank=True
+    )
+
     def __str__(self):
         return f"{self.get_category_type_display()} – Level {self.level_type}"
