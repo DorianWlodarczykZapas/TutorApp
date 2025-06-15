@@ -1,0 +1,22 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>{% trans "Add New Exam" %}</title></head>
+<body>
+  <h1>{% trans "Add New Exam" %}</h1>
+
+  {% if messages %}
+    <ul>
+      {% for m in messages %}
+        <li>{{ m }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Save" %}</button>
+  </form>
+</body>
+</html>
