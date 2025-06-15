@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import List
 import environ
 from django.utils.translation import gettext_lazy as _
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -28,6 +29,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+INSTALLED_EXTENSIONS = [
     'users',
     'plans',
     'examination_tasks',
@@ -35,6 +39,8 @@ INSTALLED_APPS = [
     'training_calendar',
     'videos',
 ]
+
+INSTALLED_APPS += INSTALLED_EXTENSIONS
 
 # Middleware
 MIDDLEWARE = [
