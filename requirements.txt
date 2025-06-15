@@ -14,3 +14,4 @@ pylint-django
 django-environ
 pillow
 psycopg2
+factory_boy
