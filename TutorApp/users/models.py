@@ -13,4 +13,4 @@ class User(AbstractUser):
         max_length=10, choices=SCHOOL_TYPE_CHOICES, null=True, blank=True
     )
     role = [(1, "Student"), (2, "Teacher"), (3, "Admin")]
-    role_type = models.IntegerField(choices=role)
+    role_type = models.IntegerField(choices=role, default=1)
