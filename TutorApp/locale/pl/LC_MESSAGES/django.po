@@ -344,4 +344,5 @@ msgstr "Format: GG:MM:SS"
 msgid "Exam added successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
-
+msgid "You do not have permission to access this page."
+msgstr "Nie masz uprawnień dostępu do tej strony"
