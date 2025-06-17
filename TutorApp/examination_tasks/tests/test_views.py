@@ -90,3 +90,9 @@ class AddMatriculationTaskViewTests(TestCase):
         self.client.login(username="student", password="testpass123")
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
+    def test_teacher_can_view_form(self):
+        self.client.login(username="teacher", password="testpass123")
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Add New Matriculation Task")
