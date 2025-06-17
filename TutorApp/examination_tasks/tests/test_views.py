@@ -3,7 +3,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from ..factories import ExamFactory
-from ..models import Exam
+from ..models import Exam, MathMatriculationTasks
 
 User = get_user_model()
 
@@ -96,3 +96,12 @@ class AddMatriculationTaskViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Add New Matriculation Task")
+
+    def test_teacher_can_submit_valid_task(self):
+        self.client.login(username="teacher", password="testpass123")
+        data = {"exam": self.exam.pk, "task_id": 1, "category": 1}
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(
+            MathMatriculationTasks.objects.filter(exam=self.exam, task_id=1).exists()
+        )
