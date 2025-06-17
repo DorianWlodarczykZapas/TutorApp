@@ -85,3 +85,8 @@ class AddMatriculationTaskViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertNotEqual(response.status_code, 200)
         self.assertRedirects(response, f"/accounts/login/?next={self.url}")
+
+    def test_only_teacher_can_access(self):
+        self.client.login(username="student", password="testpass123")
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
