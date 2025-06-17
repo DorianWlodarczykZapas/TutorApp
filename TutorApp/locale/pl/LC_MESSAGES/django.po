@@ -346,3 +346,29 @@ msgstr "Egzamin dodany pomyślnie"
 
 msgid "You do not have permission to access this page."
 msgstr "Nie masz uprawnień dostępu do tej strony"
+
+
+msgid "Add Matriculation Task"
+msgstr "Dodaj zadanie maturalne"
+
+
+msgid "Add New Matriculation Task"
+msgstr "Dodaj nowe zadanie maturalne"
+
+
+msgid "Add Task"
+msgstr "Dodaj zadanie"
+
+
+msgid "Only teachers can add exam tasks."
+msgstr "Tylko nauczyciele mogą dodawać zadania egzaminacyjne."
+
+
+msgid "Select Exam"
+msgstr "Wybierz egzamin"
+
+msgid "Task Number"
+msgstr "Numer zadania"
+
+msgid "Task Category"
+msgstr "Kategoria zadania"
