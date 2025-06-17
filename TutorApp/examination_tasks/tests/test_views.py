@@ -105,3 +105,19 @@ class AddMatriculationTaskViewTests(TestCase):
         self.assertTrue(
             MathMatriculationTasks.objects.filter(exam=self.exam, task_id=1).exists()
         )
+
+    def test_cannot_add_duplicate_task_to_exam(self):
+        MathMatriculationTasks.objects.create(
+            exam=self.exam, task_id=2, category=2, type=self.exam.level_type
+        )
+        self.client.login(username="teacher", password="testpass123")
+        response = self.client.post(
+            self.url, {"exam": self.exam.pk, "task_id": 2, "category": 2}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response,
+            "form",
+            None,
+            ["Math matriculation tasks with this Exam and Task id already exists."],
+        )
