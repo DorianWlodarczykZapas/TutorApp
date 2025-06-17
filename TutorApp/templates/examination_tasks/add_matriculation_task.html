@@ -1,0 +1,25 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% trans "Add Matriculation Task" %}</title>
+    </head>
+    <body>
+        <h1>{% trans "Add New Matriculation Task" %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <br>
+                    {{ field }}
+                    {% if field.errors %}<div style="color: red;">{{ field.errors|striptags }}</div>{% endif %}
+                </div>
+                <br>
+            {% endfor %}
+            {% if form.non_field_errors %}<div style="color: red;">{{ form.non_field_errors }}</div>{% endif %}
+            <button type="submit">{% trans "Add Task" %}</button>
+        </form>
+    </body>
+</html>
