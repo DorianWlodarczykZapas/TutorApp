@@ -80,3 +80,8 @@ class AddMatriculationTaskViewTests(TestCase):
         self.exam = ExamFactory()
 
         self.url = reverse("add_matriculation_task")
+
+    def test_login_required(self):
+        response = self.client.get(self.url)
+        self.assertNotEqual(response.status_code, 200)
+        self.assertRedirects(response, f"/accounts/login/?next={self.url}")
