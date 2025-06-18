@@ -1,0 +1,9 @@
+{% load i18n %}
+{% block content %}
+    <h2>{% trans "Register as a Student" %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Register" %}</button>
+    </form>
+{% endblock %}
