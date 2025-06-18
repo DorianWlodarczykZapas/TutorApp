@@ -372,3 +372,42 @@ msgstr "Numer zadania"
 
 msgid "Task Category"
 msgstr "Kategoria zadania"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+msgid "Password"
+msgstr "Hasło"
+
+msgid "Confirm Password"
+msgstr "Potwierdź hasło"
+
+msgid "School Type"
+msgstr "Typ szkoły"
+
+msgid "This email is already in use."
+msgstr "Ten adres e-mail jest już używany."
+
+msgid "Primary School"
+msgstr "Szkoła podstawowa"
+
+msgid "Secondary School"
+msgstr "Szkoła średnia"
+
+msgid "Base"
+msgstr "Podstawowy"
+
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Trial"
+msgstr "Okres próbny"
+
+msgid "Register as a Student"
+msgstr "Zarejestruj się jako uczeń"
+
+msgid "Register"
+msgstr "Zarejestruj"
