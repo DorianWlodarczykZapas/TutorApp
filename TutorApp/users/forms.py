@@ -23,3 +23,15 @@ class UserRegisterForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(_("This email is already in use."))
         return email
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label=_("Username"),
+        max_length=150,
+        widget=forms.TextInput(attrs={"placeholder": _("Username")}),
+    )
+    password = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
+    )
