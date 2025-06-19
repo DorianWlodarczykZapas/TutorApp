@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% trans "Login" %}</title>
+    </head>
+    <body>
+        <h2>{% trans "Login" %}</h2>
+        {% if messages %}
+            {% for message in messages %}<p style="color: red;">{{ message }}</p>{% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div>
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+            </div>
+            <div>
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                {{ form.password }}
+            </div>
+            <button type="submit">{% trans "Log in" %}</button>
+        </form>
+    </body>
+</html>
