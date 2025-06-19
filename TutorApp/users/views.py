@@ -9,8 +9,8 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, View
+from plans.models import Plan, UserPlan
 
-from ..plans.models import Plan, UserPlan
 from .forms import LoginForm, UserRegisterForm
 from .models import User
 

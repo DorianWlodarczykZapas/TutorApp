@@ -5,8 +5,8 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
+from users.services import UserService
 
-from ..users.services import UserService
 from .forms import AddMatriculationTaskForm, ExamForm
 from .models import Exam, MathMatriculationTasks
 
