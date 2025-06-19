@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import Any
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -67,3 +67,9 @@ class LoginView(View):
             messages.error(request, _("Invalid username or password."))
 
         return render(request, self.template_name, {"form": form})
+
+
+class LogoutView(View):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        logout(request)
+        return redirect("login")
