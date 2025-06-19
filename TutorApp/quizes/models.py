@@ -28,3 +28,7 @@ class Quiz(models.Model):
     question_picture = models.ImageField(
         upload_to="question_picture/", blank=True, null=True
     )
+    explanation = models.TextField(blank=True, null=True)
+    explanation_picture = models.ImageField(
+        upload_to="explanation_picture/", blank=True, null=True
+    )
