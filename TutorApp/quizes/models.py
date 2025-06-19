@@ -32,3 +32,12 @@ class Quiz(models.Model):
     explanation_picture = models.ImageField(
         upload_to="explanation_picture/", blank=True, null=True
     )
+
+
+class Answer(models.Model):
+    quiz = models.ForeignKey("Quiz", on_delete=models.CASCADE, related_name="answers")
+    text = models.CharField(max_length=255)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.text} ({'Correct' if self.is_correct else 'Incorrect'})"
