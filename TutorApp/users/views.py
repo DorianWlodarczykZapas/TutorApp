@@ -1,12 +1,17 @@
 from datetime import timedelta
 from typing import Any
 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView, View
 
 from ..plans.models import Plan, UserPlan
-from .forms import UserRegisterForm
+from .forms import LoginForm, UserRegisterForm
 from .models import User
 
 
@@ -38,3 +43,27 @@ class UserRegisterView(CreateView):
             is_trial=True,
             trial_days=7,
         )
+
+
+class LoginView(View):
+    template_name: str = "login.html"
+    form_class = LoginForm
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        if request.user.is_authenticated:
+            return redirect(self.get_success_url(request))
+        return render(request, self.template_name, {"form": self.form_class()})
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect(self.get_success_url(request, user))
+            messages.error(request, _("Invalid username or password."))
+
+        return render(request, self.template_name, {"form": form})
