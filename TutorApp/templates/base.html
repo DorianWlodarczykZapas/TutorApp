@@ -1,4 +1,23 @@
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">{% trans "Log out" %}</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}TutorApp{% endblock %}
+        </title>
+        <!-- Impact Bootstrap CSS -->
+        <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Header -->
+        {% block content %}{% endblock %}
+        <!-- Impact Bootstrap JS -->
+        <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/main.js' %}"></script>
+    </body>
+</html>
