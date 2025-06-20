@@ -1,9 +1,24 @@
 {% load i18n %}
+{% block title %}
+    {% trans "Register" %}
+{% endblock %}
 {% block content %}
-    <h2>{% trans "Register as a Student" %}</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">{% trans "Register" %}</button>
-    </form>
+    <section class="section mt-5 pt-5 mb-5">
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-title text-center">
+                        <h2>{% trans "Register" %}</h2>
+                    </div>
+                    <form method="post" class="php-email-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-get-started">{% trans "Register" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
