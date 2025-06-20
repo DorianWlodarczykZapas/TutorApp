@@ -391,23 +391,16 @@ msgstr "Typ szkoły"
 msgid "This email is already in use."
 msgstr "Ten adres e-mail jest już używany."
 
-msgid "Primary School"
-msgstr "Szkoła podstawowa"
 
-msgid "Secondary School"
-msgstr "Szkoła średnia"
 
-msgid "Base"
-msgstr "Podstawowy"
 
-msgid "Premium"
-msgstr "Premium"
 
-msgid "Trial"
-msgstr "Okres próbny"
 
-msgid "Register as a Student"
-msgstr "Zarejestruj się jako uczeń"
+
+
+
+msgid "Register "
+msgstr "Zarejestruj się"
 
 msgid "Register"
 msgstr "Zarejestruj"
