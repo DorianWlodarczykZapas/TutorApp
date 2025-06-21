@@ -24,4 +24,5 @@ urlpatterns = [
         include("examination_tasks.urls", namespace="examination_tasks"),
     ),
     path("users/", include("users.urls", namespace="users")),
+    path("quizes/", include("quizes.urls", namespace="quizes")),
 ]
