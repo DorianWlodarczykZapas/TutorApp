@@ -15,7 +15,7 @@ from .models import Quiz
 class QuizCreateView(LoginRequiredMixin, CreateView):
     model = Quiz
     form_class = QuizForm
-    template_name = "quiz/quiz_form.html"
+    template_name = "quiz/add_question_to_quiz.html"
     success_url = reverse_lazy("quiz:add")
 
     def dispatch(self, request, *args, **kwargs):
