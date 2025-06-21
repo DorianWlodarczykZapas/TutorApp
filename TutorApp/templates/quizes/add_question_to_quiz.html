@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Question details" %}</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <fieldset>
+            <legend>{% trans "Answers" %}</legend>
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc;">{{ form.as_p }}</div>
+            {% endfor %}
+        </fieldset>
+        <button type="submit">{% trans "Save question" %}</button>
+    </form>
+{% endblock %}
