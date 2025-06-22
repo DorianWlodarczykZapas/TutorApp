@@ -402,5 +402,28 @@ msgstr "Ten adres e-mail jest już używany."
 msgid "Register "
 msgstr "Zarejestruj się"
 
-msgid "Register"
-msgstr "Zarejestruj"
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Education level"
+msgstr "Poziom edukacji"
+
+msgid "YouTube link"
+msgstr "Link do YouTube"
+
+msgid "Book section"
+msgstr "Dział z książki"
+
+msgid "Subcategory"
+msgstr "Podkategoria"
+
+msgid "Topic title from the book"
+msgstr "Tytuł tematu z książki"
+
+msgid "https://youtube.com/..."
+msgstr "https://youtube.com/..."
+
+msgid "e.g. operations on fractions"
+msgstr "np. działania na ułamkach"
+
+
