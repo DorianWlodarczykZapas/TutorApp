@@ -426,4 +426,10 @@ msgstr "https://youtube.com/..."
 msgid "e.g. operations on fractions"
 msgstr "np. działania na ułamkach"
 
+msgid "Add a new video"
+msgstr "Dodaj nowy film"
+
+msgid "Submit"
+msgstr "Zatwierdź"
+
 
