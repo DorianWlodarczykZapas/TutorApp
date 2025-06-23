@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% load i18n %}
 {% block title %}
     {% trans "Register" %}
@@ -7,13 +8,32 @@
         <div class="container" data-aos="fade-up">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <div class="section-title text-center">
+                    <div class="section-title text-center mb-4">
                         <h2>{% trans "Register" %}</h2>
                     </div>
                     <form method="post" class="php-email-form">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="text-center mt-4">
+                        <div class="form-group mb-3">
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.password1.label_tag }}
+                            {{ form.password1 }}
+                        </div>
+                        <div class="form-group mb-4">
+                            {{ form.password2.label_tag }}
+                            {{ form.password2 }}
+                        </div>
+                        <div class="form-group mb-4">
+                            {{ form.school_type.label_tag }}
+                            {{ form.school_type }}
+                        </div>
+                        <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-get-started">{% trans "Register" %}</button>
                         </div>
                     </form>

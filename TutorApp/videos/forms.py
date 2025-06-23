@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from TutorApp.videos.models import Video
+from .models import Video
 
 
 class AddVideoForm(forms.ModelForm):

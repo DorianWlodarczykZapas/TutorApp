@@ -1,69 +1,44 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
             {% block title %}TutorApp{% endblock %}
         </title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <meta content="" name="description" />
-        <meta content="" name="keywords" />
-        <!-- Favicons -->
-        <link href="{% static 'assets/img/favicon.png' %}" rel="icon" />
-        <link href="{% static 'assets/img/apple-touch-icon.png' %}"
-              rel="apple-touch-icon" />
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Montserrat&family=Poppins&display=swap"
-              rel="stylesheet" />
-        <!-- Vendor CSS Files -->
-        <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"
-              rel="stylesheet" />
-        <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}"
-              rel="stylesheet" />
-        <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet" />
-        <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}"
-              rel="stylesheet" />
-        <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}"
-              rel="stylesheet" />
-        <!-- Main CSS File -->
-        <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" />
+        <!-- Impact CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+              rel="stylesheet">
+        {% block extra_head %}{% endblock %}
     </head>
-    <body class="index-page">
-        <!-- ======= Header ======= -->
-        <header id="header" class="header d-flex align-items-center fixed-top">
-            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-                <a href="/" class="logo d-flex align-items-center">
-                    <h1>TutorApp</h1>
-                </a>
-                <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-                <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+    <body>
+        <!-- Navbar -->
+        <nav id="navmenu"
+             class="navmenu d-flex align-items-center justify-content-between px-3 py-2">
+            <div>
+                <a href="/" class="text-white fw-bold fs-4 text-decoration-none">TutorApp</a>
             </div>
-        </header>
-        <!-- ======= Main Section ======= -->
-        <main id="main" class="mt-5 pt-5">
+            <div>
+                <form method="post" action="{% url 'users:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-light">{% trans "Log out" %}</button>
+                </form>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main>
             {% block content %}{% endblock %}
         </main>
-        <!-- ======= Footer ======= -->
-        <footer id="footer" class="footer">
-            <div class="container">
-                <div class="copyright">
-                    &copy; <strong><span>TutorApp</span></strong>. All Rights Reserved
-                </div>
-            </div>
+        <!-- Footer -->
+        <footer class="text-center py-4">
+            <p>&copy; {{ year|default:"2025" }} TutorApp</p>
+            {% block footer %}{% endblock %}
         </footer>
-        <!-- Vendor JS Files -->
-        <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
-        <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-        <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-        <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-        <!-- Main JS File -->
+        <!-- Scripts -->
         <script src="{% static 'assets/js/main.js' %}"></script>
+        {% block scripts %}{% endblock %}
     </body>
 </html>
