@@ -1,6 +1,6 @@
 from django.urls import path
 
-from TutorApp.videos.views import VideoCreateView
+from .views import VideoCreateView
 
 app_name = "videos"
 

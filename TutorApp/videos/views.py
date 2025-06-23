@@ -3,10 +3,10 @@ from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from users.services import UserService
 
-from TutorApp.users.services import UserService
-from TutorApp.videos.forms import AddVideoForm
-from TutorApp.videos.models import Video
+from .forms import AddVideoForm
+from .models import Video
 
 
 class VideoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):

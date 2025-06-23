@@ -18,6 +18,13 @@ class UserRegisterForm(UserCreationForm):
             "school_type": _("School Type"),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update(
+                {"class": "form-control", "placeholder": field.label}
+            )
+
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
