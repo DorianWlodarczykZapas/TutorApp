@@ -1,5 +1,6 @@
 import factory
-from videos.models import Video
+
+from .models import Video
 
 
 class VideoFactory(factory.django.DjangoModelFactory):
