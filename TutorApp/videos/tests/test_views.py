@@ -39,7 +39,6 @@ class VideoCreateViewTests(TestCase):
 
     @patch("videos.views.UserService")
     def test_valid_video_form_submission_creates_video(self, mock_user_service):
-        """Poprawne dane tworzą wideo i przekierowują"""
         mock_user_service.return_value.is_teacher.return_value = True
         self.client.login(username=self.teacher.username, password=self.password)
 
@@ -58,3 +57,22 @@ class VideoCreateViewTests(TestCase):
         video = Video.objects.first()
         self.assertEqual(video.title, "Test Video")
         self.assertEqual(video.level, "2")
+
+    @patch("videos.views.UserService")
+    def test_invalid_video_form_returns_errors(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        invalid_data = {
+            "title": "",
+            "youtube_url": "not-a-valid-url",
+            "type": "",
+            "subcategory": "",
+            "level": "",
+        }
+
+        response = self.client.post(self.url, invalid_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, "form", "title", "To pole jest wymagane.")
+        self.assertEqual(Video.objects.count(), 0)
