@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.urls import reverse
 from users.tests.factories import TeacherFactory, UserFactory
@@ -20,3 +21,11 @@ class QuizCreateViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "quiz/add_question_to_quiz.html")
+
+    @patch("quiz.views.UserService")
+    def test_student_gets_permission_denied(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = False
+        self.client.login(username=self.student.username, password=self.password)
+
+        with self.assertRaises(PermissionDenied):
+            self.client.get(self.url)
