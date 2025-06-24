@@ -3,6 +3,7 @@ from unittest.mock import patch
 from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.urls import reverse
+from quiz.models import Answer, Quiz
 from users.tests.factories import TeacherFactory, UserFactory
 
 
@@ -33,3 +34,42 @@ class QuizCreateViewTests(TestCase):
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(self.url)
         self.assertRedirects(response, f"/accounts/login/?next={self.url}")
+
+    @patch("quiz.views.UserService")
+    def test_valid_quiz_and_answers_create_objects(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        quiz_data = {
+            "question": "What is 2 + 2?",
+            "type": 1,
+            "explanation": "Because 2 + 2 = 4.",
+        }
+
+        formset_data = {
+            "answers-TOTAL_FORMS": "2",
+            "answers-INITIAL_FORMS": "0",
+            "answers-MIN_NUM_FORMS": "0",
+            "answers-MAX_NUM_FORMS": "1000",
+            "answers-0-text": "4",
+            "answers-0-is_correct": "on",
+            "answers-1-text": "5",
+            "answers-1-is_correct": "",
+        }
+
+        data = {**quiz_data, **formset_data}
+
+        response = self.client.post(self.url, data, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Quiz.objects.count(), 1)
+        self.assertEqual(Answer.objects.count(), 2)
+
+        quiz = Quiz.objects.first()
+        answers = quiz.answers.all()
+        correct = [a for a in answers if a.is_correct]
+        incorrect = [a for a in answers if not a.is_correct]
+
+        self.assertEqual(len(correct), 1)
+        self.assertEqual(len(incorrect), 1)
+        self.assertEqual(correct[0].text, "4")
