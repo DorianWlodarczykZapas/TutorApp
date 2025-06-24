@@ -29,3 +29,7 @@ class QuizCreateViewTests(TestCase):
 
         with self.assertRaises(PermissionDenied):
             self.client.get(self.url)
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(self.url)
+        self.assertRedirects(response, f"/accounts/login/?next={self.url}")
