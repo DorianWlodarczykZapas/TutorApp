@@ -73,3 +73,27 @@ class QuizCreateViewTests(TestCase):
         self.assertEqual(len(correct), 1)
         self.assertEqual(len(incorrect), 1)
         self.assertEqual(correct[0].text, "4")
+
+    @patch("quiz.views.UserService")
+    def test_invalid_form_renders_with_errors(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        invalid_data = {
+            "question": "",
+            "type": "",
+            "answers-TOTAL_FORMS": "1",
+            "answers-INITIAL_FORMS": "0",
+            "answers-MIN_NUM_FORMS": "0",
+            "answers-MAX_NUM_FORMS": "1000",
+            "answers-0-text": "",
+            "answers-0-is_correct": "",
+        }
+
+        response = self.client.post(self.url, invalid_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, "form", "question", "To pole jest wymagane.")
+        self.assertContains(response, "To pole jest wymagane", html=True)
+        self.assertEqual(Quiz.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
