@@ -77,3 +77,10 @@ class LoginViewTests(TestCase):
         response = self.client.post(self.url, data)
         self.assertContains(response, "Invalid username or password.")
         self.assertEqual(response.status_code, 200)
+
+
+class LogoutViewTests(TestCase):
+    def setUp(self):
+        self.url = reverse("logout")
+        self.password = "StrongPassword123!"
+        self.user = UserFactory(password=self.password)
