@@ -29,3 +29,16 @@ class UserRegisterViewTests(TestCase):
         user = User.objects.first()
         self.assertEqual(user.username, "newuser")
         self.assertEqual(user.role_type, 1)
+
+    def test_register_view_post_invalid(self):
+        data = {
+            "username": "newuser",
+            "password1": "weak",
+            "password2": "notmatching",
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response, "form", "password2", "The two password fields didn’t match."
+        )
+        self.assertEqual(User.objects.count(), 0)
