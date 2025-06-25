@@ -84,3 +84,9 @@ class LogoutViewTests(TestCase):
         self.url = reverse("logout")
         self.password = "StrongPassword123!"
         self.user = UserFactory(password=self.password)
+
+    def test_logout(self):
+        self.client.login(username=self.user.username, password=self.password)
+        response = self.client.post(self.url)
+        self.assertRedirects(response, reverse("login"))
+        self.assertFalse("_auth_user_id" in self.client.session)
