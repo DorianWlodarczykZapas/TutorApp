@@ -68,3 +68,12 @@ class LoginViewTests(TestCase):
         }
         response = self.client.post(self.url, data)
         self.assertRedirects(response, "/")
+
+    def test_login_failure(self):
+        data = {
+            "username": self.user.username,
+            "password": "wrongpassword",
+        }
+        response = self.client.post(self.url, data)
+        self.assertContains(response, "Invalid username or password.")
+        self.assertEqual(response.status_code, 200)
