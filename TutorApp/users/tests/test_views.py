@@ -60,3 +60,11 @@ class LoginViewTests(TestCase):
         self.client.login(username=self.user.username, password=self.password)
         response = self.client.get(self.url)
         self.assertRedirects(response, "/")
+
+    def test_login_success(self):
+        data = {
+            "username": self.user.username,
+            "password": self.password,
+        }
+        response = self.client.post(self.url, data)
+        self.assertRedirects(response, "/")
