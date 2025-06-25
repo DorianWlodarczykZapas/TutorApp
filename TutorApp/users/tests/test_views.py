@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from users.tests.factories import UserFactory
 
 User = get_user_model()
 
@@ -42,3 +43,10 @@ class UserRegisterViewTests(TestCase):
             response, "form", "password2", "The two password fields didn’t match."
         )
         self.assertEqual(User.objects.count(), 0)
+
+
+class LoginViewTests(TestCase):
+    def setUp(self):
+        self.url = reverse("login")
+        self.password = "StrongPassword123!"
+        self.user = UserFactory(password=self.password)
