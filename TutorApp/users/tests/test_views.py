@@ -50,3 +50,8 @@ class LoginViewTests(TestCase):
         self.url = reverse("login")
         self.password = "StrongPassword123!"
         self.user = UserFactory(password=self.password)
+
+    def test_login_view_get(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "login.html")
