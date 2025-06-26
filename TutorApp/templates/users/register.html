@@ -1,44 +1,78 @@
-{% extends "base.html" %}
+{% load static %}
 {% load i18n %}
-{% block title %}
-    {% trans "Register" %}
-{% endblock %}
-{% block content %}
-    <section class="section mt-5 pt-5 mb-5">
-        <div class="container" data-aos="fade-up">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section-title text-center mb-4">
-                        <h2>{% trans "Register" %}</h2>
-                    </div>
-                    <form method="post" class="php-email-form">
-                        {% csrf_token %}
-                        <div class="form-group mb-3">
-                            {{ form.username.label_tag }}
-                            {{ form.username }}
-                        </div>
-                        <div class="form-group mb-3">
-                            {{ form.email.label_tag }}
-                            {{ form.email }}
-                        </div>
-                        <div class="form-group mb-3">
-                            {{ form.password1.label_tag }}
-                            {{ form.password1 }}
-                        </div>
-                        <div class="form-group mb-4">
-                            {{ form.password2.label_tag }}
-                            {{ form.password2 }}
-                        </div>
-                        <div class="form-group mb-4">
-                            {{ form.school_type.label_tag }}
-                            {{ form.school_type }}
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-get-started">{% trans "Register" %}</button>
-                        </div>
-                    </form>
-                </div>
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% trans "Register" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Roboto:wght@900&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">Appname</div>
+                <nav class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Contact</a>
+                </nav>
             </div>
-        </div>
-    </section>
-{% endblock %}
+        </header>
+        <main>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <section class="section">
+                <form method="post" class="php-email-form register-container">
+                    {% csrf_token %}
+                    <h2 class="register-title">{% trans "Register" %}</h2>
+                    {% if form.non_field_errors %}
+                        <div class="form-errors">
+                            {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label class="form-label">{{ form.username.label }}</label>
+                        {{ form.username|add_class:"form-input" }}
+                        {% for error in form.username.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.email.label }}</label>
+                        {{ form.email|add_class:"form-input" }}
+                        {% for error in form.email.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.password1.label }}</label>
+                        {{ form.password1|add_class:"form-input" }}
+                        {% for error in form.password1.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.password2.label }}</label>
+                        {{ form.password2|add_class:"form-input" }}
+                        {% for error in form.password2.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.school_type.label }}</label>
+                        {{ form.school_type|add_class:"form-input" }}
+                        {% for error in form.school_type.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
+                    <div class="login-link">
+                        {% trans "Already have an account?" %}
+                        <a href="{% url 'users:login' %}">{% trans "Sign in" %}</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>

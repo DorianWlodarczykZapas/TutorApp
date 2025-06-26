@@ -1,4 +1,3 @@
-from datetime import timedelta
 from typing import Any
 
 from django.contrib import messages
@@ -6,47 +5,36 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, View
-from plans.models import Plan, UserPlan
 
 from .forms import LoginForm, UserRegisterForm
 from .models import User
+from .services import UserService
 
 
 class UserRegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = "users/register.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("users:login")
 
-    def form_valid(self, form: UserRegisterForm) -> Any:
-        user: User = form.save(commit=False)
-        user.role_type = 1
-        user.save()
-        self.assign_trial_plan(user)
+    def form_valid(self, form: UserRegisterForm) -> HttpResponse:
+        service = UserService()
+        service.register_user(form)
+        messages.success(self.request, "Account has been created. You can now log in.")
         return super().form_valid(form)
 
-    def assign_trial_plan(self, user: User) -> None:
-        try:
-            trial_plan = Plan.objects.get(type=Plan.PlanType.TRIAL)
-        except Plan.DoesNotExist:
-            return
-
-        today = timezone.now().date()
-        UserPlan.objects.create(
-            user=user,
-            plan=trial_plan,
-            start_date=today,
-            valid_to=today + timedelta(days=7),
-            is_trial=True,
-            trial_days=7,
+    def form_invalid(self, form: UserRegisterForm) -> HttpResponse:
+        messages.error(
+            self.request,
+            "There was an error creating your account. Please correct the form below.",
         )
+        return super().form_invalid(form)
 
 
 class LoginView(View):
-    template_name: str = "login.html"
+    template_name: str = "users/login.html"
     form_class = LoginForm
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
