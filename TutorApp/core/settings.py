@@ -37,6 +37,7 @@ INSTALLED_EXTENSIONS = [
     "quizes",
     "training_calendar",
     "videos",
+    "widget_tweaks",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS

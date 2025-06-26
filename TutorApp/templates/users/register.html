@@ -2,46 +2,60 @@
 {% load i18n %}
 {% load widget_tweaks %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
     <head>
         <meta charset="UTF-8">
         <title>{% trans "Register" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Roboto:wght@900&display=swap"
               rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/register.css' %}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
     </head>
     <body>
-        <section class="section">
-            <form method="post" class="php-email-form register-container">
-                {% csrf_token %}
-                <h2 class="register-title">{% trans "Register" %}</h2>
-                <div class="form-group mb-4">
-                    <label class="form-label">{{ form.username.label }}</label>
-                    {{ form.username|add_class:"form-input" }}
-                </div>
-                <div class="form-group mb-4">
-                    <label class="form-label">{{ form.email.label }}</label>
-                    {{ form.email|add_class:"form-input" }}
-                </div>
-                <div class="form-group mb-4">
-                    <label class="form-label">{{ form.password1.label }}</label>
-                    {{ form.password1|add_class:"form-input" }}
-                </div>
-                <div class="form-group mb-4">
-                    <label class="form-label">{{ form.password2.label }}</label>
-                    {{ form.password2|add_class:"form-input" }}
-                </div>
-                <div class="form-group mb-4">
-                    <label class="form-label">{{ form.school_type.label }}</label>
-                    {{ form.school_type|add_class:"form-input" }}
-                </div>
-                <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
-                <div class="login-link">
-                    {% trans "Already have an account?" %}
-                    <a href="{% url 'login' %}">{% trans "Sign in" %}</a>
-                </div>
-            </form>
-        </section>
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">Appname</div>
+                <nav class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Contact</a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="section">
+                <form method="post" class="php-email-form register-container">
+                    {% csrf_token %}
+                    <h2 class="register-title">{% trans "Zarejestruj" %}</h2>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.username.label }}</label>
+                        {{ form.username|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.email.label }}</label>
+                        {{ form.email|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.password1.label }}</label>
+                        {{ form.password1|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.password2.label }}</label>
+                        {{ form.password2|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form.school_type.label }}</label>
+                        {{ form.school_type|add_class:"form-input" }}
+                    </div>
+                    <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
+                    <div class="login-link">
+                        {% trans "Already have an account?" %}
+                        <a href="{% url 'users:login' %}">{% trans "Sign in" %}</a>
+                    </div>
+                </form>
+            </section>
+        </main>
     </body>
 </html>

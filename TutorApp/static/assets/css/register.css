@@ -1,65 +1,143 @@
+/* Reset i fonty */
 body {
     font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+.main-header {
+    background-color: #008374;
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.main-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav-links a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* REGISTER FORM */
+.section {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .register-container {
-    width: 1016px;
-    margin: 60px auto;
-    background: white;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 40px;
-    border: 5px solid #008374;
-    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    border: 2px solid #008374;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .register-title {
-    font-size: 48px;
-    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
     font-weight: 900;
-    color: black;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
     margin-bottom: 30px;
+    color: #000;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .form-label {
-    font-size: 32px;
-    font-weight: 400;
-    margin-bottom: 10px;
-    color: black;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #333;
 }
 
 .form-input {
-    width: 100%;
-    height: 76px;
-    padding: 0 20px;
-    border-radius: 30px;
-    border: 5px solid #008374;
-    background: white;
-    font-size: 18px;
+    height: 48px;
+    padding: 10px 16px;
+    border: 2px solid #008374;
+    border-radius: 20px;
+    font-size: 16px;
 }
 
+/* BUTTON */
 .btn-submit {
-    display: block;
-    width: 270px;
-    height: 68px;
-    margin: 30px auto;
+    width: 100%;
+    height: 48px;
     background: #008374;
-    color: white;
-    font-size: 32px;
-    font-family: 'Inter', sans-serif;
     border: none;
-    border-radius: 30px;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
     cursor: pointer;
+    margin-top: 10px;
 }
 
+/* LOGIN LINK */
 .login-link {
     text-align: center;
     margin-top: 20px;
-    font-size: 32px;
+    font-size: 16px;
 }
 
 .login-link a {
-    font-size: 36px;
+    font-size: 18px;
     text-decoration: underline;
-    color: black;
+    color: #008374;
+    font-weight: bold;
+}
+
+/* RESPONSYWNOŚĆ */
+@media screen and (max-width: 768px) {
+    .main-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
+    .nav-links a {
+        margin-left: 0;
+        margin-right: 15px;
+        display: inline-block;
+    }
+
+    .register-container {
+        padding: 30px 20px;
+    }
+
+    .register-title {
+        font-size: 28px;
+    }
 }
