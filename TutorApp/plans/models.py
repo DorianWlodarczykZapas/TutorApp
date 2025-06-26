@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
+
 
 class Plan(models.Model):
     class PlanType(models.IntegerChoices):
@@ -13,8 +14,6 @@ class Plan(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     billing_period = models.CharField(max_length=50)
-    max_projects = models.IntegerField()
-    max_rooms_per_project = models.IntegerField()
     advanced_features_enabled = models.BooleanField(default=False)
     trial_days = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,4 +38,3 @@ class UserPlan(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.plan.name}"
-
