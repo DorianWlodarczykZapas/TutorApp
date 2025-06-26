@@ -25,29 +25,46 @@
             </div>
         </header>
         <main>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <section class="section">
                 <form method="post" class="php-email-form register-container">
                     {% csrf_token %}
-                    <h2 class="register-title">{% trans "Zarejestruj" %}</h2>
+                    <h2 class="register-title">{% trans "Register" %}</h2>
+                    {% if form.non_field_errors %}
+                        <div class="form-errors">
+                            {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="form-group">
                         <label class="form-label">{{ form.username.label }}</label>
                         {{ form.username|add_class:"form-input" }}
+                        {% for error in form.username.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="form-group">
                         <label class="form-label">{{ form.email.label }}</label>
                         {{ form.email|add_class:"form-input" }}
+                        {% for error in form.email.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="form-group">
                         <label class="form-label">{{ form.password1.label }}</label>
                         {{ form.password1|add_class:"form-input" }}
+                        {% for error in form.password1.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="form-group">
                         <label class="form-label">{{ form.password2.label }}</label>
                         {{ form.password2|add_class:"form-input" }}
+                        {% for error in form.password2.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
                     </div>
                     <div class="form-group">
                         <label class="form-label">{{ form.school_type.label }}</label>
                         {{ form.school_type|add_class:"form-input" }}
+                        {% for error in form.school_type.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
                     </div>
                     <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
                     <div class="login-link">
