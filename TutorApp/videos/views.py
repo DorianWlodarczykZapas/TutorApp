@@ -38,3 +38,24 @@ class SectionListView(ListView):
         context = super().get_context_data(**kwargs)
         context["section_labels"] = dict(Video.section)
         return context
+
+
+class SubcategoryListView(ListView):
+    template_name = "videos/subcategory_list.html"
+    context_object_name = "subcategories"
+
+    def get_queryset(self) -> Any:
+        section_id = self.kwargs["section_id"]
+        return (
+            Video.objects.filter(type=section_id)
+            .values("subcategory")
+            .annotate(video_count=Count("id"))
+            .order_by("subcategory")
+        )
+
+    def get_context_data(self, **kwargs: Any) -> dict:
+        context = super().get_context_data(**kwargs)
+        section_id = self.kwargs["section_id"]
+        context["section_id"] = section_id
+        context["section_name"] = dict(Video.section).get(int(section_id), "")
+        return context
