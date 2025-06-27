@@ -1,0 +1,29 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ subcategory }}</title>
+    </head>
+    <body>
+        <h1>{{ section_name }} – {{ subcategory }}</h1>
+        {% if videos %}
+            <ul>
+                {% for video in videos %}
+                    <li>
+                        <strong>{{ video.title }}</strong>
+                        <br>
+                        <a href="{{ video.youtube_url }}" target="_blank">{% trans "Watch on YouTube" %}</a>
+                        <br>
+                        {% trans "Level" %}: {{ video.get_level_display }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{% trans "No videos available in this topic." %}</p>
+        {% endif %}
+        <p>
+            <a href="{% url 'videos:subcategory_list' section_id=video.type %}">{% trans "Back to topics" %}</a>
+        </p>
+    </body>
+</html>

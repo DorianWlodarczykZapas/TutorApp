@@ -1,0 +1,18 @@
+{% load dict_get %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% trans "Sections" %}</title>
+    </head>
+    <body>
+        <h1>{% trans "Sections" %}</h1>
+        <ul>
+            {% for section in sections %}
+                <li>
+                    <a href="{% url 'videos:subcategory_list' section_id=section.type %}">{{ section_labels|dict_get:section.type }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
