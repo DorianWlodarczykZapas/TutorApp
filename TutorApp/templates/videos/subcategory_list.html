@@ -1,0 +1,21 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ section_name }}</title>
+    </head>
+    <body>
+        <h1>{{ section_name }}</h1>
+        <ul>
+            {% for item in subcategories %}
+                <li>
+                    <a href="{% url 'videos:video_list' section_id=section_id subcategory=item.subcategory %}">{{ item.subcategory }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>
+            <a href="{% url 'videos:section_list' %}">{% trans "Back to sections" %}</a>
+        </p>
+    </body>
+</html>
