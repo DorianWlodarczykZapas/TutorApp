@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import SectionListView, SubcategoryListView, VideoCreateView
+from .views import SectionListView, SubcategoryListView, VideoCreateView, VideoListView
 
 app_name = "videos"
 
@@ -11,5 +11,10 @@ urlpatterns = [
         "section/<int:section_id>/",
         SubcategoryListView.as_view(),
         name="subcategory_list",
+    ),
+    path(
+        "section/<int:section_id>/<str:subcategory>/",
+        VideoListView.as_view(),
+        name="video_list",
     ),
 ]
