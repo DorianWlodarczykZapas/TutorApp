@@ -144,3 +144,14 @@ class VideoListViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "videos/video_list.html")
+
+    def test_queryset_filters_correctly(self):
+        response = self.client.get(self.url)
+        videos = response.context["videos"]
+        self.assertEqual(len(videos), 3)
+        self.assertTrue(
+            all(
+                v.type == self.section_id and v.subcategory == self.subcategory
+                for v in videos
+            )
+        )
