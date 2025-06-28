@@ -101,3 +101,11 @@ class SectionListViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertIn("section_labels", response.context)
         self.assertIsInstance(response.context["section_labels"], dict)
+
+
+class SubcategoryListViewTests(TestCase):
+    def setUp(self):
+        self.section_id = 4
+        self.url = reverse("videos:subcategory_list", args=[self.section_id])
+        VideoFactory.create_batch(2, type=self.section_id, subcategory="Intro")
+        VideoFactory.create_batch(1, type=self.section_id, subcategory="Advanced")
