@@ -128,3 +128,15 @@ class SubcategoryListViewTests(TestCase):
         self.assertEqual(
             response.context["section_name"], dict(Video.section)[self.section_id]
         )
+
+    class VideoListViewTests(TestCase):
+        def setUp(self):
+            self.section_id = 5
+            self.subcategory = "Basics"
+            self.url = reverse(
+                "videos:video_list", args=[self.section_id, self.subcategory]
+            )
+            VideoFactory.create_batch(
+                3, type=self.section_id, subcategory=self.subcategory
+            )
+            VideoFactory.create_batch(1, type=self.section_id, subcategory="Other")
