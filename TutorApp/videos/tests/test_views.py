@@ -84,3 +84,8 @@ class SectionListViewTests(TestCase):
         self.url = reverse("videos:section_list")
         VideoFactory.create_batch(3, type=1)
         VideoFactory.create_batch(2, type=2)
+
+    def test_response_status_and_template(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "videos/section_list.html")
