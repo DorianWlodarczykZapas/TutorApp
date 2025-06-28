@@ -109,3 +109,8 @@ class SubcategoryListViewTests(TestCase):
         self.url = reverse("videos:subcategory_list", args=[self.section_id])
         VideoFactory.create_batch(2, type=self.section_id, subcategory="Intro")
         VideoFactory.create_batch(1, type=self.section_id, subcategory="Advanced")
+
+    def test_response_status_and_template(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "videos/subcategory_list.html")
