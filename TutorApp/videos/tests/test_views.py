@@ -155,3 +155,10 @@ class VideoListViewTests(TestCase):
                 for v in videos
             )
         )
+
+    def test_context_contains_expected_keys(self):
+        response = self.client.get(self.url)
+        self.assertEqual(
+            response.context["section_name"], dict(Video.section)[self.section_id]
+        )
+        self.assertEqual(response.context["subcategory"], self.subcategory)
