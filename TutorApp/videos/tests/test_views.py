@@ -3,6 +3,7 @@ from unittest.mock import patch
 from django.test import TestCase
 from django.urls import reverse
 from users.factories import TeacherFactory, UserFactory
+from videos.factories import VideoFactory
 
 from TutorApp.videos.models import Video
 
@@ -76,3 +77,10 @@ class VideoCreateViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form", "title", "To pole jest wymagane.")
         self.assertEqual(Video.objects.count(), 0)
+
+
+class SectionListViewTests(TestCase):
+    def setUp(self):
+        self.url = reverse("videos:section_list")
+        VideoFactory.create_batch(3, type=1)
+        VideoFactory.create_batch(2, type=2)
