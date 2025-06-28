@@ -89,3 +89,10 @@ class SectionListViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "videos/section_list.html")
+
+    def test_context_contains_section_data(self):
+        response = self.client.get(self.url)
+        sections = response.context["sections"]
+        self.assertEqual(len(sections), 2)
+        self.assertIn("video_count", sections[0])
+        self.assertIn("type", sections[0])
