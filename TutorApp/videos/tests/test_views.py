@@ -114,3 +114,10 @@ class SubcategoryListViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "videos/subcategory_list.html")
+
+    def test_context_contains_subcategories(self):
+        response = self.client.get(self.url)
+        subcategories = response.context["subcategories"]
+        self.assertEqual(len(subcategories), 2)
+        self.assertIn("video_count", subcategories[0])
+        self.assertIn("subcategory", subcategories[0])
