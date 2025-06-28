@@ -96,3 +96,8 @@ class SectionListViewTests(TestCase):
         self.assertEqual(len(sections), 2)
         self.assertIn("video_count", sections[0])
         self.assertIn("type", sections[0])
+
+    def test_section_labels_in_context(self):
+        response = self.client.get(self.url)
+        self.assertIn("section_labels", response.context)
+        self.assertIsInstance(response.context["section_labels"], dict)
