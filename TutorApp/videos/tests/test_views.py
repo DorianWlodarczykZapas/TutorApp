@@ -121,3 +121,10 @@ class SubcategoryListViewTests(TestCase):
         self.assertEqual(len(subcategories), 2)
         self.assertIn("video_count", subcategories[0])
         self.assertIn("subcategory", subcategories[0])
+
+    def test_section_metadata_in_context(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["section_id"], self.section_id)
+        self.assertEqual(
+            response.context["section_name"], dict(Video.section)[self.section_id]
+        )
