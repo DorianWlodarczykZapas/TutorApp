@@ -1,22 +1,74 @@
 {% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><title>{% trans "Add New Exam" %}</title></head>
-<body>
-  <h1>{% trans "Add New Exam" %}</h1>
-
-  {% if messages %}
-    <ul>
-      {% for m in messages %}
-        <li>{{ m }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% trans "Save" %}</button>
-  </form>
-</body>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>{% trans "Add New Exam" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'assets/css/add_exam.css' %}">
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">Appname</div>
+                <nav class="nav-links">
+                    <a href="#">{% trans "Videos" %}</a>
+                    <a href="#">{% trans "Calendar" %}</a>
+                    <a href="#">{% trans "Training tasks" %}</a>
+                    <a href="#">{% trans "Plans" %}</a>
+                    <a href="#">{% trans "Examination tasks" %}</a>
+                    <a href="#">{% trans "Quizes" %}</a>
+                    <a href="#">{% trans "Settings" %}</a>
+                    <form method="post"
+                          action="{% url 'users:logout' %}"
+                          style="display: inline">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link-as-text">{% trans "Logout" %}</button>
+                    </form>
+                </nav>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="exam-form-container">
+                <h1 class="form-title">{% trans "Add New Exam" %}</h1>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for m in messages %}<li class="alert">{{ m }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+                <form method="post" class="exam-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>{{ form.year.label }}</label>
+                        {{ form.year|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.month.label }}</label>
+                        {{ form.month|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.tasks_link.label }}</label>
+                        {{ form.tasks_link|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.solutions_link.label }}</label>
+                        {{ form.solutions_link|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.tasks_count.label }}</label>
+                        {{ form.tasks_count|add_class:"form-input" }}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.level_type.label }}</label>
+                        {{ form.level_type|add_class:"form-input" }}
+                    </div>
+                    <button type="submit" class="btn-submit">{% trans "Add exam" %}</button>
+                </form>
+            </div>
+        </main>
+    </body>
 </html>
