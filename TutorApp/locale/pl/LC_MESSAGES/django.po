@@ -443,3 +443,6 @@ msgstr "Zarejestruj się"
 
 msgid "Forgot your password?"
 msgstr "Zapomniałeś hasła?"
+
+msgid "Add exam"
+msgstr "Dodaj egzamin"

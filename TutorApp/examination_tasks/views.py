@@ -29,6 +29,7 @@ class ExamCreateView(LoginRequiredMixin, CreateView):
         return data
 
     def form_valid(self, form):
+        form.save()
         messages.success(self.request, _("Exam added successfully!"))
         return HttpResponseRedirect(reverse_lazy("examination_tasks:exam_add"))
 
