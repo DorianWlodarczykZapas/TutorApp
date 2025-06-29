@@ -1,26 +1,66 @@
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
     <head>
         <meta charset="UTF-8">
         <title>{% trans "Login" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Roboto:wght@900&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
     </head>
     <body>
-        <h2>{% trans "Login" %}</h2>
-        {% if messages %}
-            {% for message in messages %}<p style="color: red;">{{ message }}</p>{% endfor %}
-        {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div>
-                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                {{ form.username }}
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">Appname</div>
+                <nav class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Contact</a>
+                </nav>
             </div>
-            <div>
-                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-                {{ form.password }}
-            </div>
-            <button type="submit">{% trans "Log in" %}</button>
-        </form>
+        </header>
+        <main>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <section class="section">
+                <form method="post" class="php-email-form login-container">
+                    {% csrf_token %}
+                    <h2 class="login-title">{% trans "Login" %}</h2>
+                    {% if form.non_field_errors %}
+                        <div class="form-errors">
+                            {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                        {{ form.username|add_class:"form-input" }}
+                        {% for error in form.username.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                        {{ form.password|add_class:"form-input" }}
+                        {% for error in form.password.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                    <button type="submit" class="btn-submit">{% trans "Log in" %}</button>
+                    <div class="login-link">
+                        {% trans "Don’t have an account yet?" %}
+                        <a href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
+                    </div>
+                    <div class="login-link">
+                        <a href="#">{% trans "Forgot your password?" %}</a>
+                    </div>
+                </form>
+            </section>
+        </main>
     </body>
 </html>

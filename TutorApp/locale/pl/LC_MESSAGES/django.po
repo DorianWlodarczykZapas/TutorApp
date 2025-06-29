@@ -432,4 +432,14 @@ msgstr "Dodaj nowy film"
 msgid "Submit"
 msgstr "Zatwierdź"
 
+msgid "Login"
+msgstr "Logowanie"
 
+msgid "Don’t have an account yet?"
+msgstr "Nie masz jeszcze konta?"
+
+msgid "Sign up"
+msgstr "Zarejestruj się"
+
+msgid "Forgot your password?"
+msgstr "Zapomniałeś hasła?"
