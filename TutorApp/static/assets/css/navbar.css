@@ -1,0 +1,39 @@
+.main-header {
+    background-color: #008374;
+    padding: 20px 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.nav-links a,
+.nav-link-as-text {
+    color: white;
+    font-weight: 900;
+    font-size: 16px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav-links a:hover,
+.nav-link-as-text:hover {
+    text-decoration: underline;
+}
