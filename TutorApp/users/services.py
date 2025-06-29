@@ -1,6 +1,8 @@
 from datetime import timedelta
 from typing import Optional
 
+from django.contrib.auth import authenticate, login
+from django.http import HttpRequest
 from django.utils import timezone
 from plans.models import Plan, UserPlan
 from users.forms import UserRegisterForm
@@ -54,3 +56,16 @@ class UserService:
             trial_days=plan.trial_days,
         )
         return True
+
+    def login_user(
+        self, request: HttpRequest, username: str, password: str
+    ) -> Optional[User]:
+        """
+        Authenticate and log in the user. Returns the User if successful, otherwise None.
+        """
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            self.user = user
+            return user
+        return None
