@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Optional
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.utils import timezone
 from plans.models import Plan, UserPlan
@@ -69,3 +69,10 @@ class UserService:
             self.user = user
             return user
         return None
+
+    def logout_user(self, request: HttpRequest) -> None:
+        """
+        Logs out the current user.
+        """
+        logout(request)
+        self.user = None
