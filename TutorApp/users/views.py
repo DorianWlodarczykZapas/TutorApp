@@ -62,14 +62,14 @@ class LoginView(View):
 
 
 class LogoutView(View):
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         service = UserService(user=request.user)
         service.logout_user(request)
         return redirect("users:login")
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
-    template_name: str = "home.html"
+    template_name: str = "users/home.html"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
