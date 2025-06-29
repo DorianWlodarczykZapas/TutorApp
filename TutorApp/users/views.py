@@ -2,11 +2,12 @@ from typing import Any
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, View
+from django.views.generic import CreateView, TemplateView, View
 
 from .forms import LoginForm, UserRegisterForm
 from .models import User
@@ -61,3 +62,12 @@ class LogoutView(View):
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         logout(request)
         return redirect("login")
+
+
+class HomeView(LoginRequiredMixin, TemplateView):
+    template_name: str = "home.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Home")
+        return context
