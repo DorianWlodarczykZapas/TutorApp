@@ -7,24 +7,25 @@
         <meta charset="UTF-8">
         <title>{% trans "Register" %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Roboto:wght@900&display=swap"
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
               rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
     </head>
     <body>
         <header class="main-header">
             <div class="container">
                 <div class="logo">Appname</div>
                 <nav class="nav-links">
-                    <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">Services</a>
-                    <a href="#">Pricing</a>
-                    <a href="#">Contact</a>
+                    <a href="#">{% trans "Home" %}</a>
+                    <a href="#">{% trans "About" %}</a>
+                    <a href="#">{% trans "Services" %}</a>
+                    <a href="#">{% trans "Pricing" %}</a>
+                    <a href="#">{% trans "Contact" %}</a>
                 </nav>
             </div>
         </header>
-        <main>
+        <main class="main-content">
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -32,47 +33,27 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <section class="section">
-                <form method="post" class="php-email-form register-container">
-                    {% csrf_token %}
-                    <h2 class="register-title">{% trans "Register" %}</h2>
-                    {% if form.non_field_errors %}
-                        <div class="form-errors">
-                            {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                        </div>
-                    {% endif %}
+            <form method="post" class="form-container">
+                {% csrf_token %}
+                <h2 class="form-title">{% trans "Register" %}</h2>
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                    </div>
+                {% endif %}
+                {% for field in form.visible_fields %}
                     <div class="form-group">
-                        <label class="form-label">{{ form.username.label }}</label>
-                        {{ form.username|add_class:"form-input" }}
-                        {% for error in form.username.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class:"form-input" }}
+                        {% for error in field.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">{{ form.email.label }}</label>
-                        {{ form.email|add_class:"form-input" }}
-                        {% for error in form.email.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">{{ form.password1.label }}</label>
-                        {{ form.password1|add_class:"form-input" }}
-                        {% for error in form.password1.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">{{ form.password2.label }}</label>
-                        {{ form.password2|add_class:"form-input" }}
-                        {% for error in form.password2.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">{{ form.school_type.label }}</label>
-                        {{ form.school_type|add_class:"form-input" }}
-                        {% for error in form.school_type.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                    <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
-                    <div class="login-link">
-                        {% trans "Already have an account?" %}
-                        <a href="{% url 'users:login' %}">{% trans "Sign in" %}</a>
-                    </div>
-                </form>
-            </section>
+                {% endfor %}
+                <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
+                <div class="login-link">
+                    {% trans "Already have an account?" %}
+                    <a href="{% url 'users:login' %}">{% trans "Log in" %}</a>
+                </div>
+            </form>
         </main>
     </body>
 </html>
