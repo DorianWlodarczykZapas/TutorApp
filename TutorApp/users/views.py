@@ -1,7 +1,6 @@
 from typing import Any
 
 from django.contrib import messages
-from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -64,8 +63,9 @@ class LoginView(View):
 
 class LogoutView(View):
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        logout(request)
-        return redirect("login")
+        service = UserService(user=request.user)
+        service.logout_user(request)
+        return redirect("users:login")
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
