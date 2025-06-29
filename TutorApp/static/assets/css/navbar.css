@@ -1,18 +1,9 @@
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f9f9f9;
-}
-
 .main-header {
     background-color: #008374;
     padding: 20px 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,18 +21,19 @@ body {
     gap: 20px;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-link-as-text {
     color: white;
     font-weight: 900;
     font-size: 16px;
     text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-link-as-text:hover {
     text-decoration: underline;
-}
-
-.main-content {
-    padding: 40px 20px;
-    text-align: center;
 }
