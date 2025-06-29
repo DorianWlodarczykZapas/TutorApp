@@ -1,12 +1,12 @@
 from typing import Any
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, View
+from django.views.generic import CreateView, TemplateView, View
 
 from .forms import LoginForm, UserRegisterForm
 from .models import User
@@ -36,10 +36,11 @@ class UserRegisterView(CreateView):
 class LoginView(View):
     template_name: str = "users/login.html"
     form_class = LoginForm
+    success_url = reverse_lazy("users:home")
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         if request.user.is_authenticated:
-            return redirect(self.get_success_url(request))
+            return redirect(self.success_url)
         return render(request, self.template_name, {"form": self.form_class()})
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
@@ -47,17 +48,30 @@ class LoginView(View):
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect(self.get_success_url(request, user))
+            service = UserService()
+            user = service.login_user(request, username, password)
+
+            if user:
+                messages.success(request, _("You have been successfully logged in."))
+                return redirect(self.success_url)
+
             messages.error(request, _("Invalid username or password."))
 
         return render(request, self.template_name, {"form": form})
 
 
 class LogoutView(View):
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        logout(request)
-        return redirect("login")
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        service = UserService(user=request.user)
+        service.logout_user(request)
+        return redirect("users:login")
+
+
+class HomeView(LoginRequiredMixin, TemplateView):
+    template_name: str = "users/home.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Home")
+        return context
