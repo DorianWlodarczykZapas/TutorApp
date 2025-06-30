@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from users.services import UserService
 
-from .forms import AddVideoForm
+from .forms import AddVideoForm, TimestampFormSet
 from .models import Video
 
 
@@ -19,8 +19,23 @@ class VideoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self) -> bool:
         return UserService(self.request.user).is_teacher()
 
-    def form_valid(self, form: AddVideoForm) -> Any:
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data["timestamp_formset"] = TimestampFormSet(self.request.POST)
+        else:
+            data["timestamp_formset"] = TimestampFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        timestamp_formset = context["timestamp_formset"]
+        if form.is_valid() and timestamp_formset.is_valid():
+            self.object = form.save()
+            timestamp_formset.instance = self.object
+            timestamp_formset.save()
+            return super().form_valid(form)
+        return self.form_invalid(form)
 
 
 class SectionListView(ListView):
