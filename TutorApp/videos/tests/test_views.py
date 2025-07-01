@@ -107,9 +107,31 @@ class VideoCreateViewTests(TestCase):
 
         response = self.client.post(self.url, data)
 
-        self.assertEqual(response.status_code, 302)  # redirect to login
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith("/accounts/login/"))
         self.assertEqual(Video.objects.count(), 0)
+
+    @patch("videos.views.UserService")
+    def test_malformed_timestamps_are_ignored(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        data = {
+            "title": "Video with Bad Timestamps",
+            "youtube_url": "https://youtube.com/watch?v=test",
+            "type": 1,
+            "subcategory": "Errors",
+            "level": "1",
+            "timestamp_block": "wrongformat\nanother bad line\n01:23 Good Label",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 302)
+        video = Video.objects.first()
+        self.assertIsNotNone(video)
+        self.assertEqual(video.videotimestamp_set.count(), 1)
+        self.assertEqual(video.videotimestamp_set.first().label, "Good Label")
 
 
 class SectionListViewTests(TestCase):
