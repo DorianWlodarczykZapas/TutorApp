@@ -96,6 +96,21 @@ class VideoCreateViewTests(TestCase):
         self.assertEqual(response.status_code, 403)
         self.assertEqual(Video.objects.count(), 0)
 
+    def test_unauthenticated_user_cannot_post_video(self):
+        data = {
+            "title": "No Auth",
+            "youtube_url": "https://youtube.com/watch?v=fail",
+            "type": 1,
+            "subcategory": "None",
+            "level": "1",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 302)  # redirect to login
+        self.assertTrue(response.url.startswith("/accounts/login/"))
+        self.assertEqual(Video.objects.count(), 0)
+
 
 class SectionListViewTests(TestCase):
     def setUp(self):
