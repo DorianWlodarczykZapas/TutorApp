@@ -1,3 +1,6 @@
+import logging
+import re
+from datetime import timedelta
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -6,8 +9,10 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from users.services import UserService
 
-from .forms import AddVideoForm, TimestampFormSet
-from .models import Video
+from .forms import AddVideoForm
+from .models import Video, VideoTimestamp
+
+logger = logging.getLogger(__name__)
 
 
 class VideoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -16,26 +21,43 @@ class VideoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     template_name = "videos/video_form.html"
     success_url = reverse_lazy("video_form")
 
-    def test_func(self) -> bool:
+    def test_func(self):
         return UserService(self.request.user).is_teacher()
 
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        if self.request.POST:
-            data["timestamp_formset"] = TimestampFormSet(self.request.POST)
-        else:
-            data["timestamp_formset"] = TimestampFormSet()
-        return data
-
     def form_valid(self, form):
-        context = self.get_context_data()
-        timestamp_formset = context["timestamp_formset"]
-        if form.is_valid() and timestamp_formset.is_valid():
-            self.object = form.save()
-            timestamp_formset.instance = self.object
-            timestamp_formset.save()
-            return super().form_valid(form)
-        return self.form_invalid(form)
+        response = super().form_valid(form)
+
+        timestamps_raw = self.request.POST.get("timestamp_block", "").strip()
+        lines = timestamps_raw.splitlines()
+
+        current_type = None
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.lower().startswith("ćwiczenia"):
+                current_type = VideoTimestamp.TimestampType.EXERCISE
+            elif line.lower().startswith("zadania"):
+                current_type = VideoTimestamp.TimestampType.TASK
+            else:
+                match = re.match(r"(\d{1,2}:\d{2})(?:[:\d{2}]*)\s+(.*)", line)
+                if match:
+                    time_str, label = match.groups()
+                    try:
+                        h, m, s = (
+                            list(map(int, (time_str + ":00").split(":"))) + [0, 0]
+                        )[:3]
+                        duration = timedelta(hours=h, minutes=m, seconds=s)
+                        VideoTimestamp.objects.create(
+                            video=self.object,
+                            label=label,
+                            start_time=duration,
+                            type=current_type or VideoTimestamp.TimestampType.EXERCISE,
+                        )
+                    except Exception as e:
+                        logger.warning(f"Błąd przy przetwarzaniu linii '{line}': {e}")
+                        continue
+        return response
 
 
 class SectionListView(ListView):
