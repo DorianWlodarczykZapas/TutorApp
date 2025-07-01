@@ -78,6 +78,61 @@ class VideoCreateViewTests(TestCase):
         self.assertFormError(response, "form", "title", "To pole jest wymagane.")
         self.assertEqual(Video.objects.count(), 0)
 
+    @patch("videos.views.UserService")
+    def test_student_cannot_submit_video_form(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = False
+        self.client.login(username=self.student.username, password=self.password)
+
+        data = {
+            "title": "Should Not Work",
+            "youtube_url": "https://youtube.com/watch?v=fail",
+            "type": 1,
+            "subcategory": "Denied",
+            "level": "1",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(Video.objects.count(), 0)
+
+    def test_unauthenticated_user_cannot_post_video(self):
+        data = {
+            "title": "No Auth",
+            "youtube_url": "https://youtube.com/watch?v=fail",
+            "type": 1,
+            "subcategory": "None",
+            "level": "1",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith("/accounts/login/"))
+        self.assertEqual(Video.objects.count(), 0)
+
+    @patch("videos.views.UserService")
+    def test_malformed_timestamps_are_ignored(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        data = {
+            "title": "Video with Bad Timestamps",
+            "youtube_url": "https://youtube.com/watch?v=test",
+            "type": 1,
+            "subcategory": "Errors",
+            "level": "1",
+            "timestamp_block": "wrongformat\nanother bad line\n01:23 Good Label",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 302)
+        video = Video.objects.first()
+        self.assertIsNotNone(video)
+        self.assertEqual(video.videotimestamp_set.count(), 1)
+        self.assertEqual(video.videotimestamp_set.first().label, "Good Label")
+
 
 class SectionListViewTests(TestCase):
     def setUp(self):
@@ -162,3 +217,15 @@ class VideoListViewTests(TestCase):
             response.context["section_name"], dict(Video.section)[self.section_id]
         )
         self.assertEqual(response.context["subcategory"], self.subcategory)
+
+    def test_video_list_view_empty_for_nonexistent_combination(self):
+        nonexistent_section_id = 999
+        nonexistent_subcategory = "NonexistentSubcategory"
+        url = reverse(
+            "videos:video_list", args=[nonexistent_section_id, nonexistent_subcategory]
+        )
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context["videos"], [])
