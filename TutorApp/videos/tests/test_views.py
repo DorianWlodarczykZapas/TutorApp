@@ -217,3 +217,15 @@ class VideoListViewTests(TestCase):
             response.context["section_name"], dict(Video.section)[self.section_id]
         )
         self.assertEqual(response.context["subcategory"], self.subcategory)
+
+    def test_video_list_view_empty_for_nonexistent_combination(self):
+        nonexistent_section_id = 999
+        nonexistent_subcategory = "NonexistentSubcategory"
+        url = reverse(
+            "videos:video_list", args=[nonexistent_section_id, nonexistent_subcategory]
+        )
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context["videos"], [])
