@@ -78,6 +78,24 @@ class VideoCreateViewTests(TestCase):
         self.assertFormError(response, "form", "title", "To pole jest wymagane.")
         self.assertEqual(Video.objects.count(), 0)
 
+    @patch("videos.views.UserService")
+    def test_student_cannot_submit_video_form(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = False
+        self.client.login(username=self.student.username, password=self.password)
+
+        data = {
+            "title": "Should Not Work",
+            "youtube_url": "https://youtube.com/watch?v=fail",
+            "type": 1,
+            "subcategory": "Denied",
+            "level": "1",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(Video.objects.count(), 0)
+
 
 class SectionListViewTests(TestCase):
     def setUp(self):
