@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import Exam, MathMatriculationTasks
+from .services import MatriculationTaskService
 
 
 class ExamForm(forms.ModelForm):
@@ -27,7 +28,7 @@ class ExamForm(forms.ModelForm):
 
 class AddMatriculationTaskForm(forms.ModelForm):
     exam = forms.ModelChoiceField(
-        queryset=Exam.objects.all(),
+        queryset=Exam.objects.none(),
         label=_("Select Exam"),
         widget=forms.Select(
             attrs={
@@ -53,3 +54,9 @@ class AddMatriculationTaskForm(forms.ModelForm):
     class Meta:
         model = MathMatriculationTasks
         fields = ["exam", "task_id", "category"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["exam"].queryset = (
+            MatriculationTaskService.get_exams_with_available_tasks()
+        )
