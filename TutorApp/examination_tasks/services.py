@@ -12,3 +12,12 @@ class MatriculationTaskService:
         """
         exams = Exam.objects.all()
         return [exam for exam in exams if exam.tasks.count() < exam.tasks_count]
+
+    @staticmethod
+    def get_missing_task_ids(exam: Exam) -> List[int]:
+        """
+        Returns a list of missing task IDs for a given exam.
+        """
+        existing_ids = set(exam.tasks.values_list("task_id", flat=True))
+        all_ids = set(range(1, exam.tasks_count + 1))
+        return sorted(list(all_ids - existing_ids))
