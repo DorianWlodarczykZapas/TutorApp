@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import Exam, MathMatriculationTasks
+from .services import MatriculationTaskService
 
 
 class ExamForm(forms.ModelForm):
@@ -27,7 +28,7 @@ class ExamForm(forms.ModelForm):
 
 class AddMatriculationTaskForm(forms.ModelForm):
     exam = forms.ModelChoiceField(
-        queryset=Exam.objects.all(),
+        queryset=Exam.objects.none(),
         label=_("Select Exam"),
         widget=forms.Select(
             attrs={
@@ -53,3 +54,33 @@ class AddMatriculationTaskForm(forms.ModelForm):
     class Meta:
         model = MathMatriculationTasks
         fields = ["exam", "task_id", "category"]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        exam = cleaned_data.get("exam")
+        task_id = cleaned_data.get("task_id")
+
+        if exam and task_id:
+            missing_ids = MatriculationTaskService.get_missing_task_ids(exam)
+            if task_id not in missing_ids:
+                raise forms.ValidationError(
+                    _("Task number %(num)s already exists or is invalid."),
+                    params={"num": task_id},
+                )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["exam"].queryset = (
+            MatriculationTaskService.get_exams_with_available_tasks()
+        )
+
+        if "exam" in self.data:
+            try:
+                exam_id = int(self.data.get("exam"))
+                exam = Exam.objects.get(pk=exam_id)
+                missing = MatriculationTaskService.get_missing_task_ids(exam)
+                self.fields["task_id"].help_text = _(
+                    "Available task numbers: "
+                ) + ", ".join(map(str, missing))
+            except (Exam.DoesNotExist, ValueError):
+                pass
