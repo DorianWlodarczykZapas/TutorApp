@@ -1,59 +1,36 @@
-{% load static %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load widget_tweaks %}
-<!DOCTYPE html>
-<html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% trans "Register" %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
-              rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
-    </head>
-    <body>
-        <header class="main-header">
-            <div class="container">
-                <div class="logo">Appname</div>
-                <nav class="nav-links">
-                    <a href="#">{% trans "Home" %}</a>
-                    <a href="#">{% trans "About" %}</a>
-                    <a href="#">{% trans "Services" %}</a>
-                    <a href="#">{% trans "Pricing" %}</a>
-                    <a href="#">{% trans "Contact" %}</a>
-                </nav>
+{% block title %}
+    {% trans "Register" %}
+{% endblock %}
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post" class="form-container">
+        {% csrf_token %}
+        <h2 class="form-title">{% trans "Register" %}</h2>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
             </div>
-        </header>
-        <main class="main-content">
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <form method="post" class="form-container">
-                {% csrf_token %}
-                <h2 class="form-title">{% trans "Register" %}</h2>
-                {% if form.non_field_errors %}
-                    <div class="form-errors">
-                        {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                {% endif %}
-                {% for field in form.visible_fields %}
-                    <div class="form-group">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {{ field|add_class:"form-input" }}
-                        {% for error in field.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
-                <div class="login-link">
-                    {% trans "Already have an account?" %}
-                    <a href="{% url 'users:login' %}">{% trans "Log in" %}</a>
-                </div>
-            </form>
-        </main>
-    </body>
-</html>
+        {% endif %}
+        {% for field in form.visible_fields %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field|add_class:"form-input" }}
+                {% for error in field.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn-submit">{% trans "Sign up" %}</button>
+        <div class="login-link">
+            {% trans "Already have an account?" %}
+            <a href="{% url 'users:login' %}">{% trans "Log in" %}</a>
+        </div>
+    </form>
+{% endblock %}
