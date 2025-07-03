@@ -62,9 +62,12 @@ class LoginView(View):
 
 
 class LogoutView(View):
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         service = UserService(user=request.user)
         service.logout_user(request)
+        return redirect("users:login")
+
+    def get(self, request, *args, **kwargs):
         return redirect("users:login")
 
 
