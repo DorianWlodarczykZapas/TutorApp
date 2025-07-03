@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="pl">
     <head>
@@ -10,32 +11,64 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
     </head>
     <body>
-        <header class="main-header">
-            <div class="container">
-                <div class="logo">Appname</div>
-                <div class="menu-toggle" id="mobile-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+        {% if user.is_authenticated %}
+            <!-- NAVBAR for logged-in users -->
+            <header class="main-header">
+                <div class="container">
+                    <div class="logo">Appname</div>
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <nav class="nav-links">
+                        <a href="{% url 'videos:section_list' %}">{% trans "Videos" %}</a>
+                        <a href="#">{% trans "Training tasks" %}</a>
+                        <a href="#">{% trans "Plans" %}</a>
+                        <a href="#">{% trans "Examination tasks" %}</a>
+                        <a href="#">{% trans "Quizes" %}</a>
+                        <a href="#">{% trans "Calendar" %}</a>
+                        <a href="#">{% trans "Settings" %}</a>
+                        <form method="post"
+                              action="{% url 'users:logout' %}"
+                              style="display:inline">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link-as-text">{% trans "Logout" %}</button>
+                        </form>
+                    </nav>
                 </div>
-                <nav class="nav-links">
-                    <a href="#">{% trans "Home" %}</a>
-                    <a href="#">{% trans "About" %}</a>
-                    <a href="#">{% trans "Services" %}</a>
-                    <a href="#">{% trans "Pricing" %}</a>
-                    <a href="#">{% trans "Contact" %}</a>
-                </nav>
-            </div>
-        </header>
+            </header>
+        {% else %}
+            <!-- HEADER for anonymous users -->
+            <header class="main-header">
+                <div class="container">
+                    <div class="logo">Appname</div>
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <nav class="nav-links">
+                        <a href="#">{% trans "Home" %}</a>
+                        <a href="#">{% trans "About" %}</a>
+                        <a href="#">{% trans "Services" %}</a>
+                        <a href="#">{% trans "Pricing" %}</a>
+                        <a href="#">{% trans "Contact" %}</a>
+                    </nav>
+                </div>
+            </header>
+        {% endif %}
         <main class="main-content">
             {% block content %}{% endblock %}
         </main>
         <script>
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
+
     if (mobileMenu && navLinks) {
         mobileMenu.addEventListener('click', () => {
             navLinks.classList.toggle('active');
