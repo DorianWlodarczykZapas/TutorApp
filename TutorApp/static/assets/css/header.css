@@ -1,28 +1,40 @@
 .main-header {
     background-color: #008374;
     color: white;
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 30px 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
 }
 
 .main-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 48px;
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
 }
 
 .nav-links a {
     color: white;
-    margin-left: 20px;
     text-decoration: none;
+    font-size: 24px;
     font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
     text-decoration: underline;
+    color: #cfe3e1;
 }

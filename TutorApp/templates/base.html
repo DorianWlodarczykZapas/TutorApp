@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}Appname{% endblock %}
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">Appname</div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <nav class="nav-links">
+                    <a href="#">{% trans "Home" %}</a>
+                    <a href="#">{% trans "About" %}</a>
+                    <a href="#">{% trans "Services" %}</a>
+                    <a href="#">{% trans "Pricing" %}</a>
+                    <a href="#">{% trans "Contact" %}</a>
+                </nav>
+            </div>
+        </header>
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+        <script>
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+        </script>
+    </body>
+</html>
