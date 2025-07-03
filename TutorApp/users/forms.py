@@ -22,7 +22,7 @@ class UserRegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs.update(
-                {"class": "form-control", "placeholder": field.label}
+                {"class": "form-input", "placeholder": field.label}
             )
 
     def clean_email(self):
