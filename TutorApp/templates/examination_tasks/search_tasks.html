@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %}Search Tasks{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <h1 class="form-title">Search Matura Tasks</h1>
+        <form method="get" class="form-group">
+            <label class="form-label">Year</label>
+            <input type="number"
+                   name="year"
+                   class="form-input"
+                   value="{{ filter.year }}">
+            <label class="form-label">Month</label>
+            <input type="number"
+                   name="month"
+                   class="form-input"
+                   value="{{ filter.month }}">
+            <label class="form-label">Level</label>
+            <select name="level" class="form-input">
+                <option value="">--</option>
+                <option value="1" {% if filter.level == "1" %}selected{% endif %}>Basic</option>
+                <option value="2" {% if filter.level == "2" %}selected{% endif %}>Extended</option>
+            </select>
+            <label class="form-label">Category</label>
+            <input type="number"
+                   name="category"
+                   class="form-input"
+                   value="{{ filter.category }}">
+            <label class="form-label">Is Done</label>
+            <select name="is_done" class="form-input">
+                <option value="">--</option>
+                <option value="true" {% if filter.is_done == "true" %}selected{% endif %}>Yes</option>
+                <option value="false" {% if filter.is_done == "false" %}selected{% endif %}>No</option>
+            </select>
+            <button type="submit" class="btn-submit">Search</button>
+        </form>
+        <hr style="margin: 40px 0;">
+        {% for task in tasks %}
+            <div style="margin-bottom: 50px; text-align: left;">
+                <h2>{{ task }}</h2>
+                <p>
+                    <strong>Category:</strong> {{ task.get_category_display }}
+                </p>
+                <p>
+                    <strong>Level:</strong> {{ task.get_type_display }}
+                </p>
+                <div style="background-color: #f0f0f0; padding: 20px; border-radius: 15px">
+                    <pre style="white-space: pre-wrap; font-family: 'Inter', sans-serif;">
+{{ task_contents|get_item:task.id }}
+                </pre>
+                </div>
+            </div>
+        {% empty %}
+            <p>No tasks found.</p>
+        {% endfor %}
+        {% if is_paginated %}
+            <div style="margin-top: 30px; text-align: center;">
+                {% if page_obj.has_previous %}
+                    <a href="?{% if filter %}{{ filter.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">← Previous</a>
+                {% endif %}
+                <span style="margin: 0 15px;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?{% if filter %}{{ filter.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">Next →</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,79 +1,43 @@
 {% load static %}
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
         <title>
-            {% block title %}Appname{% endblock %}
+            {% block title %}App{% endblock %}
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
-              rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% if user.is_authenticated %}
+            <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+        {% else %}
+            <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        {% endif %}
     </head>
     <body>
-        {% if user.is_authenticated %}
-            <!-- NAVBAR for logged-in users -->
-            <header class="main-header">
-                <div class="container">
-                    <div class="logo">Appname</div>
-                    <div class="menu-toggle" id="mobile-menu">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
-                    <nav class="nav-links">
-                        <a href="{% url 'videos:section_list' %}">{% trans "Videos" %}</a>
-                        <a href="#">{% trans "Training tasks" %}</a>
-                        <a href="#">{% trans "Plans" %}</a>
-                        <a href="#">{% trans "Examination tasks" %}</a>
-                        <a href="#">{% trans "Quizes" %}</a>
-                        <a href="#">{% trans "Calendar" %}</a>
-                        <a href="#">{% trans "Settings" %}</a>
-                        <form method="post"
-                              action="{% url 'users:logout' %}"
-                              style="display:inline">
-                            {% csrf_token %}
-                            <button type="submit" class="nav-link-as-text">{% trans "Logout" %}</button>
-                        </form>
-                    </nav>
-                </div>
-            </header>
-        {% else %}
-            <!-- HEADER for anonymous users -->
-            <header class="main-header">
-                <div class="container">
-                    <div class="logo">Appname</div>
-                    <div class="menu-toggle" id="mobile-menu">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
-                    <nav class="nav-links">
-                        <a href="#">{% trans "Home" %}</a>
-                        <a href="#">{% trans "About" %}</a>
-                        <a href="#">{% trans "Services" %}</a>
-                        <a href="#">{% trans "Pricing" %}</a>
-                        <a href="#">{% trans "Contact" %}</a>
-                    </nav>
-                </div>
-            </header>
-        {% endif %}
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">Appname</div>
+                <nav class="nav-links">
+                    {% if user.is_authenticated %}
+                        <a href="#">Videos</a>
+                        <a href="#">Calendar</a>
+                        <a href="#">Training tasks</a>
+                        <a href="#">Plans</a>
+                        <a href="#">Examination tasks</a>
+                        <a href="#">Quizes</a>
+                        <a href="{% url 'users:logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{% url 'home' %}">Home</a>
+                        <a href="{% url 'about' %}">About</a>
+                        <a href="{% url 'services' %}">Services</a>
+                        <a href="{% url 'pricing' %}">Pricing</a>
+                        <a href="{% url 'contact' %}">Contact</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
         <main class="main-content">
             {% block content %}{% endblock %}
         </main>
-        <script>
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (mobileMenu && navLinks) {
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    }
-        </script>
     </body>
 </html>
