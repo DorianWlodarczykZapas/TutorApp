@@ -7,10 +7,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 30px;
-    position: relative;
 }
 
 .logo {
@@ -40,48 +36,4 @@
 .nav-links a:hover,
 .nav-link-as-text:hover {
     text-decoration: underline;
-}
-
-/* Hamburger */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.menu-toggle .bar {
-    width: 25px;
-    height: 3px;
-    background-color: white;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: flex;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #008374;
-        padding: 20px;
-        z-index: 1000;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links a,
-    .nav-link-as-text {
-        text-align: center;
-        padding: 10px 0;
-        font-size: 18px;
-    }
 }
