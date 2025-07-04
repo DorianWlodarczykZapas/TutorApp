@@ -1,5 +1,7 @@
 from typing import List, Optional
 
+import fitz
+import requests
 from users.models import User
 
 from .models import Exam, MathMatriculationTasks
@@ -62,3 +64,40 @@ class MatriculationTaskService:
                 qs = qs.exclude(done_by=user)
 
         return list(qs)
+
+    @staticmethod
+    def extract_task_content(task: MathMatriculationTasks) -> str:
+        """
+        Downloads the exam PDF from `tasks_link` and extracts the content of the task
+        identified by `task_id`. It searches for 'Zadanie {id}' and captures content
+        until the next task or end of document.
+        """
+        url = task.exam.tasks_link
+        task_marker = f"Zadanie {task.task_id}"
+        next_task_marker = f"Zadanie {task.task_id + 1}"
+
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+        except Exception as e:
+            return f"Failed to download PDF: {str(e)}"
+
+        pdf_data = response.content
+
+        try:
+            doc = fitz.open(stream=pdf_data, filetype="pdf")
+            full_text = ""
+            for page in doc:
+                full_text += page.get_text()
+
+            start = full_text.find(task_marker)
+            if start == -1:
+                return f"Task marker '{task_marker}' not found."
+
+            end = full_text.find(next_task_marker, start)
+            task_content = full_text[start:end] if end != -1 else full_text[start:]
+
+            return task_content.strip()
+
+        except Exception as e:
+            return f"Error while processing PDF: {str(e)}"
