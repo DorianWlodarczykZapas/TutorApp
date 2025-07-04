@@ -16,3 +16,4 @@ pillow
 psycopg2
 factory_boy
 django-widget-tweaks
+PyMuPDF
