@@ -159,3 +159,8 @@ class SearchMatriculationTaskViewTest(TestCase):
         request = self.factory.get(url)
         request.user = self.user
         return request
+
+    def test_login_required(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/users/login/", response.url)
