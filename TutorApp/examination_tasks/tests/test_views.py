@@ -1,4 +1,7 @@
+from typing import Dict, Optional
+
 from django.contrib.auth import get_user_model
+from django.http import QueryDict
 from django.test import Client, RequestFactory, TestCase
 from django.urls import reverse
 
@@ -131,8 +134,8 @@ class SearchMatriculationTaskViewTest(TestCase):
             username="testuser", email="test@example.com", password="testpass123"
         )
 
-        self.exam1 = ExamFactory(year=2020, month=5, level_type=1)  # Basic
-        self.exam2 = ExamFactory(year=2021, month=6, level_type=2)  # Extended
+        self.exam1 = ExamFactory(year=2020, month=5, level_type=1)
+        self.exam2 = ExamFactory(year=2021, month=6, level_type=2)
 
         self.task1 = MathMatriculationTasks.objects.create(
             exam=self.exam1, task_id=1, category=1, type=1
@@ -146,3 +149,13 @@ class SearchMatriculationTaskViewTest(TestCase):
 
         self.url = reverse("examination_tasks:search_tasks")
         self.view = SearchMatriculationTaskView()
+
+    def _create_request(
+        self, params: Optional[Dict[str, str]] = None
+    ) -> RequestFactory:
+        url = self.url
+        if params:
+            url += f"?{QueryDict('', mutable=True).update(params).urlencode()}"
+        request = self.factory.get(url)
+        request.user = self.user
+        return request
