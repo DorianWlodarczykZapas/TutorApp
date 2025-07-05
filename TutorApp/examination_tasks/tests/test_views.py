@@ -234,3 +234,15 @@ class SearchMatriculationTaskViewTest(TestCase):
 
         queryset = self.view.get_queryset()
         self.assertEqual(queryset.count(), 3)
+
+    def test_get_context_data(self):
+        request = self._create_request({"year": "2020"})
+        self.view.request = request
+        self.view.object_list = self.view.get_queryset()
+
+        context = self.view.get_context_data()
+
+        self.assertEqual(context["title"], "Search Tasks")
+        self.assertEqual(context["filter"], {"year": "2020"})
+        self.assertIn("task_contents", context)
+        self.assertEqual(len(context["task_contents"]), 2)
