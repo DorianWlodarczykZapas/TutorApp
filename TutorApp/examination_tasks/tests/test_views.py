@@ -164,3 +164,13 @@ class SearchMatriculationTaskViewTest(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertIn("/users/login/", response.url)
+
+    def test_get_queryset_with_no_filters(self):
+        request = self._create_request()
+        self.view.request = request
+
+        queryset = self.view.get_queryset()
+        self.assertEqual(queryset.count(), 3)
+        self.assertIn(self.task1, queryset)
+        self.assertIn(self.task2, queryset)
+        self.assertIn(self.task3, queryset)
