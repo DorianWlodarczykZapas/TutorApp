@@ -225,3 +225,12 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertIn(self.task1, queryset)
         self.assertNotIn(self.task2, queryset)
         self.assertNotIn(self.task3, queryset)
+
+    def test_get_queryset_with_invalid_filters(self):
+        request = self._create_request(
+            {"year": "invalid", "month": "13", "level": "99"}
+        )
+        self.view.request = request
+
+        queryset = self.view.get_queryset()
+        self.assertEqual(queryset.count(), 3)
