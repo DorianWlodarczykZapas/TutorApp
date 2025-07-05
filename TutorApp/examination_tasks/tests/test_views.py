@@ -272,3 +272,10 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertEqual(self.view._get_int_param(""), None)
         self.assertEqual(self.view._get_int_param(None), None)
         self.assertEqual(self.view._get_int_param("invalid"), None)
+
+    def test_get_bool_param_helper(self):
+        self.assertEqual(self.view._get_bool_param("true"), True)
+        self.assertEqual(self.view._get_bool_param("false"), False)
+        self.assertEqual(self.view._get_bool_param(""), None)
+        self.assertEqual(self.view._get_bool_param(None), None)
+        self.assertEqual(self.view._get_bool_param("invalid"), None)
