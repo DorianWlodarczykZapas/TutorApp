@@ -246,3 +246,23 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertEqual(context["filter"], {"year": "2020"})
         self.assertIn("task_contents", context)
         self.assertEqual(len(context["task_contents"]), 2)
+
+    def test_pagination(self):
+        for i in range(3, 15):
+            MathMatriculationTasks.objects.create(
+                exam=self.exam1, task_id=i, category=1, type=1
+            )
+
+        request = self._create_request()
+        self.view.request = request
+        self.view.paginate_by = 10
+
+        queryset = self.view.get_queryset()
+        self.assertEqual(queryset.count(), 15)
+
+        context = self.view.get_context_data(object_list=queryset[:10])
+        self.assertEqual(len(context["object_list"]), 10)
+        self.assertTrue(context["is_paginated"])
+
+        context = self.view.get_context_data(object_list=queryset[10:15])
+        self.assertEqual(len(context["object_list"]), 5)
