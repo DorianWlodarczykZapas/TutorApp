@@ -194,3 +194,14 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertIn(self.task3, queryset)
         self.assertNotIn(self.task1, queryset)
         self.assertNotIn(self.task2, queryset)
+
+    def test_get_queryset_with_level_filter(self):
+
+        request = self._create_request({"level": "2"})
+        self.view.request = request
+
+        queryset = self.view.get_queryset()
+        self.assertEqual(queryset.count(), 1)
+        self.assertIn(self.task3, queryset)
+        self.assertNotIn(self.task1, queryset)
+        self.assertNotIn(self.task2, queryset)
