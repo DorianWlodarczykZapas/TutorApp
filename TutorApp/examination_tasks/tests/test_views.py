@@ -266,3 +266,9 @@ class SearchMatriculationTaskViewTest(TestCase):
 
         context = self.view.get_context_data(object_list=queryset[10:15])
         self.assertEqual(len(context["object_list"]), 5)
+
+    def test_get_int_param_helper(self):
+        self.assertEqual(self.view._get_int_param("123"), 123)
+        self.assertEqual(self.view._get_int_param(""), None)
+        self.assertEqual(self.view._get_int_param(None), None)
+        self.assertEqual(self.view._get_int_param("invalid"), None)
