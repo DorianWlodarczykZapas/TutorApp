@@ -174,3 +174,13 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertIn(self.task1, queryset)
         self.assertIn(self.task2, queryset)
         self.assertIn(self.task3, queryset)
+
+    def test_get_queryset_with_year_filter(self):
+        request = self._create_request({"year": "2020"})
+        self.view.request = request
+
+        queryset = self.view.get_queryset()
+        self.assertEqual(queryset.count(), 2)
+        self.assertIn(self.task1, queryset)
+        self.assertIn(self.task2, queryset)
+        self.assertNotIn(self.task3, queryset)
