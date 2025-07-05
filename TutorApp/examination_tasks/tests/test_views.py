@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
-from django.test import Client, TestCase
+from django.test import Client, RequestFactory, TestCase
 from django.urls import reverse
 
 from ..factories import ExamFactory
 from ..models import Exam, MathMatriculationTasks
+from ..views import SearchMatriculationTaskView
 
 User = get_user_model()
 
@@ -121,3 +122,27 @@ class AddMatriculationTaskViewTests(TestCase):
             None,
             ["Math matriculation tasks with this Exam and Task id already exists."],
         )
+
+
+class SearchMatriculationTaskViewTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username="testuser", email="test@example.com", password="testpass123"
+        )
+
+        self.exam1 = ExamFactory(year=2020, month=5, level_type=1)  # Basic
+        self.exam2 = ExamFactory(year=2021, month=6, level_type=2)  # Extended
+
+        self.task1 = MathMatriculationTasks.objects.create(
+            exam=self.exam1, task_id=1, category=1, type=1
+        )
+        self.task2 = MathMatriculationTasks.objects.create(
+            exam=self.exam1, task_id=2, category=2, type=1
+        )
+        self.task3 = MathMatriculationTasks.objects.create(
+            exam=self.exam2, task_id=1, category=1, type=2
+        )
+
+        self.url = reverse("examination_tasks:search_tasks")
+        self.view = SearchMatriculationTaskView()
