@@ -4,6 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .services import MatriculationTaskService
+
 current_year = datetime.now().year
 YEAR_CHOICES = [(y, str(y)) for y in range(2002, current_year + 1)]
 
@@ -97,6 +99,13 @@ class MathMatriculationTasks(models.Model):
         editable=False,
         help_text="The extracted content of the task from the PDF file.",
     )
+
+    def save(self, *args, **kwargs):
+
+        if not self.content:
+            MatriculationTaskService.populate_task_content(self)
+
+        super().save(*args, **kwargs)
 
     class Meta:
         unique_together = ("exam", "task_id")
