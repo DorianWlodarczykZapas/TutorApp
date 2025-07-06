@@ -1,14 +1,15 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, ListView
 from users.views import TeacherRequiredMixin
 
-from .forms import AddMatriculationTaskForm, ExamForm
+from .forms import AddMatriculationTaskForm, ExamForm, TaskSearchForm
 from .models import Exam, MathMatriculationTasks
 from .services import MatriculationTaskService
 
@@ -41,7 +42,8 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateV
 
 class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
     """
-    Displays a paginated list of filtered Math Matriculation Tasks with extracted content.
+    Displays a paginated list of filtered Math Matriculation Tasks.
+    Filtering logic is handled by a Django form.
     """
 
     model = MathMatriculationTasks
@@ -49,34 +51,28 @@ class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
     context_object_name = "tasks"
     paginate_by = 10
 
-    def get_queryset(self) -> list[MathMatriculationTasks]:
+    def get_queryset(self) -> QuerySet[MathMatriculationTasks]:
         """
-        Fetches the filtered queryset based on GET parameters.
+        Fetches the filtered queryset based on form-validated GET parameters.
         """
-        params = self.request.GET
 
-        year = self._get_int_param(params.get("year"))
-        month = self._get_int_param(params.get("month"))
-        level = self._get_int_param(params.get("level"))
-        category = self._get_int_param(params.get("category"))
-        is_done = self._get_bool_param(params.get("is_done"))
+        form = TaskSearchForm(self.request.GET)
+
+        if not form.is_valid():
+            return MathMatriculationTasks.objects.none()
 
         return MatriculationTaskService.filter_tasks(
-            year=year,
-            month=month,
-            level=level,
-            category=category,
-            is_done=is_done,
-            user=self.request.user,
+            user=self.request.user, **form.cleaned_data
         )
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         """
-        Adds search parameters and extracted task content to context.
+        Adds the search form to the context to display filter values.
         """
         context = super().get_context_data(**kwargs)
         context["title"] = "Search Tasks"
-        context["filter"] = self.request.GET
+
+        context["filter_form"] = TaskSearchForm(self.request.GET)
 
         context["task_contents"] = {
             task.id: MatriculationTaskService.extract_task_content(task)
@@ -84,16 +80,3 @@ class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
         }
 
         return context
-
-    def _get_int_param(self, value: Optional[str]) -> Optional[int]:
-        try:
-            return int(value) if value else None
-        except ValueError:
-            return None
-
-    def _get_bool_param(self, value: Optional[str]) -> Optional[bool]:
-        if value == "true":
-            return True
-        elif value == "false":
-            return False
-        return None
