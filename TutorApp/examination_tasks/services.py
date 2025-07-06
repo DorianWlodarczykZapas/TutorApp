@@ -2,6 +2,8 @@ from typing import List, Optional
 
 import fitz
 import requests
+from django.db.models import Count, F
+from django.db.models.query import QuerySet
 from users.models import User
 
 from .models import Exam, MathMatriculationTasks
@@ -9,13 +11,14 @@ from .models import Exam, MathMatriculationTasks
 
 class MatriculationTaskService:
     @staticmethod
-    def get_exams_with_available_tasks() -> List[Exam]:
+    def get_exams_with_available_tasks() -> QuerySet[Exam]:
         """
-        Returns a list of Exam instances that do not yet have all tasks added.
-        Only exams where the number of related MathMatriculationTasks is less than tasks_count.
+        Returns a QuerySet of Exam instances that do not yet have all tasks added.
+        The filtering is done at the database level for maximum efficiency.
         """
-        exams = Exam.objects.all()
-        return [exam for exam in exams if exam.tasks.count() < exam.tasks_count]
+        return Exam.objects.annotate(num_tasks=Count("tasks")).filter(
+            tasks_count__gt=F("num_tasks")
+        )
 
     @staticmethod
     def get_missing_task_ids(exam: Exam) -> List[int]:
