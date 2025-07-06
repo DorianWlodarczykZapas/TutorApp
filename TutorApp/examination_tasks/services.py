@@ -37,7 +37,7 @@ class MatriculationTaskService:
         category: Optional[int] = None,
         is_done: Optional[bool] = None,
         user: Optional[User] = None,
-    ) -> List[MathMatriculationTasks]:
+    ) -> QuerySet[MathMatriculationTasks]:
         """
         Filters MathMatriculationTasks based on optional criteria:
         - year: exam year
@@ -66,7 +66,7 @@ class MatriculationTaskService:
             else:
                 qs = qs.exclude(done_by=user)
 
-        return list(qs)
+        return qs
 
     @staticmethod
     def extract_task_content(task: MathMatriculationTasks) -> str:
