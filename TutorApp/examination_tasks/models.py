@@ -92,6 +92,12 @@ class MathMatriculationTasks(models.Model):
     )
     type = models.IntegerField(choices=[(1, _("Basic")), (2, _("Extended"))])
 
+    content = models.TextField(
+        blank=True,
+        editable=False,
+        help_text="The extracted content of the task from the PDF file.",
+    )
+
     class Meta:
         unique_together = ("exam", "task_id")
         ordering = ["exam", "task_id"]
