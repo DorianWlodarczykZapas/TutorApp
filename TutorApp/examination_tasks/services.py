@@ -69,38 +69,40 @@ class MatriculationTaskService:
         return qs
 
     @staticmethod
-    def extract_task_content(task: MathMatriculationTasks) -> str:
+    def populate_task_content(task: MathMatriculationTasks) -> None:
         """
-        Downloads the exam PDF from `tasks_link` and extracts the content of the task
-        identified by `task_id`. It searches for 'Zadanie {id}' and captures content
-        until the next task or end of document.
+        Extracts task content from a PDF and sets the `content` attribute
+        on the provided task instance. It does not save the instance.
+        In case of an error, the error message is stored in the content field.
         """
+        if not task.exam or not task.exam.tasks_link:
+            task.content = "Error: Exam or tasks_link is missing."
+            return
+
         url = task.exam.tasks_link
         task_marker = f"Zadanie {task.task_id}"
         next_task_marker = f"Zadanie {task.task_id + 1}"
 
         try:
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=15)
             response.raise_for_status()
-        except Exception as e:
-            return f"Failed to download PDF: {str(e)}"
+            pdf_data = response.content
 
-        pdf_data = response.content
-
-        try:
             doc = fitz.open(stream=pdf_data, filetype="pdf")
-            full_text = ""
-            for page in doc:
-                full_text += page.get_text()
+            full_text = "".join(page.get_text() for page in doc)
+            doc.close()
 
-            start = full_text.find(task_marker)
-            if start == -1:
-                return f"Task marker '{task_marker}' not found."
+            start_pos = full_text.find(task_marker)
+            if start_pos == -1:
+                task.content = f"Error: Task marker '{task_marker}' not found."
+                return
 
-            end = full_text.find(next_task_marker, start)
-            task_content = full_text[start:end] if end != -1 else full_text[start:]
+            end_pos = full_text.find(next_task_marker, start_pos)
 
-            return task_content.strip()
+            if end_pos == -1:
+                task.content = full_text[start_pos:].strip()
+            else:
+                task.content = full_text[start_pos:end_pos].strip()
 
         except Exception as e:
-            return f"Error while processing PDF: {str(e)}"
+            task.content = f"Error while processing PDF: {str(e)}"
