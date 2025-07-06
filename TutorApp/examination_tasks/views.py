@@ -66,17 +66,8 @@ class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
         )
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        """
-        Adds the search form to the context to display filter values.
-        """
         context = super().get_context_data(**kwargs)
         context["title"] = "Search Tasks"
-
-        context["filter_form"] = TaskSearchForm(self.request.GET)
-
-        context["task_contents"] = {
-            task.id: MatriculationTaskService.extract_task_content(task)
-            for task in context["tasks"]
-        }
+        context["filter_form"] = TaskSearchForm(self.request.GET or None)
 
         return context
