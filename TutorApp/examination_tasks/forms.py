@@ -84,3 +84,17 @@ class AddMatriculationTaskForm(forms.ModelForm):
                 ) + ", ".join(map(str, missing))
             except (Exam.DoesNotExist, ValueError):
                 pass
+
+
+class TaskSearchForm(forms.Form):
+    """
+    Form used to validate and clean the parameters of
+    matrix task filtering. It is not linked to any model.
+    """
+
+    year = forms.IntegerField(required=False)
+    month = forms.IntegerField(required=False)
+    level = forms.IntegerField(required=False)
+    category = forms.IntegerField(required=False)
+
+    is_done = forms.NullBooleanField(required=False)

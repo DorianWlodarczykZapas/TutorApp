@@ -1,27 +1,21 @@
 from typing import Any, Dict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
-from users.services import UserService
+from users.views import TeacherRequiredMixin
 
 from .forms import AnswerFormSet, QuizForm
 from .models import Quiz
 
 
-class QuizCreateView(LoginRequiredMixin, CreateView):
+class QuizCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
     model = Quiz
     form_class = QuizForm
     template_name = "quiz/add_question_to_quiz.html"
     success_url = reverse_lazy("quiz:add")
-
-    def dispatch(self, request, *args, **kwargs):
-        if not UserService(request.user).is_teacher():
-            raise PermissionDenied(_("You do not have permission to access this page."))
-        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)

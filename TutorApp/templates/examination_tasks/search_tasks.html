@@ -1,36 +1,45 @@
 {% extends 'base.html' %}
-{% load custom_filters %}
 {% block title %}Search Tasks{% endblock %}
 {% block content %}
     <div class="form-container">
         <h1 class="form-title">Search Matura Tasks</h1>
         <form method="get" class="form-group">
-            <label class="form-label">Year</label>
+            <label for="{{ filter_form.year.id_for_label }}" class="form-label">Year</label>
+            {{ filter_form.year.as_widget.attrs.class }}
             <input type="number"
-                   name="year"
+                   name="{{ filter_form.year.name }}"
+                   id="{{ filter_form.year.id_for_label }}"
                    class="form-input"
-                   value="{{ filter.year }}">
-            <label class="form-label">Month</label>
+                   value="{{ filter_form.year.value|default:'' }}">
+            <label for="{{ filter_form.month.id_for_label }}" class="form-label">Month</label>
             <input type="number"
-                   name="month"
+                   name="{{ filter_form.month.name }}"
+                   id="{{ filter_form.month.id_for_label }}"
                    class="form-input"
-                   value="{{ filter.month }}">
-            <label class="form-label">Level</label>
-            <select name="level" class="form-input">
+                   value="{{ filter_form.month.value|default:'' }}">
+            <label for="{{ filter_form.level.id_for_label }}" class="form-label">Level</label>
+            <select name="{{ filter_form.level.name }}"
+                    id="{{ filter_form.level.id_for_label }}"
+                    class="form-input">
                 <option value="">--</option>
-                <option value="1" {% if filter.level == "1" %}selected{% endif %}>Basic</option>
-                <option value="2" {% if filter.level == "2" %}selected{% endif %}>Extended</option>
+                <option value="1" {% if filter_form.level.value == 1 %}selected{% endif %}>Basic</option>
+                <option value="2" {% if filter_form.level.value == 2 %}selected{% endif %}>Extended</option>
             </select>
-            <label class="form-label">Category</label>
+            <label for="{{ filter_form.category.id_for_label }}" class="form-label">Category</label>
             <input type="number"
-                   name="category"
+                   name="{{ filter_form.category.name }}"
+                   id="{{ filter_form.category.id_for_label }}"
                    class="form-input"
-                   value="{{ filter.category }}">
-            <label class="form-label">Is Done</label>
-            <select name="is_done" class="form-input">
+                   value="{{ filter_form.category.value|default:'' }}">
+            <label for="{{ filter_form.is_done.id_for_label }}" class="form-label">Is Done</label>
+            <select name="{{ filter_form.is_done.name }}"
+                    id="{{ filter_form.is_done.id_for_label }}"
+                    class="form-input">
                 <option value="">--</option>
-                <option value="true" {% if filter.is_done == "true" %}selected{% endif %}>Yes</option>
-                <option value="false" {% if filter.is_done == "false" %}selected{% endif %}>No</option>
+                <option value="true"
+                        {% if filter_form.is_done.value is True %}selected{% endif %}>Yes</option>
+                <option value="false"
+                        {% if filter_form.is_done.value is False %}selected{% endif %}>No</option>
             </select>
             <button type="submit" class="btn-submit">Search</button>
         </form>
@@ -46,8 +55,9 @@
                 </p>
                 <div style="background-color: #f0f0f0; padding: 20px; border-radius: 15px">
                     <pre style="white-space: pre-wrap; font-family: 'Inter', sans-serif;">
-{{ task_contents|get_item:task.id }}
-                </pre>
+                {{ task.content|linebreaksbr }}
+
+            </pre>
                 </div>
             </div>
         {% empty %}
@@ -56,11 +66,11 @@
         {% if is_paginated %}
             <div style="margin-top: 30px; text-align: center;">
                 {% if page_obj.has_previous %}
-                    <a href="?{% if filter %}{{ filter.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">← Previous</a>
+                    <a href="?{{ filter_form.data.urlencode }}&page={{ page_obj.previous_page_number }}">← Previous</a>
                 {% endif %}
                 <span style="margin: 0 15px;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
                 {% if page_obj.has_next %}
-                    <a href="?{% if filter %}{{ filter.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">Next →</a>
+                    <a href="?{{ filter_form.data.urlencode }}&page={{ page_obj.next_page_number }}">Next →</a>
                 {% endif %}
             </div>
         {% endif %}
