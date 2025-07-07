@@ -37,3 +37,17 @@
 .nav-link-as-text:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .container {
+
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}

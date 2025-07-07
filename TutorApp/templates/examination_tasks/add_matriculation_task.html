@@ -1,25 +1,52 @@
+{% extends 'base.html' %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% trans "Add Matriculation Task" %}</title>
-    </head>
-    <body>
-        <h1>{% trans "Add New Matriculation Task" %}</h1>
+{% block title %}
+    {% trans "Add Matriculation Task" %}
+{% endblock %}
+{% block content %}
+    <div class="form-container">
+        {% if messages %}
+            <ul class="messages"
+                style="list-style-type: none;
+                       padding: 0;
+                       margin-bottom: 20px">
+                {% for message in messages %}
+                    <li class="alert alert-{{ message.tags }}"
+                        style="padding: 10px;
+                               background-color: #d4edda;
+                               color: #155724;
+                               border: 1px solid #c3e6cb;
+                               border-radius: 5px">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
+            <h1 class="form-title">{% trans "Add New Matriculation Task" %}</h1>
+            {% if form.non_field_errors %}
+                <div class="form-errors"
+                     style="color: red;
+                            margin-bottom: 15px;
+                            background-color: #f8d7da;
+                            padding: 10px;
+                            border-radius: 5px">{{ form.non_field_errors|striptags }}</div>
+            {% endif %}
             {% for field in form %}
-                <div>
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    <br>
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                     {{ field }}
-                    {% if field.errors %}<div style="color: red;">{{ field.errors|striptags }}</div>{% endif %}
+                    {% if field.help_text %}
+                        <small class="form-help-text"
+                               style="display: block;
+                                      margin-top: 5px;
+                                      color: #555">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="field-errors" style="color: red; margin-top: 5px;">{{ field.errors|striptags }}</div>
+                    {% endif %}
                 </div>
-                <br>
             {% endfor %}
-            {% if form.non_field_errors %}<div style="color: red;">{{ form.non_field_errors }}</div>{% endif %}
-            <button type="submit">{% trans "Add Task" %}</button>
+            <button type="submit" class="btn-submit">{% trans "Add Task" %}</button>
         </form>
-    </body>
-</html>
+    </div>
+{% endblock %}
