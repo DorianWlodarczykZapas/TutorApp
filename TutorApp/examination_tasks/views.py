@@ -80,13 +80,17 @@ class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
         form = TaskSearchForm(self.request.GET)
 
         if not form.is_valid():
-            return MathMatriculationTasks.objects.none()
+            return self.model.objects.none()
 
         return MatriculationTaskService.filter_tasks(
             user=self.request.user, **form.cleaned_data
         )
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        """
+        Adds a filter form to the template context,
+        so that it can be displayed and filter values can be stored.
+        """
         context = super().get_context_data(**kwargs)
         context["title"] = "Search Tasks"
         context["filter_form"] = TaskSearchForm(self.request.GET or None)
