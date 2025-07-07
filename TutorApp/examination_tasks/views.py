@@ -15,19 +15,30 @@ from .services import MatriculationTaskService
 
 
 class ExamCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+    """
+    View for adding new matriculation exams.
+    Access is restricted to logged-in users with teacher privileges.
+    """
+
     model = Exam
     form_class = ExamForm
     template_name = "examination_tasks/exam_form.html"
+    success_url = reverse_lazy("examination_tasks:exam_add")
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Adds the page title to the template context.
+        """
         data = super().get_context_data(**kwargs)
         data["title"] = _("Add New Exam")
         return data
 
-    def form_valid(self, form):
-        form.save()
+    def form_valid(self, form: ExamForm) -> HttpResponseRedirect:
+        """
+        Method for handling the form for adding examinations to the database
+        """
         messages.success(self.request, _("Exam added successfully!"))
-        return HttpResponseRedirect(reverse_lazy("examination_tasks:exam_add"))
+        return super().form_valid(form)
 
 
 class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
