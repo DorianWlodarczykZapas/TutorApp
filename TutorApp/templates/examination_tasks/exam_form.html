@@ -1,80 +1,67 @@
+{% extends 'base.html' %}
 {% load i18n %}
-{% load static %}
 {% load widget_tweaks %}
-<!DOCTYPE html>
-<html lang="pl">
-    <head>
-        <meta charset="utf-8">
-        <title>{% trans "Add New Exam" %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
-              rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
-    </head>
-    <body>
-        <header class="main-header">
-            <div class="container">
-                <div class="logo">Appname</div>
-                <nav class="nav-links">
-                    <a href="#">{% trans "Videos" %}</a>
-                    <a href="#">{% trans "Calendar" %}</a>
-                    <a href="#">{% trans "Training tasks" %}</a>
-                    <a href="#">{% trans "Plans" %}</a>
-                    <a href="#">{% trans "Examination tasks" %}</a>
-                    <a href="#">{% trans "Quizes" %}</a>
-                    <a href="#">{% trans "Settings" %}</a>
-                    <form method="post"
-                          action="{% url 'users:logout' %}"
-                          style="display:inline">
-                        {% csrf_token %}
-                        <button type="submit" class="nav-link-as-text">{% trans "Logout" %}</button>
-                    </form>
-                </nav>
+{% block title %}
+    {% trans "Add New Exam" %}
+{% endblock %}
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for m in messages %}
+                <li class="alert {% if m.tags %}alert-{{ m.tags }}{% endif %}">{{ m }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post" class="form-container">
+        {% csrf_token %}
+        <h1 class="form-title">{% trans "Add New Exam" %}</h1>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
             </div>
-        </header>
-        <main class="main-content">
-            {% if messages %}
-                <ul class="messages">
-                    {% for m in messages %}
-                        <li class="alert {% if m.tags %}alert-{{ m.tags }}{% endif %}">{{ m }}</li>
-                    {% endfor %}
-                </ul>
+        {% endif %}
+        <div class="form-group">
+            <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
+            {{ form.year|add_class:"form-input" }}
+            {% if form.year.errors %}
+                <div class="field-errors" style="color:red;">{{ form.year.errors|striptags }}</div>
             {% endif %}
-            <form method="post" class="form-container">
-                {% csrf_token %}
-                <h2 class="form-title">{% trans "Add New Exam" %}</h2>
-                {% if form.non_field_errors %}
-                    <div class="form-errors">
-                        {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
-                    </div>
-                {% endif %}
-                <div class="form-group">
-                    <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
-                    {{ form.year|add_class:"form-input" }}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.month.id_for_label }}">{{ form.month.label }}</label>
-                    {{ form.month|add_class:"form-input" }}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.tasks_link.id_for_label }}">{{ form.tasks_link.label }}</label>
-                    {{ form.tasks_link|add_class:"form-input" }}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.solutions_link.id_for_label }}">{{ form.solutions_link.label }}</label>
-                    {{ form.solutions_link|add_class:"form-input" }}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.tasks_count.id_for_label }}">{{ form.tasks_count.label }}</label>
-                    {{ form.tasks_count|add_class:"form-input" }}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.level_type.id_for_label }}">{{ form.level_type.label }}</label>
-                    {{ form.level_type|add_class:"form-input" }}
-                </div>
-                <button type="submit" class="btn-submit">{% trans "Add exam" %}</button>
-            </form>
-        </main>
-    </body>
-</html>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.month.id_for_label }}">{{ form.month.label }}</label>
+            {{ form.month|add_class:"form-input" }}
+            {% if form.month.errors %}
+                <div class="field-errors" style="color:red;">{{ form.month.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.tasks_link.id_for_label }}">{{ form.tasks_link.label }}</label>
+            {{ form.tasks_link|add_class:"form-input" }}
+            {% if form.tasks_link.errors %}
+                <div class="field-errors" style="color:red;">{{ form.tasks_link.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.solutions_link.id_for_label }}">{{ form.solutions_link.label }}</label>
+            {{ form.solutions_link|add_class:"form-input" }}
+            {% if form.solutions_link.errors %}
+                <div class="field-errors" style="color:red;">{{ form.solutions_link.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.tasks_count.id_for_label }}">{{ form.tasks_count.label }}</label>
+            {{ form.tasks_count|add_class:"form-input" }}
+            {% if form.tasks_count.errors %}
+                <div class="field-errors" style="color:red;">{{ form.tasks_count.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.level_type.id_for_label }}">{{ form.level_type.label }}</label>
+            {{ form.level_type|add_class:"form-input" }}
+            {% if form.level_type.errors %}
+                <div class="field-errors" style="color:red;">{{ form.level_type.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn-submit">{% trans "Add exam" %}</button>
+    </form>
+{% endblock %}
