@@ -42,13 +42,23 @@ class ExamCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
 
 
 class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+    """
+    View for adding individual maths tasks to an existing exam.
+    Access is restricted to logged-in users with teacher privileges.
+    """
+
     model = MathMatriculationTasks
     form_class = AddMatriculationTaskForm
     template_name = "tasks/add_matriculation_task.html"
 
-    def form_valid(self, form):
-        super().form_valid(form)
-        return HttpResponseRedirect(self.request.path_info)
+    def get_success_url(self) -> str:
+        """
+               Returns the URL to which the user will be redirected on success.
+               In this case, we want the page to simply refresh,
+        which allows another task to be added to the same exam.
+        """
+        messages.success(self.request, _("Task added successfully!"))
+        return self.request.path_info
 
 
 class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
