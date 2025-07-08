@@ -289,3 +289,9 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertEqual(self.view._get_bool_param(""), None)
         self.assertEqual(self.view._get_bool_param(None), None)
         self.assertEqual(self.view._get_bool_param("invalid"), None)
+
+    def test_get_queryset_with_invalid_filters_returns_no_results(self):
+        response = self.client.get(self.url, {"year": "invalid_year"})
+        self.assertEqual(response.status_code, 200)
+        queryset = response.context["tasks"]
+        self.assertEqual(len(queryset), 0)
