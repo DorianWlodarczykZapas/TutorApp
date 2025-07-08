@@ -82,16 +82,16 @@ class ExamCreateViewTest(TestCase):
 
 class AddMatriculationTaskViewTests(TestCase):
 
-    def setUp(self):
-        self.teacher = User.objects.create_user(
-            username="teacher", password="testpass123", role_type=2
+    @classmethod
+    def setUpTestData(cls):
+        cls.teacher = User.objects.create_superuser(
+            username="teacher_add", password="testpass123"
         )
-        self.student = User.objects.create_user(
-            username="student", password="testpass123", role_type=1
+        cls.student = User.objects.create_user(
+            username="student_add", password="testpass123"
         )
-        self.exam = ExamFactory()
-
-        self.url = reverse("add_matriculation_task")
+        cls.exam = ExamFactory()
+        cls.url = reverse("examination_tasks:add_matriculation_task")
 
     def test_login_required(self):
         response = self.client.get(self.url)
