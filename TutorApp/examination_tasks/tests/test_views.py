@@ -14,8 +14,11 @@ User = get_user_model()
 
 class ExamCreateViewTest(TestCase):
     def setUp(self):
-        self.admin = User.objects.create_superuser("admin", "a@b.com", "pass1234")
-        self.user = User.objects.create_user("user", "u@b.com", "pass1234")
+
+        self.teacher_user = User.objects.create_superuser(
+            "teacher", "a@b.com", "pass1234"
+        )
+        self.regular_user = User.objects.create_user("user", "u@b.com", "pass1234")
         self.client = Client()
         self.url = reverse("examination_tasks:exam_add")
 

@@ -36,21 +36,25 @@ class QuizCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
 
         self.object = None
         form = self.get_form()
-        formset = AnswerFormSet(self.request.POST, self.request.FILES)
 
-        if form.is_valid() and formset.is_valid():
-            return self.form_valid(form, formset)
+        if form.is_valid():
+            return self.form_valid(form)
         else:
-            return self.form_invalid(form, formset)
+            return self.form_invalid(form)
 
-    def form_valid(self, form, formset):
-        self.object = form.save()
+    def form_valid(self, form):
 
-        formset.instance = self.object
+        formset = AnswerFormSet(self.request.POST, self.request.FILES)
+        if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
 
-        formset.save()
-        return HttpResponseRedirect(self.get_success_url())
+            formset.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
 
-    def form_invalid(self, form, formset):
+    def form_invalid(self, form):
+        formset = AnswerFormSet(self.request.POST, self.request.FILES)
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)

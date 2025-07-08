@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "widget_tweaks",
 ]
 
 INSTALLED_EXTENSIONS = [
@@ -37,7 +38,6 @@ INSTALLED_EXTENSIONS = [
     "quizes",
     "training_calendar",
     "videos",
-    "widget_tweaks",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
