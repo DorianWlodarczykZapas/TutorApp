@@ -22,8 +22,8 @@ class ExamCreateViewTest(TestCase):
         self.client = Client()
         self.url = reverse("examination_tasks:exam_add")
 
-    def test_get_as_admin(self):
-        self.client.force_login(self.admin)
+    def test_get_as_teacher(self):
+        self.client.force_login(self.teacher_user)
         r = self.client.get(self.url)
         self.assertEqual(r.status_code, 200)
         self.assertContains(r, "Add New Exam")
