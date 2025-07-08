@@ -110,10 +110,12 @@ class AddMatriculationTaskViewTests(TestCase):
         self.assertContains(response, "Add New Matriculation Task")
 
     def test_teacher_can_submit_valid_task(self):
-        self.client.login(username="teacher", password="testpass123")
+        self.client.login(username="teacher_add", password="testpass123")
         data = {"exam": self.exam.pk, "task_id": 1, "category": 1}
-        response = self.client.post(self.url, data)
-        self.assertEqual(response.status_code, 302)
+        response = self.client.post(self.url, data, follow=False)
+        self.assertRedirects(
+            response, self.url, status_code=302, fetch_redirect_response=False
+        )
         self.assertTrue(
             MathMatriculationTasks.objects.filter(exam=self.exam, task_id=1).exists()
         )
