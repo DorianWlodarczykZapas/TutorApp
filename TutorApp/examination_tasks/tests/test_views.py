@@ -74,6 +74,11 @@ class ExamCreateViewTest(TestCase):
         self.assertEqual(r.status_code, 302)
         self.assertIn("/login/", r.url)
 
+    def test_access_forbidden_for_non_teacher(self):
+        self.client.force_login(self.regular_user)
+        r_get = self.client.get(self.url)
+        self.assertEqual(r_get.status_code, 403)
+
 
 class AddMatriculationTaskViewTests(TestCase):
 
