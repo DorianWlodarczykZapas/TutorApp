@@ -23,13 +23,16 @@ class UserRegisterViewTests(TestCase):
             "email": "newuser@example.com",
             "school_type": "SECONDARY",
         }
-        response = self.client.post(self.url, data)
+        response = self.client.post(self.url, data, follow=True)
 
-        self.assertRedirects(response, reverse("login"))
+        self.assertRedirects(response, reverse("users:login"))
         self.assertEqual(User.objects.count(), 1)
         user = User.objects.first()
         self.assertEqual(user.username, "newuser")
         self.assertEqual(user.role_type, 1)
+
+        actual_messages = [m.message for m in list(response.context["messages"])]
+        self.assertIn("Account has been created. You can now log in.", actual_messages)
 
     def test_register_view_post_invalid(self):
         data = {
