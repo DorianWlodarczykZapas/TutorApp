@@ -96,7 +96,7 @@ class AddMatriculationTaskViewTests(TestCase):
     def test_login_required(self):
         response = self.client.get(self.url)
         self.assertNotEqual(response.status_code, 200)
-        self.assertRedirects(response, f"/accounts/login/?next={self.url}")
+        self.assertRedirects(response, f"/users/login/?next={self.url}")
 
     def test_only_teacher_can_access(self):
         self.client.login(username="student", password="testpass123")
