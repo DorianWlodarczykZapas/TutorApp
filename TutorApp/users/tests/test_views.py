@@ -47,6 +47,12 @@ class UserRegisterViewTests(TestCase):
         )
         self.assertEqual(User.objects.count(), 0)
 
+        actual_messages = [m.message for m in list(response.context["messages"])]
+        self.assertIn(
+            "There was an error creating your account. Please correct the form below.",
+            actual_messages,
+        )
+
 
 class LoginViewTests(TestCase):
     def setUp(self):
