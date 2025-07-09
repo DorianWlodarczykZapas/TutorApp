@@ -33,7 +33,7 @@ class QuizCreateViewTests(TestCase):
 
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(self.url)
-        self.assertRedirects(response, f"/accounts/login/?next={self.url}")
+        self.assertRedirects(response, f"/users/login/?next={self.url}")
 
     @patch("quiz.views.UserService")
     def test_valid_quiz_and_answers_create_objects(self, mock_user_service):
