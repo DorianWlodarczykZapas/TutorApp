@@ -56,7 +56,8 @@ class UserRegisterViewTests(TestCase):
 
 class LoginViewTests(TestCase):
     def setUp(self):
-        self.url = reverse("login")
+        self.url = reverse("users:login")
+        self.home_url = reverse("users:home")
         self.password = "StrongPassword123!"
         self.user = UserFactory(password=self.password)
 
