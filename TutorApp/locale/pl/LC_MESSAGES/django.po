@@ -391,6 +391,8 @@ msgstr "Typ szkoły"
 msgid "This email is already in use."
 msgstr "Ten adres e-mail jest już używany."
 
+msgid "Already have an account?"
+msgstr "Masz już konto?"
 
 
 
@@ -398,9 +400,8 @@ msgstr "Ten adres e-mail jest już używany."
 
 
 
-
-msgid "Register "
-msgstr "Zarejestruj się"
+msgid "Register"
+msgstr "Zarejestruj"
 
 msgid "Title"
 msgstr "Tytuł"
