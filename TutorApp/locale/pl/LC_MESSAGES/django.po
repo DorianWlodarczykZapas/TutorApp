@@ -447,3 +447,18 @@ msgstr "Zapomniałeś hasła?"
 
 msgid "Add exam"
 msgstr "Dodaj egzamin"
+
+msgid "Home"
+msgstr "Strona główna"
+
+msgid "About"
+msgstr "O nas"
+
+msgid "Services"
+msgstr "Usługi"
+
+msgid "Pricing"
+msgstr "Cennik"
+
+msgid "Contact"
+msgstr "Kontakt"

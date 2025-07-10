@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="pl">
     <head>
@@ -28,11 +29,11 @@
                         <a href="#">Quizes</a>
                         <a href="{% url 'users:logout' %}">Logout</a>
                     {% else %}
-                        <a href="#">Home</a>
-                        <a href="#">About</a>
-                        <a href="#">Services</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">Contact</a>
+                        <a href="#">{% trans "Home" %}</a>
+                        <a href="#">{% trans "About" %}</a>
+                        <a href="#">{% trans "Services" %}</a>
+                        <a href="#">{% trans "Pricing" %}</a>
+                        <a href="#">{% trans "Contact" %}</a>
                     {% endif %}
                 </nav>
             </div>
