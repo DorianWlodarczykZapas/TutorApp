@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
 import fitz
 import requests
@@ -6,22 +6,25 @@ from django.db.models import Count, F
 from django.db.models.query import QuerySet
 from users.models import User
 
-from .models import Exam, MathMatriculationTasks
+if TYPE_CHECKING:
+    from .models import Exam, MathMatriculationTasks
 
 
 class MatriculationTaskService:
     @staticmethod
-    def get_exams_with_available_tasks() -> QuerySet[Exam]:
+    def get_exams_with_available_tasks() -> QuerySet["Exam"]:
         """
         Returns a QuerySet of Exam instances that do not yet have all tasks added.
         The filtering is done at the database level for maximum efficiency.
         """
+        from .models import Exam
+
         return Exam.objects.annotate(num_tasks=Count("tasks")).filter(
             tasks_count__gt=F("num_tasks")
         )
 
     @staticmethod
-    def get_missing_task_ids(exam: Exam) -> List[int]:
+    def get_missing_task_ids(exam: "Exam") -> List[int]:
         """
         Returns a list of missing task IDs for a given exam.
         """
@@ -37,19 +40,12 @@ class MatriculationTaskService:
         category: Optional[int] = None,
         is_done: Optional[bool] = None,
         user: Optional[User] = None,
-    ) -> QuerySet[MathMatriculationTasks]:
+    ) -> QuerySet["MathMatriculationTasks"]:
         """
-        Filters MathMatriculationTasks based on optional criteria:
-        - year: exam year
-        - month: exam month
-        - level: task difficulty level (1: Basic, 2: Extended)
-        - category: task category ID
-        - is_done: whether the task has been completed by the given user
-        - user: user instance to check completion status
+        Filters MathMatriculationTasks based on optional criteria.
+        """
+        from .models import MathMatriculationTasks
 
-        Returns a list of MathMatriculationTasks that match the given criteria.
-        If no filters are provided, all tasks are returned.
-        """
         qs = MathMatriculationTasks.objects.select_related("exam").all()
 
         if year is not None:
@@ -69,12 +65,13 @@ class MatriculationTaskService:
         return qs
 
     @staticmethod
-    def populate_task_content(task: MathMatriculationTasks) -> None:
+    def populate_task_content(task: "MathMatriculationTasks") -> None:
         """
         Extracts task content from a PDF and sets the `content` attribute
         on the provided task instance. It does not save the instance.
         In case of an error, the error message is stored in the content field.
         """
+
         if not task.exam or not task.exam.tasks_link:
             task.content = "Error: Exam or tasks_link is missing."
             return
