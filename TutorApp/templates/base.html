@@ -7,11 +7,11 @@
         <title>
             {% block title %}App{% endblock %}
         </title>
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
         {% if user.is_authenticated %}
-            <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+            <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
         {% else %}
-            <link rel="stylesheet" href="{% static 'css/header.css' %}">
+            <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
         {% endif %}
     </head>
     <body>
@@ -28,11 +28,11 @@
                         <a href="#">Quizes</a>
                         <a href="{% url 'users:logout' %}">Logout</a>
                     {% else %}
-                        <a href="{% url 'home' %}">Home</a>
-                        <a href="{% url 'about' %}">About</a>
-                        <a href="{% url 'services' %}">Services</a>
-                        <a href="{% url 'pricing' %}">Pricing</a>
-                        <a href="{% url 'contact' %}">Contact</a>
+                        <a href="#">Home</a>
+                        <a href="#">About</a>
+                        <a href="#">Services</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">Contact</a>
                     {% endif %}
                 </nav>
             </div>
