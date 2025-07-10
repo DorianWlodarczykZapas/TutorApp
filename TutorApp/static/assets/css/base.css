@@ -24,7 +24,7 @@ body {
 
 .form-title {
     font-family: 'Roboto', sans-serif;
-    font-size: 48px;
+    font-size: clamp(40px, 5vw, 60px);
     font-weight: 900;
     margin-bottom: 40px;
     color: black;
@@ -36,10 +36,10 @@ body {
 }
 
 .form-label {
-    font-size: 34px;
+    font-size: clamp(15px, 3vw, 26px);
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    line-height: 36px;
+    line-height: 1.2;
     margin-bottom: 10px;
     display: block;
     color: black;

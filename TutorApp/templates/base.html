@@ -9,6 +9,8 @@
             {% block title %}App{% endblock %}
         </title>
         <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+              rel="stylesheet">
         {% if user.is_authenticated %}
             <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
         {% else %}
