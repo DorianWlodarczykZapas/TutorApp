@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, TemplateView
 from users.views import TeacherRequiredMixin
 
 from .forms import AddMatriculationTaskForm, ExamForm, TaskSearchForm
@@ -95,4 +96,50 @@ class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
         context["title"] = "Search Tasks"
         context["filter_form"] = TaskSearchForm(self.request.GET or None)
 
+        return context
+
+
+class ExamProgressView(LoginRequiredMixin, TemplateView):
+    template_name = "exam_progress.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        year = self.request.GET.get("year")
+        month = self.request.GET.get("month")
+        level = self.request.GET.get("level")
+
+        exams = Exam.objects.all()
+
+        if year:
+            exams = exams.filter(year=year)
+            context["available_months"] = exams.values_list(
+                "month", flat=True
+            ).distinct()
+        if year and month:
+            context["available_levels"] = (
+                exams.filter(month=month)
+                .values_list("level_type", flat=True)
+                .distinct()
+            )
+
+        tasks = []
+        selected_exam = None
+        if year and month and level:
+            selected_exam = get_object_or_404(
+                Exam, year=year, month=month, level_type=level
+            )
+            tasks = MathMatriculationTasks.objects.filter(exam=selected_exam).order_by(
+                "task_id"
+            )
+
+        context.update(
+            {
+                "years": Exam.objects.values_list("year", flat=True).distinct(),
+                "selected_year": year,
+                "selected_month": month,
+                "selected_level": level,
+                "tasks": tasks,
+                "selected_exam": selected_exam,
+            }
+        )
         return context
