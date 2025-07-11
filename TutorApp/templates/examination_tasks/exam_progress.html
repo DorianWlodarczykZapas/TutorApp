@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <div class="form-container">
+        <h1 class="form-title">{% trans "Student Exam Progress" %}</h1>
+        <form method="get">
+            <div class="form-group">
+                <label class="form-label">{% trans "Year" %}</label>
+                <select name="year" class="form-input" onchange="this.form.submit()">
+                    <option value="">{% trans "Choose year" %}</option>
+                    {% for y in years %}
+                        <option value="{{ y }}"
+                                {% if y|stringformat:"s" == selected_year %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% if available_months %}
+                <div class="form-group">
+                    <label class="form-label">{% trans "Month" %}</label>
+                    <select name="month" class="form-input" onchange="this.form.submit()">
+                        <option value="">{% trans "Choose month" %}</option>
+                        {% for m in available_months %}
+                            <option value="{{ m }}"
+                                    {% if m|stringformat:"s" == selected_month %}selected{% endif %}>
+                                {{ m|get_month_display }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            {% if available_levels %}
+                <div class="form-group">
+                    <label class="form-label">{% trans "Level" %}</label>
+                    <select name="level" class="form-input">
+                        <option value="">{% trans "Choose level" %}</option>
+                        {% for lvl in available_levels %}
+                            <option value="{{ lvl }}"
+                                    {% if lvl|stringformat:"s" == selected_level %}selected{% endif %}>
+                                {{ lvl|get_level_display }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">{% trans "Search" %}</button>
+            {% endif %}
+        </form>
+        {% if tasks %}
+            <h2>{% trans "Tasks" %}</h2>
+            <form>
+                {% for task in tasks %}
+                    <div class="form-group-inline">
+                        <input type="checkbox"
+                               id="task_{{ task.id }}"
+                               disabled
+                               {% if request.user in task.done_by.all %}checked{% endif %}>
+                        <label for="task_{{ task.id }}">
+                            {{ task.task_id }}. {{ task.category|get_category_display }}
+                            {% if request.user in task.done_by.all %}
+                                ✅
+                            {% else %}
+                                ❌
+                            {% endif %}
+                        </label>
+                    </div>
+                {% endfor %}
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
