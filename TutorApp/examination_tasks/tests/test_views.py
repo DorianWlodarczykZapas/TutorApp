@@ -315,3 +315,12 @@ class ExamProgressViewTests(TestCase):
         response = self.client.get(reverse("examination_tasks:exam_progress"))
         self.assertEqual(response.status_code, 200)
         self.assertIn("years", response.context)
+
+    def test_view_with_year(self):
+        response = self.client.get(
+            reverse("examination_tasks:exam_progress"),
+            {"year": self.exam.year},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("available_months", response.context)
+        self.assertIn(self.exam.month, response.context["available_months"])
