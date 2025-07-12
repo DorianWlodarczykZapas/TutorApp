@@ -5,7 +5,8 @@ from django.http import QueryDict
 from django.test import Client, RequestFactory, TestCase
 from django.urls import reverse
 
-from ..factories import ExamFactory
+from ...users.factories import UserFactory
+from ..factories import ExamFactory, MathMatriculationTasksFactory
 from ..models import Exam, MathMatriculationTasks
 from ..views import SearchMatriculationTaskView
 
@@ -295,3 +296,53 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         queryset = response.context["tasks"]
         self.assertEqual(len(queryset), 0)
+
+
+class ExamProgressViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = UserFactory()
+        self.client.login(username=self.user.username, password="password123")
+        self.exam = ExamFactory(year=2024, month="June", level_type="basic")
+        self.task = MathMatriculationTasksFactory(exam=self.exam)
+
+    def test_view_requires_login(self):
+        self.client.logout()
+        response = self.client.get(reverse("examination_tasks:exam_progress"))
+        self.assertRedirects(response, "/users/login/?next=/progress/")
+
+    def test_progress_view_base(self):
+        response = self.client.get(reverse("examination_tasks:exam_progress"))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("years", response.context)
+
+    def test_view_with_year(self):
+        response = self.client.get(
+            reverse("examination_tasks:exam_progress"),
+            {"year": self.exam.year},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("available_months", response.context)
+        self.assertIn(self.exam.month, response.context["available_months"])
+
+    def test_view_with_year_and_month(self):
+        response = self.client.get(
+            reverse("examination_tasks:exam_progress"),
+            {"year": self.exam.year, "month": self.exam.month},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("available_levels", response.context)
+        self.assertIn(self.exam.level_type, response.context["available_levels"])
+
+    def test_view_with_year_month_level(self):
+        response = self.client.get(
+            reverse("examination_tasks:exam_progress"),
+            {
+                "year": self.exam.year,
+                "month": self.exam.month,
+                "level": self.exam.level_type,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["selected_exam"], self.exam)
+        self.assertIn(self.task, response.context["tasks"])
