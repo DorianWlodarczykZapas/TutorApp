@@ -310,3 +310,8 @@ class ExamProgressViewTests(TestCase):
         self.client.logout()
         response = self.client.get(reverse("examination_tasks:exam_progress"))
         self.assertRedirects(response, "/users/login/?next=/progress/")
+
+    def test_progress_view_base(self):
+        response = self.client.get(reverse("examination_tasks:exam_progress"))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("years", response.context)
