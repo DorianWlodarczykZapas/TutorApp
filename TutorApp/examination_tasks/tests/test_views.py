@@ -305,3 +305,8 @@ class ExamProgressViewTests(TestCase):
         self.client.login(username=self.user.username, password="password123")
         self.exam = ExamFactory(year=2024, month="June", level_type="basic")
         self.task = MathMatriculationTasksFactory(exam=self.exam)
+
+    def test_view_requires_login(self):
+        self.client.logout()
+        response = self.client.get(reverse("examination_tasks:exam_progress"))
+        self.assertRedirects(response, "/users/login/?next=/progress/")
