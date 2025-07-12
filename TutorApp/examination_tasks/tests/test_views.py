@@ -1,9 +1,11 @@
 from typing import Dict, Optional
 
+import factory
 from django.contrib.auth import get_user_model
 from django.http import QueryDict
 from django.test import Client, RequestFactory, TestCase
 from django.urls import reverse
+from factory import SubFactory
 
 from ..factories import ExamFactory
 from ..models import Exam, MathMatriculationTasks
@@ -295,3 +297,15 @@ class SearchMatriculationTaskViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         queryset = response.context["tasks"]
         self.assertEqual(len(queryset), 0)
+
+
+class MathMatriculationTasksFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = MathMatriculationTasks
+
+    exam = SubFactory(ExamFactory)
+    task_id = factory.Sequence(lambda n: n + 1)
+    task_number = factory.Sequence(lambda n: n + 1)
+    task_text = factory.Faker("paragraph")
+    solution = factory.Faker("paragraph")
+    points = factory.Faker("random_int", min=1, max=10)
