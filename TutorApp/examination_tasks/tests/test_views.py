@@ -80,6 +80,11 @@ class ExamCreateViewTest(TestCase):
         r_get = self.client.get(self.url)
         self.assertEqual(r_get.status_code, 403)
 
+    def test_exam_create_view_context_title(self):
+        self.client.force_login(self.teacher_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["title"], "Add New Exam")
+
 
 class AddMatriculationTaskViewTests(TestCase):
 
