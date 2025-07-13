@@ -378,3 +378,7 @@ class ExamProgressViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context.get("selected_exam"))
         self.assertEqual(list(response.context.get("tasks", [])), [])
+
+    def test_exam_progress_template_used(self):
+        response = self.client.get(reverse("examination_tasks:exam_progress"))
+        self.assertTemplateUsed(response, "exam_progress.html")
