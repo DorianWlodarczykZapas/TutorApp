@@ -316,6 +316,12 @@ class SearchMatriculationTaskViewTest(TestCase):
         queryset = response.context["tasks"]
         self.assertEqual(len(queryset), 0)
 
+    def test_search_view_filter_form_in_context(self):
+        self.client.login(username="testuser", password="testpass123")
+        response = self.client.get(self.url, {"year": 2020})
+        self.assertIn("filter_form", response.context)
+        self.assertEqual(int(response.context["filter_form"].data.get("year")), 2020)
+
 
 class ExamProgressViewTests(TestCase):
     def setUp(self):
