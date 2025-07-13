@@ -371,3 +371,10 @@ class ExamProgressViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["selected_exam"], self.exam)
         self.assertIn(self.task, response.context["tasks"])
+
+    def test_exam_progress_view_no_exams(self):
+        Exam.objects.all().delete()
+        response = self.client.get(reverse("examination_tasks:exam_progress"))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context.get("selected_exam"))
+        self.assertEqual(list(response.context.get("tasks", [])), [])
