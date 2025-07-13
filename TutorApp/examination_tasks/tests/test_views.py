@@ -142,6 +142,13 @@ class AddMatriculationTaskViewTests(TestCase):
             ["Math matriculation tasks with this Exam and Task id already exists."],
         )
 
+    def test_add_matriculation_task_view_template_used(self):
+        self.client.login(username="teacher_add", password="testpass123")
+        response = self.client.get(self.url)
+        self.assertTemplateUsed(
+            response, "examination_tasks/add_matriculation_task.html"
+        )
+
 
 class SearchMatriculationTaskViewTest(TestCase):
     def setUp(self):
