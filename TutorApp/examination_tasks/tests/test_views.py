@@ -149,6 +149,13 @@ class AddMatriculationTaskViewTests(TestCase):
             response, "examination_tasks/add_matriculation_task.html"
         )
 
+    def test_add_matriculation_task_view_success_message(self):
+        self.client.login(username="teacher_add", password="testpass123")
+        data = {"exam": self.exam.pk, "task_id": 3, "category": 1}
+        response = self.client.post(self.url, data, follow=True)
+        messages = list(response.context["messages"])
+        self.assertTrue(any("Task added successfully!" in str(m) for m in messages))
+
 
 class SearchMatriculationTaskViewTest(TestCase):
     def setUp(self):
