@@ -183,3 +183,30 @@ class QuizCreateViewTests(TestCase):
         self.assertEqual(Quiz.objects.count(), 0)
         self.assertEqual(Answer.objects.count(), 0)
         self.assertContains(response, "Musisz zaznaczyć poprawną odpowiedź", html=False)
+
+    @patch("quiz.views.UserService")
+    def test_multiple_correct_answers_invalid(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        data = {
+            "question": "Select the correct option.",
+            "type": 1,
+            "explanation": "Only one should be correct.",
+            "answers-TOTAL_FORMS": "2",
+            "answers-INITIAL_FORMS": "0",
+            "answers-MIN_NUM_FORMS": "0",
+            "answers-MAX_NUM_FORMS": "1000",
+            "answers-0-text": "Option A",
+            "answers-0-is_correct": "on",
+            "answers-1-text": "Option B",
+            "answers-1-is_correct": "on",
+        }
+
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "Tylko jedna odpowiedź może być poprawna", html=False
+        )
+        self.assertEqual(Quiz.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
