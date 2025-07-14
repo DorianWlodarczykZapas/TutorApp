@@ -125,3 +125,27 @@ class QuizCreateViewTests(TestCase):
         self.assertContains(response, "To pole jest wymagane", html=True)
         self.assertEqual(Quiz.objects.count(), 0)
         self.assertEqual(Answer.objects.count(), 0)
+
+    @patch("quiz.views.UserService")
+    def test_invalid_formset_management_data(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        data = {
+            "question": "Test question?",
+            "type": 1,
+            "answers-TOTAL_FORMS": "not-a-number",
+            "answers-INITIAL_FORMS": "0",
+            "answers-MIN_NUM_FORMS": "0",
+            "answers-MAX_NUM_FORMS": "1000",
+            "answers-0-text": "A",
+            "answers-0-is_correct": "on",
+        }
+
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "ManagementForm data is missing or has been tampered with",
+            html=False,
+        )
