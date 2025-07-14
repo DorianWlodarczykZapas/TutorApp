@@ -210,3 +210,24 @@ class QuizCreateViewTests(TestCase):
         )
         self.assertEqual(Quiz.objects.count(), 0)
         self.assertEqual(Answer.objects.count(), 0)
+
+    @patch("quiz.views.UserService")
+    def test_invalid_question_type_format(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        data = {
+            "question": "What's the capital of France?",
+            "type": "not-a-number",
+            "explanation": "Should be Paris.",
+            "answers-TOTAL_FORMS": "1",
+            "answers-INITIAL_FORMS": "0",
+            "answers-MIN_NUM_FORMS": "0",
+            "answers-MAX_NUM_FORMS": "1000",
+            "answers-0-text": "Paris",
+            "answers-0-is_correct": "on",
+        }
+
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, "form", "type", "Wybierz poprawną wartość.")
