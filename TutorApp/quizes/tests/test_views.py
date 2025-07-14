@@ -149,3 +149,11 @@ class QuizCreateViewTests(TestCase):
             "ManagementForm data is missing or has been tampered with",
             html=False,
         )
+
+    @patch("quiz.views.UserService")
+    def test_context_contains_title(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["title"], "Add new quiz question")
