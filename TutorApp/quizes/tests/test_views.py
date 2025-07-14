@@ -157,3 +157,29 @@ class QuizCreateViewTests(TestCase):
 
         response = self.client.get(self.url)
         self.assertEqual(response.context["title"], "Add new quiz question")
+
+    @patch("quiz.views.UserService")
+    def test_quiz_with_no_correct_answer(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        data = {
+            "question": "Which color is the sky?",
+            "type": 1,
+            "explanation": "It's blue on a clear day.",
+            "answers-TOTAL_FORMS": "2",
+            "answers-INITIAL_FORMS": "0",
+            "answers-MIN_NUM_FORMS": "0",
+            "answers-MAX_NUM_FORMS": "1000",
+            "answers-0-text": "Red",
+            "answers-0-is_correct": "",
+            "answers-1-text": "Green",
+            "answers-1-is_correct": "",
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Quiz.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
+        self.assertContains(response, "Musisz zaznaczyć poprawną odpowiedź", html=False)
