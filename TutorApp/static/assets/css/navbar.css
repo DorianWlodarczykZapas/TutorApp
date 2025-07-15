@@ -24,9 +24,10 @@
 .nav-links a,
 .nav-link-as-text {
     color: white;
-    font-weight: 900;
-    font-size: 16px;
+    margin-left: clamp(15px, 3vw, 30px);
     text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(14px, 1.6vw, 18px);
     background: none;
     border: none;
     cursor: pointer;
