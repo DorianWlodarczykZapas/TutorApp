@@ -40,6 +40,13 @@
                 </nav>
             </div>
         </header>
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <main class="main-content">
             {% block content %}{% endblock %}
         </main>
