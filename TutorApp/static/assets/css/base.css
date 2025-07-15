@@ -178,3 +178,35 @@ body {
     }
 }
 
+.message-container {
+    padding: 20px 5vw;
+}
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-error,
+.alert-danger {
+    background-color: #dc3545;
+}
+
+.alert-info {
+    background-color: #17a2b8;
+}
+
+.alert-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
