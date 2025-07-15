@@ -1,39 +1,8 @@
-{% load static %}
+{% extends "base.html" %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% trans "Home" %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
-              rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
-    </head>
-    <body>
-        <header class="main-header">
-            <div class="container">
-                <div class="logo">Appname</div>
-                <nav class="nav-links">
-                    <a href="{% url 'videos:section_list' %}">{% trans "Videos" %}</a>
-                    <a href="#">{% trans "Training tasks" %}</a>
-                    <a href="#">{% trans "Plans" %}</a>
-                    <a href="#">{% trans "Examination tasks" %}</a>
-                    <a href="#">{% trans "Quizes" %}</a>
-                    <a href="#">{% trans "Calendar" %}</a>
-                    <a href="#">{% trans "Settings" %}</a>
-                    <form method="post"
-                          action="{% url 'users:logout' %}"
-                          style="display:inline">
-                        {% csrf_token %}
-                        <button type="submit" class="nav-link-as-text">{% trans "Logout" %}</button>
-                    </form>
-                </nav>
-            </div>
-        </header>
-        <main class="main-content">
-            <h1>{% trans "Welcome to the Dashboard!" %}</h1>
-        </main>
-    </body>
-</html>
+{% block title %}
+    {% trans "Home" %}
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Welcome to the Dashboard!" %}</h1>
+{% endblock %}
