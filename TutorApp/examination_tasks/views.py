@@ -160,6 +160,7 @@ class TaskView(TemplateView):
         level_str = kwargs.get("level")
         year = kwargs.get("year")
         month = kwargs.get("month")
+        task_id = kwargs.get("task_id")
 
         if level_str not in LEVEL_MAP:
             raise Http404(_("Invalid level"))
@@ -172,8 +173,5 @@ class TaskView(TemplateView):
             raise Http404(_("Exam not found"))
 
         context["tasks_link"] = exam.tasks_link
-        context["year"] = year
-        context["month"] = month
-        context["level"] = exam.get_level_type_display()
-
+        context["task_id"] = task_id
         return context
