@@ -3,11 +3,11 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, TemplateView, View
+from django.views.generic import CreateView, ListView, TemplateView
 from users.views import TeacherRequiredMixin
 
 from .forms import AddMatriculationTaskForm, ExamForm, TaskSearchForm
@@ -151,8 +151,29 @@ LEVEL_MAP = {
 }
 
 
-class TaskView(View):
-    def get(
-        self, request: HttpRequest, level: str, year: int, month: int, task_id: int
-    ) -> HttpResponse:
-        pass
+class TaskView(TemplateView):
+    template_name = "exam_preview.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        level_str = kwargs.get("level")
+        year = kwargs.get("year")
+        month = kwargs.get("month")
+
+        if level_str not in LEVEL_MAP:
+            raise Http404(_("Invalid level"))
+
+        level_type = LEVEL_MAP[level_str]
+
+        try:
+            exam = Exam.objects.get(level_type=level_type, year=year, month=month)
+        except Exam.DoesNotExist:
+            raise Http404(_("Exam not found"))
+
+        context["tasks_link"] = exam.tasks_link
+        context["year"] = year
+        context["month"] = month
+        context["level"] = exam.get_level_type_display()
+
+        return context
