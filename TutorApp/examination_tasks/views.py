@@ -3,7 +3,7 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -142,4 +142,36 @@ class ExamProgressView(LoginRequiredMixin, TemplateView):
                 "selected_exam": selected_exam,
             }
         )
+        return context
+
+
+LEVEL_MAP = {
+    "B": 1,
+    "E": 2,
+}
+
+
+class TaskView(TemplateView):
+    template_name = "exam_preview.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        level_str = kwargs.get("level")
+        year = kwargs.get("year")
+        month = kwargs.get("month")
+        task_id = kwargs.get("task_id")
+
+        if level_str not in LEVEL_MAP:
+            raise Http404(_("Invalid level"))
+
+        level_type = LEVEL_MAP[level_str]
+
+        try:
+            exam = Exam.objects.get(level_type=level_type, year=year, month=month)
+        except Exam.DoesNotExist:
+            raise Http404(_("Exam not found"))
+
+        context["tasks_link"] = exam.tasks_link
+        context["task_id"] = task_id
         return context

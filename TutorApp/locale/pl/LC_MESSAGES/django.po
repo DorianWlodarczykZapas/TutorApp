@@ -462,3 +462,6 @@ msgstr "Cennik"
 
 msgid "Contact"
 msgstr "Kontakt"
+
+msgid "You have been successfully logged in."
+msgstr "Pomyślnie zalogowano."
