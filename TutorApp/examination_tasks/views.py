@@ -3,11 +3,11 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView, View
 from users.views import TeacherRequiredMixin
 
 from .forms import AddMatriculationTaskForm, ExamForm, TaskSearchForm
@@ -143,3 +143,16 @@ class ExamProgressView(LoginRequiredMixin, TemplateView):
             }
         )
         return context
+
+
+LEVEL_MAP = {
+    "B": 1,
+    "E": 2,
+}
+
+
+class TaskView(View):
+    def get(
+        self, request: HttpRequest, level: str, year: int, month: int, task_id: int
+    ) -> HttpResponse:
+        pass
