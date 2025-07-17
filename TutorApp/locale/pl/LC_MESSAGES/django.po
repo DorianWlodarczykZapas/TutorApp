@@ -480,3 +480,9 @@ msgstr "Wysłaliśmy Ci instrukcje dotyczące zmiany hasła. Powinny dotrzeć wk
 
 msgid "If you don't receive an email, please make sure you've entered the address you registered with."
 msgstr "Jeśli nie otrzymasz wiadomości, upewnij się, że podałeś adres, którego użyłeś przy rejestracji."
+
+msgid "Set your new password"
+msgstr "Ustaw nowe hasło"
+
+msgid "Change my password"
+msgstr "Zmień moje hasło"
