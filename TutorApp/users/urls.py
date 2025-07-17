@@ -1,7 +1,7 @@
-from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from .views import (
+    CustomPasswordResetCompleteView,
     CustomPasswordResetConfirmView,
     CustomPasswordResetDoneView,
     CustomPasswordResetView,
@@ -31,7 +31,7 @@ urlpatterns = [
     ),
     path(
         "reset/done/",
-        auth_views.PasswordResetCompleteView.as_view(),
+        CustomPasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
 ]

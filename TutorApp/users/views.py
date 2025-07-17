@@ -3,6 +3,7 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
+    PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
@@ -125,4 +126,13 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["page_title"] = _("Set your new password")
+        return context
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name: str = "users/password_reset_complete.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Password reset complete")
         return context
