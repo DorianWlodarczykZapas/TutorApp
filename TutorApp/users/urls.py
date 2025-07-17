@@ -2,6 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from .views import (
+    CustomPasswordResetDoneView,
     CustomPasswordResetView,
     HomeView,
     LoginView,
@@ -19,7 +20,7 @@ urlpatterns = [
     path("password-reset/", CustomPasswordResetView, name="password_reset"),
     path(
         "password-reset/done/",
-        auth_views.PasswordResetDoneView.as_view(),
+        CustomPasswordResetDoneView.as_view(),
         name="password_reset_done",
     ),
     path(
