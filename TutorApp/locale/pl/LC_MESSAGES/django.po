@@ -465,3 +465,30 @@ msgstr "Kontakt"
 
 msgid "You have been successfully logged in."
 msgstr "Pomyślnie zalogowano."
+
+msgid "Reset your password"
+msgstr "Zresetuj swoje hasło"
+
+
+msgid "Check your email"
+msgstr "Sprawdź swoją skrzynkę e-mail"
+
+
+msgid "We have emailed you instructions for setting your password. You should receive them shortly."
+msgstr "Wysłaliśmy Ci instrukcje dotyczące zmiany hasła. Powinny dotrzeć wkrótce."
+
+
+msgid "If you don't receive an email, please make sure you've entered the address you registered with."
+msgstr "Jeśli nie otrzymasz wiadomości, upewnij się, że podałeś adres, którego użyłeś przy rejestracji."
+
+msgid "Set your new password"
+msgstr "Ustaw nowe hasło"
+
+msgid "Change my password"
+msgstr "Zmień moje hasło"
+
+msgid "Password reset complete"
+msgstr "Resetowanie hasła zakończone"
+
+msgid "Your password has been set. You can now log in with your new password."
+msgstr "Twoje hasło zostało ustawione. Możesz teraz zalogować się za pomocą nowego hasła."

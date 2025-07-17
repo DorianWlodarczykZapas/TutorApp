@@ -1,6 +1,15 @@
 from django.urls import path
 
-from .views import HomeView, LoginView, LogoutView, UserRegisterView
+from .views import (
+    CustomPasswordResetCompleteView,
+    CustomPasswordResetConfirmView,
+    CustomPasswordResetDoneView,
+    CustomPasswordResetView,
+    HomeView,
+    LoginView,
+    LogoutView,
+    UserRegisterView,
+)
 
 app_name = "users"
 
@@ -9,4 +18,20 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("", HomeView.as_view(), name="home"),
+    path("password-reset/", CustomPasswordResetView, name="password_reset"),
+    path(
+        "password-reset/done/",
+        CustomPasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        CustomPasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/done/",
+        CustomPasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]
