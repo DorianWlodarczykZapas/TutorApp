@@ -465,3 +465,6 @@ msgstr "Kontakt"
 
 msgid "You have been successfully logged in."
 msgstr "Pomyślnie zalogowano."
+
+msgid "Reset your password"
+msgstr "Zresetuj swoje hasło"
