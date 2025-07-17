@@ -1,7 +1,13 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from .views import HomeView, LoginView, LogoutView, UserRegisterView
+from .views import (
+    CustomPasswordResetView,
+    HomeView,
+    LoginView,
+    LogoutView,
+    UserRegisterView,
+)
 
 app_name = "users"
 
@@ -10,9 +16,7 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("", HomeView.as_view(), name="home"),
-    path(
-        "password-reset/", auth_views.PasswordResetView.as_view(), name="password_reset"
-    ),
+    path("password-reset/", CustomPasswordResetView, name="password_reset"),
     path(
         "password-reset/done/",
         auth_views.PasswordResetDoneView.as_view(),
