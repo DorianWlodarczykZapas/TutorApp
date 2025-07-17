@@ -468,3 +468,15 @@ msgstr "Pomyślnie zalogowano."
 
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
+
+
+msgid "Check your email"
+msgstr "Sprawdź swoją skrzynkę e-mail"
+
+
+msgid "We have emailed you instructions for setting your password. You should receive them shortly."
+msgstr "Wysłaliśmy Ci instrukcje dotyczące zmiany hasła. Powinny dotrzeć wkrótce."
+
+
+msgid "If you don't receive an email, please make sure you've entered the address you registered with."
+msgstr "Jeśli nie otrzymasz wiadomości, upewnij się, że podałeś adres, którego użyłeś przy rejestracji."
