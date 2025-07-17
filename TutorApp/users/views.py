@@ -2,7 +2,11 @@ from typing import Any, Dict
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordResetDoneView, PasswordResetView
+from django.contrib.auth.views import (
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetView,
+)
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -111,4 +115,14 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["page_title"] = _("Check your email")
+        return context
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name: str = "users/password_reset_confirm.html"
+    success_url = reverse_lazy("password_reset_complete")
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Set your new password")
         return context
