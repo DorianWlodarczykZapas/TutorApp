@@ -28,7 +28,7 @@
                         <a href="#">Training tasks</a>
                         <a href="#">Plans</a>
                         <a href="#">Examination tasks</a>
-                        <a href="#">Quizes</a>
+                        <a href="{% url 'quizes:category' %}">Quizes</a>
                         <a href="{% url 'users:logout' %}">Logout</a>
                     {% else %}
                         <a href="#">{% trans "Home" %}</a>

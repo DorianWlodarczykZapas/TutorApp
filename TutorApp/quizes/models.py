@@ -1,27 +1,28 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Quiz(models.Model):
     section = (
-        (1, "Real numbers"),
-        (2, "Language of mathematics"),
-        (3, "Systems of equations"),
-        (4, "Functions"),
-        (5, "Linear function"),
-        (6, "Planimetry"),
-        (7, "Quadratic function"),
-        (8, "Polynomials"),
-        (9, "Measurable function"),
-        (10, "Trigonometry"),
-        (11, "Planimetry circles"),
-        (12, "Exponential and logarithmic functions"),
-        (13, "Trigonometric functions"),
-        (14, "Analytical geometry"),
-        (15, "Sequences"),
-        (16, "Differential calculus"),
-        (17, "Statistics"),
-        (18, "Probability"),
-        (19, "Stereometry"),
+        (1, _("Real numbers")),
+        (2, _("Language of mathematics")),
+        (3, _("Systems of equations")),
+        (4, _("Functions")),
+        (5, _("Linear function")),
+        (6, _("Planimetry")),
+        (7, _("Quadratic function")),
+        (8, _("Polynomials")),
+        (9, _("Measurable function")),
+        (10, _("Trigonometry")),
+        (11, _("Planimetry circles")),
+        (12, _("Exponential and logarithmic functions")),
+        (13, _("Trigonometric functions")),
+        (14, _("Analytical geometry")),
+        (15, _("Sequences")),
+        (16, _("Differential calculus")),
+        (17, _("Statistics")),
+        (18, _("Probability")),
+        (19, _("Stereometry")),
     )
     type = models.IntegerField(choices=section)
     question = models.CharField(max_length=255)

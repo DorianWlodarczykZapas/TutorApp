@@ -75,3 +75,16 @@ AnswerFormSet = inlineformset_factory(
     min_num=2,
     validate_min=True,
 )
+
+
+class CategorySelectForm(forms.Form):
+    category = forms.ChoiceField(
+        choices=Quiz.section,
+        label=_("Choose a category"),
+        widget=forms.Select(
+            attrs={
+                "class": "form-select select2",
+                "data-placeholder": _("Start typing to search category"),
+            }
+        ),
+    )
