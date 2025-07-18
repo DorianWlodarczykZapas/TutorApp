@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import BaseInlineFormSet, inlineformset_factory
 from django.utils.translation import gettext_lazy as _
-from django_select2.forms import ModelSelect2Widget
 
 from .models import Answer, Quiz
 
@@ -79,12 +78,13 @@ AnswerFormSet = inlineformset_factory(
 
 
 class CategorySelectForm(forms.Form):
-    category = forms.ModelChoiceField(
-        queryset=Quiz.objects.all(),
+    category = forms.ChoiceField(
+        choices=Quiz.section,
         label=_("Choose a category"),
-        widget=ModelSelect2Widget(
-            model=Quiz,
-            search_fields=["section_icontains"],
-            attrs={"data-placeholder": _("Start typing to search category")},
+        widget=forms.Select(
+            attrs={
+                "class": "form-select select2",
+                "data-placeholder": _("Start typing to search category"),
+            }
         ),
     )
