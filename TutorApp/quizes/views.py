@@ -4,10 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
+from django.views.generic import CreateView, FormView
 from users.views import TeacherRequiredMixin
 
-from .forms import AnswerFormSet, QuizForm
+from .forms import AnswerFormSet, CategorySelectForm, QuizForm
 from .models import Quiz
 
 
@@ -58,3 +58,14 @@ class QuizCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         formset = AnswerFormSet(self.request.POST, self.request.FILES)
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)
+
+
+class CategorySelectView(LoginRequiredMixin, FormView):
+    template_name = "quizes/category_select.html"
+    form_class = CategorySelectForm
+    success_url = reverse_lazy("quiz:add")
+
+    def form_valid(self, form: CategorySelectForm) -> Any:
+        category = int(form.cleaned_data["category"])
+        self.success_url = f"{self.success_url}?category_id={category}"
+        return super().form_valid(form)

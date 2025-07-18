@@ -492,3 +492,73 @@ msgstr "Resetowanie hasła zakończone"
 
 msgid "Your password has been set. You can now log in with your new password."
 msgstr "Twoje hasło zostało ustawione. Możesz teraz zalogować się za pomocą nowego hasła."
+
+msgid "Choose a category"
+msgstr "Wybierz kategorię"
+
+msgid "Start typing to search category"
+msgstr "Zacznij wpisywać nazwę kategorii"
+
+
+msgid "Choose a category for your math quiz"
+msgstr "Wybierz kategorię do quizu z matematyki"
+
+msgid "Start Quiz"
+msgstr "Rozpocznij quiz"
+
+msgid "Real numbers"
+msgstr "Liczby rzeczywiste"
+
+msgid "Language of mathematics"
+msgstr "Język matematyki"
+
+msgid "Systems of equations"
+msgstr "Układy równań"
+
+msgid "Functions"
+msgstr "Funkcje"
+
+msgid "Linear function"
+msgstr "Funkcja liniowa"
+
+msgid "Planimetry"
+msgstr "Planimetria"
+
+msgid "Quadratic function"
+msgstr "Funkcja kwadratowa"
+
+msgid "Polynomials"
+msgstr "Wielomiany"
+
+msgid "Measurable function"
+msgstr "Funkcja wymierna"
+
+msgid "Trigonometry"
+msgstr "Trygonometria"
+
+msgid "Planimetry circles"
+msgstr "Okręgi w planimetrii"
+
+msgid "Exponential and logarithmic functions"
+msgstr "Funkcje wykładnicze i logarytmy"
+
+msgid "Trigonometric functions"
+msgstr "Funkcje trygonometryczne"
+
+msgid "Analytical geometry"
+msgstr "Geometria analityczna"
+
+msgid "Sequences"
+msgstr "Ciągi"
+
+msgid "Differential calculus"
+msgstr "Rachunek różniczkowy"
+
+msgid "Statistics"
+msgstr "Statystyka"
+
+msgid "Probability"
+msgstr "Prawdopodobieństwo"
+
+msgid "Stereometry"
+msgstr "Stereometria"
