@@ -492,3 +492,16 @@ msgstr "Resetowanie hasła zakończone"
 
 msgid "Your password has been set. You can now log in with your new password."
 msgstr "Twoje hasło zostało ustawione. Możesz teraz zalogować się za pomocą nowego hasła."
+
+msgid "Choose a category"
+msgstr "Wybierz kategorię"
+
+msgid "Start typing to search category"
+msgstr "Zacznij wpisywać nazwę kategorii"
+
+
+msgid "Choose a category for your math quiz"
+msgstr "Wybierz kategorię do quizu z matematyki"
+
+msgid "Start Quiz"
+msgstr "Rozpocznij quiz"
