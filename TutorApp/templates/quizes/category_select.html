@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n static %}
+{% load widget_tweaks %}
 {% block title %}
     {% trans "Choose Category" %}
 {% endblock %}
@@ -10,7 +11,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.category.id_for_label }}" class="form-label">{{ form.category.label }}</label>
-                {{ form.category }}
+                {% render_field form.category class="form-input select2" %}
                 {% if form.category.errors %}<div class="field-errors">{{ form.category.errors }}</div>{% endif %}
             </div>
             <button type="submit" class="btn-submit">{% trans "Start Quiz" %}</button>
@@ -21,10 +22,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.form-select').select2({
-            width: '100%'
+        $(document).ready(function() {
+            $('.select2').select2({
+                width: '100%'
+            });
         });
-    });
     </script>
 {% endblock %}
