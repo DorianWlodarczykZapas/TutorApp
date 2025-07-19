@@ -210,3 +210,35 @@ body {
     color: black;
 }
 
+/* --- Stylowanie Select2 (dopasowane do form-input) --- */
+.select2-container--default .select2-selection--single {
+    height: 76px;
+    padding: 20px;
+    border: 5px solid #008374;
+    border-radius: 30px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.select2-selection__rendered {
+    color: #000;
+    line-height: normal;
+    padding-left: 10px;
+}
+
+.select2-selection__arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    position: absolute;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+
