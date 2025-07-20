@@ -8,6 +8,7 @@ from django.test.client import RequestFactory
 from django.urls import reverse
 from quiz.forms import CategorySelectForm
 from quiz.models import Answer, Quiz
+from quiz.views import CategorySelectView
 from users.tests.factories import TeacherFactory, UserFactory
 
 User = get_user_model()
@@ -271,3 +272,9 @@ class CategorySelectViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "quizes/category_select.html")
         self.assertIsInstance(response.context["form"], CategorySelectForm)
+
+    def test_form_valid_redirects_to_quiz_add_with_category(self):
+        request = self.get_request(method="post", data=self.form_data)
+        response = CategorySelectView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/quiz/add?category_id=1")
