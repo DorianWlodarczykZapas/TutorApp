@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -243,3 +244,17 @@ class CategorySelectViewTests(TestCase):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username="testuser", password="password")
         self.form_data = {"category": 1}
+
+    def get_request(self, method="get", data=None, user=None):
+        user = user or self.user
+        if method == "post":
+            request = self.factory.post(self.url, data=data or {})
+        else:
+            request = self.factory.get(self.url)
+        request.user = user
+
+        setattr(request, "session", self.client.session)
+        messages = FallbackStorage(request)
+        setattr(request, "_messages", messages)
+
+        return request
