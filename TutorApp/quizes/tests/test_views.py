@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
+from quiz.forms import CategorySelectForm
 from quiz.models import Answer, Quiz
 from users.tests.factories import TeacherFactory, UserFactory
 
@@ -263,3 +264,10 @@ class CategorySelectViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertNotEqual(response.status_code, 200)
         self.assertIn("/login/", response.url)
+
+    def test_renders_template_on_get(self):
+        self.client.login(username="testuser", password="password")
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "quizes/category_select.html")
+        self.assertIsInstance(response.context["form"], CategorySelectForm)
