@@ -258,3 +258,8 @@ class CategorySelectViewTests(TestCase):
         setattr(request, "_messages", messages)
 
         return request
+
+    def test_redirects_if_not_logged_in(self):
+        response = self.client.get(self.url)
+        self.assertNotEqual(response.status_code, 200)
+        self.assertIn("/login/", response.url)
