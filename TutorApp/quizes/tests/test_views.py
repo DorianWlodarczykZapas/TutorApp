@@ -278,3 +278,10 @@ class CategorySelectViewTests(TestCase):
         response = CategorySelectView.as_view()(request)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/quiz/add?category_id=1")
+
+    def test_form_invalid_renders_with_errors(self):
+        request = self.get_request(method="post", data={})
+        response = CategorySelectView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("form", response.context_data)
+        self.assertTrue(response.context_data["form"].errors)
