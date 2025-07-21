@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.messages.storage.fallback import FallbackStorage
@@ -10,6 +10,8 @@ from quiz.forms import CategorySelectForm
 from quiz.models import Answer, Quiz
 from quiz.views import CategorySelectView
 from users.tests.factories import TeacherFactory, UserFactory
+
+from TutorApp.quizes.views import QuizCreateView
 
 User = get_user_model()
 
@@ -247,6 +249,30 @@ class QuizCreateViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertIn("formset", response.context)
         self.assertTrue(response.context["formset"].is_valid())
+
+    @patch("quiz.views.AnswerFormSet")
+    @patch("quiz.views.UserService")
+    def test_form_valid_saves_quiz_and_answers(
+        self, mock_user_service, mock_formset_class
+    ):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        mock_form = MagicMock()
+        mock_quiz = MagicMock()
+        mock_form.save.return_value = mock_quiz
+
+        mock_formset = MagicMock()
+        mock_formset.is_valid.return_value = True
+        mock_formset.save.return_value = None
+        mock_formset_class.return_value = mock_formset
+
+        response = QuizCreateView.as_view()(self.client.post(self.url).wsgi_request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, self.url)
+
+        mock_form.save.assert_called_once()
+        mock_formset.save.assert_called_once()
 
 
 class CategorySelectViewTests(TestCase):
