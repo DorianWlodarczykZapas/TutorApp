@@ -239,6 +239,15 @@ class QuizCreateViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form", "type", "Wybierz poprawną wartość.")
 
+    @patch("quiz.views.UserService")
+    def test_get_context_data_contains_formset(self, mock_user_service):
+        mock_user_service.return_value.is_teacher.return_value = True
+        self.client.login(username=self.teacher.username, password=self.password)
+
+        response = self.client.get(self.url)
+        self.assertIn("formset", response.context)
+        self.assertTrue(response.context["formset"].is_valid())
+
 
 class CategorySelectViewTests(TestCase):
     def setUp(self):
