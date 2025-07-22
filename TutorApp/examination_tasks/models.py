@@ -158,10 +158,9 @@ class MathMatriculationTrainingTasks(models.Model):
     level_type = models.IntegerField(
         choices=[(1, _("Easy")), (2, _("Intermediate")), (3, _("Advanced"))]
     )
-
     done_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        related_name="completed_matriculation_tasks",
+        related_name="completed_training_tasks",
         blank=True,
     )
 
