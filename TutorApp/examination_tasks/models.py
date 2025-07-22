@@ -24,6 +24,11 @@ MONTH_CHOICES = [
     (12, _("December")),
 ]
 
+LEVEL_CHOICES = [
+    (1, _("Basic")),
+    (2, _("Extended")),
+]
+
 
 class Exam(models.Model):
     year = models.IntegerField(choices=YEAR_CHOICES)
@@ -33,22 +38,17 @@ class Exam(models.Model):
     tasks_count = models.PositiveIntegerField(
         default=0, help_text=_("Number of tasks in this exam")
     )
-
-    LEVEL_CHOICES = [
-        (1, _("Basic")),
-        (2, _("Extended")),
-    ]
-
     level_type = models.IntegerField(
         choices=LEVEL_CHOICES, default=1, help_text=_("Exam level: basic or extended")
     )
 
     class Meta:
-        unique_together = ("year", "month")
-        ordering = ["-year", "-month"]
+
+        unique_together = ("year", "month", "level_type")
+        ordering = ["-year", "-month", "-level_type"]
 
     def __str__(self):
-        level_display = dict(self.LEVEL_CHOICES).get(self.level_type)
+        level_display = dict(LEVEL_CHOICES).get(self.level_type)
         month_display = dict(MONTH_CHOICES).get(self.month)
         return f"{month_display} {self.year} – {level_display.lower()}"
 
