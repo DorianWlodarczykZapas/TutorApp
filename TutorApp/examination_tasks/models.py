@@ -92,19 +92,33 @@ class MathMatriculationTasks(models.Model):
             (32, _("Non-standard tasks")),
         ]
     )
-    type = models.IntegerField(choices=[(1, _("Basic")), (2, _("Extended"))])
 
     content = models.TextField(
         blank=True,
         editable=False,
-        help_text="The extracted content of the task from the PDF file.",
+        help_text=_("The extracted content of the task from the PDF file."),
+    )
+
+    pages = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
+    )
+    answer = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text=_("The correct answer or solution to the task."),
+    )
+
+    completed_by = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="completed_exam_tasks",
+        blank=True,
     )
 
     def save(self, *args, **kwargs):
-
         if not self.content:
             MatriculationTaskService.populate_task_content(self)
-
         super().save(*args, **kwargs)
 
     class Meta:
