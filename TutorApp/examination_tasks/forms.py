@@ -51,6 +51,15 @@ class AddMatriculationTaskForm(forms.ModelForm):
         widget=forms.Select(attrs={"class": "form-control"}),
     )
 
+    pages = forms.CharField(
+        label=_("Page Number(s)"),
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": _("e.g. 5 or 5-6")}
+        ),
+        help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
+    )
+
     class Meta:
         model = MathMatriculationTasks
         fields = ["exam", "task_id", "category"]
