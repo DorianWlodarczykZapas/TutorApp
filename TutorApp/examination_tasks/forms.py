@@ -62,7 +62,7 @@ class AddMatriculationTaskForm(forms.ModelForm):
 
     class Meta:
         model = MathMatriculationTasks
-        fields = ["exam", "task_id", "category"]
+        fields = ["exam", "task_id", "category", "pages"]
 
     def clean(self):
         cleaned_data = super().clean()
