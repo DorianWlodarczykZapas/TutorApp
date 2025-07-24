@@ -389,3 +389,17 @@ class TaskViewTests(TestCase):
         self.client = Client()
         self.exam = ExamFactory(year=2022, month="May", level_type=1)
         self.task = MathMatriculationTasksFactory(exam=self.exam, task_id=1)
+
+    def test_task_view_valid_data(self):
+        url = reverse(
+            "examination_tasks:task_view",
+            kwargs={
+                "year": self.exam.year,
+                "month": self.exam.month,
+                "level": "B",
+                "task_id": self.task.task_id,
+            },
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.exam.tasks_link)
