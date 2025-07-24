@@ -403,3 +403,11 @@ class TaskViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.exam.tasks_link)
+
+    def test_task_view_exam_not_found(self):
+        url = reverse(
+            "examination_tasks:task_view",
+            kwargs={"year": 1900, "month": "January", "level": "B", "task_id": 1},
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
