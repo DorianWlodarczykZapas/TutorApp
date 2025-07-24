@@ -382,3 +382,10 @@ class ExamProgressViewTests(TestCase):
     def test_exam_progress_template_used(self):
         response = self.client.get(reverse("examination_tasks:exam_progress"))
         self.assertTemplateUsed(response, "exam_progress.html")
+
+
+class TaskViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.exam = ExamFactory(year=2022, month="May", level_type=1)
+        self.task = MathMatriculationTasksFactory(exam=self.exam, task_id=1)
