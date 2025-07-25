@@ -58,12 +58,6 @@ class BaseAnswerFormSet(BaseInlineFormSet):
                     code="no_correct_answer",
                 )
 
-            if correct_answers_count > 1:
-                raise forms.ValidationError(
-                    _("Only one answer can be marked as correct."),
-                    code="multiple_correct_answers",
-                )
-
 
 AnswerFormSet = inlineformset_factory(
     Quiz,
