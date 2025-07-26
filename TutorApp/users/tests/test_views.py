@@ -100,3 +100,9 @@ class LogoutViewTests(TestCase):
         response = self.client.post(self.url)
         self.assertRedirects(response, reverse("login"))
         self.assertFalse("_auth_user_id" in self.client.session)
+
+
+class HomeViewTests(TestCase):
+    def setUp(self):
+        self.url = reverse("users:home")
+        self.user = UserFactory()
