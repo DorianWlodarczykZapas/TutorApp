@@ -106,3 +106,8 @@ class HomeViewTests(TestCase):
     def setUp(self):
         self.url = reverse("users:home")
         self.user = UserFactory()
+
+    def test_home_view_redirects_when_not_logged_in(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(reverse("users:login"), response.url)
