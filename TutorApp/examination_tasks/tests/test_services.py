@@ -29,3 +29,9 @@ class TestMatriculationTaskService:
 
         result = MatriculationTaskService.filter_tasks(year=2021)
         assert result == "filtered"
+
+    def test_populate_task_content_missing_link(self):
+        task = Mock()
+        task.exam = None
+        MatriculationTaskService.populate_task_content(task)
+        assert "missing" in task.content.lower()
