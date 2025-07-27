@@ -1,4 +1,4 @@
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -20,3 +20,12 @@ class TestMatriculationTaskService:
     def test_get_missing_task_ids(self, mock_exam):
         result = MatriculationTaskService.get_missing_task_ids(mock_exam)
         assert result == [2, 4]
+
+    @patch("services.MathMatriculationTasks.objects.select_related")
+    def test_filter_tasks_by_year(self, mock_select_related):
+        mock_qs = Mock()
+        mock_select_related.return_value.all.return_value = mock_qs
+        mock_qs.filter.return_value = "filtered"
+
+        result = MatriculationTaskService.filter_tasks(year=2021)
+        assert result == "filtered"
