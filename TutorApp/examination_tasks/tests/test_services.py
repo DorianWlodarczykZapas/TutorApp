@@ -35,3 +35,27 @@ class TestMatriculationTaskService:
         task.exam = None
         MatriculationTaskService.populate_task_content(task)
         assert "missing" in task.content.lower()
+
+    @patch("services.fitz.open")
+    @patch("services.requests.get")
+    def test_populate_task_content_success(self, mock_get, mock_fitz):
+        # Mock task
+        task = Mock()
+        task.task_id = 1
+        task.exam = Mock()
+        task.exam.tasks_link = "http://example.com/sample.pdf"
+
+        mock_response = Mock()
+        mock_response.content = b"%PDF mock"
+        mock_response.raise_for_status = Mock()
+        mock_get.return_value = mock_response
+
+        mock_page = Mock()
+        mock_page.get_text.return_value = (
+            "Zadanie 1\nTo jest treść zadania\nZadanie 2\n"
+        )
+        mock_doc = [mock_page]
+        mock_fitz.return_value = mock_doc
+
+        MatriculationTaskService.populate_task_content(task)
+        assert "To jest treść zadania" in task.content
