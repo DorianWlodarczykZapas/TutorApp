@@ -59,3 +59,15 @@ class TestMatriculationTaskService:
 
         MatriculationTaskService.populate_task_content(task)
         assert "To jest treść zadania" in task.content
+
+    @patch("services.requests.get")
+    def test_populate_task_content_pdf_exception(self, mock_get):
+        task = Mock()
+        task.task_id = 1
+        task.exam = Mock()
+        task.exam.tasks_link = "http://invalid.url"
+
+        mock_get.side_effect = Exception("Connection error")
+
+        MatriculationTaskService.populate_task_content(task)
+        assert "error while processing pdf" in task.content.lower()
