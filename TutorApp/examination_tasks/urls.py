@@ -5,7 +5,7 @@ from .views import (
     ExamCreateView,
     ExamProgressView,
     SearchMatriculationTaskView,
-    TaskView,
+    TaskPdfView,
 )
 
 app_name = "examination_tasks"
@@ -19,9 +19,5 @@ urlpatterns = [
     ),
     path("tasks/search/", SearchMatriculationTaskView.as_view(), name="search_tasks"),
     path("progress/", ExamProgressView.as_view(), name="exam_progress"),
-    path(
-        "<str:level>/<int:year>/<int:month>/<int:task_id>/",
-        TaskView.as_view(),
-        name="task-view",
-    ),
+    path("tasks/<int:pk>/pdf/", TaskPdfView.as_view(), name="task-pdf"),
 ]
