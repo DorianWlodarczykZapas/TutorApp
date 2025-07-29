@@ -2,7 +2,6 @@ import typing
 from typing import TYPE_CHECKING, List, Optional
 
 import fitz
-import requests
 from django.db.models import Count, F
 from django.db.models.query import QuerySet
 from users.models import User
@@ -64,46 +63,6 @@ class MatriculationTaskService:
                 qs = qs.exclude(done_by=user)
 
         return qs
-
-    @staticmethod
-    def populate_task_content(task: "MathMatriculationTasks") -> None:
-        """
-        Extracts task content from a PDF and sets the `content` attribute
-        on the provided task instance. It does not save the instance.
-        In case of an error, the error message is stored in the content field.
-        """
-
-        if not task.exam or not task.exam.tasks_link:
-            task.content = "Error: Exam or tasks_link is missing."
-            return
-
-        url = task.exam.tasks_link
-        task_marker = f"Zadanie {task.task_id}"
-        next_task_marker = f"Zadanie {task.task_id + 1}"
-
-        try:
-            response = requests.get(url, timeout=15)
-            response.raise_for_status()
-            pdf_data = response.content
-
-            doc = fitz.open(stream=pdf_data, filetype="pdf")
-            full_text = "".join(page.get_text() for page in doc)
-            doc.close()
-
-            start_pos = full_text.find(task_marker)
-            if start_pos == -1:
-                task.content = f"Error: Task marker '{task_marker}' not found."
-                return
-
-            end_pos = full_text.find(next_task_marker, start_pos)
-
-            if end_pos == -1:
-                task.content = full_text[start_pos:].strip()
-            else:
-                task.content = full_text[start_pos:end_pos].strip()
-
-        except Exception as e:
-            task.content = f"Error while processing PDF: {str(e)}"
 
     @staticmethod
     def get_single_task_pdf(task_link: str, pages: list[int]) -> typing.Optional[bytes]:
