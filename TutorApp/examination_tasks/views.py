@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
 from users.views import TeacherRequiredMixin
 
 from .forms import AddMatriculationTaskForm, ExamForm, TaskSearchForm
@@ -151,7 +151,7 @@ LEVEL_MAP = {
 }
 
 
-class TaskView(TemplateView):
+class TaskPdfView(View):
     template_name = "exam_preview.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -175,3 +175,14 @@ class TaskView(TemplateView):
         context["tasks_link"] = exam.tasks_link
         context["task_id"] = task_id
         return context
+
+
+class TaskDisplayView(DetailView):
+    """
+    A view that renders an HTML page with a navbar,
+    embedding a PDF for a specific task.
+    """
+
+    model = MathMatriculationTasks
+    template_name = "exam_preview.html"
+    context_object_name = "task"

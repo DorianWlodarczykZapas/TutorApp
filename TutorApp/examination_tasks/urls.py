@@ -5,6 +5,7 @@ from .views import (
     ExamCreateView,
     ExamProgressView,
     SearchMatriculationTaskView,
+    TaskDisplayView,
     TaskPdfView,
 )
 
@@ -20,4 +21,5 @@ urlpatterns = [
     path("tasks/search/", SearchMatriculationTaskView.as_view(), name="search_tasks"),
     path("progress/", ExamProgressView.as_view(), name="exam_progress"),
     path("tasks/<int:pk>/pdf/", TaskPdfView.as_view(), name="task-pdf"),
+    path("tasks/<int:pk>/", TaskDisplayView.as_view(), name="task-display"),
 ]
