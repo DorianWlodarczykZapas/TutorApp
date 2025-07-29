@@ -4,8 +4,6 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .services import MatriculationTaskService
-
 current_year = datetime.now().year
 YEAR_CHOICES = [(y, str(y)) for y in range(2002, current_year + 1)]
 
@@ -33,8 +31,10 @@ LEVEL_CHOICES = [
 class Exam(models.Model):
     year = models.IntegerField(choices=YEAR_CHOICES)
     month = models.IntegerField(choices=MONTH_CHOICES)
-    tasks_link = models.URLField(_("Tasks link"))
-    solutions_link = models.URLField(_("Solutions link"))
+    tasks_link = models.FileField(upload_to="exam_pdfs/")
+    solutions_link = models.FileField(
+        upload_to="exam_answers_pdfs/", blank=True, null=True
+    )
     tasks_count = models.PositiveIntegerField(
         default=0, help_text=_("Number of tasks in this exam")
     )
@@ -115,11 +115,6 @@ class MathMatriculationTasks(models.Model):
         related_name="completed_exam_tasks",
         blank=True,
     )
-
-    def save(self, *args, **kwargs):
-        if not self.content:
-            MatriculationTaskService.populate_task_content(self)
-        super().save(*args, **kwargs)
 
     class Meta:
         unique_together = ("exam", "task_id")

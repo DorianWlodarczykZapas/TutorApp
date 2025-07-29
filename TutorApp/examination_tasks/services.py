@@ -69,14 +69,13 @@ class MatriculationTaskService:
         """
         The function from the given link to the PDF file extracts
         the pages specified as a list of integers and returns only those pages as bytes.
-
-        :param task_link: Path to the source PDF file.
-        :param pages: A list of page numbers to extract (1-based).
-        :return: A bytes object representing the new PDF, or None if an error occurs or no pages are found.
         """
+
         task = fitz.open()
         try:
+
             with fitz.open(task_link) as exam:
+
                 for page in pages:
                     page_index = page - 1
                     if 0 <= page_index < exam.page_count:
@@ -95,7 +94,9 @@ class MatriculationTaskService:
             print(f"Error: File not found under that path: {task_link}")
             return None
         except Exception as e:
-            print(f"An unexpected error has occurred: {e}")
+
+            print(f"An unexpected error has occurred inside PyMuPDF: {e}")
+            print(f"Typ błędu: {type(e)}")
             return None
         finally:
             task.close()

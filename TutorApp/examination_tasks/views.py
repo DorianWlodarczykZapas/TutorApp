@@ -11,7 +11,9 @@ from django.http import (
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
 from users.views import TeacherRequiredMixin
 
@@ -55,7 +57,7 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateV
 
     model = MathMatriculationTasks
     form_class = AddMatriculationTaskForm
-    template_name = "tasks/add_matriculation_task.html"
+    template_name = "examination_tasks/add_matriculation_task.html"
 
     def get_success_url(self) -> str:
         """
@@ -157,7 +159,7 @@ LEVEL_MAP = {
 
 
 class TaskPdfView(View):
-    template_name = "exam_preview.html"
+    template_name = "examination_tasks/exam_preview.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -189,10 +191,11 @@ class TaskDisplayView(DetailView):
     """
 
     model = MathMatriculationTasks
-    template_name = "exam_preview.html"
+    template_name = "examination_tasks/exam_preview.html"
     context_object_name = "task"
 
 
+@method_decorator(xframe_options_sameorigin, name="dispatch")
 class TaskPdfStreamView(View):
     """
      A view that generates and streams raw PDF data for a single, specific task.
@@ -204,7 +207,7 @@ class TaskPdfStreamView(View):
         task_pk = self.kwargs.get("pk")
         task = get_object_or_404(MathMatriculationTasks, pk=task_pk)
 
-        source_pdf_path = task.exam.tasks_link
+        source_pdf_path = task.exam.tasks_link.path
         pages_str = task.pages
 
         if not source_pdf_path:
