@@ -1,55 +1,20 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block title %}
-    {% trans "Zadanie" %} {{ task_id }}
+    {% trans "Task" %} {{ task.task_id }} | {{ task.exam }}
 {% endblock %}
 {% block content %}
-    <h1>{% trans "Zadanie" %} {{ task_id }}</h1>
-    <p>
-        <strong>{% trans "Wciśnij" %} CTRL+F {% trans "i wpisz" %} „Zadanie {{ task_id }}”</strong>
-    </p>
-    <div id="pdf-container"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <script>
-        const url = "{{ tasks_link }}";
-        const searchPhrase = "Zadanie {{ task_id }}";
-        const container = document.getElementById("pdf-container");
-
-        const loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
-            const totalPages = pdf.numPages;
-            let searchDone = false;
-
-            const renderPage = (pageNumber) => {
-                pdf.getPage(pageNumber).then((page) => {
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    const canvas = document.createElement("canvas");
-                    const context = canvas.getContext("2d");
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    container.appendChild(canvas);
-
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport,
-                    };
-                    page.render(renderContext).promise.then(() => {
-                        if (!searchDone) {
-                            page.getTextContent().then((textContent) => {
-                                const text = textContent.items.map((i) => i.str).join(" ");
-                                if (text.includes(searchPhrase)) {
-                                    canvas.scrollIntoView({ behavior: "smooth" });
-                                    searchDone = true;
-                                }
-                            });
-                        }
-                    });
-                });
-            };
-
-            for (let i = 1; i <= totalPages; i++) {
-                renderPage(i);
-            }
-        });
-    </script>
+    <div class="container mt-4">
+        <h1>{% trans "Task preview" %}: {{ task.task_id }}</h1>
+        <p class="lead">{% trans "Exam" %}: {{ task.exam }}</p>
+        <hr>
+        <div class="pdf-viewer-container"
+             style="height: 80vh;
+                    border: 1px solid #ccc">
+            <embed src="{% url 'exams:task-pdf-stream' pk=task.pk %}"
+                   type="application/pdf"
+                   width="100%"
+                   height="100%" />
+        </div>
+    </div>
 {% endblock %}
