@@ -99,3 +99,20 @@ class MatriculationTaskService:
             return None
         finally:
             task.close()
+
+    @staticmethod
+    def _parse_pages_string(pages_str: str) -> List[int]:
+        """
+         Private helper method to convert the string “5-7” or “5”
+        to a list of integers [5, 6, 7] or [5].
+        """
+        if not pages_str:
+            return []
+        try:
+            if "-" in pages_str:
+                start, end = map(int, pages_str.split("-"))
+                return list(range(start, end + 1))
+            else:
+                return [int(pages_str)]
+        except (ValueError, TypeError):
+            return []
