@@ -1,7 +1,7 @@
+import typing
 from typing import TYPE_CHECKING, List, Optional
 
 import fitz
-import requests
 from django.db.models import Count, F
 from django.db.models.query import QuerySet
 from users.models import User
@@ -65,41 +65,55 @@ class MatriculationTaskService:
         return qs
 
     @staticmethod
-    def populate_task_content(task: "MathMatriculationTasks") -> None:
+    def get_single_task_pdf(task_link: str, pages: list[int]) -> typing.Optional[bytes]:
         """
-        Extracts task content from a PDF and sets the `content` attribute
-        on the provided task instance. It does not save the instance.
-        In case of an error, the error message is stored in the content field.
+        The function from the given link to the PDF file extracts
+        the pages specified as a list of integers and returns only those pages as bytes.
         """
 
-        if not task.exam or not task.exam.tasks_link:
-            task.content = "Error: Exam or tasks_link is missing."
-            return
-
-        url = task.exam.tasks_link
-        task_marker = f"Zadanie {task.task_id}"
-        next_task_marker = f"Zadanie {task.task_id + 1}"
-
+        task = fitz.open()
         try:
-            response = requests.get(url, timeout=15)
-            response.raise_for_status()
-            pdf_data = response.content
 
-            doc = fitz.open(stream=pdf_data, filetype="pdf")
-            full_text = "".join(page.get_text() for page in doc)
-            doc.close()
+            with fitz.open(task_link) as exam:
 
-            start_pos = full_text.find(task_marker)
-            if start_pos == -1:
-                task.content = f"Error: Task marker '{task_marker}' not found."
-                return
+                for page in pages:
+                    page_index = page - 1
+                    if 0 <= page_index < exam.page_count:
+                        task.insert_pdf(exam, from_page=page_index, to_page=page_index)
+                    else:
+                        print(
+                            f"Warning: Page number {page_index} is not found and going to be missed."
+                        )
 
-            end_pos = full_text.find(next_task_marker, start_pos)
-
-            if end_pos == -1:
-                task.content = full_text[start_pos:].strip()
-            else:
-                task.content = full_text[start_pos:end_pos].strip()
-
+                if task.page_count > 0:
+                    pdf_bytes = task.tobytes(garbage=4, deflate=True)
+                    return pdf_bytes
+                else:
+                    return None
+        except FileNotFoundError:
+            print(f"Error: File not found under that path: {task_link}")
+            return None
         except Exception as e:
-            task.content = f"Error while processing PDF: {str(e)}"
+
+            print(f"An unexpected error has occurred inside PyMuPDF: {e}")
+            print(f"Typ błędu: {type(e)}")
+            return None
+        finally:
+            task.close()
+
+    @staticmethod
+    def _parse_pages_string(pages_str: str) -> List[int]:
+        """
+         Private helper method to convert the string “5-7” or “5”
+        to a list of integers [5, 6, 7] or [5].
+        """
+        if not pages_str:
+            return []
+        try:
+            if "-" in pages_str:
+                start, end = map(int, pages_str.split("-"))
+                return list(range(start, end + 1))
+            else:
+                return [int(pages_str)]
+        except (ValueError, TypeError):
+            return []
