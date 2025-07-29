@@ -3,7 +3,12 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
-from django.http import Http404, HttpResponseRedirect
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponseNotFound,
+    HttpResponseRedirect,
+)
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -186,3 +191,48 @@ class TaskDisplayView(DetailView):
     model = MathMatriculationTasks
     template_name = "exam_preview.html"
     context_object_name = "task"
+
+
+class TaskPdfStreamView(View):
+    """
+     A view that generates and streams raw PDF data for a single, specific task.
+    This view is intended to be called by the <embed> or <object> tag on an HTML page.
+    It supports GET requests on URLs of the form /examination_tasks/<int:pk>/pdf-stream/.
+    """
+
+    def get(self, request, *args, **kwargs):
+        task_pk = self.kwargs.get("pk")
+        task = get_object_or_404(MathMatriculationTasks, pk=task_pk)
+
+        source_pdf_path = task.exam.tasks_link
+        pages_str = task.pages
+
+        if not source_pdf_path:
+            return HttpResponseNotFound(_("No defined path to the PDF sheet."))
+
+        try:
+            pages_to_extract = MatriculationTaskService._parse_pages_string(pages_str)
+            if not pages_to_extract:
+                return HttpResponseNotFound(
+                    _("No pages to be cut have been defined for this task.")
+                )
+
+            pdf_bytes = MatriculationTaskService.get_single_task_pdf(
+                task_link=source_pdf_path, pages=pages_to_extract
+            )
+
+            if not pdf_bytes:
+                return HttpResponseNotFound(
+                    _("The PDF file for this task could not be generated.")
+                )
+
+            response = HttpResponse(pdf_bytes, content_type="application/pdf")
+            response["Content-Disposition"] = (
+                f'inline; filename="zadanie_{task.exam.year}_{task.task_id}.pdf"'
+            )
+            return response
+
+        except Exception:
+            return HttpResponse(
+                _("An internal server error has occurred. "), status=500
+            )
