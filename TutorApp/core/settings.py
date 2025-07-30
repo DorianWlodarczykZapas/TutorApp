@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "widget_tweaks",
+    "silk",
+    "debug_toolbar",
+    "django_extensions",
 ]
 
 INSTALLED_EXTENSIONS = [
@@ -53,6 +56,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "silk.middleware.SilkyMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -120,3 +125,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 MEDIA_URL = "/media/"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
