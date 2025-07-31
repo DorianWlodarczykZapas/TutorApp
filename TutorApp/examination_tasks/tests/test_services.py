@@ -71,3 +71,6 @@ class TestMatriculationTaskService:
 
         MatriculationTaskService.populate_task_content(task)
         assert "error while processing pdf" in task.content.lower()
+
+    def test_single_page(self):
+        assert MatriculationTaskService._parse_pages_string("5") == [5]
