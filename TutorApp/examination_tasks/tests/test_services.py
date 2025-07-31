@@ -77,3 +77,6 @@ class TestMatriculationTaskService:
 
     def test_page_range(self):
         assert MatriculationTaskService._parse_pages_string("2-4") == [2, 3, 4]
+
+    def test_empty_string(self):
+        assert MatriculationTaskService._parse_pages_string("") == []
