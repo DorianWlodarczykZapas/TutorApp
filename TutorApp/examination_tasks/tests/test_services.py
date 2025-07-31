@@ -80,3 +80,7 @@ class TestMatriculationTaskService:
 
     def test_empty_string(self):
         assert MatriculationTaskService._parse_pages_string("") == []
+
+    def test_invalid_input(self):
+        assert MatriculationTaskService._parse_pages_string("abc") == []
+        assert MatriculationTaskService._parse_pages_string(None) == []
