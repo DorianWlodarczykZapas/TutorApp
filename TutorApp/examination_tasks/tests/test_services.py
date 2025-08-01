@@ -97,3 +97,7 @@ class TestMatriculationTaskService:
         result = MatriculationTaskService.get_single_task_pdf("fake.pdf", [1, 2])
         assert result is not None
         mock_task_doc.insert_pdf.assert_called()
+
+    def test_file_not_found(self):
+        result = MatriculationTaskService.get_single_task_pdf("notfound.pdf", [1])
+        assert result is None
