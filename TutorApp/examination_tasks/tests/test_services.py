@@ -1,4 +1,4 @@
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -84,3 +84,16 @@ class TestMatriculationTaskService:
     def test_invalid_input(self):
         assert MatriculationTaskService._parse_pages_string("abc") == []
         assert MatriculationTaskService._parse_pages_string(None) == []
+
+    @patch("services.fitz.open")
+    def test_successful_pdf_extraction(self, mock_open):
+        mock_exam = MagicMock()
+        mock_exam.page_count = 3
+        mock_open.return_value.__enter__.return_value = mock_exam
+
+        mock_task_doc = MagicMock()
+        mock_open.side_effect = [mock_task_doc, mock_exam]
+
+        result = MatriculationTaskService.get_single_task_pdf("fake.pdf", [1, 2])
+        assert result is not None
+        mock_task_doc.insert_pdf.assert_called()
