@@ -101,3 +101,11 @@ class TestMatriculationTaskService:
     def test_file_not_found(self):
         result = MatriculationTaskService.get_single_task_pdf("notfound.pdf", [1])
         assert result is None
+
+    @patch("services.Exam.objects.annotate")
+    def test_queryset_filtering(self, mock_annotate):
+        mock_annotate.return_value.filter.return_value = "filtered_qs"
+
+        result = MatriculationTaskService.get_exams_with_available_tasks()
+        assert result == "filtered_qs"
+        mock_annotate.assert_called()
