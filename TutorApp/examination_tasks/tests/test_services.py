@@ -125,3 +125,6 @@ class TestMatriculationTaskService:
         assert result == mock_qs
         assert mock_qs.filter.call_count >= 4
         mock_qs.exclude.assert_called_once_with(done_by=user)
+
+    def test_parse_pages_string_reversed_range(self):
+        assert MatriculationTaskService._parse_pages_string("7-5") == []
