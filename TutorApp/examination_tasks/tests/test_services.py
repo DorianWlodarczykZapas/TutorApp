@@ -109,3 +109,19 @@ class TestMatriculationTaskService:
         result = MatriculationTaskService.get_exams_with_available_tasks()
         assert result == "filtered_qs"
         mock_annotate.assert_called()
+
+    @patch("services.MathMatriculationTasks.objects.select_related")
+    def test_filter_tasks_with_multiple_criteria(self, mock_select_related):
+        mock_qs = Mock()
+        mock_select_related.return_value.all.return_value = mock_qs
+
+        mock_qs.filter.return_value = mock_qs
+        mock_qs.exclude.return_value = mock_qs
+
+        user = Mock()
+        result = MatriculationTaskService.filter_tasks(
+            year=2020, month=6, level=2, category=3, is_done=False, user=user
+        )
+        assert result == mock_qs
+        assert mock_qs.filter.call_count >= 4
+        mock_qs.exclude.assert_called_once_with(done_by=user)
