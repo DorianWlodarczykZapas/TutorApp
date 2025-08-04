@@ -117,3 +117,42 @@ class MatriculationTaskService:
                 return [int(pages_str)]
         except (ValueError, TypeError):
             return []
+
+    @staticmethod
+    def get_single_task_text(task_link: str, pages: list[int]) -> typing.Optional[str]:
+        """
+         Extracts text from the specified PDF file from the pages listed
+        and returns it as a single string.
+        """
+        all_text_parts = []
+        try:
+            with fitz.open(task_link) as doc:
+                for page_num in pages:
+
+                    page_index = page_num - 1
+
+                    if 0 <= page_index < doc.page_count:
+
+                        page = doc.load_page(page_index)
+
+                        text = page.get_text()
+                        all_text_parts.append(text)
+                    else:
+                        print(
+                            f"Ostrzeżenie: Strona o numerze {page_num} nie została znaleziona i zostanie pominięta."
+                        )
+
+                if all_text_parts:
+                    return "".join(all_text_parts)
+                else:
+
+                    return None
+
+        except FileNotFoundError:
+            print(f"Błąd: Nie znaleziono pliku pod ścieżką: {task_link}")
+            return None
+        except Exception as e:
+
+            print(f"Wystąpił nieoczekiwany błąd podczas przetwarzania PDF: {e}")
+            print(f"Typ błędu: {type(e)}")
+            return None
