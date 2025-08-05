@@ -1,5 +1,5 @@
 import typing
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 import fitz
 from django.db.models import Count, F
@@ -157,15 +157,39 @@ class MatriculationTaskService:
             print(f"Typ błędu: {type(e)}")
             return None
 
-    def get_user_exam_completion(user: User, exam: Exam) -> int:
+    @staticmethod
+    def get_user_completion_map_for_exams(
+        user: "User", exams: List["Exam"]
+    ) -> Dict[int, int]:
         """
-        Returns the number of tasks that a given user has completed as part of a given exam.
+        Calculates the number of completed tasks for a given user across a list of exams.
+
+        This method is optimized to perform a single database query for all provided exams.
+
+        Args:
+            user: The user for whom to calculate completion.
+            exams: A list or queryset of Exam objects.
+
+        Returns:
+            A dictionary mapping each exam's ID to the number of tasks
+            completed by the user in that exam.
+            Example: {101: 5, 102: 12, 105: 0}
         """
-        if not user or not user.is_authenticated:
-            return 0
 
-        count = MathMatriculationTasks.objects.filter(
-            exam=exam, completed_by=user
-        ).count()
+        if not user or not user.is_authenticated or not exams:
+            return {}
 
-        return count
+        exam_ids = [exam.pk for exam in exams]
+
+        from .models import MathMatriculationTasks
+
+        completion_counts = (
+            MathMatriculationTasks.objects.filter(
+                exam_id__in=exam_ids, completed_by=user
+            )
+            .values("exam_id")
+            .annotate(num_completed=Count("id"))
+            .values_list("exam_id", "num_completed")
+        )
+
+        return dict(completion_counts)
