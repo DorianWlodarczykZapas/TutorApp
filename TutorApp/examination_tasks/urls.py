@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     AddMatriculationTaskView,
     ExamCreateView,
+    ExamListView,
     ExamProgressView,
     SearchMatriculationTaskView,
     TaskDisplayView,
@@ -28,4 +29,5 @@ urlpatterns = [
         TaskPdfStreamView.as_view(),
         name="task-pdf-stream",
     ),
+    path("exams/", ExamListView.as_view(), name="exam_list"),
 ]

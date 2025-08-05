@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block title %}
+    {% trans "Exam List" %}
+{% endblock title %}
+{% block content %}
+    <div class="main-content">
+        <div class="form-container exam-list-container">
+            <h1 class="form-title">{% trans "Available Exams" %}</h1>
+            <div class="table-responsive">
+                <table class="exam-table">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Lp." %}</th>
+                            <th>{% trans "Year" %}</th>
+                            <th>{% trans "Month" %}</th>
+                            <th>{% trans "Level" %}</th>
+                            <th>{% trans "Completion" %}</th>
+                            <th>{% trans "Action" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for exam in exams %}
+                            <tr class="{% cycle 'row-even' 'row-odd' %}">
+                                <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
+                                <td>{{ exam.year }}</td>
+                                <td>{{ exam.get_month_display }}</td>
+                                <td>{{ exam.get_level_type_display }}</td>
+                                <td>
+                                    {% if exam.tasks_count > 0 %}
+                                        {{ exam.user_completion }} / {{ exam.tasks_count }}
+                                    {% else %}
+                                        {% trans "N/A" %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="#" class="btn-submit btn-small">{% trans "Go to exam" %}</a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="no-exams-message">{% trans "No exams available at the moment." %}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if is_paginated %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; {% trans "first" %}</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
+                        {% endif %}
+                        <span class="current">
+                            {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
