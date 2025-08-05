@@ -210,7 +210,7 @@ body {
     color: black;
 }
 
-/* --- Stylowanie Select2 (dopasowane do form-input) --- */
+
 .select2-container--default .select2-selection--single {
     height: 76px;
     padding: 20px;
@@ -241,4 +241,166 @@ body {
     width: 100% !important;
 }
 
+.exam-list-container {
+    width: 95%;
+    max-width: 1200px;
+    padding: 40px;
+}
 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    border: 3px solid #e0e0e0;
+}
+
+.exam-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.exam-table thead tr {
+    background-color: #008374;
+    color: white;
+    text-align: left;
+}
+
+.exam-table th {
+    font-weight: 600;
+    padding: 20px 25px;
+    font-size: 20px;
+}
+
+
+
+.exam-table td {
+    padding: 20px 25px;
+    border-bottom: 2px solid #e0e0e0;
+    color: #333;
+}
+.exam-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+.exam-table tbody tr.row-odd {
+    background-color: #f8f9fa;
+}
+.exam-table tbody tr.row-even {
+    background-color: #ffffff;
+}
+
+
+.exam-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+
+.no-exams-message {
+    text-align: center;
+    padding: 40px 20px !important;
+    color: #6c757d;
+    font-style: italic;
+}
+
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    height: auto;
+    width: auto;
+    line-height: 1.5;
+    border-radius: 20px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    margin: 0;
+}
+
+
+.pagination {
+    margin-top: 40px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.pagination a {
+    color: #008374;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+}
+.pagination a:hover {
+    background-color: #008374;
+    color: white;
+    border-color: #008374;
+}
+.pagination .current {
+    font-weight: bold;
+    color: #333;
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 40px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-label {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #008374;
+    background-color: #fff;
+    border: 2px solid #008374;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #f0f8f7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+
+.filter-btn.active {
+    background-color: #008374;
+    color: white;
+    font-weight: 600;
+    box-shadow: none;
+}
+
+.col-center {
+    text-align: center;
+}

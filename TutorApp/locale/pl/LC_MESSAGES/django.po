@@ -115,8 +115,7 @@ msgid "Exam level: basic or extended"
 msgstr "Poziom egzaminu: podstawowy lub rozszerzony"
 
 #: examination_tasks/models.py:52
-msgid "Sequences"
-msgstr "Ciągi"
+
 
 #: examination_tasks/models.py:52
 msgid "Proofs (Special products)"
@@ -135,20 +134,17 @@ msgid "Quadratic function – optimization"
 msgstr "Funkcja kwadratowa – optymalizacja"
 
 #: examination_tasks/models.py:54
-msgid "Quadratic function"
-msgstr "Funkcja kwadratowa"
+
 
 #: examination_tasks/models.py:55
-msgid "Linear function"
-msgstr "Funkcja liniowa"
+
 
 #: examination_tasks/models.py:55
 msgid "Rational functions (x in denominator)"
 msgstr "Funkcje wymierne (x w mianowniku)"
 
 #: examination_tasks/models.py:56
-msgid "Analytical geometry"
-msgstr "Geometria analityczna"
+
 
 #: examination_tasks/models.py:56
 msgid "Prisms"
@@ -199,8 +195,7 @@ msgid "Powers"
 msgstr "Potęgowanie"
 
 #: examination_tasks/models.py:61
-msgid "Probability"
-msgstr "Prawdopodobieństwo"
+
 
 #: examination_tasks/models.py:62
 msgid "Percentages"
@@ -215,24 +210,20 @@ msgid "Equations with absolute value"
 msgstr "Równania z wartością bezwzględną"
 
 #: examination_tasks/models.py:63
-msgid "Statistics"
-msgstr "Statystyka"
+
 
 #: examination_tasks/models.py:64
 msgid "Geometric series"
 msgstr "Ciągi geometryczne"
 
 #: examination_tasks/models.py:64
-msgid "Trigonometry"
-msgstr "Trygonometria"
+
 
 #: examination_tasks/models.py:65
-msgid "Systems of equations"
-msgstr "Układy równań"
+
 
 #: examination_tasks/models.py:65
-msgid "Polynomials"
-msgstr "Wielomiany"
+
 
 #: examination_tasks/models.py:66
 msgid "Special product formulas"
@@ -243,44 +234,34 @@ msgid "Non-standard tasks"
 msgstr "Zadania niestandardowe"
 
 #: examination_tasks/models.py:83
-msgid "Real numbers"
-msgstr "Liczby rzeczywiste"
+
 
 #: examination_tasks/models.py:83
-msgid "Language of mathematics"
-msgstr "Język matematyki"
+
 
 #: examination_tasks/models.py:84
-msgid "Functions"
-msgstr "Funkcje"
+
 
 #: examination_tasks/models.py:85
-msgid "Planimetry"
-msgstr "Planimetria"
+
 
 #: examination_tasks/models.py:87
-msgid "Measurable function"
-msgstr "Funkcja mierzalna"
+
 
 #: examination_tasks/models.py:88
-msgid "Planimetry circles"
-msgstr "Planimetria – okręgi"
+
 
 #: examination_tasks/models.py:88
-msgid "Exponential and logarithmic functions"
-msgstr "Funkcje wykładnicze i logarytmiczne"
+
 
 #: examination_tasks/models.py:89
-msgid "Trigonometric functions"
-msgstr "Funkcje trygonometryczne"
+
 
 #: examination_tasks/models.py:90
-msgid "Differential calculus"
-msgstr "Rachunek różniczkowy"
+
 
 #: examination_tasks/models.py:91
-msgid "Stereometry"
-msgstr "Stereometria"
+
 
 #: examination_tasks/models.py:96
 msgid "Easy"
@@ -562,3 +543,27 @@ msgstr "Prawdopodobieństwo"
 
 msgid "Stereometry"
 msgstr "Stereometria"
+
+msgid "Available Exams"
+msgstr "Dostępne Egzaminy"
+
+msgid "Level"
+msgstr "Poziom"
+
+msgid "Not started"
+msgstr "Nierozpoczęte"
+
+msgid "In progress"
+msgstr "W trakcie"
+
+msgid "Completed"
+msgstr "Ukończone"
+
+msgid "No."
+msgstr "Lp."
+
+msgid "Completion"
+msgstr "Progres"
+
+msgid "Go to exam"
+msgstr "Przejdź do egzaminu"
