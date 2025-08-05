@@ -156,3 +156,16 @@ class MatriculationTaskService:
             print(f"Wystąpił nieoczekiwany błąd podczas przetwarzania PDF: {e}")
             print(f"Typ błędu: {type(e)}")
             return None
+
+    def get_user_exam_completion(user: User, exam: Exam) -> int:
+        """
+        Returns the number of tasks that a given user has completed as part of a given exam.
+        """
+        if not user or not user.is_authenticated:
+            return 0
+
+        count = MathMatriculationTasks.objects.filter(
+            exam=exam, completed_by=user
+        ).count()
+
+        return count
