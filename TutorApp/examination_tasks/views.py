@@ -239,3 +239,39 @@ class TaskPdfStreamView(View):
             return HttpResponse(
                 _("An internal server error has occurred. "), status=500
             )
+
+
+class ExamListView(LoginRequiredMixin, ListView):
+    """
+    Displays a list of all available exams, enriching them with the user's
+    completion status fetched from the ExamService.
+    """
+
+    model = Exam
+    template_name = "examination_tasks/exam_list.html"
+    context_object_name = "exams"
+    paginate_by = 10
+
+    def get_queryset(self):
+        """
+        Returns all exams. The default ordering from the model's Meta class is used.
+        """
+        return Exam.objects.all()
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        """
+        Adds user-specific completion data to each exam object.
+        """
+
+        context = super().get_context_data(**kwargs)
+        exams_on_page = context["exams"]
+
+        completion_map = MatriculationTaskService.get_user_completion_map_for_exams(
+            user=self.request.user, exams=exams_on_page
+        )
+
+        for exam in exams_on_page:
+            exam.user_completion = completion_map.get(exam.pk, 0)
+
+        context["exams"] = exams_on_page
+        return context
