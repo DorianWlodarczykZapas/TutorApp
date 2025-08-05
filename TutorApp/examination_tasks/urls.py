@@ -5,6 +5,7 @@ from .views import (
     ExamCreateView,
     ExamListView,
     ExamProgressView,
+    ExamTaskListView,
     SearchMatriculationTaskView,
     TaskDisplayView,
     TaskPdfStreamView,
@@ -30,4 +31,7 @@ urlpatterns = [
         name="task-pdf-stream",
     ),
     path("exams/", ExamListView.as_view(), name="exam_list"),
+    path(
+        "exams/<int:exam_pk>/tasks/", ExamTaskListView.as_view(), name="exam_task_list"
+    ),
 ]
