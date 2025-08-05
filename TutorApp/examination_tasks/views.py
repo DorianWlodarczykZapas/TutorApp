@@ -309,3 +309,42 @@ class ExamListView(LoginRequiredMixin, ListView):
 
         context["exams"] = exams_on_page
         return context
+
+
+class ExamTaskListView(LoginRequiredMixin, ListView):
+    """
+    Displays a list of all tasks for a specific exam, along with the
+    user's completion status for each task.
+    """
+
+    model = MathMatriculationTasks
+    template_name = "examination_tasks/exam_task_list.html"
+    context_object_name = "tasks"
+    paginate_by = 15
+
+    def get_queryset(self):
+        """
+        Returns the tasks that belong only to the specific exam
+        identified by the 'exam_pk' in the URL.
+        """
+        self.exam = get_object_or_404(Exam, pk=self.kwargs["exam_pk"])
+
+        return self.model.objects.filter(exam=self.exam).order_by("task_id")
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        """
+        Adds the parent exam object and the task completion map to the context.
+        """
+        context = super().get_context_data(**kwargs)
+
+        context["exam"] = self.exam
+
+        task_completion_map = MatriculationTaskService.get_task_completion_map(
+            user=self.request.user, exam=self.exam
+        )
+
+        for task in context["tasks"]:
+
+            task.is_completed_by_user = task_completion_map.get(task.task_id, False)
+
+        return context
