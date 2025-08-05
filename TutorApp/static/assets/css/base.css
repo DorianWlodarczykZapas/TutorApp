@@ -404,3 +404,87 @@ body {
 .col-center {
     text-align: center;
 }
+
+.back-link-container {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+
+.col-left {
+    text-align: left;
+}
+
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 15px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.status-completed {
+    background-color: #28a745;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.4);
+}
+
+.status-badge.status-not-completed {
+    background-color: #6c757d;
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+
+.task-table .col-left {
+    white-space: normal;
+}
+
+
+.exam-table td {
+    vertical-align: middle;
+}
+
+
+
+.col-left {
+    text-align: left;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 15px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.status-completed {
+    background-color: #28a745;
+}
+
+.status-badge.status-not-completed {
+    background-color: #6c757d;
+}
+
+
+.task-table .col-left {
+    white-space: normal;
+}
+
+
+.exam-table td {
+    vertical-align: middle;
+}
+
+.task-list-title {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 20px;
+    text-align: left;
+}

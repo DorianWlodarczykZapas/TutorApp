@@ -1,5 +1,5 @@
 import typing
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional, Set
 
 import fitz
 from django.db.models import Count, F
@@ -193,3 +193,41 @@ class MatriculationTaskService:
         )
 
         return dict(completion_counts)
+
+    @staticmethod
+    def get_task_completion_map(user: "User", exam: "Exam") -> Dict[int, bool]:
+        """
+        Creates a map of task completion statuses for a specific user and exam.
+
+        This method is optimized to fetch all completed tasks for a user
+        in a single database query.
+
+        Args:
+            user: The user for whom to check the completion status.
+            exam: The specific Exam instance to check tasks against.
+
+        Returns:
+            A dictionary where keys are the `task_id`s from the MathMatriculationTasks
+            model, and values are booleans (True if the user has completed the task,
+            False otherwise).
+            Example: {1: True, 2: False, 3: True, ...}
+        """
+        if not user or not user.is_authenticated:
+            return {}
+
+        from .models import MathMatriculationTasks
+
+        completed_task_ids: Set[int] = set(
+            MathMatriculationTasks.objects.filter(
+                exam=exam, completed_by=user
+            ).values_list("task_id", flat=True)
+        )
+
+        all_tasks_in_exam = exam.tasks.all()
+
+        task_status_map: Dict[int, bool] = {
+            task.task_id: (task.task_id in completed_task_ids)
+            for task in all_tasks_in_exam
+        }
+
+        return task_status_map
