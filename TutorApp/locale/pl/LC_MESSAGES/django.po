@@ -567,3 +567,19 @@ msgstr "Progres"
 
 msgid "Go to exam"
 msgstr "Przejdź do egzaminu"
+
+msgid "Task No."
+msgstr "Numer zadania"
+
+msgid "Category"
+msgstr "Kategoria"
+
+msgid "To Do"
+msgstr "Do zrobienia"
+
+msgid "Go to Task"
+msgstr "Przejdź do zadania"
+
+msgid "Back to Exam List"
+
+msgstr "Powrót do listy egzaminów"
