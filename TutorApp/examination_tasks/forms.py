@@ -60,9 +60,18 @@ class AddMatriculationTaskForm(forms.ModelForm):
         help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
     )
 
+    answer = forms.CharField(
+        label=_("Answer Page Number(s)"),
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": _("e.g. 15 or 15-16")}
+        ),
+        help_text=_("Page number(s) for the answer in the solutions PDF."),
+    )
+
     class Meta:
         model = MathMatriculationTasks
-        fields = ["exam", "task_id", "category", "pages"]
+        fields = ["exam", "task_id", "category", "pages", "answer"]
 
     def clean(self):
         cleaned_data = super().clean()
