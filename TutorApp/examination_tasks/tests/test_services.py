@@ -128,3 +128,20 @@ class TestMatriculationTaskService:
 
     def test_parse_pages_string_reversed_range(self):
         assert MatriculationTaskService._parse_pages_string("7-5") == []
+
+    @patch("services.MathMatriculationTasks.objects.filter")
+    def test_get_user_completion_map_for_exams(mock_filter):
+        mock_user = Mock(is_authenticated=True)
+        mock_exam1 = Mock(pk=1)
+        mock_exam2 = Mock(pk=2)
+        mock_queryset = Mock()
+        mock_queryset.values.return_value.annotate.return_value.values_list.return_value = [
+            (1, 3),
+            (2, 5),
+        ]
+        mock_filter.return_value = mock_queryset
+
+        result = MatriculationTaskService.get_user_completion_map_for_exams(
+            mock_user, [mock_exam1, mock_exam2]
+        )
+        assert result == {1: 3, 2: 5}
