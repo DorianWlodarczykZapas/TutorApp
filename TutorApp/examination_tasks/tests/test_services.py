@@ -145,3 +145,17 @@ class TestMatriculationTaskService:
             mock_user, [mock_exam1, mock_exam2]
         )
         assert result == {1: 3, 2: 5}
+
+    @patch("services.MathMatriculationTasks.objects.filter")
+    def test_get_task_completion_map(mock_filter):
+        mock_user = Mock(is_authenticated=True)
+        mock_exam = Mock()
+        mock_exam.tasks.all.return_value = [
+            Mock(task_id=1),
+            Mock(task_id=2),
+            Mock(task_id=3),
+        ]
+        mock_filter.return_value.values_list.return_value = [1, 3]
+
+        result = MatriculationTaskService.get_task_completion_map(mock_user, mock_exam)
+        assert result == {1: True, 2: False, 3: True}
