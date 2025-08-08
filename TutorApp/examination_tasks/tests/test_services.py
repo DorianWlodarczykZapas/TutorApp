@@ -159,3 +159,15 @@ class TestMatriculationTaskService:
 
         result = MatriculationTaskService.get_task_completion_map(mock_user, mock_exam)
         assert result == {1: True, 2: False, 3: True}
+
+    @patch("services.fitz.open")
+    def test_get_single_task_text_success(mock_open):
+        mock_doc = Mock()
+        mock_page = Mock()
+        mock_page.get_text.return_value = "Test content"
+        mock_doc.page_count = 2
+        mock_doc.load_page.return_value = mock_page
+        mock_open.return_value.__enter__.return_value = mock_doc
+
+        result = MatriculationTaskService.get_single_task_text("fake.pdf", [1])
+        assert result == "Test content"
