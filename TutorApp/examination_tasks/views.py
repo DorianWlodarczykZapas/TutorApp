@@ -60,6 +60,20 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateV
     form_class = AddMatriculationTaskForm
     template_name = "examination_tasks/add_matriculation_task.html"
 
+    def form_valid(self, form):
+
+        task_link = form.cleaned_data.get("task_link")
+        pages = form.cleaned_data.get("pages")
+
+        extracted_text = MatriculationTaskService.get_single_task_text(task_link, pages)
+
+        if extracted_text:
+            form.instance.task_text = extracted_text
+        else:
+            messages.warning(self.request, _("Nie udało się wyodrębnić tekstu z PDF."))
+
+        return super().form_valid(form)
+
     def get_success_url(self) -> str:
         """
                Returns the URL to which the user will be redirected on success.
