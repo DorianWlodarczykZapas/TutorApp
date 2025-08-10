@@ -112,6 +112,8 @@ class MatriculationTaskService:
         try:
             if "-" in pages_str:
                 start, end = map(int, pages_str.split("-"))
+                if start > end:
+                    return []
                 return list(range(start, end + 1))
             else:
                 return [int(pages_str)]
