@@ -1,4 +1,5 @@
 from typing import Dict, Optional
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.http import QueryDict
@@ -8,6 +9,7 @@ from django.urls import reverse
 from ...users.factories import UserFactory
 from ..factories import ExamFactory, MathMatriculationTasksFactory
 from ..models import Exam, MathMatriculationTasks
+from ..services import MatriculationTaskService
 from ..views import SearchMatriculationTaskView
 
 User = get_user_model()
@@ -411,3 +413,8 @@ class TaskViewTests(TestCase):
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+    @patch("services.fitz.open", side_effect=FileNotFoundError)
+    def test_get_single_task_text_file_not_found(mock_open):
+        result = MatriculationTaskService.get_single_task_text("notfound.pdf", [1])
+        assert result is None
