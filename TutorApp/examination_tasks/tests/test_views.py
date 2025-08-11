@@ -1,5 +1,5 @@
 from typing import Dict, Optional
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from django.contrib.auth import get_user_model
 from django.http import QueryDict
@@ -417,4 +417,13 @@ class TaskViewTests(TestCase):
     @patch("services.fitz.open", side_effect=FileNotFoundError)
     def test_get_single_task_text_file_not_found(mock_open):
         result = MatriculationTaskService.get_single_task_text("notfound.pdf", [1])
+        assert result is None
+
+    @patch("services.fitz.open")
+    def test_get_single_task_text_invalid_page_number(mock_open):
+        mock_doc = Mock()
+        mock_doc.page_count = 1
+        mock_open.return_value.__enter__.return_value = mock_doc
+
+        result = MatriculationTaskService.get_single_task_text("fake.pdf", [99])
         assert result is None
