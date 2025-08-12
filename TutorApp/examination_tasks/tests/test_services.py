@@ -171,3 +171,8 @@ class TestMatriculationTaskService:
 
         result = MatriculationTaskService.get_single_task_text("fake.pdf", [1])
         assert result == "Test content"
+
+    @patch("services.fitz.open", side_effect=FileNotFoundError)
+    def test_get_single_task_text_file_not_found(mock_open):
+        result = MatriculationTaskService.get_single_task_text("notfound.pdf", [1])
+        assert result is None
