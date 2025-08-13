@@ -488,3 +488,40 @@ body {
     padding-bottom: 20px;
     text-align: left;
 }
+
+.form-file {
+    width: 100%;
+    height: 76px;
+    border-radius: 30px;
+    border: 5px solid #008374;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.form-file::-webkit-file-upload-button {
+    background-color: #008374;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.form-file::-webkit-file-upload-button:hover {
+    background-color: #00695c;
+}
+
+@media (max-width: 768px) {
+    .form-file {
+        height: 60px;
+        font-size: 18px;
+        padding: 10px 15px;
+    }
+}
