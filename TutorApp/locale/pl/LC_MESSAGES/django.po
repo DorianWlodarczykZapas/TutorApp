@@ -583,3 +583,18 @@ msgstr "Przejdź do zadania"
 msgid "Back to Exam List"
 
 msgstr "Powrót do listy egzaminów"
+
+msgid "Task"
+msgstr "Zadanie"
+
+msgid "Task preview"
+msgstr "Podgląd zadania"
+
+msgid "Exam"
+msgstr "Egzamin"
+
+msgid "Task content"
+msgstr "Treść zadania"
+
+msgid "To print or download, hover over the document and use the toolbar that appears in the corner, or right-click on it."
+msgstr "Aby wydrukować lub pobrać, najedź myszką na dokument i użyj paska narzędzi, który pojawi się w rogu, lub kliknij prawym przyciskiem myszy."
