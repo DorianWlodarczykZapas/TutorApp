@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block title %}
-    {% trans "Zadanie" %} {{ task.task_id }} | {{ task.exam }}
+    {% trans "Task" %} {{ task.task_id }} | {{ task.exam }}
 {% endblock %}
 {% block content %}
     <div class="container mt-4">
-        <h1>{% trans "Podgląd zadania" %}: {{ task.task_id }}</h1>
-        <p class="lead">{% trans "Egzamin" %}: {{ task.exam }}</p>
+        <h1>{% trans "Task preview" %}: {{ task.task_id }}</h1>
+        <p class="lead">{% trans "Exam" %}: {{ task.exam }}</p>
         {% if task.content %}
             <div class="mb-4 p-3 border rounded bg-light">
-                <strong>{% trans "Treść zadania" %}:</strong>
+                <strong>{% trans "Task content" %}:</strong>
                 <p>{{ task.content|linebreaks }}</p>
             </div>
         {% endif %}
         <div class="alert alert-info my-3">
             <i class="fas fa-info-circle"></i>
-            {% trans "Aby wydrukować lub pobrać, najedź myszką na dokument i użyj paska narzędzi, który pojawi się w rogu, lub kliknij prawym przyciskiem myszy." %}
+            {% trans "To print or download, hover over the document and use the toolbar that appears in the corner, or right-click on it." %}
         </div>
         <hr>
         <div class="pdf-viewer-container"
