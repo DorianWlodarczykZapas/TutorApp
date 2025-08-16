@@ -176,3 +176,9 @@ class TestMatriculationTaskService:
     def test_get_single_task_text_file_not_found(mock_open):
         result = MatriculationTaskService.get_single_task_text("notfound.pdf", [1])
         assert result is None
+
+    def test_get_missing_task_ids_no_missing(mock_exam):
+        mock_exam.tasks_count = 3
+        mock_exam.tasks.values_list.return_value = [(1,), (2,), (3,)]
+        result = MatriculationTaskService.get_missing_task_ids(mock_exam)
+        assert result == []
