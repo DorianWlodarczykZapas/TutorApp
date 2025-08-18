@@ -23,13 +23,13 @@
                 <div class="logo">Appname</div>
                 <nav class="nav-links">
                     {% if user.is_authenticated %}
-                        <a href="#">Videos</a>
-                        <a href="#">Calendar</a>
-                        <a href="#">Training tasks</a>
-                        <a href="#">Plans</a>
-                        <a href="#">Examination tasks</a>
-                        <a href="{% url 'quizes:category' %}">Quizes</a>
-                        <a href="{% url 'users:logout' %}">Logout</a>
+                        <a href="#">{% trans "Videos" %}</a>
+                        <a href="#">{% trans "Calendar" %}</a>
+                        <a href="#">{% trans "Training Tasks" %}</a>
+                        <a href="#">{% trans "Plans" %}</a>
+                        <a href="#">{% trans "Examination Tasks" %}</a>
+                        <a href="{% url 'quizes:category' %}">{% trans "Quizes" %}</a>
+                        <a href="{% url 'users:logout' %}">{% trans "Logout" %}</a>
                     {% else %}
                         <a href="#">{% trans "Home" %}</a>
                         <a href="#">{% trans "About" %}</a>

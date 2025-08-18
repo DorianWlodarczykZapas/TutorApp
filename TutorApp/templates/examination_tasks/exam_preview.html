@@ -13,6 +13,7 @@
                 <p>{{ task.content|linebreaks }}</p>
             </div>
         {% endif %}
+        cd Tut
         <hr>
         <div style="position:relative; height:80vh; border:1px solid #ccc;">
             <embed src="{% url 'examination_tasks:task-pdf-stream' pk=task.pk %}"
