@@ -525,3 +525,54 @@ body {
         padding: 10px 15px;
     }
 }
+
+.task-header {
+
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    text-align: center;
+
+
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.pdf-viewer-container {
+    height: 85vh;
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+
+
+.pdf-embed-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.pdf-overlay-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.main-content:has(.task-preview-page) {
+    display: block;
+    min-height: auto;
+    padding-top: 2rem;
+}
+
+
+
+
