@@ -9,6 +9,7 @@ from django.http import (
     HttpResponse,
     HttpResponseNotFound,
     HttpResponseRedirect,
+    JsonResponse,
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -208,6 +209,13 @@ class TaskDisplayView(DetailView):
     model = MathMatriculationTasks
     template_name = "examination_tasks/exam_preview.html"
     context_object_name = "task"
+
+    def post(self, request, *args, **kwargs):
+        task = self.get_object()
+
+        status = MatriculationTaskService.toggle_completed(task, request.user)
+
+        return JsonResponse({"completed": status})
 
 
 @method_decorator(xframe_options_sameorigin, name="dispatch")
