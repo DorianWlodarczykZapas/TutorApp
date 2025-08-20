@@ -194,3 +194,22 @@ class MatriculationTaskService:
         }
 
         return task_status_map
+
+    @staticmethod
+    def toggle_completed(task: "MathMatriculationTasks", user: "User") -> bool:
+        """
+        Switches the task completion status for the user.
+
+        Args:
+            task (MathMatriculationTasks): Exam task.
+            user (User): User.
+
+        Returns:
+            bool: True if the task is marked as completed, False if it is cancelled.
+        """
+        if task.completed_by.filter(id=user.id).exists():
+            task.completed_by.remove(user)
+            return False
+        else:
+            task.completed_by.add(user)
+            return True
