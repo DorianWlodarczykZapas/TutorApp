@@ -124,34 +124,98 @@ class MathMatriculationTasks(models.Model):
         return f"{self.exam} – Task {self.task_id}"
 
 
-class MathMatriculationTrainingTasks(models.Model):
-    category_type = models.IntegerField(
-        choices=[
-            (1, _("Real numbers")),
-            (2, _("Language of mathematics")),
-            (3, _("Systems of equations")),
-            (4, _("Functions")),
-            (5, _("Linear function")),
-            (6, _("Planimetry")),
-            (7, _("Quadratic function")),
-            (8, _("Polynomials")),
-            (9, _("Measurable function")),
-            (10, _("Trigonometry")),
-            (11, _("Planimetry circles")),
-            (12, _("Exponential and logarithmic functions")),
-            (13, _("Trigonometric functions")),
-            (14, _("Analytical geometry")),
-            (15, _("Sequences")),
-            (16, _("Differential calculus")),
-            (17, _("Statistics")),
-            (18, _("Probability")),
-            (19, _("Stereometry")),
-        ]
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name="Nazwa kategorii")
+
+    class Meta:
+        verbose_name = "Kategoria"
+        verbose_name_plural = "Kategorie"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class TaskSource(models.Model):
+    class SchoolLevel(models.TextChoices):
+        PRIMARY = "primary", _("Szkoła podstawowa")
+        SECONDARY = "secondary", _("Szkoła średnia")
+
+    title = models.CharField(max_length=255, verbose_name="Tytuł")
+    author = models.CharField(max_length=255, blank=True, verbose_name="Autor")
+    publication_year = models.IntegerField(
+        null=True, blank=True, verbose_name="Rok wydania"
     )
-    task_content = models.TextField()
-    answer = models.CharField(max_length=100)
+    school_level = models.CharField(
+        max_length=20,
+        choices=SchoolLevel.choices,
+        default=SchoolLevel.SECONDARY,
+        verbose_name="Poziom szkoły",
+    )
+
+    class Meta:
+        verbose_name = "Źródło zadań"
+        verbose_name_plural = "Źródła zadań"
+        ordering = ["title"]
+
+    def __str__(self):
+        return self.title
+
+
+class Chapter(models.Model):
+    source = models.ForeignKey(
+        TaskSource,
+        on_delete=models.CASCADE,
+        related_name="chapters",
+        verbose_name="Źródło",
+    )
+    title = models.CharField(max_length=255, verbose_name="Tytuł rozdziału")
+    chapter_number = models.CharField(
+        max_length=20, blank=True, verbose_name="Numer rozdziału"
+    )
+
+    class Meta:
+        verbose_name = "Rozdział"
+        verbose_name_plural = "Rozdziały"
+        unique_together = ("source", "title")
+        ordering = ["source", "chapter_number"]
+
+    def __str__(self):
+        return f"{self.source.title} - Rozdział: {self.title}"
+
+
+class MathMatriculationTrainingTask(models.Model):
+    class LevelType(models.IntegerChoices):
+        EASY = 1, _("Łatwy")
+        INTERMEDIATE = 2, _("Średni")
+        ADVANCED = 3, _("Trudny")
+
+    task_content = models.TextField(verbose_name="Treść zadania")
+    answer = models.CharField(max_length=255, verbose_name="Odpowiedź")
+
+    image = models.ImageField(
+        upload_to="tasks_images/",
+        null=True,
+        blank=True,
+        verbose_name="Rysunek do zadania (opcjonalnie)",
+    )
+
+    chapter = models.ForeignKey(
+        Chapter,
+        on_delete=models.SET_NULL,
+        related_name="tasks",
+        verbose_name="Rozdział (opcjonalnie)",
+        null=True,
+        blank=True,
+    )
+    categories = models.ManyToManyField(
+        Category, related_name="tasks", verbose_name="Kategorie tematyczne", blank=True
+    )
+
     level_type = models.IntegerField(
-        choices=[(1, _("Easy")), (2, _("Intermediate")), (3, _("Advanced"))]
+        choices=LevelType.choices,
+        default=LevelType.INTERMEDIATE,
+        verbose_name="Poziom trudności",
     )
     done_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
@@ -159,5 +223,9 @@ class MathMatriculationTrainingTasks(models.Model):
         blank=True,
     )
 
+    class Meta:
+        verbose_name = "Zadanie treningowe"
+        verbose_name_plural = "Zadania treningowe"
+
     def __str__(self):
-        return f"{self.get_category_type_display()} – Level {self.level_type}"
+        return self.task_content[:80] + "..."
