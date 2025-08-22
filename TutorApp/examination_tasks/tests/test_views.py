@@ -436,3 +436,12 @@ class TaskDisplayViewTests(TestCase):
         self.exam = ExamFactory()
         self.task = MathMatriculationTasksFactory(exam=self.exam)
         self.client.login(username=self.user.username, password="pass123")
+
+    @patch("examination_tasks.views.MatriculationTaskService.toggle_completed")
+    def test_post_toggles_task_completion(self, mock_toggle):
+        mock_toggle.return_value = True
+        url = reverse("examination_tasks:task_detail", args=[self.task.pk])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {"completed": True})
+        mock_toggle.assert_called_once_with(self.task, self.user)
