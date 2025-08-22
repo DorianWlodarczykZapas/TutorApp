@@ -427,3 +427,12 @@ class TaskViewTests(TestCase):
 
         result = MatriculationTaskService.get_single_task_text("fake.pdf", [99])
         assert result is None
+
+
+class TaskDisplayViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = UserFactory(password="pass123")
+        self.exam = ExamFactory()
+        self.task = MathMatriculationTasksFactory(exam=self.exam)
+        self.client.login(username=self.user.username, password="pass123")
