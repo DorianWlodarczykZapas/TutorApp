@@ -445,3 +445,12 @@ class TaskDisplayViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {"completed": True})
         mock_toggle.assert_called_once_with(self.task, self.user)
+
+
+class TaskPdfStreamViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = UserFactory(password="pass123")
+        self.exam = ExamFactory()
+        self.task = MathMatriculationTasksFactory(exam=self.exam, pages="1")
+        self.client.login(username=self.user.username, password="pass123")
