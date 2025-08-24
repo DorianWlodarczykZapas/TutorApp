@@ -454,3 +454,13 @@ class TaskPdfStreamViewTests(TestCase):
         self.exam = ExamFactory()
         self.task = MathMatriculationTasksFactory(exam=self.exam, pages="1")
         self.client.login(username=self.user.username, password="pass123")
+
+    @patch("examination_tasks.views.MatriculationTaskService.get_single_task_pdf")
+    @patch("examination_tasks.views.MatriculationTaskService._parse_pages_string")
+    def test_pdf_stream_success(self, mock_parse, mock_get_pdf):
+        mock_parse.return_value = [1]
+        mock_get_pdf.return_value = b"%PDF-1.4 test content"
+        url = reverse("examination_tasks:task_pdf_stream", args=[self.task.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/pdf")
