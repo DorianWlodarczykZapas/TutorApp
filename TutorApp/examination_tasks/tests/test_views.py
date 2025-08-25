@@ -464,3 +464,12 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/pdf")
+
+    @patch(
+        "examination_tasks.views.MatriculationTaskService._parse_pages_string",
+        return_value=None,
+    )
+    def test_pdf_stream_no_pages_defined(self, mock_parse):
+        url = reverse("examination_tasks:task_pdf_stream", args=[self.task.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
