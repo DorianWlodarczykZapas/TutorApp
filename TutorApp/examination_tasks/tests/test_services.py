@@ -182,3 +182,14 @@ class TestMatriculationTaskService:
         mock_exam.tasks.values_list.return_value = [(1,), (2,), (3,)]
         result = MatriculationTaskService.get_missing_task_ids(mock_exam)
         assert result == []
+
+    def test_get_clean_task_content_extracts_single_task(self):
+        lines = [
+            "Task 1.",
+            "This is the content of the first task.",
+            "Task 2.",
+            "This is the content of the second task.",
+        ]
+        result = MatriculationTaskService.get_clean_task_content(lines, 1)
+        assert "This is the content of the first task." in result
+        assert "Task" not in result
