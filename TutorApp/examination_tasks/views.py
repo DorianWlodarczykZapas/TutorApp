@@ -65,13 +65,19 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateV
 
         task_link = form.cleaned_data.get("task_link")
         pages = form.cleaned_data.get("pages")
+        task_id = form.cleaned_data.get("task_id")
 
-        extracted_text = MatriculationTaskService.get_single_task_text(task_link, pages)
+        extracted_text = MatriculationTaskService.extract_text_lines_from_pdf(
+            task_link, pages
+        )
+        task_text = MatriculationTaskService.get_clean_task_content(
+            extracted_text, task_id
+        )
 
-        if extracted_text:
-            form.instance.task_text = extracted_text
+        if task_text:
+            form.instance.task_text = task_text
         else:
-            messages.warning(self.request, _("Nie udało się wyodrębnić tekstu z PDF."))
+            messages.warning(self.request, _("Unable to extract text from PDF."))
 
         return super().form_valid(form)
 

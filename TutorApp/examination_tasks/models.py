@@ -56,44 +56,16 @@ class Exam(models.Model):
 class MathMatriculationTasks(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
     task_id = models.IntegerField()
-    category = models.IntegerField(
-        choices=[
-            (1, _("Sequences")),
-            (2, _("Proofs (Special products)")),
-            (3, _("Proofs (Divisibility)")),
-            (4, _("Quadratic function – Viète's formulas")),
-            (5, _("Quadratic function – optimization")),
-            (6, _("Quadratic function")),
-            (7, _("Linear function")),
-            (8, _("Rational functions (x in denominator)")),
-            (9, _("Analytical geometry")),
-            (10, _("Prisms")),
-            (11, _("Limits")),
-            (12, _("Spheres, cylinders and cones")),
-            (13, _("Logarithms")),
-            (14, _("Inequalities and equations")),
-            (15, _("Reading function properties")),
-            (16, _("Pyramids")),
-            (17, _("Planimetry – quadrilaterals")),
-            (18, _("Planimetry – triangles and circles")),
-            (19, _("Derivative – optimization")),
-            (20, _("Derivative")),
-            (21, _("Powers")),
-            (22, _("Probability")),
-            (23, _("Percentages")),
-            (24, _("Trigonometric equations and inequalities")),
-            (25, _("Equations with absolute value")),
-            (26, _("Statistics")),
-            (27, _("Geometric series")),
-            (28, _("Trigonometry")),
-            (29, _("Systems of equations")),
-            (30, _("Polynomials")),
-            (31, _("Special product formulas")),
-            (32, _("Non-standard tasks")),
-        ]
+    section = models.ForeignKey(
+        "Section",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="matriculation_tasks",
+        verbose_name=_("Section"),
     )
 
-    content = models.TextField(
+    task_content = models.TextField(
         blank=True,
         editable=False,
         help_text=_("The extracted content of the task from the PDF file."),
@@ -124,12 +96,12 @@ class MathMatriculationTasks(models.Model):
         return f"{self.exam} – Task {self.task_id}"
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name="Nazwa kategorii")
+class Section(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name="Nazwa działu")
 
     class Meta:
-        verbose_name = "Kategoria"
-        verbose_name_plural = "Kategorie"
+        verbose_name = "Dział tematyczny"
+        verbose_name_plural = "Działy tematyczne"
         ordering = ["name"]
 
     def __str__(self):
@@ -209,7 +181,7 @@ class MathMatriculationTrainingTask(models.Model):
         blank=True,
     )
     categories = models.ManyToManyField(
-        Category, related_name="tasks", verbose_name="Kategorie tematyczne", blank=True
+        Section, related_name="tasks", verbose_name="Kategorie tematyczne", blank=True
     )
 
     level_type = models.IntegerField(
