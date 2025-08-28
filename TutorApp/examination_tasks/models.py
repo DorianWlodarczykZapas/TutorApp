@@ -30,13 +30,13 @@ LEVEL_CHOICES = [
 
 class Exam(models.Model):
     class ExamType(models.IntegerChoices):
-        MATRICULATION = 1, _("Matriculation")
-        EIGHT_GRADE = 2, _("Eight Grade")
+        MATRICULATION = 1, _("Matriculation Exam")
+        EIGHTH_GRADE = 2, _("Eighth Grade Exam")
 
     exam_type = models.IntegerField(
         choices=ExamType.choices,
-        default=ExamType.Matriculation,
-        verbose_name=_("Exam type"),
+        default=ExamType.MATRICULATION,
+        verbose_name="Exam type",
     )
     year = models.IntegerField(choices=YEAR_CHOICES)
     month = models.IntegerField(choices=MONTH_CHOICES)
@@ -45,13 +45,13 @@ class Exam(models.Model):
         upload_to="exam_answers_pdfs/", blank=True, null=True
     )
     tasks_count = models.PositiveIntegerField(
-        default=0, help_text=_("Number of tasks in this exam")
+        default=0, help_text="Number of tasks in this exam"
     )
     level_type = models.IntegerField(
         choices=LEVEL_CHOICES,
         null=True,
         blank=True,
-        help_text=_("Exam level: basic or extended"),
+        help_text="Exam level: basic or extended (Matriculation only)",
     )
 
     class Meta:
@@ -60,21 +60,19 @@ class Exam(models.Model):
 
     def __str__(self):
         month_display = dict(MONTH_CHOICES).get(self.month)
+        type_display = self.get_exam_type_display()
 
         if self.exam_type == self.ExamType.MATRICULATION:
             level_display = dict(LEVEL_CHOICES).get(self.level_type)
             level_str = f" – {level_display.lower()}" if level_display else ""
-            return f"Matriculation Exam {month_display} {self.year}{level_str}"
+            return f"{type_display} {month_display} {self.year}{level_str}"
 
-        elif self.exam_type == self.ExamType.EIGHTH_GRADE:
-            return f"Eighth Grade Exam {month_display} {self.year}"
-
-        return f"Exam {month_display} {self.year}"
+        return f"{type_display} {month_display} {self.year}"
 
 
-class ExamTasks(models.Model):
+class ExamTask(models.Model):
     class TopicChoices(models.IntegerChoices):
-        VIETE_PATTERNS_AND_PARAMETERS = 1, _("VIETE PATTERNS AND PARAMETERS")
+        VIETE_FORMULAS = 1, _("Viete's Formulas")
 
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
     task_id = models.IntegerField()
@@ -84,33 +82,30 @@ class ExamTasks(models.Model):
         null=True,
         blank=True,
         related_name="exam_tasks",
-        verbose_name=_("Section"),
+        verbose_name="Section",
     )
     topic = models.IntegerField(
         choices=TopicChoices.choices,
         null=True,
         blank=True,
-        verbose_name=_("Task Topic"),
+        verbose_name="Task Topic",
     )
-
     task_content = models.TextField(
         blank=True,
-        help_text=_("The extracted content of the task from the PDF file."),
+        help_text="The extracted content of the task from the PDF file.",
     )
-
     task_pages = models.CharField(
         max_length=20,
         blank=True,
-        help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
-        verbose_name=_("Task Pages"),
+        help_text="Page number(s) in the PDF, e.g., '5' or '5-6'.",
+        verbose_name="Task Pages",
     )
     answer_pages = models.CharField(
         max_length=20,
         blank=True,
-        help_text=_("The correct answer or solution to the task."),
-        verbose_name=_("Answer Pages"),
+        help_text="Page number(s) in the PDF with the solution.",
+        verbose_name="Answer Pages",
     )
-
     completed_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name="completed_exam_tasks",
@@ -118,8 +113,8 @@ class ExamTasks(models.Model):
     )
 
     class Meta:
-        verbose_name = _("Exam Task")
-        verbose_name_plural = _("Exam Tasks")
+        verbose_name = "Exam Task"
+        verbose_name_plural = "Exam Tasks"
         unique_together = ("exam", "task_id")
         ordering = ["exam", "task_id"]
 
@@ -146,26 +141,26 @@ class Section(models.Model):
         return self.get_name_display()
 
 
-class TaskSource(models.Model):
+class Book(models.Model):
     class SchoolLevel(models.TextChoices):
-        PRIMARY = "primary", _("Szkoła podstawowa")
-        SECONDARY = "secondary", _("Szkoła średnia")
+        PRIMARY = "primary", _("Primary School")
+        SECONDARY = "secondary", _("Secondary School")
 
-    title = models.CharField(max_length=255, verbose_name="Tytuł")
-    author = models.CharField(max_length=255, blank=True, verbose_name="Autor")
+    title = models.CharField(max_length=255, verbose_name="Title")
+    author = models.CharField(max_length=255, blank=True, verbose_name="Author")
     publication_year = models.IntegerField(
-        null=True, blank=True, verbose_name="Rok wydania"
+        null=True, blank=True, verbose_name="Publication Year"
     )
     school_level = models.CharField(
         max_length=20,
         choices=SchoolLevel.choices,
         default=SchoolLevel.SECONDARY,
-        verbose_name="Poziom szkoły",
+        verbose_name="School Level",
     )
 
     class Meta:
-        verbose_name = "Źródło zadań"
-        verbose_name_plural = "Źródła zadań"
+        verbose_name = "Book"
+        verbose_name_plural = "Books"
         ordering = ["title"]
 
     def __str__(self):
@@ -173,69 +168,66 @@ class TaskSource(models.Model):
 
 
 class Chapter(models.Model):
-    source = models.ForeignKey(
-        TaskSource,
+    book = models.ForeignKey(
+        Book,
         on_delete=models.CASCADE,
         related_name="chapters",
-        verbose_name="Źródło",
+        verbose_name="Book",
     )
-    title = models.CharField(max_length=255, verbose_name="Tytuł rozdziału")
+    title = models.CharField(max_length=255, verbose_name="Chapter Title")
     chapter_number = models.CharField(
-        max_length=20, blank=True, verbose_name="Numer rozdziału"
+        max_length=20, blank=True, verbose_name="Chapter Number"
     )
 
     class Meta:
-        verbose_name = "Rozdział"
-        verbose_name_plural = "Rozdziały"
-        unique_together = ("source", "title")
-        ordering = ["source", "chapter_number"]
+        verbose_name = "Chapter"
+        verbose_name_plural = "Chapters"
+        unique_together = ("book", "title")
+        ordering = ["book", "chapter_number"]
 
     def __str__(self):
-        return f"{self.source.title} - Rozdział: {self.title}"
+        return f"{self.book.title} - Chapter: {self.title}"
 
 
-class MathMatriculationTrainingTask(models.Model):
+class TrainingTask(models.Model):
     class LevelType(models.IntegerChoices):
-        EASY = 1, _("Łatwy")
-        INTERMEDIATE = 2, _("Średni")
-        ADVANCED = 3, _("Trudny")
+        EASY = 1, _("Easy")
+        INTERMEDIATE = 2, _("Intermediate")
+        ADVANCED = 3, _("Advanced")
 
-    task_content = models.TextField(verbose_name="Treść zadania")
-    answer = models.CharField(max_length=255, verbose_name="Odpowiedź")
-
+    task_content = models.TextField(verbose_name="Task Content")
+    answer = models.CharField(max_length=255, verbose_name="Answer")
     image = models.ImageField(
         upload_to="tasks_images/",
         null=True,
         blank=True,
-        verbose_name="Rysunek do zadania (opcjonalnie)",
+        verbose_name="Task Image (optional)",
     )
-
     chapter = models.ForeignKey(
         Chapter,
         on_delete=models.SET_NULL,
-        related_name="tasks",
-        verbose_name="Rozdział (opcjonalnie)",
+        related_name="training_tasks",
+        verbose_name="Chapter (optional)",
         null=True,
         blank=True,
     )
-    categories = models.ManyToManyField(
-        Section, related_name="tasks", verbose_name="Kategorie tematyczne", blank=True
+    sections = models.ManyToManyField(
+        Section, related_name="training_tasks", verbose_name="Sections", blank=True
     )
-
-    level_type = models.IntegerField(
+    level = models.IntegerField(
         choices=LevelType.choices,
         default=LevelType.INTERMEDIATE,
-        verbose_name="Poziom trudności",
+        verbose_name="Difficulty Level",
     )
-    done_by = models.ManyToManyField(
+    completed_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name="completed_training_tasks",
         blank=True,
     )
 
     class Meta:
-        verbose_name = "Zadanie treningowe"
-        verbose_name_plural = "Zadania treningowe"
+        verbose_name = "Training Task"
+        verbose_name_plural = "Training Tasks"
 
     def __str__(self):
         return self.task_content[:80] + "..."
