@@ -48,13 +48,15 @@ class Exam(models.Model):
         default=0, help_text=_("Number of tasks in this exam")
     )
     level_type = models.IntegerField(
-        choices=LEVEL_CHOICES, default=1, help_text=_("Exam level: basic or extended")
+        choices=LEVEL_CHOICES,
+        null=True,
+        blank=True,
+        help_text=_("Exam level: basic or extended"),
     )
 
     class Meta:
-
-        unique_together = ("year", "month", "level_type")
-        ordering = ["-year", "-month", "-level_type"]
+        unique_together = ("year", "month", "level_type", "exam_type")
+        ordering = ["-year", "-month", "-exam_type", "-level_type"]
 
     def __str__(self):
         month_display = dict(MONTH_CHOICES).get(self.month)
