@@ -29,6 +29,15 @@ LEVEL_CHOICES = [
 
 
 class Exam(models.Model):
+    class ExamType(models.IntegerChoices):
+        MATRICULATION = 1, _("Matriculation")
+        EIGHT_GRADE = 2, _("Eight Grade")
+
+    exam_type = models.IntegerField(
+        choices=ExamType.choices,
+        default=ExamType.Matriculation,
+        verbose_name=_("Exam type"),
+    )
     year = models.IntegerField(choices=YEAR_CHOICES)
     month = models.IntegerField(choices=MONTH_CHOICES)
     tasks_link = models.FileField(upload_to="exam_pdfs/")
@@ -48,9 +57,17 @@ class Exam(models.Model):
         ordering = ["-year", "-month", "-level_type"]
 
     def __str__(self):
-        level_display = dict(LEVEL_CHOICES).get(self.level_type)
         month_display = dict(MONTH_CHOICES).get(self.month)
-        return f"{month_display} {self.year} – {level_display.lower()}"
+
+        if self.exam_type == self.ExamType.MATRICULATION:
+            level_display = dict(LEVEL_CHOICES).get(self.level_type)
+            level_str = f" – {level_display.lower()}" if level_display else ""
+            return f"Matriculation Exam {month_display} {self.year}{level_str}"
+
+        elif self.exam_type == self.ExamType.EIGHTH_GRADE:
+            return f"Eighth Grade Exam {month_display} {self.year}"
+
+        return f"Exam {month_display} {self.year}"
 
 
 class MathMatriculationTasks(models.Model):
