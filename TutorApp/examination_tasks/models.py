@@ -72,7 +72,7 @@ class Exam(models.Model):
         return f"Exam {month_display} {self.year}"
 
 
-class MathMatriculationTasks(models.Model):
+class ExamTasks(models.Model):
     class TopicChoices(models.IntegerChoices):
         VIETE_PATTERNS_AND_PARAMETERS = 1, _("VIETE PATTERNS AND PARAMETERS")
 
@@ -128,15 +128,22 @@ class MathMatriculationTasks(models.Model):
 
 
 class Section(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name="Nazwa działu")
+    class SectionChoices(models.IntegerChoices):
+        REAL_NUMBERS = 1, _("Real Numbers")
+
+    name = models.IntegerField(
+        choices=SectionChoices.choices,
+        unique=True,
+        verbose_name="Name",
+    )
 
     class Meta:
-        verbose_name = "Dział tematyczny"
-        verbose_name_plural = "Działy tematyczne"
+        verbose_name = "Section"
+        verbose_name_plural = "Sections"
         ordering = ["name"]
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 
 class TaskSource(models.Model):
