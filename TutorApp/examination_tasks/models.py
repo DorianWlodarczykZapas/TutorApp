@@ -1,45 +1,17 @@
-from datetime import datetime
-
 from django.conf import settings
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
-current_year = datetime.now().year
-YEAR_CHOICES = [(y, str(y)) for y in range(2002, current_year + 1)]
-
-MONTH_CHOICES = [
-    (1, _("January")),
-    (2, _("February")),
-    (3, _("March")),
-    (4, _("April")),
-    (5, _("May")),
-    (6, _("June")),
-    (7, _("July")),
-    (8, _("August")),
-    (9, _("September")),
-    (10, _("October")),
-    (11, _("November")),
-    (12, _("December")),
-]
-
-LEVEL_CHOICES = [
-    (1, _("Basic")),
-    (2, _("Extended")),
-]
+from . import choices
 
 
 class Exam(models.Model):
-    class ExamType(models.IntegerChoices):
-        MATRICULATION = 1, _("Matriculation Exam")
-        EIGHTH_GRADE = 2, _("Eighth Grade Exam")
-
     exam_type = models.IntegerField(
-        choices=ExamType.choices,
-        default=ExamType.MATRICULATION,
+        choices=choices.ExamTypeChoices.choices,
+        default=choices.ExamTypeChoices.MATRICULATION,
         verbose_name="Exam type",
     )
-    year = models.IntegerField(choices=YEAR_CHOICES)
-    month = models.IntegerField(choices=MONTH_CHOICES)
+    year = models.IntegerField(choices=choices.YEAR_CHOICES)
+    month = models.IntegerField(choices=choices.MONTH_CHOICES)
     tasks_link = models.FileField(upload_to="exam_pdfs/")
     solutions_link = models.FileField(
         upload_to="exam_answers_pdfs/", blank=True, null=True
@@ -48,7 +20,7 @@ class Exam(models.Model):
         default=0, help_text="Number of tasks in this exam"
     )
     level_type = models.IntegerField(
-        choices=LEVEL_CHOICES,
+        choices=choices.LEVEL_CHOICES,
         null=True,
         blank=True,
         help_text="Exam level: basic or extended (Matriculation only)",
@@ -59,11 +31,13 @@ class Exam(models.Model):
         ordering = ["-year", "-month", "-exam_type", "-level_type"]
 
     def __str__(self):
-        month_display = dict(MONTH_CHOICES).get(self.month)
+
+        month_display = dict(choices.MONTH_CHOICES).get(self.month)
         type_display = self.get_exam_type_display()
 
-        if self.exam_type == self.ExamType.MATRICULATION:
-            level_display = dict(LEVEL_CHOICES).get(self.level_type)
+        if self.exam_type == choices.ExamTypeChoices.MATRICULATION:
+
+            level_display = dict(choices.LEVEL_CHOICES).get(self.level_type)
             level_str = f" – {level_display.lower()}" if level_display else ""
             return f"{type_display} {month_display} {self.year}{level_str}"
 
@@ -71,9 +45,6 @@ class Exam(models.Model):
 
 
 class ExamTask(models.Model):
-    class TopicChoices(models.IntegerChoices):
-        VIETE_FORMULAS = 1, _("Viete's Formulas")
-
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
     task_id = models.IntegerField()
     section = models.ForeignKey(
@@ -85,7 +56,7 @@ class ExamTask(models.Model):
         verbose_name="Section",
     )
     topic = models.IntegerField(
-        choices=TopicChoices.choices,
+        choices=choices.TopicChoices.choices,
         null=True,
         blank=True,
         verbose_name="Task Topic",
@@ -123,11 +94,8 @@ class ExamTask(models.Model):
 
 
 class Section(models.Model):
-    class SectionChoices(models.IntegerChoices):
-        REAL_NUMBERS = 1, _("Real Numbers")
-
     name = models.IntegerField(
-        choices=SectionChoices.choices,
+        choices=choices.SectionChoices.choices,
         unique=True,
         verbose_name="Name",
     )
@@ -142,10 +110,6 @@ class Section(models.Model):
 
 
 class Book(models.Model):
-    class SchoolLevel(models.TextChoices):
-        PRIMARY = "primary", _("Primary School")
-        SECONDARY = "secondary", _("Secondary School")
-
     title = models.CharField(max_length=255, verbose_name="Title")
     author = models.CharField(max_length=255, blank=True, verbose_name="Author")
     publication_year = models.IntegerField(
@@ -153,8 +117,8 @@ class Book(models.Model):
     )
     school_level = models.CharField(
         max_length=20,
-        choices=SchoolLevel.choices,
-        default=SchoolLevel.SECONDARY,
+        choices=choices.SchoolLevelChoices.choices,
+        default=choices.SchoolLevelChoices.SECONDARY,
         verbose_name="School Level",
     )
 
@@ -190,11 +154,6 @@ class Chapter(models.Model):
 
 
 class TrainingTask(models.Model):
-    class LevelType(models.IntegerChoices):
-        EASY = 1, _("Easy")
-        INTERMEDIATE = 2, _("Intermediate")
-        ADVANCED = 3, _("Advanced")
-
     task_content = models.TextField(verbose_name="Task Content")
     answer = models.CharField(max_length=255, verbose_name="Answer")
     image = models.ImageField(
@@ -215,8 +174,8 @@ class TrainingTask(models.Model):
         Section, related_name="training_tasks", verbose_name="Sections", blank=True
     )
     level = models.IntegerField(
-        choices=LevelType.choices,
-        default=LevelType.INTERMEDIATE,
+        choices=choices.DifficultyLevelChoices.choices,
+        default=choices.DifficultyLevelChoices.INTERMEDIATE,
         verbose_name="Difficulty Level",
     )
     completed_by = models.ManyToManyField(
