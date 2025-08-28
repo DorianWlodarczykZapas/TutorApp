@@ -73,6 +73,9 @@ class Exam(models.Model):
 
 
 class MathMatriculationTasks(models.Model):
+    class TopicChoices(models.IntegerChoices):
+        VIETE_PATTERNS_AND_PARAMETERS = 1, _("VIETE PATTERNS AND PARAMETERS")
+
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
     task_id = models.IntegerField()
     section = models.ForeignKey(
@@ -80,25 +83,32 @@ class MathMatriculationTasks(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="matriculation_tasks",
+        related_name="exam_tasks",
         verbose_name=_("Section"),
+    )
+    topic = models.IntegerField(
+        choices=TopicChoices.choices,
+        null=True,
+        blank=True,
+        verbose_name=_("Task Topic"),
     )
 
     task_content = models.TextField(
         blank=True,
-        editable=False,
         help_text=_("The extracted content of the task from the PDF file."),
     )
 
-    pages = models.CharField(
+    task_pages = models.CharField(
         max_length=20,
         blank=True,
         help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
+        verbose_name=_("Task Pages"),
     )
-    answer = models.CharField(
+    answer_pages = models.CharField(
         max_length=20,
         blank=True,
         help_text=_("The correct answer or solution to the task."),
+        verbose_name=_("Answer Pages"),
     )
 
     completed_by = models.ManyToManyField(
@@ -108,6 +118,8 @@ class MathMatriculationTasks(models.Model):
     )
 
     class Meta:
+        verbose_name = _("Exam Task")
+        verbose_name_plural = _("Exam Tasks")
         unique_together = ("exam", "task_id")
         ordering = ["exam", "task_id"]
 
