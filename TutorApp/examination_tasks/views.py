@@ -20,7 +20,7 @@ from django.views.generic import CreateView, DetailView, ListView, TemplateView,
 from users.views import TeacherRequiredMixin
 
 from .forms import AddMatriculationTaskForm, ExamForm, TaskSearchForm
-from .models import Exam, MathMatriculationTasks
+from .models import Exam, ExamTask
 from .services import MatriculationTaskService
 
 
@@ -57,7 +57,7 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateV
     Access is restricted to logged-in users with teacher privileges.
     """
 
-    model = MathMatriculationTasks
+    model = ExamTask
     form_class = AddMatriculationTaskForm
     template_name = "examination_tasks/add_matriculation_task.html"
 
@@ -97,12 +97,12 @@ class SearchMatriculationTaskView(LoginRequiredMixin, ListView):
     Filtering logic is handled by a Django form.
     """
 
-    model = MathMatriculationTasks
+    model = ExamTask
     template_name = "tasks/search_tasks.html"
     context_object_name = "tasks"
     paginate_by = 10
 
-    def get_queryset(self) -> QuerySet[MathMatriculationTasks]:
+    def get_queryset(self) -> QuerySet[ExamTask]:
         """
         Fetches the filtered queryset based on form-validated GET parameters.
         """
@@ -157,9 +157,7 @@ class ExamProgressView(LoginRequiredMixin, TemplateView):
             selected_exam = get_object_or_404(
                 Exam, year=year, month=month, level_type=level
             )
-            tasks = MathMatriculationTasks.objects.filter(exam=selected_exam).order_by(
-                "task_id"
-            )
+            tasks = ExamTask.objects.filter(exam=selected_exam).order_by("task_id")
 
         context.update(
             {
@@ -212,7 +210,7 @@ class TaskDisplayView(DetailView):
     embedding a PDF for a specific task.
     """
 
-    model = MathMatriculationTasks
+    model = ExamTask
     template_name = "examination_tasks/exam_preview.html"
     context_object_name = "task"
 
@@ -234,7 +232,7 @@ class TaskPdfStreamView(View):
 
     def get(self, request, *args, **kwargs):
         task_pk = self.kwargs.get("pk")
-        task = get_object_or_404(MathMatriculationTasks, pk=task_pk)
+        task = get_object_or_404(ExamTask, pk=task_pk)
 
         source_pdf_path = task.exam.tasks_link.path
         pages_str = task.pages
@@ -345,7 +343,7 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
     user's completion status for each task.
     """
 
-    model = MathMatriculationTasks
+    model = ExamTask
     template_name = "examination_tasks/exam_task_list.html"
     context_object_name = "tasks"
     paginate_by = 15

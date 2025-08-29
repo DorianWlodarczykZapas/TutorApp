@@ -1,6 +1,7 @@
 from django import template
 
-from ..models import MONTH_CHOICES, Exam
+from ..choices import MONTH_CHOICES
+from ..models import Exam
 
 register = template.Library()
 
@@ -17,8 +18,8 @@ def get_level_display(level_number):
 
 @register.filter
 def get_category_display(category_number):
-    from ..models import MathMatriculationTasks
+    from ..models import ExamTask
 
-    return dict(MathMatriculationTasks._meta.get_field("category").choices).get(
+    return dict(ExamTask._meta.get_field("category").choices).get(
         int(category_number), category_number
     )

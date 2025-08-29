@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Exam, MathMatriculationTasks
+from .models import Exam, ExamTask
 from .services import MatriculationTaskService
 
 
@@ -45,9 +45,9 @@ class AddMatriculationTaskForm(forms.ModelForm):
         ),
     )
 
-    category = forms.ChoiceField(
-        choices=MathMatriculationTasks._meta.get_field("category").choices,
-        label=_("Task Category"),
+    section = forms.ChoiceField(
+        choices=ExamTask._meta.get_field("section").choices,
+        label=_("Task Section"),
         widget=forms.Select(attrs={"class": "form-control"}),
     )
 
@@ -70,8 +70,8 @@ class AddMatriculationTaskForm(forms.ModelForm):
     )
 
     class Meta:
-        model = MathMatriculationTasks
-        fields = ["exam", "task_id", "category", "pages", "answer"]
+        model = ExamTask
+        fields = ["exam", "task_id", "section", "pages", "answer"]
 
     def clean(self):
         cleaned_data = super().clean()
