@@ -9,6 +9,7 @@ class ExamForm(forms.ModelForm):
     class Meta:
         model = Exam
         fields = [
+            "exam_type",
             "year",
             "month",
             "tasks_link",
@@ -17,6 +18,7 @@ class ExamForm(forms.ModelForm):
             "level_type",
         ]
         labels = {
+            "exam_type": _("Exam Type"),
             "year": _("Year"),
             "month": _("Month"),
             "tasks_link": _("Tasks link"),
