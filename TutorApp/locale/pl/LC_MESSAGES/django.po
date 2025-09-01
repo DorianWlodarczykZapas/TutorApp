@@ -618,3 +618,13 @@ msgstr "Quizy"
 
 msgid "Logout"
 msgstr "Wyloguj"
+
+msgid "Exam Type"
+msgstr "Rodzaj egzaminu"
+
+msgid "Matriculation Exam"
+msgstr "Matura"
+
+msgid "Eighth Grade Exam"
+msgstr "Egzamin Ósmoklasisty"
+
