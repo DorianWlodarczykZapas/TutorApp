@@ -488,3 +488,16 @@ class TaskPdfStreamViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("tasks_link", response.context)
         self.assertEqual(response.context["task_id"], self.task.task_id)
+
+    def test_task_pdf_view_invalid_level(self):
+        url = reverse(
+            "examination_tasks:task_view",
+            kwargs={
+                "year": self.exam.year,
+                "month": self.exam.month,
+                "level": "X",
+                "task_id": 1,
+            },
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
