@@ -509,3 +509,9 @@ class TaskPdfStreamViewTests(TestCase):
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+    def test_exam_list_view_requires_login(self):
+        self.client.logout()
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/users/login/", response.url)
