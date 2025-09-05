@@ -515,3 +515,17 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertIn("/users/login/", response.url)
+
+    @patch(
+        "examination_tasks.views.MatriculationTaskService.get_user_completion_map_for_exams"
+    )
+    def test_exam_list_view_context_includes_user_completion(self, mock_completion_map):
+        mock_completion_map.return_value = {self.exam1.pk: 5, self.exam2.pk: 0}
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("exams", response.context)
+        exams = response.context["exams"]
+        self.assertTrue(hasattr(exams[0], "user_completion"))
+        completions = [exam.user_completion for exam in exams]
+        self.assertIn(5, completions)
+        self.assertIn(0, completions)
