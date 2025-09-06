@@ -567,11 +567,7 @@ body {
     z-index: 10;
 }
 
-.main-content:has(.task-preview-page) {
-    display: block;
-    min-height: auto;
-    padding-top: 2rem;
-}
+
 
 
 

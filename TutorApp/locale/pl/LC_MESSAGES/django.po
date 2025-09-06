@@ -628,3 +628,12 @@ msgstr "Matura"
 msgid "Eighth Grade Exam"
 msgstr "Egzamin Ósmoklasisty"
 
+msgid "Exam List"
+msgstr "Lista Egzaminow"
+
+msgid "Add Exam"
+msgstr "Dodaj Egzamin"
+
+msgid "Add Exam Task"
+msgstr "Dodaj Zadanie Egzaminacyjne"
+

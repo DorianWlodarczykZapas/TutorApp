@@ -17,7 +17,7 @@ urlpatterns = [
     path(
         "exams/tasks/add/",
         AddMatriculationTaskView.as_view(),
-        name="add_matriculation_task",
+        name="add_exam_task",
     ),
     path("tasks/<int:pk>/pdf/", TaskPdfView.as_view(), name="task-pdf"),
     path("tasks/<int:pk>/", TaskDisplayView.as_view(), name="task-display"),
