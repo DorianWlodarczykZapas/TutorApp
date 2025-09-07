@@ -529,3 +529,11 @@ class TaskPdfStreamViewTests(TestCase):
         completions = [exam.user_completion for exam in exams]
         self.assertIn(5, completions)
         self.assertIn(0, completions)
+
+    def test_pdf_stream_no_pdf_path(self):
+        self.task.exam.tasks_link = None
+        self.task.exam.save()
+        url = reverse("examination_tasks:task_pdf_stream", args=[self.task.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("No defined path", response.content.decode())
