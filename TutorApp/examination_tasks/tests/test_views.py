@@ -537,3 +537,9 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
         self.assertIn("No defined path", response.content.decode())
+
+    def test_requires_login(self):
+        self.client.logout()
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/users/login/", response.url)
