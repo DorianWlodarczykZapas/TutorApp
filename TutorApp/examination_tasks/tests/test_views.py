@@ -543,3 +543,11 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertIn("/users/login/", response.url)
+
+    def test_lists_tasks_for_exam(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("tasks", response.context)
+        tasks = response.context["tasks"]
+        self.assertEqual(len(tasks), 2)
+        self.assertEqual(tasks[0].exam, self.exam)
