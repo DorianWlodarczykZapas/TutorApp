@@ -556,3 +556,13 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["exam"], self.exam)
+
+    def test_context_includes_task_completion_map(self):
+        self.task1.completed_by.add(self.user)
+        response = self.client.get(self.url)
+        tasks = response.context["tasks"]
+        completion_statuses = {
+            task.task_id: task.is_completed_by_user for task in tasks
+        }
+        self.assertTrue(completion_statuses[1])
+        self.assertFalse(completion_statuses[2])
