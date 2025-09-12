@@ -566,3 +566,9 @@ class TaskPdfStreamViewTests(TestCase):
         }
         self.assertTrue(completion_statuses[1])
         self.assertFalse(completion_statuses[2])
+
+    def test_pagination_first_page(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_paginated"])
+        self.assertEqual(len(response.context["exams"]), 10)
