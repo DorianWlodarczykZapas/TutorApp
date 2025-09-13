@@ -572,3 +572,19 @@ class TaskPdfStreamViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context["is_paginated"])
         self.assertEqual(len(response.context["exams"]), 10)
+
+
+
+    @patch(
+        "examination_tasks.views.MatriculationTaskService._parse_pages_string",
+        return_value=[1],
+    )
+    @patch(
+        "examination_tasks.views.MatriculationTaskService.get_single_task_pdf",
+        return_value=None,
+    )
+    def test_pdf_stream_generation_failure(self, mock_get_pdf, mock_parse):
+        url = reverse("examination_tasks:task_pdf_stream", args=[self.task.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("could not be generated", response.content.decode())
