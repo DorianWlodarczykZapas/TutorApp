@@ -573,8 +573,6 @@ class TaskPdfStreamViewTests(TestCase):
         self.assertTrue(response.context["is_paginated"])
         self.assertEqual(len(response.context["exams"]), 10)
 
-
-
     @patch(
         "examination_tasks.views.MatriculationTaskService._parse_pages_string",
         return_value=[1],
@@ -588,3 +586,13 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
         self.assertIn("could not be generated", response.content.decode())
+
+    @patch(
+        "examination_tasks.views.MatriculationTaskService._parse_pages_string",
+        side_effect=Exception("Unexpected error"),
+    )
+    def test_pdf_stream_internal_server_error(self, mock_parse):
+        url = reverse("examination_tasks:task_pdf_stream", args=[self.task.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 500)
+        self.assertIn("internal server error", response.content.decode().lower())
