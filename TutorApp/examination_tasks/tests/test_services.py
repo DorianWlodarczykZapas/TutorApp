@@ -193,3 +193,17 @@ class TestMatriculationTaskService:
         result = MatriculationTaskService.get_clean_task_content(lines, 1)
         assert "This is the content of the first task." in result
         assert "Task" not in result
+
+    @patch("services.fitz.open")
+    def test_returns_lines_from_pdf(self, mock_open):
+        mock_doc = Mock()
+        mock_page = Mock()
+        mock_page.get_text.return_value = "Line 1\nLine 2\nLine 3"
+        mock_doc.page_count = 1
+        mock_doc.load_page.return_value = mock_page
+        mock_open.return_value = mock_doc
+
+        lines = MatriculationTaskService.extract_text_lines_from_pdf("fake.pdf", [1])
+
+        assert lines == ["Line 1", "Line 2", "Line 3"]
+        mock_doc.load_page.assert_called_once_with(0)
