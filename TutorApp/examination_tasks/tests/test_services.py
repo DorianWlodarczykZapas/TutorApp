@@ -207,3 +207,13 @@ class TestMatriculationTaskService:
 
         assert lines == ["Line 1", "Line 2", "Line 3"]
         mock_doc.load_page.assert_called_once_with(0)
+
+    @patch("services.fitz.open")
+    def test_invalid_page_number_raises_value_error(self, mock_open):
+
+        mock_doc = Mock()
+        mock_doc.page_count = 2
+        mock_open.return_value = mock_doc
+
+        with pytest.raises(ValueError, match="Invalid page number: 5"):
+            MatriculationTaskService.extract_text_lines_from_pdf("fake.pdf", [5])
