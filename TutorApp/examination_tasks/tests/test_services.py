@@ -217,3 +217,12 @@ class TestMatriculationTaskService:
 
         with pytest.raises(ValueError, match="Invalid page number: 5"):
             MatriculationTaskService.extract_text_lines_from_pdf("fake.pdf", [5])
+
+    @patch("services.fitz.open")
+    def test_empty_pdf_raises_value_error(self, mock_open):
+        mock_doc = Mock()
+        mock_doc.page_count = 0
+        mock_open.return_value = mock_doc
+
+        with pytest.raises(ValueError, match="The PDF file is empty"):
+            MatriculationTaskService.extract_text_lines_from_pdf("fake.pdf", [1])
