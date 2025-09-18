@@ -226,3 +226,14 @@ class TestMatriculationTaskService:
 
         with pytest.raises(ValueError, match="The PDF file is empty"):
             MatriculationTaskService.extract_text_lines_from_pdf("fake.pdf", [1])
+
+    def test_raises_value_error_when_task_not_found(self):
+        lines = [
+            "Zadanie 1.",
+            "Treść pierwszego zadania.",
+            "Zadanie 2.",
+            "Treść drugiego zadania.",
+        ]
+
+        with pytest.raises(ValueError, match="Zadanie numer 3 nie zostało znalezione"):
+            MatriculationTaskService.get_clean_task_content(lines, 3)
