@@ -237,3 +237,14 @@ class TestMatriculationTaskService:
 
         with pytest.raises(ValueError, match="Zadanie numer 3 nie zostało znalezione"):
             MatriculationTaskService.get_clean_task_content(lines, 3)
+
+    def test_adds_user_when_not_completed(self):
+        user = Mock(id=1)
+        task = Mock()
+        task.completed_by.filter.return_value.exists.return_value = False
+
+        result = MatriculationTaskService.toggle_completed(task, user)
+
+        assert result is True
+        task.completed_by.add.assert_called_once_with(user)
+        task.completed_by.remove.assert_not_called()
