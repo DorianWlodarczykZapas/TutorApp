@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block title %}
+    {% trans "Add New Book" %}
+{% endblock %}
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for m in messages %}
+                <li class="alert {% if m.tags %}alert-{{ m.tags }}{% endif %}">{{ m }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post" class="form-container" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="form-title">{% trans "Add New Book" %}</h1>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+            {{ form.title|add_class:"form-input" }}
+            {% if form.title.errors %}
+                <div class="field-errors" style="color:red;">{{ form.title.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.author.id_for_label }}">{{ form.author.label }}</label>
+            {{ form.author|add_class:"form-input" }}
+            {% if form.author.errors %}
+                <div class="field-errors" style="color:red;">{{ form.author.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.publication_year.id_for_label }}">{{ form.publication_year.label }}</label>
+            {{ form.publication_year|add_class:"form-input" }}
+            {% if form.publication_year.errors %}
+                <div class="field-errors" style="color:red;">{{ form.publication_year.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.school_type.id_for_label }}">{{ form.school_type.label }}</label>
+            {{ form.school_type|add_class:"form-file" }}
+            {% if form.school_type.errors %}
+                <div class="field-errors" style="color:red;">{{ form.school_type.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn-submit">{% trans "Add Book" %}</button>
+    </form>
+{% endblock %}

@@ -120,7 +120,7 @@ class TaskSearchForm(forms.Form):
     is_done = forms.NullBooleanField(required=False)
 
 
-class BookForm(forms.Forn):
+class BookForm(forms.Form):
     class Meta:
         model = Book
         fields = [
