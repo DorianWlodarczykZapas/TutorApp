@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Exam, ExamTask
+from .models import Exam, ExamTask, Book
 from .services import MatriculationTaskService
 
 
@@ -118,3 +118,20 @@ class TaskSearchForm(forms.Form):
     category = forms.IntegerField(required=False)
 
     is_done = forms.NullBooleanField(required=False)
+
+
+class BookForm(forms.Form):
+    class Meta:
+        model = Book
+        fields = [
+            "title",
+            "author",
+            "publication_year",
+            "school_level",
+        ]
+        labels = {
+            "title": _("Book Title"),
+            "author": _("Author"),
+            "publication_year": _("Publication Year"),
+            "school_level": _("School Level"),
+        }

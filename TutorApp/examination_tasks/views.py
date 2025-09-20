@@ -18,8 +18,8 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import CreateView, DetailView, ListView, View
 from users.views import TeacherRequiredMixin
 
-from .forms import AddMatriculationTaskForm, ExamForm
-from .models import Exam, ExamTask
+from .forms import AddMatriculationTaskForm, ExamForm, BookForm
+from .models import Exam, ExamTask, Book
 from .services import MatriculationTaskService
 
 
@@ -292,3 +292,28 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
             task.is_completed_by_user = task_completion_map.get(task.task_id, False)
 
         return context
+
+class AddBookView(LoginRequiredMixin,TeacherRequiredMixin,CreateView):
+    """
+    Simple view that adds book to database via form
+    """
+
+    model = Book
+    form_class = BookForm
+    template_name = "examination_tasks/add_book.html"
+    success_url = reverse_lazy("examination_tasks:add_book")
+
+    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Adds the page title to the template context.
+        """
+        data = super().get_context_data(**kwargs)
+        data["title"] = _("Add New Book")
+        return data
+
+    def form_valid(self, form: BookForm) -> HttpResponseRedirect:
+        """
+        Method for handling the form for adding examinations to the database
+        """
+        messages.success(self.request, _("Book added successfully!"))
+        return super().form_valid(form)

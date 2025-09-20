@@ -7,7 +7,7 @@ from .views import (
     ExamTaskListView,
     TaskDisplayView,
     TaskPdfStreamView,
-    TaskPdfView,
+    TaskPdfView, AddBookView,
 )
 
 app_name = "examination_tasks"
@@ -30,4 +30,5 @@ urlpatterns = [
     path(
         "exams/<int:exam_pk>/tasks/", ExamTaskListView.as_view(), name="exam_task_list"
     ),
+    path("books/add", AddBookView.as_view(), name="add_book"),
 ]
