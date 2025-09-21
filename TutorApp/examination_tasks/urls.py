@@ -1,13 +1,14 @@
 from django.urls import path
 
 from .views import (
+    AddBookView,
     AddMatriculationTaskView,
     ExamCreateView,
     ExamListView,
     ExamTaskListView,
     TaskDisplayView,
     TaskPdfStreamView,
-    TaskPdfView, AddBookView,
+    TaskPdfView,
 )
 
 app_name = "examination_tasks"
@@ -30,5 +31,5 @@ urlpatterns = [
     path(
         "exams/<int:exam_pk>/tasks/", ExamTaskListView.as_view(), name="exam_task_list"
     ),
-    path("books/add", AddBookView.as_view(), name="add_book"),
+    path("books/add/", AddBookView.as_view(), name="add_book"),
 ]
