@@ -10,16 +10,16 @@ from django.http import (
     HttpResponseRedirect,
     JsonResponse,
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from django.views.generic import CreateView, DetailView, ListView, View
+from django.views.generic import CreateView, DetailView, FormView, ListView, View
 from users.views import TeacherRequiredMixin
 
-from .forms import AddMatriculationTaskForm, ExamForm, BookForm
-from .models import Exam, ExamTask, Book
+from .forms import AddMatriculationTaskForm, BookForm, ExamForm
+from .models import Book, Exam, ExamTask
 from .services import MatriculationTaskService
 
 
@@ -50,18 +50,11 @@ class ExamCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
-    """
-    View for adding individual maths tasks to an existing exam.
-    Access is restricted to logged-in users with teacher privileges.
-    """
-
-    model = ExamTask
-    form_class = AddMatriculationTaskForm
+class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, FormView):
     template_name = "examination_tasks/add_matriculation_task.html"
+    form_class = AddMatriculationTaskForm
 
     def form_valid(self, form):
-
         task_link = form.cleaned_data.get("task_link")
         pages = form.cleaned_data.get("pages")
         task_id = form.cleaned_data.get("task_id")
@@ -73,12 +66,10 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateV
             extracted_text, task_id
         )
 
-        if task_text:
-            form.instance.task_text = task_text
-        else:
-            messages.warning(self.request, _("Unable to extract text from PDF."))
+        self.request.session["task_data"] = form.cleaned_data
+        self.request.session["task_data"]["task_text"] = task_text
 
-        return super().form_valid(form)
+        return redirect("confirm_exam_task")
 
     def get_success_url(self) -> str:
         """
@@ -293,7 +284,8 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
 
         return context
 
-class AddBookView(LoginRequiredMixin,TeacherRequiredMixin,CreateView):
+
+class AddBookView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
     """
     Simple view that adds book to database via form
     """
