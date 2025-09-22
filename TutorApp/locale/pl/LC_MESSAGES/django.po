@@ -637,3 +637,18 @@ msgstr "Dodaj Egzamin"
 msgid "Add Exam Task"
 msgstr "Dodaj Zadanie Egzaminacyjne"
 
+msgid "Add New Book"
+msgstr "Dodaj Nową Książke"
+
+msgid "Book Title"
+msgstr "Tytuł Książki"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Publication Year"
+msgstr "Rok Publikacji"
+
+msgid "Add Book"
+msgstr "Dodaj Książkę"
+
