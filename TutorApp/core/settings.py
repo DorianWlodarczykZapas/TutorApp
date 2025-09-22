@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "silk",
     "debug_toolbar",
     "django_extensions",
+    "formtools",
 ]
 
 INSTALLED_EXTENSIONS = [
