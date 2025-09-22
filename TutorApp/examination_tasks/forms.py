@@ -78,18 +78,6 @@ class AddMatriculationTaskForm(forms.ModelForm):
         help_text=_("Page number(s) for the answer in the solutions PDF."),
     )
 
-    task_content = forms.CharField(
-        label=_("Task Content"),
-        required=False,
-        widget=forms.Textarea(
-            attrs={
-                "class": "form-control",
-                "rows": 8,
-                "placeholder": _("Extracted task content will appear here."),
-            }
-        ),
-    )
-
     class Meta:
         model = ExamTask
         fields = [
@@ -99,7 +87,6 @@ class AddMatriculationTaskForm(forms.ModelForm):
             "topic",
             "task_pages",
             "answer_pages",
-            "task_content",
         ]
 
     def clean(self):
@@ -132,12 +119,18 @@ class AddMatriculationTaskForm(forms.ModelForm):
                 pass
 
 
-class ConfirmMatriculationTaskForm(forms.ModelForm):
+class ConfirmTaskContentForm(forms.ModelForm):
     class Meta:
         model = ExamTask
         fields = ["task_content"]
         widgets = {
-            "task_content": forms.Textarea(attrs={"class": "form-control", "rows": 8}),
+            "task_content": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 12,
+                    "placeholder": _("Edit or adjust extracted task content here."),
+                }
+            )
         }
 
 

@@ -19,12 +19,7 @@ from django.views.generic import CreateView, DetailView, ListView, View
 from formtools.wizard.views import SessionWizardView
 from users.views import TeacherRequiredMixin
 
-from .forms import (
-    AddMatriculationTaskForm,
-    BookForm,
-    ConfirmMatriculationTaskForm,
-    ExamForm,
-)
+from .forms import AddMatriculationTaskForm, BookForm, ConfirmTaskContentForm, ExamForm
 from .models import Book, Exam, ExamTask
 from .services import MatriculationTaskService
 
@@ -58,7 +53,7 @@ class ExamCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
 
 FORMS = [
     ("step1", AddMatriculationTaskForm),
-    ("step2", ConfirmMatriculationTaskForm),
+    ("step2", ConfirmTaskContentForm),
 ]
 
 
@@ -77,25 +72,22 @@ class AddMatriculationTaskWizard(
 
             exam = step1_data.get("exam")
             task_id = step1_data.get("task_id")
-
             pages_str = step1_data.get("task_pages")
-
             pages = MatriculationTaskService._parse_pages_string(pages_str)
 
             extracted_text = MatriculationTaskService.extract_text_lines_from_pdf(
                 exam.tasks_link.path, pages
             )
 
-            task_text = MatriculationTaskService.get_clean_task_content(
+            task_content = MatriculationTaskService.get_clean_task_content(
                 extracted_text, task_id
             )
-            instance.task_text = task_text
+            instance.task_content = task_content
 
             return instance
         return None
 
     def done(self, form_list, **kwargs):
-
         step1_data = self.get_cleaned_data_for_step("step1")
         step2_data = self.get_cleaned_data_for_step("step2")
 
@@ -103,14 +95,14 @@ class AddMatriculationTaskWizard(
             exam=step1_data["exam"],
             task_id=step1_data["task_id"],
             section=step1_data["section"],
-            pages=step1_data.get("pages"),
-            answer=step1_data.get("answer"),
-            task_text=step2_data["task_text"],
+            task_pages=step1_data.get("task_pages"),
+            answer_pages=step1_data.get("answer_pages"),
+            task_content=step2_data["task_content"],
         )
         exam_task.save()
 
         messages.success(self.request, _("Task added successfully!"))
-        return redirect("add_exam_task")
+        return redirect("examination_tasks:add_exam_task")
 
     def get_success_url(self) -> str:
         """

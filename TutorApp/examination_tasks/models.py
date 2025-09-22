@@ -64,6 +64,7 @@ class ExamTask(models.Model):
     task_content = models.TextField(
         blank=True,
         help_text="The extracted content of the task from the PDF file.",
+        verbose_name="Task Content",
     )
     task_pages = models.CharField(
         max_length=20,

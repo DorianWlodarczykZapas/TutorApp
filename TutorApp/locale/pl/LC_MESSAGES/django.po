@@ -592,9 +592,6 @@ msgstr "Podgląd zadania"
 msgid "Exam"
 msgstr "Egzamin"
 
-msgid "Task content"
-msgstr "Treść zadania"
-
 msgid "To print or download, hover over the document and use the toolbar that appears in the corner, or right-click on it."
 msgstr "Aby wydrukować lub pobrać, najedź myszką na dokument i użyj paska narzędzi, który pojawi się w rogu, lub kliknij prawym przyciskiem myszy."
 
@@ -667,6 +664,7 @@ msgstr "Strona(y) Z Odpowiedzami Do Zadań"
 msgid "Task Content"
 msgstr "Treść Zadania"
 
+
 msgid "Next"
 msgstr "Dalej"
 
@@ -684,3 +682,15 @@ msgstr "Numer(y) strony z odpowiedzią w pliku PDF z rozwiązaniami."
 
 msgid "Extracted task content will appear here."
 msgstr "Wyodrębniona treść zadania pojawi się tutaj."
+
+msgid "Confirm Task Content"
+msgstr "Potwierdź Treść Zadania"
+
+msgid "The extracted content of the task from the PDF file."
+msgstr "Wyodrębniona treść zadania z pliku PDF."
+
+msgid "Back"
+msgstr "Cofnij"
+
+msgid "Confirm and Save"
+msgstr "Potwierdź i Zapisz"

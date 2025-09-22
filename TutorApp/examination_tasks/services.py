@@ -288,19 +288,8 @@ class MatriculationTaskService:
     def get_clean_task_content(lines: List[str], task_number: int) -> str:
         """
         Searches for the content of a specific task, cleans it of unnecessary elements
-        and returns it as a single string.
-
-
-        Args:
-            lines (List[str]): A list of strings (lines of text) to search.
-            task_number (int): The number of the task to find.
-
-        Returns:
-            str: The cleaned task content as a single string.
-
-
+        and returns it as a single string (without the header 'Zadanie X.').
         """
-
         if not isinstance(lines, list):
             raise TypeError("Argument 'lines' musi być listą stringów.")
         if not isinstance(task_number, int):
@@ -308,7 +297,7 @@ class MatriculationTaskService:
         if task_number <= 0:
             raise ValueError("Numer zadania musi być liczbą dodatnią.")
 
-        task_start_pattern = re.compile(r"^\s*Zadanie\s+(\d+)\.")
+        task_start_pattern = re.compile(r"^\s*Zadanie\s+(\d+)", re.IGNORECASE)
 
         task_indices: Dict[int, int] = {}
         for i, line in enumerate(lines):
@@ -336,15 +325,19 @@ class MatriculationTaskService:
         raw_task_lines = lines[start_index:end_index]
 
         cleaned_lines = []
-
         filter_phrases = ["więcej arkuszy", "brudnopis"]
 
-        for line in raw_task_lines[1:]:
-            stripped_line = line.strip()
+        for i, line in enumerate(raw_task_lines):
+            stripped = line.strip()
 
-            if stripped_line and not any(
-                phrase in stripped_line.lower() for phrase in filter_phrases
-            ):
-                cleaned_lines.append(stripped_line)
+            if not stripped:
+                continue
+            if i == 0 and stripped.lower().startswith("zadanie"):
+
+                continue
+            if any(phrase in stripped.lower() for phrase in filter_phrases):
+                continue
+
+            cleaned_lines.append(stripped)
 
         return "\n".join(cleaned_lines)
