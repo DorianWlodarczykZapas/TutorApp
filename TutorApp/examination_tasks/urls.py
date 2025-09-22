@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     AddBookView,
     AddMatriculationTaskView,
+    ConfirmMatriculationTaskView,
     ExamCreateView,
     ExamListView,
     ExamTaskListView,
@@ -19,6 +20,11 @@ urlpatterns = [
         "exams/tasks/add/",
         AddMatriculationTaskView.as_view(),
         name="add_exam_task",
+    ),
+    path(
+        "exams/tasks/confirm/",
+        ConfirmMatriculationTaskView.as_view(),
+        name="confirm_exam_task",
     ),
     path("tasks/<int:pk>/pdf/", TaskPdfView.as_view(), name="task-pdf"),
     path("tasks/<int:pk>/", TaskDisplayView.as_view(), name="task-display"),
