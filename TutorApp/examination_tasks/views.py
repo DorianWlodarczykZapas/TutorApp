@@ -15,7 +15,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from django.views.generic import CreateView, DetailView, FormView, ListView, View
+from django.views.generic import CreateView, DetailView, ListView, View
+from formtools.wizard.views import SessionWizardView
 from users.views import TeacherRequiredMixin
 
 from .forms import (
@@ -55,26 +56,58 @@ class ExamCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, FormView):
-    template_name = "examination_tasks/add_matriculation_task.html"
-    form_class = AddMatriculationTaskForm
+FORMS = [
+    ("step1", AddMatriculationTaskForm),
+    ("step2", ConfirmMatriculationTaskForm),
+]
 
-    def form_valid(self, form):
-        task_link = form.cleaned_data.get("task_link")
-        pages = form.cleaned_data.get("pages")
-        task_id = form.cleaned_data.get("task_id")
 
-        extracted_text = MatriculationTaskService.extract_text_lines_from_pdf(
-            task_link, pages
+class AddMatriculationTaskWizard(
+    LoginRequiredMixin, TeacherRequiredMixin, SessionWizardView
+):
+    template_name = "examination_tasks/task_wizard.html"
+    form_list = FORMS
+
+    def get_form_instance(self, step):
+
+        if step == "step2":
+            instance = ExamTask()
+            step1_data = self.get_cleaned_data_for_step("step1") or {}
+            for field, value in step1_data.items():
+                setattr(instance, field, value)
+
+            task_link = step1_data.get("task_link")
+            pages = step1_data.get("pages")
+            task_id = step1_data.get("task_id")
+
+            extracted_text = MatriculationTaskService.extract_text_lines_from_pdf(
+                task_link, pages
+            )
+            task_text = MatriculationTaskService.get_clean_task_content(
+                extracted_text, task_id
+            )
+            instance.task_text = task_text
+
+            return instance
+        return None
+
+    def done(self, form_list, **kwargs):
+
+        step1_data = self.get_cleaned_data_for_step("step1")
+        step2_data = self.get_cleaned_data_for_step("step2")
+
+        exam_task = ExamTask(
+            exam=step1_data["exam"],
+            task_id=step1_data["task_id"],
+            section=step1_data["section"],
+            pages=step1_data.get("pages"),
+            answer=step1_data.get("answer"),
+            task_text=step2_data["task_text"],
         )
-        task_text = MatriculationTaskService.get_clean_task_content(
-            extracted_text, task_id
-        )
+        exam_task.save()
 
-        self.request.session["task_data"] = form.cleaned_data
-        self.request.session["task_data"]["task_text"] = task_text
-
-        return redirect("confirm_exam_task")
+        messages.success(self.request, _("Task added successfully!"))
+        return redirect("add_exam_task")
 
     def get_success_url(self) -> str:
         """
@@ -84,20 +117,6 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, FormVie
         """
         messages.success(self.request, _("Task added successfully!"))
         return self.request.path_info
-
-
-class ConfirmMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, FormView):
-    template_name = "examination_tasks/confirm_task.html"
-    form_class = ConfirmMatriculationTaskForm
-
-    def get_initial(self):
-        return self.request.session.get("task_data", {})
-
-    def form_valid(self, form):
-        form.save()
-        messages.success(self.request, _("Task added successfully!"))
-        self.request.session.pop("task_data", None)
-        return redirect("add_exam_task")
 
 
 LEVEL_MAP = {
