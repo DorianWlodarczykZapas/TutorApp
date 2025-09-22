@@ -652,3 +652,35 @@ msgstr "Rok Publikacji"
 msgid "Add Book"
 msgstr "Dodaj Książkę"
 
+msgid "Task Section"
+msgstr "Dział Zadania"
+
+msgid "Task Topic"
+msgstr "Temat Zadania"
+
+msgid "Page Number(s)"
+msgstr "Strona(y) Z Zadaniem"
+
+msgid "Answer Page Number(s)"
+msgstr "Strona(y) Z Odpowiedzami Do Zadań"
+
+msgid "Task Content"
+msgstr "Treść Zadania"
+
+msgid "Next"
+msgstr "Dalej"
+
+msgid "e.g. 5 or 5-6"
+msgstr "Np. 5 lub 5-6"
+
+msgid "Page number(s) in the PDF, e.g., '5' or '5-6'."
+msgstr "Numer(y) strony w pliku PDF, np. „5” lub „5-6”."
+
+msgid "e.g. 15 or 15-16"
+msgstr "Np. 15 lub 15-16"
+
+msgid "Page number(s) for the answer in the solutions PDF."
+msgstr "Numer(y) strony z odpowiedzią w pliku PDF z rozwiązaniami."
+
+msgid "Extracted task content will appear here."
+msgstr "Wyodrębniona treść zadania pojawi się tutaj."

@@ -69,20 +69,23 @@ class AddMatriculationTaskWizard(
     form_list = FORMS
 
     def get_form_instance(self, step):
-
         if step == "step2":
             instance = ExamTask()
             step1_data = self.get_cleaned_data_for_step("step1") or {}
             for field, value in step1_data.items():
                 setattr(instance, field, value)
 
-            task_link = step1_data.get("task_link")
-            pages = step1_data.get("pages")
+            exam = step1_data.get("exam")
             task_id = step1_data.get("task_id")
 
+            pages_str = step1_data.get("task_pages")
+
+            pages = MatriculationTaskService._parse_pages_string(pages_str)
+
             extracted_text = MatriculationTaskService.extract_text_lines_from_pdf(
-                task_link, pages
+                exam.tasks_link.path, pages
             )
+
             task_text = MatriculationTaskService.get_clean_task_content(
                 extracted_text, task_id
             )

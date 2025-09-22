@@ -9,7 +9,7 @@ from django.db.models.query import QuerySet
 from users.models import User
 
 if TYPE_CHECKING:
-    from .models import Exam, MathMatriculationTasks
+    from .models import Exam, ExamTask
 
 
 class MatriculationTaskService:
@@ -42,13 +42,13 @@ class MatriculationTaskService:
         category: Optional[int] = None,
         is_done: Optional[bool] = None,
         user: Optional[User] = None,
-    ) -> QuerySet["MathMatriculationTasks"]:
+    ) -> QuerySet["ExamTask"]:
         """
         Filters MathMatriculationTasks based on optional criteria.
         """
-        from .models import MathMatriculationTasks
+        from .models import ExamTask
 
-        qs = MathMatriculationTasks.objects.select_related("exam").all()
+        qs = ExamTask.objects.select_related("exam").all()
 
         if year is not None:
             qs = qs.filter(exam__year=year)
@@ -146,12 +146,10 @@ class MatriculationTaskService:
 
         exam_ids = [exam.pk for exam in exams]
 
-        from .models import MathMatriculationTasks
+        from .models import ExamTask
 
         completion_counts = (
-            MathMatriculationTasks.objects.filter(
-                exam_id__in=exam_ids, completed_by=user
-            )
+            ExamTask.objects.filter(exam_id__in=exam_ids, completed_by=user)
             .values("exam_id")
             .annotate(num_completed=Count("id"))
             .values_list("exam_id", "num_completed")
@@ -180,12 +178,12 @@ class MatriculationTaskService:
         if not user or not user.is_authenticated:
             return {}
 
-        from .models import MathMatriculationTasks
+        from .models import ExamTask
 
         completed_task_ids: Set[int] = set(
-            MathMatriculationTasks.objects.filter(
-                exam=exam, completed_by=user
-            ).values_list("task_id", flat=True)
+            ExamTask.objects.filter(exam=exam, completed_by=user).values_list(
+                "task_id", flat=True
+            )
         )
 
         all_tasks_in_exam = exam.tasks.all()
@@ -198,7 +196,7 @@ class MatriculationTaskService:
         return task_status_map
 
     @staticmethod
-    def toggle_completed(task: "MathMatriculationTasks", user: "User") -> bool:
+    def toggle_completed(task: "ExamTask", user: "User") -> bool:
         """
         Switches the task completion status for the user.
 

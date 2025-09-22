@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Book, Exam, ExamTask
+from .models import Book, Exam, ExamTask, Section
 from .services import MatriculationTaskService
 
 
@@ -47,13 +47,20 @@ class AddMatriculationTaskForm(forms.ModelForm):
         ),
     )
 
-    section = forms.ChoiceField(
-        choices=ExamTask._meta.get_field("section").choices,
+    section = forms.ModelChoiceField(
+        queryset=Section.objects.all(),
         label=_("Task Section"),
         widget=forms.Select(attrs={"class": "form-control"}),
     )
 
-    pages = forms.CharField(
+    topic = forms.ChoiceField(
+        choices=ExamTask._meta.get_field("topic").choices,
+        required=False,
+        label=_("Task Topic"),
+        widget=forms.Select(attrs={"class": "form-control"}),
+    )
+
+    task_pages = forms.CharField(
         label=_("Page Number(s)"),
         required=False,
         widget=forms.TextInput(
@@ -62,7 +69,7 @@ class AddMatriculationTaskForm(forms.ModelForm):
         help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
     )
 
-    answer = forms.CharField(
+    answer_pages = forms.CharField(
         label=_("Answer Page Number(s)"),
         required=False,
         widget=forms.TextInput(
@@ -71,9 +78,29 @@ class AddMatriculationTaskForm(forms.ModelForm):
         help_text=_("Page number(s) for the answer in the solutions PDF."),
     )
 
+    task_content = forms.CharField(
+        label=_("Task Content"),
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 8,
+                "placeholder": _("Extracted task content will appear here."),
+            }
+        ),
+    )
+
     class Meta:
         model = ExamTask
-        fields = ["exam", "task_id", "section", "pages", "answer"]
+        fields = [
+            "exam",
+            "task_id",
+            "section",
+            "topic",
+            "task_pages",
+            "answer_pages",
+            "task_content",
+        ]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -90,9 +117,8 @@ class AddMatriculationTaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["exam"].queryset = (
-            MatriculationTaskService.get_exams_with_available_tasks()
-        )
+        qs = MatriculationTaskService.get_exams_with_available_tasks()
+        self.fields["exam"].queryset = qs if qs is not None else Exam.objects.none()
 
         if "exam" in self.data:
             try:
@@ -109,9 +135,9 @@ class AddMatriculationTaskForm(forms.ModelForm):
 class ConfirmMatriculationTaskForm(forms.ModelForm):
     class Meta:
         model = ExamTask
-        fields = ["task_text"]
+        fields = ["task_content"]
         widgets = {
-            "task_text": forms.Textarea(attrs={"class": "form-control", "rows": 8}),
+            "task_content": forms.Textarea(attrs={"class": "form-control", "rows": 8}),
         }
 
 
