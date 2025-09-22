@@ -109,7 +109,7 @@ class AddMatriculationTaskForm(forms.ModelForm):
 class ConfirmMatriculationTaskForm(forms.ModelForm):
     class Meta:
         model = ExamTask
-        fields = ["exam", "task_id", "section", "pages", "answer", "task_text"]
+        fields = ["task_text"]
         widgets = {
             "task_text": forms.Textarea(attrs={"class": "form-control", "rows": 8}),
         }
