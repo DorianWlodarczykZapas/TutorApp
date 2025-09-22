@@ -106,6 +106,15 @@ class AddMatriculationTaskForm(forms.ModelForm):
                 pass
 
 
+class ConfirmMatriculationTaskForm(forms.ModelForm):
+    class Meta:
+        model = ExamTask
+        fields = ["exam", "task_id", "section", "pages", "answer", "task_text"]
+        widgets = {
+            "task_text": forms.Textarea(attrs={"class": "form-control", "rows": 8}),
+        }
+
+
 class TaskSearchForm(forms.Form):
     """
     Form used to validate and clean the parameters of
