@@ -18,7 +18,12 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import CreateView, DetailView, FormView, ListView, View
 from users.views import TeacherRequiredMixin
 
-from .forms import AddMatriculationTaskForm, BookForm, ExamForm
+from .forms import (
+    AddMatriculationTaskForm,
+    BookForm,
+    ConfirmMatriculationTaskForm,
+    ExamForm,
+)
 from .models import Book, Exam, ExamTask
 from .services import MatriculationTaskService
 
@@ -79,6 +84,20 @@ class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, FormVie
         """
         messages.success(self.request, _("Task added successfully!"))
         return self.request.path_info
+
+
+class ConfirmMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, FormView):
+    template_name = "examination_tasks/confirm_task.html"
+    form_class = ConfirmMatriculationTaskForm
+
+    def get_initial(self):
+        return self.request.session.get("task_data", {})
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, _("Task added successfully!"))
+        self.request.session.pop("task_data", None)
+        return redirect("add_exam_task")
 
 
 LEVEL_MAP = {
