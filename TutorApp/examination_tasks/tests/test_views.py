@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from ...users.factories import UserFactory
 from ..factories import ExamFactory, MathMatriculationTasksFactory
-from ..models import Exam, MathMatriculationTasks
+from ..models import Book, Exam, MathMatriculationTasks
 from ..services import MatriculationTaskService
 from ..views import SearchMatriculationTaskView
 
@@ -596,3 +596,15 @@ class TaskPdfStreamViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 500)
         self.assertIn("internal server error", response.content.decode().lower())
+
+    def test_teacher_can_add_book(self):
+        self.client.login(username="teacher", password="pass123")
+        data = {
+            "title": "Test Book",
+            "author": "Author Name",
+            "publication_year": 2024,
+            "school_level": "High School",
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Book.objects.filter(title="Test Book").exists())
