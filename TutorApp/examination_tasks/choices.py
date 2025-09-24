@@ -40,6 +40,8 @@ class TopicChoices(models.IntegerChoices):
 class SectionChoices(models.IntegerChoices):
     REAL_NUMBERS = 1, _("Real Numbers")
     FUNCTIONS = 2, _("Functions")
+    SYSTEMS_OF_EQUATIONS = 3, _("Systems of Equations")
+    LANGUAGE_OF_MATHEMATICS = 4, _("Languages of Mathematics")
 
 
 class SchoolLevelChoices(models.TextChoices):
