@@ -42,6 +42,15 @@ class SectionChoices(models.IntegerChoices):
     FUNCTIONS = 2, _("Functions")
     SYSTEMS_OF_EQUATIONS = 3, _("Systems of Equations")
     LANGUAGE_OF_MATHEMATICS = 4, _("Languages of Mathematics")
+    LINEAR_FUNCTION = 5, _("Linear Function")
+    PLANIMETRY_PART_ONE = 6, _("Planimetry Part One")
+    QUADRATIC_FUNCTION = 7, _("Quadratic Function")
+    APPLICATION_OF_QUADRATIC_EQUATION = 8, _("Application of Quadratic Equation")
+    POLYNOMIALS = 9, _("Polynomials")
+    RATIONAL_FUNCTION = 10, _("Rational Function")
+    TRIGONOMETRY = 11, _("Trigonometry")
+    PLANIMETRY_PART_TWO = 12, _("Planimetry Part Two")
+    EXPONENTIAL_AND_LOGARITHMIC_FUNCTION = 13, _("Exponential and Logarithmic Function")
 
 
 class SchoolLevelChoices(models.TextChoices):
