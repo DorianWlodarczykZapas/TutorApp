@@ -51,6 +51,22 @@ class SectionChoices(models.IntegerChoices):
     TRIGONOMETRY = 11, _("Trigonometry")
     PLANIMETRY_PART_TWO = 12, _("Planimetry Part Two")
     EXPONENTIAL_AND_LOGARITHMIC_FUNCTION = 13, _("Exponential and Logarithmic Function")
+    TRIGONOMETRIC_FUNCTIONS = 14, _("Trigonometric Functions")
+    ANALITYCAL_GEOMETRY = 15, _("Analitic Geometry")
+    SEQUENCES = 16, _("Sequences")
+    DIFFERENTIAL_CALCULUS = 17, _("Differential Calculus")
+    STATISTICS = 18, _("Statistics")
+    PROBABILITY = 19, _("Probability")
+    STEREOMETRY = 20, _("Stereometry")
+    ROTATING_SOLIDS = 21, _("Rotating Solids")
+    NUMBER_AND_ACTIONS = 22, _("Number and Actions")
+    ALGEBRAIC_EXPRESSIONS_AND_EQUATIONS = 23, _("Algebraic Expressions")
+    GEOMETRIC_SHAPES_ON_A_PLANE = 24, _("Geometry Shape on A Plane")
+    APPLICATIONS_OF_MATHEMATICS = 25, _("Applications of Mathematics")
+    PRISMS_AND_PYRAMIDS = 26, _("Prisms and Pyramids")
+    SYMMETRIES = 27, _("Symmetries")
+    WHEELS_AND_CIRCLES = 28, _("Wheels and Circles")
+    PROBABILITY_CALCULATION = 29, _("Probability")
 
 
 class SchoolLevelChoices(models.TextChoices):
