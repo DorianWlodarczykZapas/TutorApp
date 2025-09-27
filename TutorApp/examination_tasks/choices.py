@@ -33,8 +33,7 @@ class ExamTypeChoices(models.IntegerChoices):
 
 
 class TopicChoices(models.IntegerChoices):
-    VIETE_FORMULAS = 1, _("Viete's Formulas")
-    OPTIMIZATION = 2, _("Optimization")
+    QUADRATIC_FUNCTION_VIETEA_FORMULAS = 1, _("Quadratic Function Vietea Formulas")
 
 
 class SectionChoices(models.IntegerChoices):
