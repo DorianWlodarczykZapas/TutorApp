@@ -34,6 +34,7 @@ class ExamTypeChoices(models.IntegerChoices):
 
 class TopicChoices(models.IntegerChoices):
     QUADRATIC_FUNCTION_VIETEA_FORMULAS = 1, _("Quadratic Function Vietea Formulas")
+    RATIONAL_INEQUALITIES = 2, _("Rational Inequalities")
 
 
 class SectionChoices(models.IntegerChoices):
