@@ -18,8 +18,8 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import CreateView, DetailView, ListView, View
 from users.views import TeacherRequiredMixin
 
-from .forms import AddMatriculationTaskForm, ExamForm, BookForm
-from .models import Exam, ExamTask, Book
+from .forms import AddMatriculationTaskForm, BookForm, ExamForm
+from .models import Book, Exam, ExamTask
 from .services import MatriculationTaskService
 
 
@@ -141,49 +141,62 @@ class TaskDisplayView(DetailView):
 
 
 @method_decorator(xframe_options_sameorigin, name="dispatch")
-class TaskPdfStreamView(View):
+class TaskCutPdfStreamView(View):
     """
-     A view that generates and streams raw PDF data for a single, specific task.
-    This view is intended to be called by the <embed> or <object> tag on an HTML page.
-    It supports GET requests on URLs of the form /examination_tasks/<int:pk>/pdf-stream/.
+    Streams a cut PDF for either the task content ('task') or the solution ('answer').
     """
+
+    VALID_KINDS = ("task", "answer")
 
     def get(self, request, *args, **kwargs):
-        task_pk = self.kwargs.get("pk")
+        task_pk = kwargs.get("pk")
+        kind = kwargs.get("kind", "task")
+        if kind not in self.VALID_KINDS:
+            return HttpResponseNotFound(_("Nieprawidłowy typ źródła PDF."))
+
         task = get_object_or_404(ExamTask, pk=task_pk)
+        exam = task.exam
 
-        source_pdf_path = task.exam.tasks_link.path
-        pages_str = task.pages
+        if kind == "task":
+            source_file = exam.tasks_link
+            pages_str = task.task_pages
+            filename_prefix = "zadanie"
+        else:
+            source_file = exam.solutions_link
+            pages_str = task.answer_pages
+            filename_prefix = "rozwiazanie"
 
-        if not source_pdf_path:
-            return HttpResponseNotFound(_("No defined path to the PDF sheet."))
+        if not source_file:
+            return HttpResponseNotFound(
+                _("Brak pliku PDF dla wybranego typu: %(kind)s") % {"kind": kind}
+            )
+
+        try:
+            source_pdf_path = source_file.path
+        except Exception:
+            return HttpResponseNotFound(_("Nie udało się odczytać ścieżki do PDF."))
 
         try:
             pages_to_extract = MatriculationTaskService._parse_pages_string(pages_str)
             if not pages_to_extract:
-                return HttpResponseNotFound(
-                    _("No pages to be cut have been defined for this task.")
-                )
+                return HttpResponseNotFound(_("Nie zdefiniowano stron do wycięcia."))
 
             pdf_bytes = MatriculationTaskService.get_single_task_pdf(
                 task_link=source_pdf_path, pages=pages_to_extract
             )
-
             if not pdf_bytes:
-                return HttpResponseNotFound(
-                    _("The PDF file for this task could not be generated.")
-                )
+                return HttpResponseNotFound(_("Nie udało się wygenerować pliku PDF."))
 
             response = HttpResponse(pdf_bytes, content_type="application/pdf")
             response["Content-Disposition"] = (
-                f'inline; filename="zadanie_{task.exam.year}_{task.task_id}.pdf"'
+                f'inline; filename="{filename_prefix}_{task.exam.year}_{task.task_id}.pdf"'
             )
+            response["Content-Length"] = str(len(pdf_bytes))
             return response
 
         except Exception:
-            return HttpResponse(
-                _("An internal server error has occurred. "), status=500
-            )
+
+            return HttpResponse(_("Wystąpił wewnętrzny błąd serwera."), status=500)
 
 
 class ExamListView(LoginRequiredMixin, ListView):
@@ -293,7 +306,8 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
 
         return context
 
-class AddBookView(LoginRequiredMixin,TeacherRequiredMixin,CreateView):
+
+class AddBookView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
     """
     Simple view that adds book to database via form
     """
