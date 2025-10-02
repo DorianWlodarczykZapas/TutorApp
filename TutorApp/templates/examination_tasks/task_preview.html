@@ -10,7 +10,6 @@
                 <h1>{% trans "Task preview" %}</h1>
                 <h2>{% trans "Task" %} {{ task.task_id }}</h2>
                 <p class="lead">{% trans "Exam" %}: {{ task.exam }}</p>
-                <!-- Status + przycisk toggle -->
                 <div class="task-actions mt-3">
                     <span id="task-status"
                           class="status-badge {% if user in task.completed_by.all %}status-completed{% else %}status-not-completed{% endif %}">

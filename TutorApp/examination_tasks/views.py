@@ -97,7 +97,7 @@ LEVEL_MAP = {
 
 
 class TaskPdfView(View):
-    template_name = "examination_tasks/exam_preview.html"
+    template_name = "examination_tasks/task_preview.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -129,7 +129,7 @@ class TaskDisplayView(DetailView):
     """
 
     model = ExamTask
-    template_name = "examination_tasks/exam_preview.html"
+    template_name = "examination_tasks/task_preview.html"
     context_object_name = "task"
 
     def post(self, request, *args, **kwargs):
