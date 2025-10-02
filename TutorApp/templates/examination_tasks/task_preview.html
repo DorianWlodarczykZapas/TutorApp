@@ -27,15 +27,31 @@
                         {% endif %}
                     </button>
                 </div>
+                <div class="pdf-switcher" style="margin-top: 12px;">
+                    <button id="show-task" class="filter-btn active" type="button">{% trans "Show task" %}</button>
+                    {% if task.exam.solutions_link and task.answer_pages %}
+                        <button id="show-answer" class="filter-btn" type="button">{% trans "Show answer" %}</button>
+                        <a href="{% url 'examination_tasks:task-pdf-stream-kind' pk=task.pk kind='answer' %}"
+                           target="_blank"
+                           rel="noopener"
+                           class="filter-btn">{% trans "Open answer in a new tab" %}</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="pdf-viewer-container">
             <div class="pdf-embed-wrapper">
-                <embed src="{% url 'examination_tasks:task-pdf-stream' pk=task.pk %}#view=FitH&toolbar=0"
+                {% url 'examination_tasks:task-pdf-stream-kind' pk=task.pk kind='task' as task_pdf_url %}
+                {% if task.exam.solutions_link and task.answer_pages %}
+                    {% url 'examination_tasks:task-pdf-stream-kind' pk=task.pk kind='answer' as answer_pdf_url %}
+                {% endif %}
+                <embed id="pdf-embed"
+                       src="{{ task_pdf_url }}#view=FitH&toolbar=0"
                        type="application/pdf"
                        width="100%"
                        height="100%" />
-                <a href="{% url 'examination_tasks:task-pdf-stream' pk=task.pk %}"
+                <a id="pdf-overlay-link"
+                   href="{{ task_pdf_url }}"
                    target="_blank"
                    class="pdf-overlay-link"
                    aria-label="{% trans 'Open PDF in a new tab' %}"></a>
@@ -43,30 +59,68 @@
         </div>
     </div>
     <script>
-document.getElementById("toggle-completed").addEventListener("click", async () => {
-    const response = await fetch(window.location.href, {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-            "X-Requested-With": "XMLHttpRequest"
+    document.getElementById("toggle-completed").addEventListener("click", async () => {
+        const response = await fetch(window.location.href, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        });
+        const data = await response.json();
+
+        const statusBadge = document.getElementById("task-status");
+        const button = document.getElementById("toggle-completed");
+
+        if (data.completed) {
+            statusBadge.textContent = "{% trans 'Completed' %}";
+            statusBadge.classList.remove("status-not-completed");
+            statusBadge.classList.add("status-completed");
+            button.textContent = "{% trans 'Mark as not completed' %}";
+        } else {
+            statusBadge.textContent = "{% trans 'Not completed' %}";
+            statusBadge.classList.remove("status-completed");
+            statusBadge.classList.add("status-not-completed");
+            button.textContent = "{% trans 'Mark as completed' %}";
         }
     });
-    const data = await response.json();
 
-    const statusBadge = document.getElementById("task-status");
-    const button = document.getElementById("toggle-completed");
 
-    if (data.completed) {
-        statusBadge.textContent = "{{ _('Completed') }}";
-        statusBadge.classList.remove("status-not-completed");
-        statusBadge.classList.add("status-completed");
-        button.textContent = "{{ _('Mark as not completed') }}";
-    } else {
-        statusBadge.textContent = "{{ _('Not completed') }}";
-        statusBadge.classList.remove("status-completed");
-        statusBadge.classList.add("status-not-completed");
-        button.textContent = "{{ _('Mark as completed') }}";
-    }
-});
+    (function () {
+        const embed = document.getElementById("pdf-embed");
+        const overlay = document.getElementById("pdf-overlay-link");
+
+        const taskUrl = "{{ task_pdf_url }}";
+        const answerUrl = "{% if task.exam.solutions_link and task.answer_pages %}{{ answer_pdf_url }}{% endif %}";
+        const suffix = "#view=FitH&toolbar=0";
+
+        const btnTask = document.getElementById("show-task");
+        const btnAnswer = document.getElementById("show-answer");
+
+        function setActive(btn) {
+            document.querySelectorAll(".pdf-switcher .filter-btn").forEach(b => b.classList.remove("active"));
+            if (btn) btn.classList.add("active");
+        }
+
+        function show(kind) {
+            const url = (kind === "answer" && answerUrl) ? answerUrl : taskUrl;
+            if (!url) return;
+            embed.src = url + suffix;
+            overlay.href = url;
+        }
+
+        if (btnTask) {
+            btnTask.addEventListener("click", () => {
+                show("task");
+                setActive(btnTask);
+            });
+        }
+        if (btnAnswer) {
+            btnAnswer.addEventListener("click", () => {
+                show("answer");
+                setActive(btnAnswer);
+            });
+        }
+    })();
     </script>
 {% endblock %}
