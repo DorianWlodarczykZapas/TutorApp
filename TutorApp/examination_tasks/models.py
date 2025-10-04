@@ -110,6 +110,11 @@ class Section(models.Model):
 
 
 class Book(models.Model):
+    SUBJECT_CHOICES = [
+        ("MATH", "Mathematics"),
+        ("PHYSICS", "Physics"),
+    ]
+
     title = models.CharField(max_length=255, verbose_name="Title")
     author = models.CharField(max_length=255, blank=True, verbose_name="Author")
     publication_year = models.IntegerField(
@@ -118,17 +123,27 @@ class Book(models.Model):
     school_level = models.CharField(
         max_length=20,
         choices=choices.SchoolLevelChoices.choices,
-        default=choices.SchoolLevelChoices.SECONDARY,
         verbose_name="School Level",
+    )
+    subject = models.CharField(
+        max_length=10, choices=SUBJECT_CHOICES, verbose_name="Subject"
+    )
+    grade = models.IntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Suggested Grade",
+        help_text="Suggested grade level (1-8 for primary, 1-4 for secondary)",
     )
 
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"
-        ordering = ["title"]
+        ordering = ["school_level", "subject", "grade", "title"]
+        unique_together = ["title", "school_level", "subject"]
 
     def __str__(self):
-        return self.title
+        grade_info = f" - Grade {self.grade}" if self.grade else ""
+        return f"{self.title}{grade_info} ({self.get_subject_display()})"
 
 
 class Chapter(models.Model):
