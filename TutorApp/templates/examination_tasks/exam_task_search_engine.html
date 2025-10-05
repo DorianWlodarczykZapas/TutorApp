@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Examination Tasks" %}{% endblock %}
+
+{% block content %}
+<div class="exam-list-container">
+
+  <h1 class="task-list-title">{% trans "Examination Tasks" %}</h1>
+
+  <div class="form-container">
+    <h2 class="form-title">{% trans "Filter tasks" %}</h2>
+
+    <form method="get" novalidate>
+      {% if filter.form.non_field_errors %}
+        <div class="global-errors">
+          {{ filter.form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <div class="filter-controls">
+        {% for field in filter.form.visible_fields %}
+          <div class="filter-group">
+            <label for="{{ field.id_for_label }}" class="filter-label">
+              {{ field.label }}
+            </label>
+            {{ field }}
+            {% if field.help_text %}
+              <span class="form-help-text">{{ field.help_text }}</span>
+            {% endif %}
+            {% for error in field.errors %}
+              <div class="field-errors">{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div style="text-align:center; margin-top: 10px;">
+        <button type="submit" class="btn-submit">{% trans "Filter" %}</button>
+        <a href="{% url 'examtask_list' %}" class="filter-btn" style="margin-left:10px;">
+          {% trans "Clear" %}
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <div style="margin-top: 30px;">
+    <div class="table-responsive">
+      <table class="exam-table task-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th class="col-left">{% trans "Task" %}</th>
+            <th>{% trans "Section" %}</th>
+            <th>{% trans "Topic" %}</th>
+            <th>{% trans "Year/Month" %}</th>
+            <th class="col-center">{% trans "Status" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in page_obj.object_list %}
+            <tr class="row-{% cycle 'odd' 'even' %}">
+              <td>{{ task.id }}</td>
+              <td class="col-left">{{ task }}</td>
+              <td>{{ task.section }}</td>
+              <td>{{ task.topic }}</td>
+              <td>
+                {% if task.exam %}
+                  {{ task.exam.year }}/{{ task.exam.month }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+              <td class="col-center">
+                {% if task.is_completed %}
+                  <span class="status-badge status-completed">{% trans "Completed" %}</span>
+                {% else %}
+                  <span class="status-badge status-not-completed">{% trans "Not completed" %}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6" class="no-exams-message">
+                {% trans "No tasks match your criteria." %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if is_paginated %}
+      <div class="pagination">
+        {% if page_obj.has_previous %}
+          <a href="?{% if request.GET %}{{ request.GET.urlencode|cut:'page='|cut:'&page=' }}&{% endif %}page={{ page_obj.previous_page_number }}">« {% trans "Previous" %}</a>
+        {% endif %}
+
+        <span class="current">
+          {% blocktrans %}Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}{% endblocktrans %}
+        </span>
+
+        {% if page_obj.has_next %}
+          <a href="?{% if request.GET %}{{ request.GET.urlencode|cut:'page='|cut:'&page=' }}&{% endif %}page={{ page_obj.next_page_number }}">{% trans "Next" %} »</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
