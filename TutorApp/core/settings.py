@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     "silk",
     "debug_toolbar",
     "django_extensions",
-    "django-filters",
+    "django_filters",
 ]
 
 INSTALLED_EXTENSIONS = [
