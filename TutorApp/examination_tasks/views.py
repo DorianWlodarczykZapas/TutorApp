@@ -331,3 +331,27 @@ class AddBookView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         """
         messages.success(self.request, _("Book added successfully!"))
         return super().form_valid(form)
+
+
+
+class ExamTaskSearchEngine(FilterView):
+    model = ExamTask
+    filterset_class = ExamTaskFilter
+    template_name = 'examination_tasks/exam_question_search_engine.html'
+    paginate_by = 20
+
+    def get_queryset(self):
+        qs = (
+            ExamTask.objects
+            .select_related('exam')
+            .select_related('section', 'topic')
+        )
+        user = getattr(self.request, 'user', None)
+        school_type = getattr(user, 'school_type', None)
+
+        exam_type = SCHOOL_TO_EXAM_TYPE.get(school_type)
+        if exam_type is not None:
+            qs = qs.filter(exam__exam_type=exam_type)
+
+
+        return qs.order_by('-exam__year', '-exam__month', '-id')
