@@ -1,0 +1,80 @@
+name: Django Tests
+
+on:
+  workflow_run:
+    workflows: ["Lint"]
+    types:
+        - completed
+    branches: [ "main", "master" ]
+
+env:
+  PYTHON_VERSION: '3.13'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+
+    services:
+      postgres:
+        image: postgres:17.5
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_NAME }}
+          POSTGRES_USER: ${{ env.DB_USER }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        id: setup-python
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 2.2.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --with dev
+
+
+      - name: Run Pytest
+        run: |
+          cd TutorApp
+          poetry run coverage run --source="." manage.py test --parallel --keepdb
+          poetry run coverage report -m
+          poetry run coverage xml
+          poetry run coverage html
+        env:
+          DB_USER: ${{ env.DB_USER }}
+          DB_NAME: ${{ env.DB_NAME }}
+          DB_PORT: ${{ env.DB_PORT }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      - name: Test summary
+        if: always()
+        run: |
+          if [ -f coverage.xml ]; then
+            echo "Tests compleated with coverage report"
+          else
+            echo "Tests failed or coverage report not generated"
+          fi
