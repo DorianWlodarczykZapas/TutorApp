@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, F, Q
+from django.db.models import Count, F, Q, QuerySet
 from django.http import (
     Http404,
     HttpResponse,
@@ -341,7 +341,7 @@ class ExamTaskSearchEngine(FilterView):
     template_name = "examination_tasks/exam_question_search_engine.html"
     paginate_by = 20
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet["ExamTask"]:
         qs = ExamTask.objects.select_related("exam").select_related("section", "topic")
         user = getattr(self.request, "user", None)
         school_type = getattr(user, "school_type", None)
