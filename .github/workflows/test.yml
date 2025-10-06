@@ -63,11 +63,11 @@ jobs:
           poetry run coverage xml
           poetry run coverage html
         env:
-          DB_USER: ${{ env.DB_USER }}
-          DB_NAME: ${{ env.DB_NAME }}
-          DB_PORT: ${{ env.DB_PORT }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          PG_USER: ${{ env.DB_USER }}
+          PG_NAME: ${{ env.DB_NAME }}
+          PG_PORT: ${{ env.DB_PORT }}
+          PG_HOST: ${{ secrets.DB_HOST }}
+          PG_PASSWORD: ${{ secrets.DB_PASSWORD }}
           SECRET_KEY: test-secret-key
 
       - name: Test summary
