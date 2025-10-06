@@ -1,0 +1,59 @@
+name: Lint
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+
+env:
+  PYTHON_VERSION: '3.13'
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Code Quality & Linting
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 2.2.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: action/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --with dev
+      - name: Lint with ruff
+        run: |
+          poetry run ruff check .
+      - name: Lint with bandit
+        run: |
+          poetry run bandit -r TutorApp
+      - name: Run Safety
+        run: |
+          poetry run safety check
+        continue-on-error: true
+      - name: Run DjLint
+        run: |
+          poetry run djlint . --lint
+      - name: Run Mypy
+        run: |
+          poetry run mypy TutorApp
