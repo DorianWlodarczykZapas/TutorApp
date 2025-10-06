@@ -79,3 +79,12 @@ class DifficultyLevelChoices(models.IntegerChoices):
     EASY = 1, _("Easy")
     INTERMEDIATE = 2, _("Intermediate")
     ADVANCED = 3, _("Advanced")
+
+
+class GradeChoices(models.IntegerChoices):
+    PRIMARY_7 = 7, "7th Grade - Primary"
+    PRIMARY_8 = 8, "8th Grade - Primary"
+    SECONDARY_1 = 9, "1st Year - Secondary"
+    SECONDARY_2 = 10, "2nd Year - Secondary"
+    SECONDARY_3 = 11, "3rd Year - Secondary"
+    SECONDARY_4 = 12, "4th Year - Secondary"

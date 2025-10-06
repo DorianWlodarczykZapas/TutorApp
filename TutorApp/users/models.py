@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from TutorApp.examination_tasks.choices import GradeChoices
+
 
 class User(AbstractUser):
     SCHOOL_TYPE_CHOICES = [
@@ -14,16 +16,13 @@ class User(AbstractUser):
     )
     role = [(1, "Student"), (2, "Teacher"), (3, "Admin")]
     role_type = models.IntegerField(choices=role, default=1)
-    GRADE_TYPE_CHOICES = [
-        (1, _("7th Grade of Primary School")),
-        (2, _("8th Grade of Primary School")),
-        (3, _("1st Year of Secondary School")),
-        (4, _("2nd Year of Secondary School")),
-        (5, _("3rd Year of Secondary School")),
-        (6, _("4th Year of Secondary School")),
-    ]
-    grade_type = models.IntegerField(
-        max_length=20, choices=GRADE_TYPE_CHOICES, null=True, blank=True
+
+    grade = models.IntegerField(
+        choices=GradeChoices.choices,
+        null=True,
+        blank=True,
+        verbose_name="Grade",
+        help_text="7-8 for primary, 9-12 for secondary",
     )
 
     class Meta:

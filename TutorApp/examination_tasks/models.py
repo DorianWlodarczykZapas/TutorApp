@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from . import choices
+from .choices import GradeChoices
 
 
 class Exam(models.Model):
@@ -129,43 +130,40 @@ class Book(models.Model):
         max_length=10, choices=SUBJECT_CHOICES, verbose_name="Subject"
     )
     grade = models.IntegerField(
+        choices=GradeChoices.choices,
         null=True,
         blank=True,
-        verbose_name="Suggested Grade",
-        help_text="Suggested grade level (1-8 for primary, 1-4 for secondary)",
+        verbose_name="Target Grade",
+        help_text="Leave empty for books covering multiple grades",
     )
 
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"
-        ordering = ["school_level", "subject", "grade", "title"]
-        unique_together = ["title", "school_level", "subject"]
+        ordering = ["school_level", "grade", "subject", "title"]
 
     def __str__(self):
-        grade_info = f" - Grade {self.grade}" if self.grade else ""
+        grade_info = f" - {self.get_grade_display()}" if self.grade else ""
         return f"{self.title}{grade_info} ({self.get_subject_display()})"
 
 
-class Chapter(models.Model):
-    book = models.ForeignKey(
-        Book,
-        on_delete=models.CASCADE,
-        related_name="chapters",
-        verbose_name="Book",
+class Topic(models.Model):
+    section = models.ForeignKey(
+        Section, on_delete=models.CASCADE, related_name="topics", verbose_name="Section"
     )
-    title = models.CharField(max_length=255, verbose_name="Chapter Title")
-    chapter_number = models.CharField(
-        max_length=20, blank=True, verbose_name="Chapter Number"
+    name = models.IntegerField(
+        choices=choices.TopicChoices.choices,
+        verbose_name="Topic Name",
     )
 
     class Meta:
-        verbose_name = "Chapter"
-        verbose_name_plural = "Chapters"
-        unique_together = ("book", "title")
-        ordering = ["book", "chapter_number"]
+        verbose_name = "Topic"
+        verbose_name_plural = "Topics"
+        ordering = ["section", "name"]
+        unique_together = ["section", "name"]
 
     def __str__(self):
-        return f"{self.book.title} - Chapter: {self.title}"
+        return f"{self.section.get_name_display()} - {self.get_name_display()}"
 
 
 class TrainingTask(models.Model):
@@ -177,8 +175,8 @@ class TrainingTask(models.Model):
         blank=True,
         verbose_name="Task Image (optional)",
     )
-    chapter = models.ForeignKey(
-        Chapter,
+    section = models.ForeignKey(
+        Section,
         on_delete=models.SET_NULL,
         related_name="training_tasks",
         verbose_name="Chapter (optional)",
