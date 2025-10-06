@@ -49,7 +49,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-py${{ env.PYTHON_VERSION}}-${{ hashFiles('**/poetry.lock') }}
+#          restore-keys: |
+#            venv-${{ runner.os }}-py${{ env.PYTHON_VERSION }}-
+#            venv-${{ runner.os }}-py3.13-
 
       - name: Install Dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
