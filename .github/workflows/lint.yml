@@ -46,7 +46,7 @@ jobs:
           poetry run ruff check .
       - name: Lint with bandit
         run: |
-          poetry run bandit -r TutorApp
+          poetry run bandit -r TutorApp -c pyproject.toml
       - name: Run Safety
         run: |
           poetry run safety check
