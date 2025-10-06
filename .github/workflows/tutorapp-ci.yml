@@ -52,11 +52,11 @@ jobs:
       run: |
         python manage.py test
       env:
-        DB_USER: ${{ env.DB_USER }}
-        DB_NAME: ${{ env.DB_NAME }}
-        DB_PORT: ${{ env.DB_PORT }}
-        DB_HOST: ${{ secrets.DB_HOST }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        PG_USER: ${{ env.DB_USER }}
+        PG_NAME: ${{ env.DB_NAME }}
+        PG_PORT: ${{ env.DB_PORT }}
+        PG_HOST: ${{ secrets.DB_HOST }}
+        PG_PASSWORD: ${{ secrets.DB_PASSWORD }}
 #    - name: Upload coverage report
 #      uses: codecov/codecov-action@v4
 #      env:
