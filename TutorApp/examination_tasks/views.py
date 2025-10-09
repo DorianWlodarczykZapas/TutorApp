@@ -1,27 +1,17 @@
 from typing import Any, Dict
 
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, F, Q, QuerySet
-from django.http import (
-    Http404,
-    HttpResponse,
-    HttpResponseNotFound,
-    HttpResponseRedirect,
-    JsonResponse,
-)
+from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from django.views.generic import CreateView, DetailView, ListView, View
+from django.views.generic import DetailView, ListView, View
 from django_filters.views import FilterView
-from users.views import TeacherRequiredMixin
 
 from .filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
-from .forms import BookForm
-from .models import Book, Exam, ExamTask
+from .models import Exam, ExamTask
 from .services import MatriculationTaskService
 
 LEVEL_MAP = {
@@ -239,32 +229,6 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
             task.is_completed_by_user = task_completion_map.get(task.task_id, False)
 
         return context
-
-
-class AddBookView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
-    """
-    Simple view that adds book to database via form
-    """
-
-    model = Book
-    form_class = BookForm
-    template_name = "examination_tasks/add_book.html"
-    success_url = reverse_lazy("examination_tasks:add_book")
-
-    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Adds the page title to the template context.
-        """
-        data = super().get_context_data(**kwargs)
-        data["title"] = _("Add New Book")
-        return data
-
-    def form_valid(self, form: BookForm) -> HttpResponseRedirect:
-        """
-        Method for handling the form for adding examinations to the database
-        """
-        messages.success(self.request, _("Book added successfully!"))
-        return super().form_valid(form)
 
 
 class ExamTaskSearchEngine(FilterView):
