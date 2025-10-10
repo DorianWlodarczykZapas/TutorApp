@@ -13,7 +13,7 @@ from .models import Book, Exam, ExamTask
 from .services import MatriculationTaskService
 
 
-class ExamCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
     """
     View for adding new matriculation exams.
     Access is restricted to logged-in users with teacher privileges.
