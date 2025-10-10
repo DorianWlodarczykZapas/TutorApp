@@ -1,4 +1,5 @@
 import os
+import re
 
 import fitz
 
@@ -17,3 +18,14 @@ class ExtractTaskFromPdf:
         if page_number < 1 or page_number > doc.page_count:
             raise ValueError(f"Invalid page number: {page_number}")
         return doc.load_page(page_number - 1)
+
+    @staticmethod
+    def _find_task_start(lines: list[str], task_number: int) -> int:
+        """Finds index of task start in lines."""
+        task_pattern = re.compile(rf"^\s*Zadanie\s+{task_number}\.")
+
+        for i, line in enumerate(lines):
+            if task_pattern.match(line.strip()):
+                return i
+
+        raise ValueError(f"Task {task_number} not found.")
