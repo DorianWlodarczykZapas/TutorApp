@@ -80,7 +80,7 @@ class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         return self.request.path_info
 
 
-class AddBookView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddBook(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
     """
     Simple view that adds book to database via form
     """
