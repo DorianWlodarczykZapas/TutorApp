@@ -40,7 +40,7 @@ class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AddMatriculationTaskView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
     """
     View for adding individual maths tasks to an existing exam.
     Access is restricted to logged-in users with teacher privileges.
