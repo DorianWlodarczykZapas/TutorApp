@@ -1,5 +1,6 @@
 import os
 import re
+from typing import Optional
 
 import fitz
 
@@ -29,3 +30,18 @@ class ExtractTaskFromPdf:
                 return i
 
         raise ValueError(f"Task {task_number} not found.")
+
+    @staticmethod
+    def _find_task_end(
+        lines: list[str], start_index: int, task_number: int, grid_threshold: int
+    ) -> Optional[int]:
+        """Finds index of task end in lines."""
+
+        end_index = ExtractTaskFromPdf._find_next_task(lines, start_index, task_number)
+
+        if end_index is None:
+            end_index = ExtractTaskFromPdf._find_grid_start(
+                lines, start_index, grid_threshold
+            )
+
+        return end_index if end_index is not None else len(lines)
