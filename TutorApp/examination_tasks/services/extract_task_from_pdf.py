@@ -45,3 +45,17 @@ class ExtractTaskFromPdf:
             )
 
         return end_index if end_index is not None else len(lines)
+
+    @staticmethod
+    def _find_next_task(
+        lines: list[str], start_index: int, current_task: int
+    ) -> Optional[int]:
+        """Finds next task."""
+        next_task_pattern = re.compile(r"^\s*Zadanie\s+(\d+)\.")
+
+        for i in range(start_index + 1, len(lines)):
+            match = next_task_pattern.match(lines[i].strip())
+            if match and int(match.group(1)) > current_task:
+                return i
+
+        return None
