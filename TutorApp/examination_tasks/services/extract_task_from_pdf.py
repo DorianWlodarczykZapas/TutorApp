@@ -59,3 +59,24 @@ class ExtractTaskFromPdf:
                 return i
 
         return None
+
+    @staticmethod
+    def _find_grid_start(
+        lines: list[str], start_index: int, threshold: int
+    ) -> Optional[int]:
+        """Find begin index of grid start in lines."""
+        empty_count = 0
+
+        for i in range(start_index + 1, len(lines)):
+            line = lines[i].strip()
+
+            if line == "" or line == " ":
+                empty_count += 1
+                if empty_count >= threshold:
+                    return i - empty_count + 1
+            else:
+
+                if not ExtractTaskFromPdf._is_footer(line):
+                    empty_count = 0
+
+        return None
