@@ -141,3 +141,31 @@ class ExtractTaskFromPdf:
         """Finds y coordinates. by search te task"""
         text_instances = page.search_for(f"Zadanie {task_number}.")
         return text_instances[0].y0 if text_instances else None
+
+    @staticmethod
+    def _create_and_save_pdf(
+        doc: fitz.Document,
+        page,
+        page_number: int,
+        task_number: int,
+        y_start: float,
+        y_end: float,
+        output_dir: str,
+    ) -> str:
+        """Creates new pdf of the task"""
+        new_doc = fitz.open()
+        new_page = new_doc.new_page(width=page.rect.width, height=y_end - y_start)
+
+        clip_rect = fitz.Rect(0, y_start, page.rect.width, y_end)
+        new_page.show_pdf_page(
+            fitz.Rect(0, 0, page.rect.width, y_end - y_start),
+            doc,
+            page_number - 1,
+            clip=clip_rect,
+        )
+
+        output_path = os.path.join(output_dir, f"zadanie {task_number}.pdf")
+        new_doc.save(output_path, garbage=4, deflate=True)
+        new_doc.close()
+
+        return output_path
