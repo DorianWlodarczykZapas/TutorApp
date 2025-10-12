@@ -80,3 +80,9 @@ class ExtractTaskFromPdf:
                     empty_count = 0
 
         return None
+
+    @staticmethod
+    def _is_footer(line: str) -> bool:
+        """Checks if line is a footer."""
+        footer_phrases = ["więcej arkuszy", "strona", "arkusze.pl"]
+        return any(phrase in line.lower() for phrase in footer_phrases)
