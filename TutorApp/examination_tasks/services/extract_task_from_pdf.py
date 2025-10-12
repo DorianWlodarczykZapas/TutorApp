@@ -135,3 +135,9 @@ class ExtractTaskFromPdf:
                 break
 
         return y_start, y_end
+
+    @staticmethod
+    def _get_y_from_search(page, task_number: int) -> Optional[float]:
+        """Finds y coordinates. by search te task"""
+        text_instances = page.search_for(f"Zadanie {task_number}.")
+        return text_instances[0].y0 if text_instances else None
