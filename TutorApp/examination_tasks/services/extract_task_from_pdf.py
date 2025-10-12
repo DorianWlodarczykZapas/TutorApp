@@ -86,3 +86,52 @@ class ExtractTaskFromPdf:
         """Checks if line is a footer."""
         footer_phrases = ["więcej arkuszy", "strona", "arkusze.pl"]
         return any(phrase in line.lower() for phrase in footer_phrases)
+
+    @staticmethod
+    def _get_y_coordinates(
+        page, text_dict: dict, start_index: int, end_index: int, task_number: int
+    ) -> tuple[float, float]:
+        """Calculates y coordinates."""
+        y_start, y_end = ExtractTaskFromPdf._get_y_from_text_dict(
+            text_dict, start_index, end_index
+        )
+
+        if y_start is None:
+            y_start = ExtractTaskFromPdf._get_y_from_search(page, task_number)
+
+        if y_end is None:
+            y_end = page.rect.height * 0.8
+
+        margin = 5
+        y_start = max(0, y_start - margin) if y_start else 0
+        y_end = min(page.rect.height, y_end) if y_end else page.rect.height
+
+        return y_start, y_end
+
+    @staticmethod
+    def _get_y_from_text_dict(
+        text_dict: dict, start_index: int, end_index: int
+    ) -> tuple[Optional[float], Optional[float]]:
+        """Gets y coordinates."""
+        y_start = None
+        y_end = None
+        line_counter = 0
+
+        for block in text_dict["blocks"]:
+            if "lines" not in block:
+                continue
+
+            for line in block["lines"]:
+                if line_counter == start_index and y_start is None:
+                    y_start = line["bbox"][1]
+
+                if line_counter == end_index and y_end is None:
+                    y_end = line["bbox"][1]
+                    break
+
+                line_counter += 1
+
+            if y_end is not None:
+                break
+
+        return y_start, y_end
