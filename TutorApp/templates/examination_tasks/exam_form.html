@@ -23,51 +23,39 @@
         <div class="form-group">
             <label for="{{ form.exam_type.id_for_label }}">{{ form.exam_type.label }}</label>
             {{ form.exam_type|add_class:"form-input" }}
-            {% if form.exam_type.errors %}
-                <div class="field-errors" style="color:red;">{{ form.exam_type.errors|striptags }}</div>
-            {% endif %}
+            {% if form.exam_type.errors %}<div class="field-errors">{{ form.exam_type.errors|striptags }}</div>{% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
             {{ form.year|add_class:"form-input" }}
-            {% if form.year.errors %}
-                <div class="field-errors" style="color:red;">{{ form.year.errors|striptags }}</div>
-            {% endif %}
+            {% if form.year.errors %}<div class="field-errors">{{ form.year.errors|striptags }}</div>{% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.month.id_for_label }}">{{ form.month.label }}</label>
             {{ form.month|add_class:"form-input" }}
-            {% if form.month.errors %}
-                <div class="field-errors" style="color:red;">{{ form.month.errors|striptags }}</div>
-            {% endif %}
+            {% if form.month.errors %}<div class="field-errors">{{ form.month.errors|striptags }}</div>{% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.tasks_link.id_for_label }}">{{ form.tasks_link.label }}</label>
             {{ form.tasks_link|add_class:"form-file" }}
-            {% if form.tasks_link.errors %}
-                <div class="field-errors" style="color:red;">{{ form.tasks_link.errors|striptags }}</div>
-            {% endif %}
+            {% if form.tasks_link.errors %}<div class="field-errors">{{ form.tasks_link.errors|striptags }}</div>{% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.solutions_link.id_for_label }}">{{ form.solutions_link.label }}</label>
             {{ form.solutions_link|add_class:"form-file" }}
             {% if form.solutions_link.errors %}
-                <div class="field-errors" style="color:red;">{{ form.solutions_link.errors|striptags }}</div>
+                <div class="field-errors">{{ form.solutions_link.errors|striptags }}</div>
             {% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.tasks_count.id_for_label }}">{{ form.tasks_count.label }}</label>
             {{ form.tasks_count|add_class:"form-input" }}
-            {% if form.tasks_count.errors %}
-                <div class="field-errors" style="color:red;">{{ form.tasks_count.errors|striptags }}</div>
-            {% endif %}
+            {% if form.tasks_count.errors %}<div class="field-errors">{{ form.tasks_count.errors|striptags }}</div>{% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.level_type.id_for_label }}">{{ form.level_type.label }}</label>
             {{ form.level_type|add_class:"form-input" }}
-            {% if form.level_type.errors %}
-                <div class="field-errors" style="color:red;">{{ form.level_type.errors|striptags }}</div>
-            {% endif %}
+            {% if form.level_type.errors %}<div class="field-errors">{{ form.level_type.errors|striptags }}</div>{% endif %}
         </div>
         <button type="submit" class="btn-submit">{% trans "Add exam" %}</button>
     </form>

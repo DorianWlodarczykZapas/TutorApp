@@ -614,6 +614,22 @@ body {
   color: #555;
 }
 
+.field-errors {
+  color: red;
+  margin-top: 5px;
+}
 
+.error-text {
+  color: red;
+  font-weight: 500;
+}
+
+.form-errors {
+  color: red;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
 
 
