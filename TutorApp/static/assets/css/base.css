@@ -567,6 +567,17 @@ body {
     z-index: 10;
 }
 
+.field-errors {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.error-text {
+  color: red;
+  font-weight: 500;
+}
+
 
 
 
