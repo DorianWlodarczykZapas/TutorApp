@@ -9,17 +9,17 @@
         <div class="form-container exam-list-container">
             <div class="back-link-container">
                 <a href="{% url 'examination_tasks:exam_list' %}"
-                   class="btn-submit btn-small">&larr; {% trans "Back to Exam List" %}</a>
+                   class="btn-submit btn-small">← {% trans "Back to Exam List" %}</a>
             </div>
             <h1 class="form-title task-list-title">{{ exam }}</h1>
             <div class="table-responsive">
                 <table class="exam-table task-table">
                     <thead>
                         <tr>
-                            <th class="col-center" style="width: 10%;">{% trans "Task No." %}</th>
+                            <th class="col-center col-10">{% trans "Task No." %}</th>
                             <th class="col-left">{% trans "Category" %}</th>
-                            <th class="col-center" style="width: 20%;">{% trans "Status" %}</th>
-                            <th class="col-center" style="width: 20%;">{% trans "Action" %}</th>
+                            <th class="col-center col-20">{% trans "Status" %}</th>
+                            <th class="col-center col-20">{% trans "Action" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,15 +57,15 @@
                 <div class="pagination">
                     <span class="step-links">
                         {% if page_obj.has_previous %}
-                            <a href="?page=1">&laquo; {% trans "first" %}</a>
+                            <a href="?page=1">« {% trans "first" %}</a>
                             <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
                         {% endif %}
                         <span class="current">
-                            {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+                            {% blocktrans %}Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.{% endblocktrans %}
                         </span>
                         {% if page_obj.has_next %}
                             <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
-                            <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} »</a>
                         {% endif %}
                     </span>
                 </div>
