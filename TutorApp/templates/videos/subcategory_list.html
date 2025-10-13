@@ -4,6 +4,14 @@
     <head>
         <meta charset="UTF-8">
         <title>{{ section_name }}</title>
+        {% blocktrans with name=section_name asvar meta_desc %}
+            Browse subcategories in {{ name }} and explore available videos.
+        {% endblocktrans %}
+        {% blocktrans asvar base_keywords %}videos, subcategories, tutorials, learning{% endblocktrans %}
+        <meta name="description" content="{{ meta_desc }}">
+        <meta name="keywords"
+              content="{{ base_keywords }}, {{ section_name }}{% for item in subcategories %}, {{ item.subcategory }}{% endfor %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <h1>{{ section_name }}</h1>
