@@ -5,6 +5,10 @@
         <meta charset="UTF-8">
         <title>{% trans "Add a new video" %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% blocktrans asvar meta_desc %}Dodaj nowe wideo edukacyjne: uzupełnij formularz, wklej znaczniki czasowe i opublikuj na platformie.{% endblocktrans %}
+        {% blocktrans asvar meta_keywords %}eduvideo, wideo, edukacja, nauka, tutoriale, timestampy, rozdziały, dodaj wideo{% endblocktrans %}
+        <meta name="description" content="{{ meta_desc }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
