@@ -27,7 +27,7 @@
                         {% endif %}
                     </button>
                 </div>
-                <div class="pdf-switcher" style="margin-top: 12px;">
+                <div class="pdf-switcher">
                     <button id="show-task" class="filter-btn active" type="button">{% trans "Show task" %}</button>
                     {% if task.exam.solutions_link and task.answer_pages %}
                         <button id="show-answer" class="filter-btn" type="button">{% trans "Show answer" %}</button>
@@ -84,7 +84,6 @@
             button.textContent = "{% trans 'Mark as completed' %}";
         }
     });
-
 
     (function () {
         const embed = document.getElementById("pdf-embed");

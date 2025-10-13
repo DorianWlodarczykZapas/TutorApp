@@ -667,3 +667,7 @@ body {
 .pagination { margin-top: 30px; text-align: center; }
 
 .pagination-info { margin: 0 15px; }
+
+.pdf-switcher {
+    margin-top: 12px;
+}
