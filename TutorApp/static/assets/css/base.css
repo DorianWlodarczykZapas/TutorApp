@@ -635,3 +635,16 @@ body {
 .col-10 { width: 10%; }
 .col-20 { width: 20%; }
 
+.filter-buttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-clear {
+  margin-left: 10px;
+}
+
+.task-table-container {
+  margin-top: 30px;
+}
+
