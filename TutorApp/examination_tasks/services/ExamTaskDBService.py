@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING, Dict, List, Optional, Set
+
 from django.db.models import Count, F
 from django.db.models.query import QuerySet
 from users.models import User
@@ -154,3 +155,22 @@ class ExamTaskDBService:
         else:
             task.completed_by.add(user)
             return True
+
+    @staticmethod
+    def _parse_pages_string(pages_str: str) -> List[int]:
+        """
+         Private helper method to convert the string “5-7” or “5”
+        to a list of integers [5, 6, 7] or [5].
+        """
+        if not pages_str:
+            return []
+        try:
+            if "-" in pages_str:
+                start, end = map(int, pages_str.split("-"))
+                if start > end:
+                    return []
+                return list(range(start, end + 1))
+            else:
+                return [int(pages_str)]
+        except (ValueError, TypeError):
+            return []
