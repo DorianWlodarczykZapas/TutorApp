@@ -51,10 +51,13 @@
                                 <td class="col-center">{{ exam.get_level_type_display }}</td>
                                 <td class="col-center">{{ exam.user_completion }} / {{ exam.tasks_count }}</td>
                                 <td class="col-center">
-                                    <a href="#" class="btn-submit btn-small">{% trans "Go to exam" %}</a>
+                                    <a href="{% url 'exam_detail' exam.id %}" class="btn-submit btn-small">{% trans "Go to exam" %}</a>
                                 </td>
                             </tr>
                         {% empty %}
+                            <tr>
+                                <td colspan="6" class="col-center text-muted">{% trans "No exams available." %}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -67,7 +70,7 @@
                             <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
                         {% endif %}
                         <span class="current">
-                            {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+                            {% blocktrans %}Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.{% endblocktrans %}
                         </span>
                         {% if page_obj.has_next %}
                             <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
