@@ -1,9 +1,13 @@
-{% load dict_get %}
+{% load dict_get i18n %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% trans "Sections" %}</title>
+        <meta name="description"
+              content="{% trans 'Browse video sections and choose a subcategory to explore available videos.' %}">
+        <meta name="keywords"
+              content="{% trans 'videos, sections, categories, learning, tutorials' %}{% for section in sections %}, {{ section_labels|dict_get:section.type }}{% endfor %}">
     </head>
     <body>
         <h1>{% trans "Sections" %}</h1>
