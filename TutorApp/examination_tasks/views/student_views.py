@@ -10,9 +10,10 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import DetailView, ListView, View
 from django_filters.views import FilterView
 
-from .filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
-from .models import Exam, ExamTask
-from .services import MatriculationTaskService
+from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
+from ..models import Exam, ExamTask
+from ..services.ExamTaskDBService import ExamTaskDBService
+from ..services.ExtractTaskFromPdf import ExtractTaskFromPdf
 
 LEVEL_MAP = {
     "B": 1,
@@ -20,7 +21,7 @@ LEVEL_MAP = {
 }
 
 
-class TaskPdfView(View):
+class TaskPdfView(LoginRequiredMixin, View):
     template_name = "examination_tasks/task_preview.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -46,7 +47,7 @@ class TaskPdfView(View):
         return context
 
 
-class TaskDisplayView(DetailView):
+class TaskDisplayView(LoginRequiredMixin, DetailView):
     """
     A view that renders an HTML page with a navbar,
     embedding a PDF for a specific task.
@@ -59,13 +60,13 @@ class TaskDisplayView(DetailView):
     def post(self, request, *args, **kwargs):
         task = self.get_object()
 
-        status = MatriculationTaskService.toggle_completed(task, request.user)
+        status = ExamTaskDBService.toggle_completed(task, request.user)
 
         return JsonResponse({"completed": status})
 
 
 @method_decorator(xframe_options_sameorigin, name="dispatch")
-class TaskCutPdfStreamView(View):
+class TaskCutPdfStreamView(LoginRequiredMixin, View):
     """
     Streams a cut PDF for either the task content ('task') or the solution ('answer').
     """
@@ -76,7 +77,7 @@ class TaskCutPdfStreamView(View):
         task_pk = kwargs.get("pk")
         kind = kwargs.get("kind", "task")
         if kind not in self.VALID_KINDS:
-            return HttpResponseNotFound(_("Nieprawidłowy typ źródła PDF."))
+            return HttpResponseNotFound(_("Incorrect PDF source type."))
 
         task = get_object_or_404(ExamTask, pk=task_pk)
         exam = task.exam
@@ -92,24 +93,24 @@ class TaskCutPdfStreamView(View):
 
         if not source_file:
             return HttpResponseNotFound(
-                _("Brak pliku PDF dla wybranego typu: %(kind)s") % {"kind": kind}
+                _("No PDF file for the selected type: %(kind)s") % {"kind": kind}
             )
 
         try:
             source_pdf_path = source_file.path
         except Exception:
-            return HttpResponseNotFound(_("Nie udało się odczytać ścieżki do PDF."))
+            return HttpResponseNotFound(_("Unable to read the path to the PDF."))
 
         try:
-            pages_to_extract = MatriculationTaskService._parse_pages_string(pages_str)
+            pages_to_extract = ExamTaskDBService._parse_pages_string(pages_str)
             if not pages_to_extract:
-                return HttpResponseNotFound(_("Nie zdefiniowano stron do wycięcia."))
+                return HttpResponseNotFound(_("Pages to be cut have not been defined."))
 
-            pdf_bytes = MatriculationTaskService.get_single_task_pdf(
+            pdf_bytes = ExtractTaskFromPdf.get_single_task_pdf(
                 task_link=source_pdf_path, pages=pages_to_extract
             )
             if not pdf_bytes:
-                return HttpResponseNotFound(_("Nie udało się wygenerować pliku PDF."))
+                return HttpResponseNotFound(_("Unable to generate PDF file."))
 
             response = HttpResponse(pdf_bytes, content_type="application/pdf")
             response["Content-Disposition"] = (
@@ -120,7 +121,7 @@ class TaskCutPdfStreamView(View):
 
         except Exception:
 
-            return HttpResponse(_("Wystąpił wewnętrzny błąd serwera."), status=500)
+            return HttpResponse(_("An internal server error has occurred."), status=500)
 
 
 class ExamListView(LoginRequiredMixin, ListView):
@@ -178,7 +179,7 @@ class ExamListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         exams_on_page = context["exams"]
 
-        completion_map = MatriculationTaskService.get_user_completion_map_for_exams(
+        completion_map = ExamTaskDBService.get_user_completion_map_for_exams(
             user=self.request.user, exams=exams_on_page
         )
 
@@ -220,7 +221,7 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
 
         context["exam"] = self.exam
 
-        task_completion_map = MatriculationTaskService.get_task_completion_map(
+        task_completion_map = ExamTaskDBService.get_task_completion_map(
             user=self.request.user, exam=self.exam
         )
 

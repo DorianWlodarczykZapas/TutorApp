@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
-from users.views import TeacherRequiredMixin
 
-from .forms import AddMatriculationTaskForm, BookForm, ExamForm
-from .models import Book, Exam, ExamTask
-from .services import MatriculationTaskService
+from ...users.views import TeacherRequiredMixin
+from ..forms import AddMatriculationTaskForm, BookForm, ExamForm
+from ..models import Book, Exam, ExamTask
+from ..services.ExtractTaskContentFromLines import ExtractTaskContentFromLines
+from ..services.ExtractTaskTextFromPdf import ExtractTaskTextFromPdf
 
 
 class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
@@ -56,10 +57,10 @@ class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         pages = form.cleaned_data.get("pages")
         task_id = form.cleaned_data.get("task_id")
 
-        extracted_text = MatriculationTaskService.extract_text_lines_from_pdf(
+        extracted_text = ExtractTaskTextFromPdf.extract_text_lines_from_pdf(
             task_link, pages
         )
-        task_text = MatriculationTaskService.get_clean_task_content(
+        task_text = ExtractTaskContentFromLines.get_clean_task_content(
             extracted_text, task_id
         )
 
