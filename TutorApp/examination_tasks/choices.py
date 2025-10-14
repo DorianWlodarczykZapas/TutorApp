@@ -32,44 +32,6 @@ class ExamTypeChoices(models.IntegerChoices):
     EIGHTH_GRADE = 2, _("Eighth Grade Exam")
 
 
-class TopicChoices(models.IntegerChoices):
-    QUADRATIC_FUNCTION_VIETEA_FORMULAS = 1, _("Quadratic Function Vietea Formulas")
-    RATIONAL_INEQUALITIES = 2, _("Rational Inequalities")
-
-
-class SectionChoices(models.IntegerChoices):
-    REAL_NUMBERS = 1, _("Real Numbers")
-    MATHEMATICAL_LANGUAGE = 2, _("Language of Mathematics")
-    SYSTEMS_OF_EQUATIONS = 3, _("Systems of Equations")
-    FUNCTIONS = 4, _("Functions")
-    LINEAR_FUNCTION = 5, _("Linear Functions")
-    PLANE_GEOMETRY_PART1 = 6, _("Plane Geometry, Part 1")
-    QUADRATIC_FUNCTION = 7, _("Quadratic Functions")
-    APPLICATIONS_OF_QUADRATIC_EQUATION = 8, _("Applications of Quadratic Functions")
-    POLYNOMIALS = 9, _("Polynomials")
-    RATIONAL_FUNCTION = 10, _("Rational Functions")
-    TRIGONOMETRY = 11, _("Trigonometry")
-    PLANE_GEOMETRY_PART2 = 12, _("Plane Geometry, Part 2")
-    EXPONENTIAL_AND_LOGARITHMIC_FUNCTION = 13, _(
-        "Exponential and Logarithmic Functions"
-    )
-    TRIGONOMETRIC_FUNCTIONS = 14, _("Trigonometric Functions")
-    ANALYTIC_GEOMETRY = 15, _("Analytic Geometry")
-    SEQUENCES = 16, _("Sequences")
-    DIFFERENTIAL_CALCULUS = 17, _("Differential Calculus")
-    STATISTICS = 18, _("Statistics")
-    PROBABILITY_CALCULUS = 19, _("Probability")
-    SOLID_GEOMETRY = 20, _("Solid Geometry")
-    SOLIDS_OF_REVOLUTION = 21, _("Solids of Revolution")
-    NUMBER_AND_ACTIONS = 22, _("Numbers and Operations")
-    ALGEBRAIC_EXPRESSIONS_AND_EQUATIONS = 23, _("Algebraic Expressions and Equations")
-    GEOMETRIC_SHAPES_ON_A_PLANE = 24, _("Geometric Shapes in the Plane")
-    APPLICATIONS_OF_MATHEMATICS = 25, _("Applications of Mathematics")
-    PRISMS_AND_PYRAMIDS = 26, _("Prisms and Pyramids")
-    SYMMETRIES = 27, _("Symmetries")
-    WHEELS_AND_CIRCLES = 28, _("Disks and Circles")
-
-
 class SchoolLevelChoices(models.TextChoices):
     PRIMARY = "primary", _("Primary School")
     SECONDARY = "secondary", _("Secondary School")
