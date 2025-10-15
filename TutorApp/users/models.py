@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from ..examination_tasks.choices import GradeChoices
+# from examination_tasks.choices import GradeChoices
 
 
 class User(AbstractUser):
@@ -17,13 +17,13 @@ class User(AbstractUser):
     role = [(1, "Student"), (2, "Teacher"), (3, "Admin")]
     role_type = models.IntegerField(choices=role, default=1)
 
-    grade = models.IntegerField(
-        choices=GradeChoices.choices,
-        null=True,
-        blank=True,
-        verbose_name="Grade",
-        help_text="7-8 for primary, 9-12 for secondary",
-    )
+    # grade = models.IntegerField(
+    #     choices=GradeChoices.choices,
+    #     null=True,
+    #     blank=True,
+    #     verbose_name="Grade",
+    #     help_text="7-8 for primary, 9-12 for secondary",
+    # )
 
     class Meta:
         verbose_name = _("User")

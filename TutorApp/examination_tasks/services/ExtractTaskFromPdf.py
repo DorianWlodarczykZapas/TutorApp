@@ -2,7 +2,7 @@ import os
 import re
 from typing import Optional
 
-import fitz
+import pymupdf
 
 
 class ExtractTaskFromPdf:
@@ -14,7 +14,7 @@ class ExtractTaskFromPdf:
             raise FileNotFoundError(f"File not found: {file_path}")
 
     @staticmethod
-    def _get_page(doc: fitz.Document, page_number: int):
+    def _get_page(doc: pymupdf.Document, page_number: int):
         """Gets page from pdf."""
         if page_number < 1 or page_number > doc.page_count:
             raise ValueError(f"Invalid page number: {page_number}")
@@ -144,7 +144,7 @@ class ExtractTaskFromPdf:
 
     @staticmethod
     def _create_and_save_pdf(
-        doc: fitz.Document,
+        doc: pymupdf.Document,
         page,
         page_number: int,
         task_number: int,
@@ -153,12 +153,12 @@ class ExtractTaskFromPdf:
         output_dir: str,
     ) -> str:
         """Creates new pdf of the task"""
-        new_doc = fitz.open()
+        new_doc = pymupdf.open()
         new_page = new_doc.new_page(width=page.rect.width, height=y_end - y_start)
 
-        clip_rect = fitz.Rect(0, y_start, page.rect.width, y_end)
+        clip_rect = pymupdf.Rect(0, y_start, page.rect.width, y_end)
         new_page.show_pdf_page(
-            fitz.Rect(0, 0, page.rect.width, y_end - y_start),
+            pymupdf.Rect(0, 0, page.rect.width, y_end - y_start),
             doc,
             page_number - 1,
             clip=clip_rect,

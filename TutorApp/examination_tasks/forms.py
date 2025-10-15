@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import Book, Exam, ExamTask
-from .services import MatriculationTaskService
+from .services import ExamTaskDBService
 
 
 class ExamForm(forms.ModelForm):
@@ -81,7 +81,7 @@ class AddMatriculationTaskForm(forms.ModelForm):
         task_id = cleaned_data.get("task_id")
 
         if exam and task_id:
-            missing_ids = MatriculationTaskService.get_missing_task_ids(exam)
+            missing_ids = ExamTaskDBService.get_missing_task_ids(exam)
             if task_id not in missing_ids:
                 raise forms.ValidationError(
                     _("Task number %(num)s already exists or is invalid."),
@@ -91,14 +91,14 @@ class AddMatriculationTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["exam"].queryset = (
-            MatriculationTaskService.get_exams_with_available_tasks()
+            ExamTaskDBService.get_exams_with_available_tasks()
         )
 
         if "exam" in self.data:
             try:
                 exam_id = int(self.data.get("exam"))
                 exam = Exam.objects.get(pk=exam_id)
-                missing = MatriculationTaskService.get_missing_task_ids(exam)
+                missing = ExamTaskDBService.get_missing_task_ids(exam)
                 self.fields["task_id"].help_text = _(
                     "Available task numbers: "
                 ) + ", ".join(map(str, missing))

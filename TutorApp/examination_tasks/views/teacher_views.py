@@ -6,12 +6,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
+from users.views import TeacherRequiredMixin
 
-from ...users.views import TeacherRequiredMixin
 from ..forms import AddMatriculationTaskForm, BookForm, ExamForm
 from ..models import Book, Exam, ExamTask
-from ..services.ExtractTaskContentFromLines import ExtractTaskContentFromLines
-from ..services.ExtractTaskTextFromPdf import ExtractTaskTextFromPdf
+from ..services import ExtractTaskContentFromLines, ExtractTaskTextFromPdf
 
 
 class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):

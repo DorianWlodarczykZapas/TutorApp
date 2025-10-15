@@ -56,12 +56,13 @@ class ExamTask(models.Model):
         related_name="exam_tasks",
         verbose_name="Section",
     )
-    topic = models.IntegerField(
-        choices=choices.TopicChoices.choices,
-        null=True,
-        blank=True,
-        verbose_name="Task Topic",
-    )
+    task_screen = models.FileField()
+    # topic = models.IntegerField(
+    #     choices=choices.TopicChoices.choices,
+    #     null=True,
+    #     blank=True,
+    #     verbose_name="Task Topic",
+    # )
     task_content = models.TextField(
         blank=True,
         help_text="The extracted content of the task from the PDF file.",
@@ -90,16 +91,16 @@ class ExamTask(models.Model):
         unique_together = ("exam", "task_id")
         ordering = ["exam", "task_id"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.exam} – Task {self.task_id}"
 
 
 class Section(models.Model):
-    name = models.IntegerField(
-        choices=choices.SectionChoices.choices,
-        unique=True,
-        verbose_name="Name",
-    )
+    # name = models.IntegerField(
+    #     choices=choices.SectionChoices.choices,
+    #     unique=True,
+    #     verbose_name="Name",
+    # )
 
     class Meta:
         verbose_name = "Section"
@@ -151,10 +152,10 @@ class Topic(models.Model):
     section = models.ForeignKey(
         Section, on_delete=models.CASCADE, related_name="topics", verbose_name="Section"
     )
-    name = models.IntegerField(
-        choices=choices.TopicChoices.choices,
-        verbose_name="Topic Name",
-    )
+    # name = models.IntegerField(
+    #     choices=choices.TopicChoices.choices,
+    #     verbose_name="Topic Name",
+    # )
 
     class Meta:
         verbose_name = "Topic"

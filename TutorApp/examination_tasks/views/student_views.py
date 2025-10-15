@@ -12,8 +12,7 @@ from django_filters.views import FilterView
 
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..models import Exam, ExamTask
-from ..services.ExamTaskDBService import ExamTaskDBService
-from ..services.ExtractTaskFromPdf import ExtractTaskFromPdf
+from ..services import ExamTaskDBService, ExtractTaskFromPdf
 
 LEVEL_MAP = {
     "B": 1,

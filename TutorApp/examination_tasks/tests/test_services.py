@@ -36,9 +36,9 @@ class TestMatriculationTaskService:
         MatriculationTaskService.populate_task_content(task)
         assert "missing" in task.content.lower()
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     @patch("services.requests.get")
-    def test_populate_task_content_success(self, mock_get, mock_fitz):
+    def test_populate_task_content_success(self, mock_get, mock_pymupdf):
         # Mock task
         task = Mock()
         task.task_id = 1
@@ -55,7 +55,7 @@ class TestMatriculationTaskService:
             "Zadanie 1\nTo jest treść zadania\nZadanie 2\n"
         )
         mock_doc = [mock_page]
-        mock_fitz.return_value = mock_doc
+        mock_pymupdf.return_value = mock_doc
 
         MatriculationTaskService.populate_task_content(task)
         assert "To jest treść zadania" in task.content
@@ -85,7 +85,7 @@ class TestMatriculationTaskService:
         assert MatriculationTaskService._parse_pages_string("abc") == []
         assert MatriculationTaskService._parse_pages_string(None) == []
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     def test_successful_pdf_extraction(self, mock_open):
         mock_exam = MagicMock()
         mock_exam.page_count = 3
@@ -160,7 +160,7 @@ class TestMatriculationTaskService:
         result = MatriculationTaskService.get_task_completion_map(mock_user, mock_exam)
         assert result == {1: True, 2: False, 3: True}
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     def test_get_single_task_text_success(mock_open):
         mock_doc = Mock()
         mock_page = Mock()
@@ -172,7 +172,7 @@ class TestMatriculationTaskService:
         result = MatriculationTaskService.get_single_task_text("fake.pdf", [1])
         assert result == "Test content"
 
-    @patch("services.fitz.open", side_effect=FileNotFoundError)
+    @patch("services.pymupdf.open", side_effect=FileNotFoundError)
     def test_get_single_task_text_file_not_found(mock_open):
         result = MatriculationTaskService.get_single_task_text("notfound.pdf", [1])
         assert result is None
@@ -194,7 +194,7 @@ class TestMatriculationTaskService:
         assert "This is the content of the first task." in result
         assert "Task" not in result
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     def test_returns_lines_from_pdf(self, mock_open):
         mock_doc = Mock()
         mock_page = Mock()
@@ -208,7 +208,7 @@ class TestMatriculationTaskService:
         assert lines == ["Line 1", "Line 2", "Line 3"]
         mock_doc.load_page.assert_called_once_with(0)
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     def test_invalid_page_number_raises_value_error(self, mock_open):
 
         mock_doc = Mock()
@@ -218,7 +218,7 @@ class TestMatriculationTaskService:
         with pytest.raises(ValueError, match="Invalid page number: 5"):
             MatriculationTaskService.extract_text_lines_from_pdf("fake.pdf", [5])
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     def test_empty_pdf_raises_value_error(self, mock_open):
         mock_doc = Mock()
         mock_doc.page_count = 0

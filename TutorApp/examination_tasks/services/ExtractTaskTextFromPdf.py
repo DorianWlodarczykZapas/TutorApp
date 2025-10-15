@@ -10,7 +10,7 @@ from contextlib import contextmanager
 from typing import Dict, List, Optional
 
 try:
-    import fitz
+    import pymupdf
 except ImportError:
     raise ImportError(
         "PyMuPDF is required for PDF text extraction. "
@@ -207,16 +207,16 @@ class ExtractTaskTextFromPdf:
             file_path (str): Path to the PDF file.
 
         Yields:
-            fitz.Document: The opened PDF document.
+            pymupdf.Document: The opened PDF document.
 
         Raises:
             ValueError: If the PDF cannot be opened or is corrupted.
         """
         doc = None
         try:
-            doc = fitz.open(file_path)
+            doc = pymupdf.open(file_path)
             yield doc
-        except fitz.errors.FitzError as e:
+        except pymupdf as e:
             raise ValueError(
                 f"Error processing the PDF file: {e}. "
                 f"The file may be corrupted or is not a valid PDF."

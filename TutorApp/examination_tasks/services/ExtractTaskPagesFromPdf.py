@@ -1,6 +1,6 @@
 import typing
 
-import fitz
+import pymupdf
 
 
 class ExtractTaskPagesFromPdf:
@@ -11,10 +11,10 @@ class ExtractTaskPagesFromPdf:
         the pages specified as a list of integers and returns only those pages as bytes.
         """
 
-        task = fitz.open()
+        task = pymupdf.open()
         try:
 
-            with fitz.open(task_link) as exam:
+            with pymupdf.open(task_link) as exam:
 
                 for page in pages:
                     page_index = page - 1

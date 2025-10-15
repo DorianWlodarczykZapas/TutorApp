@@ -414,12 +414,12 @@ class TaskViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
-    @patch("services.fitz.open", side_effect=FileNotFoundError)
+    @patch("services.pymupdf.open", side_effect=FileNotFoundError)
     def test_get_single_task_text_file_not_found(mock_open):
         result = MatriculationTaskService.get_single_task_text("notfound.pdf", [1])
         assert result is None
 
-    @patch("services.fitz.open")
+    @patch("services.pymupdf.open")
     def test_get_single_task_text_invalid_page_number(mock_open):
         mock_doc = Mock()
         mock_doc.page_count = 1
