@@ -95,22 +95,6 @@ class ExamTask(models.Model):
         return f"{self.exam} – Task {self.task_id}"
 
 
-class Section(models.Model):
-    # name = models.IntegerField(
-    #     choices=choices.SectionChoices.choices,
-    #     unique=True,
-    #     verbose_name="Name",
-    # )
-
-    class Meta:
-        verbose_name = "Section"
-        verbose_name_plural = "Sections"
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.get_name_display()
-
-
 class Book(models.Model):
     SUBJECT_CHOICES = [
         ("MATH", "Mathematics"),
@@ -146,6 +130,25 @@ class Book(models.Model):
     def __str__(self):
         grade_info = f" - {self.get_grade_display()}" if self.grade else ""
         return f"{self.title}{grade_info} ({self.get_subject_display()})"
+
+
+class Section(models.Model):
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, related_name="sections", verbose_name="Book"
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name="Section Name",
+        help_text="e.g., 'Linear Equations', 'Thermodynamics', 'Kinematics'",
+    )
+
+    class Meta:
+        verbose_name = "Section"
+        verbose_name_plural = "Sections"
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.book.title} - {self.name}"
 
 
 class Topic(models.Model):
