@@ -32,9 +32,9 @@ class ExamTypeChoices(models.IntegerChoices):
     EIGHTH_GRADE = 2, _("Eighth Grade Exam")
 
 
-class SchoolLevelChoices(models.TextChoices):
-    PRIMARY = "primary", _("Primary School")
-    SECONDARY = "secondary", _("Secondary School")
+class SchoolLevelChoices(models.IntegerChoices):
+    PRIMARY = 1, _("Primary School")
+    SECONDARY = 2, _("Secondary School")
 
 
 class DifficultyLevelChoices(models.IntegerChoices):
@@ -50,3 +50,8 @@ class GradeChoices(models.IntegerChoices):
     SECONDARY_2 = 10, "2nd Year - Secondary"
     SECONDARY_3 = 11, "3rd Year - Secondary"
     SECONDARY_4 = 12, "4th Year - Secondary"
+
+
+class SubjectChoices(models.IntegerChoices):
+    MATH = 1, _("Mathematics")
+    PHYSICS = 2, _("Physics")

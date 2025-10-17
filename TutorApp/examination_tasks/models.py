@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from . import choices
-from .choices import GradeChoices
+from .choices import GradeChoices, SubjectChoices
 
 
 class Exam(models.Model):
@@ -96,10 +96,6 @@ class ExamTask(models.Model):
 
 
 class Book(models.Model):
-    SUBJECT_CHOICES = [
-        ("MATH", "Mathematics"),
-        ("PHYSICS", "Physics"),
-    ]
 
     title = models.CharField(max_length=255, verbose_name="Title")
     author = models.CharField(max_length=255, blank=True, verbose_name="Author")
@@ -112,7 +108,7 @@ class Book(models.Model):
         verbose_name="School Level",
     )
     subject = models.CharField(
-        max_length=10, choices=SUBJECT_CHOICES, verbose_name="Subject"
+        max_length=10, choices=SubjectChoices, verbose_name="Subject"
     )
     grade = models.IntegerField(
         choices=GradeChoices.choices,
@@ -155,10 +151,9 @@ class Topic(models.Model):
     section = models.ForeignKey(
         Section, on_delete=models.CASCADE, related_name="topics", verbose_name="Section"
     )
-    # name = models.IntegerField(
-    #     choices=choices.TopicChoices.choices,
-    #     verbose_name="Topic Name",
-    # )
+    name = models.CharField(
+        max_length=255, verbose_name="Topic name", help_text="Specific topic"
+    )
 
     class Meta:
         verbose_name = "Topic"
