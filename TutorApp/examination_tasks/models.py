@@ -57,12 +57,12 @@ class ExamTask(models.Model):
         verbose_name="Section",
     )
     task_screen = models.FileField()
-    # topic = models.IntegerField(
-    #     choices=choices.TopicChoices.choices,
-    #     null=True,
-    #     blank=True,
-    #     verbose_name="Task Topic",
-    # )
+    topic = models.ForeignKey(
+         Topic,
+        on_delete = models.CASCADE,
+        related_name = "topics",
+        verbose_name = "Topic"
+     )
     task_content = models.TextField(
         blank=True,
         help_text="The extracted content of the task from the PDF file.",
