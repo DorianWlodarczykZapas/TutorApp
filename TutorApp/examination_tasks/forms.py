@@ -28,7 +28,7 @@ class ExamForm(forms.ModelForm):
         }
 
 
-class AddMatriculationTaskForm(forms.ModelForm):
+class AddExamTaskForm(forms.ModelForm):
     exam = forms.ModelChoiceField(
         queryset=Exam.objects.none(),
         label=_("Select Exam"),
