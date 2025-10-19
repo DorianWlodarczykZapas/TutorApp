@@ -7,8 +7,8 @@ from .views.exam_task_views import (
     TaskDisplayView,
     TaskPdfView,
 )
-from .views.exam_views import AddExam
-from .views.student_views import ExamListView, ExamTaskListView, ExamTaskSearchEngine
+from .views.exam_views import AddExam, ExamListView
+from .views.student_views import ExamTaskListView, ExamTaskSearchEngine
 
 app_name = "examination_tasks"
 
