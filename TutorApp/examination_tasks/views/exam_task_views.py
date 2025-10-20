@@ -10,8 +10,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import CreateView, DetailView, ListView, View
 from django_filters.views import FilterView
+from users.views import TeacherRequiredMixin
 
-from ...users.views import TeacherRequiredMixin
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..forms import AddExamTaskForm
 from ..models import Exam, ExamTask

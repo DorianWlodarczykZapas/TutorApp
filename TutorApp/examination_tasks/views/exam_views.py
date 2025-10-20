@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, ListView
+from users.views import TeacherRequiredMixin
 
-from ...users.views import TeacherRequiredMixin
 from ..forms import ExamForm
 from ..models import Exam
 from ..services.ExamTaskDBService import ExamTaskDBService

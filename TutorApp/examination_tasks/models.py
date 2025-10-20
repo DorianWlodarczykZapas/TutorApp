@@ -45,56 +45,6 @@ class Exam(models.Model):
         return f"{type_display} {month_display} {self.year}"
 
 
-class ExamTask(models.Model):
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
-    task_id = models.IntegerField()
-    section = models.ForeignKey(
-        "Section",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="exam_tasks",
-        verbose_name="Section",
-    )
-    task_screen = models.FileField()
-    topic = models.ForeignKey(
-         Topic,
-        on_delete = models.CASCADE,
-        related_name = "topics",
-        verbose_name = "Topic"
-     )
-    task_content = models.TextField(
-        blank=True,
-        help_text="The extracted content of the task from the PDF file.",
-    )
-    task_pages = models.CharField(
-        max_length=20,
-        blank=True,
-        help_text="Page number(s) in the PDF, e.g., '5' or '5-6'.",
-        verbose_name="Task Pages",
-    )
-    answer_pages = models.CharField(
-        max_length=20,
-        blank=True,
-        help_text="Page number(s) in the PDF with the solution.",
-        verbose_name="Answer Pages",
-    )
-    completed_by = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        related_name="completed_exam_tasks",
-        blank=True,
-    )
-
-    class Meta:
-        verbose_name = "Exam Task"
-        verbose_name_plural = "Exam Tasks"
-        unique_together = ("exam", "task_id")
-        ordering = ["exam", "task_id"]
-
-    def __str__(self) -> str:
-        return f"{self.exam} – Task {self.task_id}"
-
-
 class Book(models.Model):
 
     title = models.CharField(max_length=255, verbose_name="Title")
@@ -108,7 +58,7 @@ class Book(models.Model):
         verbose_name="School Level",
     )
     subject = models.CharField(
-        max_length=10, choices=SubjectChoices, verbose_name="Subject"
+        max_length=10, choices=SubjectChoices, verbose_name="Subject", default=1
     )
     grade = models.IntegerField(
         choices=GradeChoices.choices,
@@ -130,7 +80,12 @@ class Book(models.Model):
 
 class Section(models.Model):
     book = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="sections", verbose_name="Book"
+        Book,
+        on_delete=models.CASCADE,
+        related_name="sections",
+        verbose_name="Book",
+        null=True,
+        blank=True,
     )
     name = models.CharField(
         max_length=255,
@@ -165,6 +120,61 @@ class Topic(models.Model):
         return f"{self.section.get_name_display()} - {self.get_name_display()}"
 
 
+class ExamTask(models.Model):
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
+    task_id = models.IntegerField()
+    section = models.ForeignKey(
+        "Section",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="exam_tasks",
+        verbose_name="Section",
+    )
+    task_screen = models.FileField(
+        null=False,
+        default="exam_tasks/default_task.pdf",
+    )
+    topic = models.ForeignKey(
+        Topic,
+        on_delete=models.CASCADE,
+        related_name="topics",
+        verbose_name="Topic",
+        null=True,
+        blank=True,
+    )
+    task_content = models.TextField(
+        blank=True,
+        help_text="The extracted content of the task from the PDF file.",
+    )
+    task_pages = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Page number(s) in the PDF, e.g., '5' or '5-6'.",
+        verbose_name="Task Pages",
+    )
+    answer_pages = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Page number(s) in the PDF with the solution.",
+        verbose_name="Answer Pages",
+    )
+    completed_by = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="completed_exam_tasks",
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Exam Task"
+        verbose_name_plural = "Exam Tasks"
+        unique_together = ("exam", "task_id")
+        ordering = ["exam", "task_id"]
+
+    def __str__(self) -> str:
+        return f"{self.exam} – Task {self.task_id}"
+
+
 class TrainingTask(models.Model):
     task_content = models.TextField(verbose_name="Task Content")
     answer = models.CharField(max_length=255, verbose_name="Answer")
@@ -182,9 +192,7 @@ class TrainingTask(models.Model):
         null=True,
         blank=True,
     )
-    sections = models.ManyToManyField(
-        Section, related_name="training_tasks", verbose_name="Sections", blank=True
-    )
+
     level = models.IntegerField(
         choices=choices.DifficultyLevelChoices.choices,
         default=choices.DifficultyLevelChoices.INTERMEDIATE,
