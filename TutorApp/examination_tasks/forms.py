@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Book, Exam, ExamTask
+from .models import Book, Exam, ExamTask, Section
 from .services import ExamTaskDBService
 
 
@@ -136,4 +136,14 @@ class BookForm(forms.ModelForm):
             "author": _("Author"),
             "publication_year": _("Publication Year"),
             "school_level": _("School Level"),
+        }
+
+
+class AddSectionForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ["book", "name"]
+        labels = {
+            "book": _("Book Title"),
+            "name": _("Section Name"),
         }
