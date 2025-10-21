@@ -34,5 +34,5 @@ class AddTopic(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
         """
         Method for handling the form for adding examinations to the database
         """
-        messages.success(self.request, _("Section added successfully!"))
+        messages.success(self.request, _("Topic added successfully!"))
         return super().form_valid(form)
