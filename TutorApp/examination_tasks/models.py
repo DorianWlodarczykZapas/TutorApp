@@ -120,7 +120,7 @@ class Topic(models.Model):
         unique_together = ["section", "name"]
 
     def __str__(self):
-        return f"{self.section.get_name_display()} - {self.get_name_display()}"
+        return f"{self.section} - {self.name}"
 
 
 class ExamTask(models.Model):
