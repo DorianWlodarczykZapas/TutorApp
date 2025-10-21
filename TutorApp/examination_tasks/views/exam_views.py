@@ -22,7 +22,7 @@ class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
 
     model = Exam
     form_class = ExamForm
-    template_name = "examination_tasks/exam_form.html"
+    template_name = "examination_tasks/add_exam.html"
     success_url = reverse_lazy("examination_tasks:exam_add")
 
     def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:

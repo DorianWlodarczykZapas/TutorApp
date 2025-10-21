@@ -34,7 +34,7 @@ class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
 
     model = ExamTask
     form_class = AddExamTaskForm
-    template_name = "examination_tasks/add_matriculation_task.html"
+    template_name = "examination_tasks/add_exam_task.html"
 
     def form_valid(self, form):
 
@@ -67,7 +67,7 @@ class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
 
 
 class TaskPdfView(LoginRequiredMixin, View):
-    template_name = "examination_tasks/task_preview.html"
+    template_name = "examination_tasks/exam_task_preview.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -99,7 +99,7 @@ class TaskDisplayView(LoginRequiredMixin, DetailView):
     """
 
     model = ExamTask
-    template_name = "examination_tasks/task_preview.html"
+    template_name = "examination_tasks/exam_task_preview.html"
     context_object_name = "task"
 
     def post(self, request, *args, **kwargs):
@@ -211,7 +211,7 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
 class ExamTaskSearchEngine(FilterView):
     model = ExamTask
     filterset_class = ExamTaskFilter
-    template_name = "examination_tasks/exam_question_search_engine.html"
+    template_name = "examination_tasks/exam_task_search_engine.html"
     paginate_by = 20
 
     def get_queryset(self) -> QuerySet["ExamTask"]:

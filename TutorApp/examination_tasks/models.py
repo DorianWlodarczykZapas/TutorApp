@@ -11,6 +11,9 @@ class Exam(models.Model):
         default=choices.ExamTypeChoices.MATRICULATION,
         verbose_name="Exam type",
     )
+    subject = models.CharField(
+        max_length=10, choices=SubjectChoices, verbose_name="Subject", default=1
+    )
     year = models.IntegerField(choices=choices.YEAR_CHOICES)
     month = models.IntegerField(choices=choices.MONTH_CHOICES)
     tasks_link = models.FileField(upload_to="exam_pdfs/")
