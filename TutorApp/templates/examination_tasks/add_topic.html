@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <div class="main-content">
+        <div class="form-container">
+            <h1 class="form-title">{{ title }}</h1>
+            {% if messages %}
+                <ul class="messages-list">
+                    {% for message in messages %}
+                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+                <div class="form-group">
+                    <label for="{{ form.section.id_for_label }}" class="form-label">{% trans "Section" %}</label>
+                    {{ form.section }}
+                    {% if form.section.errors %}<div class="field-errors">{{ form.section.errors }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}" class="form-label">{% trans "Topic Name" %}</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}<div class="field-errors">{{ form.name.errors }}</div>{% endif %}
+                </div>
+                <button type="submit" class="btn-submit">{% trans "Add Topic" %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
