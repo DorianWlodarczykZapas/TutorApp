@@ -39,6 +39,7 @@
                                 {% if user.role_type == 2 %}
                                     <a href="{% url 'examination_tasks:exam_add' %}">{% trans "Add Exam" %}</a>
                                     <a href="{% url 'examination_tasks:add_exam_task' %}">{% trans "Add Exam Task" %}</a>
+                                    <a href="{% url 'examination_tasks:add_section' %}">{% trans "Add Section" %}</a>
                                 {% endif %}
                             </div>
                         </div>
