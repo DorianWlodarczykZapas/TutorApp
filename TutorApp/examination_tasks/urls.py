@@ -10,6 +10,7 @@ from .views.exam_task_views import (
     TaskPdfView,
 )
 from .views.exam_views import AddExam, ExamListView
+from .views.section_views import AddSection
 
 app_name = "examination_tasks"
 
@@ -40,4 +41,5 @@ urlpatterns = [
     path(
         "task_search_engine/", ExamTaskSearchEngine.as_view(), name="task_search_engine"
     ),
+    path("sections/add/", AddSection.as_view(), name="add_section"),
 ]
