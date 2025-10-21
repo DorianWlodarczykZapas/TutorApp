@@ -139,7 +139,7 @@ class BookForm(forms.ModelForm):
         }
 
 
-class AddSectionForm(forms.ModelForm):
+class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = ["book", "name"]
