@@ -11,6 +11,7 @@ from .views.exam_task_views import (
 )
 from .views.exam_views import AddExam, ExamListView
 from .views.section_views import AddSection
+from .views.topic_views import AddTopic
 
 app_name = "examination_tasks"
 
@@ -42,4 +43,5 @@ urlpatterns = [
         "task_search_engine/", ExamTaskSearchEngine.as_view(), name="task_search_engine"
     ),
     path("sections/add/", AddSection.as_view(), name="add_section"),
+    path("topics/add/", AddTopic.as_view(), name="add_topic"),
 ]
