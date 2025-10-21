@@ -1,0 +1,30 @@
+.btn-submit {
+  width: 270px;
+  height: 68px;
+  background-color: #008374;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 32px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin: 30px auto 20px;
+  display: block;
+}
+
+.btn-submit:hover {
+  background-color: #00695c;
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 20px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-clear {
+  margin-left: 10px;
+}

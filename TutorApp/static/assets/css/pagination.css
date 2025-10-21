@@ -1,0 +1,21 @@
+.pagination {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.pagination a {
+  color: #008374;
+  text-decoration: none;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
+.pagination a:hover {
+  background-color: #008374;
+  color: white;
+}
+
+.pagination .current {
+  font-weight: bold;
+}

@@ -1,0 +1,26 @@
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 40px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 2px solid #008374;
+  border-radius: 25px;
+  color: #008374;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background-color: #f0f8f7;
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: #008374;
+  color: white;
+}

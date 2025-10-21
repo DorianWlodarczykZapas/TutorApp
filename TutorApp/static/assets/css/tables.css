@@ -1,0 +1,27 @@
+.exam-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+}
+
+.exam-table thead tr {
+  background-color: #008374;
+  color: white;
+}
+
+.exam-table th,
+.exam-table td {
+  padding: 20px 25px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.exam-table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+}

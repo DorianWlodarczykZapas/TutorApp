@@ -1,0 +1,17 @@
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 15px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.status-badge.status-completed {
+  background-color: #28a745;
+}
+
+.status-badge.status-not-completed {
+  background-color: #6c757d;
+}
