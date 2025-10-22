@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
-from users.services import TeacherRequiredMixin
+from users.views import TeacherRequiredMixin
 
 from ..forms import TopicForm
 from ..models import Topic
