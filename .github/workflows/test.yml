@@ -77,7 +77,7 @@ jobs:
         if: always()
         run: |
           if [ -f coverage.xml ]; then
-            echo "Tests compleated with coverage report"
+            echo "Tests completed with coverage report"
           else
             echo "Tests failed or coverage report not generated"
           fi

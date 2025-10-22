@@ -84,7 +84,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class TeacherRequiredMixin:
+class TeacherRequiredMixin(LoginRequiredMixin):
     """
     Mixin, which verifies that the logged-in user has teacher rights.
     """

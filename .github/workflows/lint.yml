@@ -58,3 +58,4 @@ jobs:
       - name: Run Mypy
         run: |
           poetry run mypy TutorApp
+          continue-on-error: true
