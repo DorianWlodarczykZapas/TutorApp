@@ -23,7 +23,7 @@
                     {% if field.errors %}<div class="field-errors">{{ field.errors|striptags }}</div>{% endif %}
                 </div>
             {% endfor %}
-            <div id="task-preview" style="display: none;">
+            <div id="task-preview" class="hidden">
                 <h3>{% trans "Task Preview" %}</h3>
                 <div id="pdf-preview"></div>
                 <div id="text-preview"></div>
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     pdfPreview.innerHTML = `<iframe src="${data.pdf_url}" width="100%" height="500px"></iframe>`;
                     textPreview.innerHTML = `<p>${data.task_text}</p>`;
-                    previewDiv.style.display = 'block';
+                    previewDiv.classList.remove('hidden');
                 }
             })
             .catch(error => {
