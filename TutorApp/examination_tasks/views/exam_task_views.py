@@ -1,10 +1,13 @@
+import os
 from typing import Any, Dict
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
@@ -14,11 +17,9 @@ from users.views import TeacherRequiredMixin
 
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..forms import AddExamTaskForm
-from ..models import Exam, ExamTask
+from ..models import Exam, ExamTask, Topic
 from ..services.examTaskDBService import ExamTaskDBService
-from ..services.extractTaskContentFromLines import ExtractTaskContentFromLines
 from ..services.extractTaskFromPdf import ExtractTaskFromPdf
-from ..services.extractTaskTextFromPdf import ExtractTaskTextFromPdf
 
 LEVEL_MAP = {
     "B": 1,
@@ -27,43 +28,136 @@ LEVEL_MAP = {
 
 
 class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
-    """
-    View for adding individual maths tasks to an existing exam.
-    Access is restricted to logged-in users with teacher privileges.
-    """
-
     model = ExamTask
     form_class = AddExamTaskForm
     template_name = "examination_tasks/add_exam_task.html"
+    success_url = reverse_lazy("examination_tasks:add_exam_task")
 
     def form_valid(self, form):
-
-        task_link = form.cleaned_data.get("task_link")
-        pages = form.cleaned_data.get("pages")
+        exam = form.cleaned_data.get("exam")
         task_id = form.cleaned_data.get("task_id")
+        pages = form.cleaned_data.get("task_pages", "")
 
-        extracted_text = ExtractTaskTextFromPdf.extract_text_lines_from_pdf(
-            task_link, pages
-        )
-        task_text = ExtractTaskContentFromLines.get_clean_task_content(
-            extracted_text, task_id
-        )
+        if exam and exam.exam_file and pages and task_id:
+            try:
 
-        if task_text:
-            form.instance.task_text = task_text
-        else:
-            messages.warning(self.request, _("Unable to extract text from PDF."))
+                page_number = int(pages.split("-")[0]) if "-" in pages else int(pages)
 
+                exam_file_path = exam.exam_file.path
+
+                output_dir = os.path.join(
+                    settings.MEDIA_ROOT,
+                    "exam_tasks",
+                    str(exam.subject.name),
+                    str(exam.exam_type),
+                    str(exam.year),
+                    str(exam.month),
+                )
+
+                os.makedirs(output_dir, exist_ok=True)
+
+                extracted_pdf_path = ExtractTaskFromPdf.extract_task(
+                    file_path=exam_file_path,
+                    task_number=task_id,
+                    page_number=page_number,
+                    output_dir=output_dir,
+                )
+
+                relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
+                form.instance.task_screen = relative_path
+
+                import pymupdf
+
+                doc = pymupdf.open(extracted_pdf_path)
+                text = ""
+                for page in doc:
+                    text += page.get_text()
+                doc.close()
+                form.instance.task_content = text
+
+            except Exception as e:
+                messages.error(
+                    self.request, f"Error extracting task from PDF: {str(e)}"
+                )
+                return self.form_invalid(form)
+        elif not exam:
+            messages.error(self.request, _("Please select an exam"))
+            return self.form_invalid(form)
+        elif not exam.exam_file:
+            messages.error(self.request, _("Selected exam has no PDF file"))
+            return self.form_invalid(form)
+        elif not pages:
+            messages.warning(
+                self.request, _("No page numbers provided - task screen not generated")
+            )
+
+        messages.success(self.request, _("Task added successfully!"))
         return super().form_valid(form)
 
-    def get_success_url(self) -> str:
-        """
-               Returns the URL to which the user will be redirected on success.
-               In this case, we want the page to simply refresh,
-        which allows another task to be added to the same exam.
-        """
-        messages.success(self.request, _("Task added successfully!"))
-        return self.request.path_info
+    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["title"] = _("Add New Exam Task")
+        return ctx
+
+
+class AjaxTopicsView(View):
+    """Returns list of topics for a given section (used for dynamic dropdown)."""
+
+    def get(self, request, *args, **kwargs):
+        section_id = request.GET.get("section_id")
+        topics = Topic.objects.filter(section_id=section_id).order_by("name")
+        data = [{"id": t.id, "name": t.name} for t in topics]
+        return JsonResponse(data, safe=False)
+
+
+class AjaxPreviewTaskView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            exam_id = request.POST.get("exam_id")
+            page_number = int(request.POST.get("page", "1"))
+            task_number = int(request.POST.get("task_number", "1"))
+
+            exam = Exam.objects.get(pk=exam_id)
+
+            if not exam.exam_file:
+                return JsonResponse({"error": "Exam file not found"}, status=400)
+
+            pdf_path = exam.exam_file.path
+
+            temp_dir = os.path.join(settings.MEDIA_ROOT, "temp_previews")
+            os.makedirs(temp_dir, exist_ok=True)
+
+            extracted_pdf_path = ExtractTaskFromPdf.extract_task(
+                file_path=pdf_path,
+                task_number=task_number,
+                page_number=page_number,
+                output_dir=temp_dir,
+            )
+
+            import pymupdf
+
+            doc = pymupdf.open(extracted_pdf_path)
+            text = ""
+            for page in doc:
+                text += page.get_text()
+            doc.close()
+
+            pdf_url = os.path.join(
+                settings.MEDIA_URL,
+                os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT),
+            )
+
+            return JsonResponse(
+                {
+                    "pdf_url": pdf_url,
+                    "task_text": text[:500] + "..." if len(text) > 500 else text,
+                }
+            )
+
+        except Exam.DoesNotExist:
+            return JsonResponse({"error": "Exam not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
 
 
 class TaskPdfView(LoginRequiredMixin, View):

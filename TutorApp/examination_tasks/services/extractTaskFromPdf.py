@@ -169,3 +169,57 @@ class ExtractTaskFromPdf:
         new_doc.close()
 
         return output_path
+
+    class ExtractTaskFromPdf:
+
+        @classmethod
+        def extract_task(
+            cls,
+            file_path: str,
+            task_number: int,
+            page_number: int,
+            output_dir: Optional[str] = None,
+        ) -> str:
+            """
+            Main method to extract task from PDF.
+
+            Args:
+                file_path
+                task_number
+                page_number
+                output_dir
+
+            Returns:
+                Path to extracted task
+            """
+            cls._validate_inputs(file_path, page_number)
+
+            if output_dir is None:
+                output_dir = os.path.dirname(file_path)
+
+            doc = pymupdf.open(file_path)
+
+            try:
+                page = cls._get_page(doc, page_number)
+
+                text = page.get_text()
+                lines = text.split("\n")
+                text_dict = page.get_text("dict")
+
+                start_index = cls._find_task_start(lines, task_number)
+                end_index = cls._find_task_end(
+                    lines, start_index, task_number, grid_threshold=3
+                )
+
+                y_start, y_end = cls._get_y_coordinates(
+                    page, text_dict, start_index, end_index, task_number
+                )
+
+                output_path = cls._create_and_save_pdf(
+                    doc, page, page_number, task_number, y_start, y_end, output_dir
+                )
+
+                return output_path
+
+            finally:
+                doc.close()
