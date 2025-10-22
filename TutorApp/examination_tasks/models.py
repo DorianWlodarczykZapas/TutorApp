@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.db import models
 
@@ -121,6 +123,18 @@ class Topic(models.Model):
 
     def __str__(self):
         return f"{self.section} - {self.name}"
+
+
+def exam_task_upload_path(instance, filename):
+    exam = instance.exam
+    return os.path.join(
+        "exam_tasks",
+        str(exam.subject.name),
+        str(exam.exam_type),
+        str(exam.year),
+        str(exam.month),
+        f"zadanie_{instance.task_id}.pdf",
+    )
 
 
 class ExamTask(models.Model):

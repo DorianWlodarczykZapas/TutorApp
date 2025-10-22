@@ -11,7 +11,7 @@ from users.views import TeacherRequiredMixin
 
 from ..forms import ExamForm
 from ..models import Exam
-from ..services.ExamTaskDBService import ExamTaskDBService
+from ..services.examTaskDBService import ExamTaskDBService
 
 
 class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):

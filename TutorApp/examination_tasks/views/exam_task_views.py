@@ -15,10 +15,10 @@ from users.views import TeacherRequiredMixin
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..forms import AddExamTaskForm
 from ..models import Exam, ExamTask
-from ..services.ExamTaskDBService import ExamTaskDBService
-from ..services.ExtractTaskContentFromLines import ExtractTaskContentFromLines
-from ..services.ExtractTaskFromPdf import ExtractTaskFromPdf
-from ..services.ExtractTaskTextFromPdf import ExtractTaskTextFromPdf
+from ..services.examTaskDBService import ExamTaskDBService
+from ..services.extractTaskContentFromLines import ExtractTaskContentFromLines
+from ..services.extractTaskFromPdf import ExtractTaskFromPdf
+from ..services.extractTaskTextFromPdf import ExtractTaskTextFromPdf
 
 LEVEL_MAP = {
     "B": 1,

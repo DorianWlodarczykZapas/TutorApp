@@ -1,8 +1,8 @@
-from .ExamTaskDBService import ExamTaskDBService
-from .ExtractTaskContentFromLines import ExtractTaskContentFromLines
-from .ExtractTaskFromPdf import ExtractTaskFromPdf
-from .ExtractTaskPagesFromPdf import ExtractTaskPagesFromPdf
-from .ExtractTaskTextFromPdf import ExtractTaskTextFromPdf
+from .examTaskDBService import ExamTaskDBService
+from .extractTaskContentFromLines import ExtractTaskContentFromLines
+from .extractTaskFromPdf import ExtractTaskFromPdf
+from .extractTaskPagesFromPdf import ExtractTaskPagesFromPdf
+from .extractTaskTextFromPdf import ExtractTaskTextFromPdf
 
 __all__ = [
     "ExamTaskDBService",
