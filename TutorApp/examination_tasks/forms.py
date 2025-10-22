@@ -34,12 +34,7 @@ class AddExamTaskForm(forms.ModelForm):
     exam = forms.ModelChoiceField(
         queryset=Exam.objects.none(),
         label=_("Select Exam"),
-        widget=forms.Select(
-            attrs={
-                "class": "form-control",
-                "placeholder": _("Select exam, e.g. May 2025"),
-            }
-        ),
+        widget=forms.Select(attrs={"class": "form-control"}),
     )
 
     task_id = forms.IntegerField(
@@ -49,14 +44,22 @@ class AddExamTaskForm(forms.ModelForm):
         ),
     )
 
-    section = forms.ChoiceField(
-        choices=ExamTask._meta.get_field("section").choices,
-        label=_("Task Section"),
+    section = forms.ModelChoiceField(
+        queryset=Section.objects.all().order_by("book__title", "name"),
+        required=False,
+        label=_("Section (optional)"),
         widget=forms.Select(attrs={"class": "form-control"}),
     )
 
-    pages = forms.CharField(
-        label=_("Page Number(s)"),
+    topic = forms.ModelChoiceField(
+        queryset=Topic.objects.none(),
+        required=False,
+        label=_("Topic (optional)"),
+        widget=forms.Select(attrs={"class": "form-control"}),
+    )
+
+    task_pages = forms.CharField(
+        label=_("Task Page(s)"),
         required=False,
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": _("e.g. 5 or 5-6")}
@@ -64,34 +67,22 @@ class AddExamTaskForm(forms.ModelForm):
         help_text=_("Page number(s) in the PDF, e.g., '5' or '5-6'."),
     )
 
-    answer = forms.CharField(
-        label=_("Answer Page Number(s)"),
+    answer_pages = forms.CharField(
+        label=_("Answer Page(s)"),
         required=False,
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": _("e.g. 15 or 15-16")}
         ),
-        help_text=_("Page number(s) for the answer in the solutions PDF."),
+        help_text=_("Page number(s) in the solutions PDF."),
     )
 
     class Meta:
         model = ExamTask
-        fields = ["exam", "task_id", "section", "pages", "answer"]
-
-    def clean(self):
-        cleaned_data = super().clean()
-        exam = cleaned_data.get("exam")
-        task_id = cleaned_data.get("task_id")
-
-        if exam and task_id:
-            missing_ids = ExamTaskDBService.get_missing_task_ids(exam)
-            if task_id not in missing_ids:
-                raise forms.ValidationError(
-                    _("Task number %(num)s already exists or is invalid."),
-                    params={"num": task_id},
-                )
+        fields = ["exam", "task_id", "section", "topic", "task_pages", "answer_pages"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.fields["exam"].queryset = (
             ExamTaskDBService.get_exams_with_available_tasks()
         )
