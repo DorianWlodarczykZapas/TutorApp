@@ -192,7 +192,7 @@ class ExtractTaskFromPdf:
             Returns:
                 Path to extracted task
             """
-            cls._validate_inputs(file_path, page_number)
+            ExtractTaskFromPdf._validate_inputs(file_path, page_number)
 
             if output_dir is None:
                 output_dir = os.path.dirname(file_path)
@@ -200,22 +200,22 @@ class ExtractTaskFromPdf:
             doc = pymupdf.open(file_path)
 
             try:
-                page = cls._get_page(doc, page_number)
+                page = ExtractTaskFromPdf._get_page(doc, page_number)
 
                 text = page.get_text()
                 lines = text.split("\n")
                 text_dict = page.get_text("dict")
 
-                start_index = cls._find_task_start(lines, task_number)
-                end_index = cls._find_task_end(
+                start_index = ExtractTaskFromPdf._find_task_start(lines, task_number)
+                end_index = ExtractTaskFromPdf._find_task_end(
                     lines, start_index, task_number, grid_threshold=3
                 )
 
-                y_start, y_end = cls._get_y_coordinates(
+                y_start, y_end = ExtractTaskFromPdf._get_y_coordinates(
                     page, text_dict, start_index, end_index, task_number
                 )
 
-                output_path = cls._create_and_save_pdf(
+                output_path = ExtractTaskFromPdf._create_and_save_pdf(
                     doc, page, page_number, task_number, y_start, y_end, output_dir
                 )
 
