@@ -149,8 +149,10 @@ class ExamTask(models.Model):
         verbose_name="Section",
     )
     task_screen = models.FileField(
+        upload_to=exam_task_upload_path,
         null=False,
-        default="exam_tasks/default_task.pdf",
+        blank=False,
+        verbose_name="Task PDF",
     )
     topic = models.ForeignKey(
         Topic,
