@@ -12,6 +12,7 @@ from .views.exam_task_views import (
 from .views.exam_views import AddExam, ExamListView
 from .views.section_views import AddSection
 from .views.topic_views import AddTopic
+from .views.training_task_views import AddTrainingTask
 
 app_name = "examination_tasks"
 
@@ -44,4 +45,5 @@ urlpatterns = [
     ),
     path("sections/add/", AddSection.as_view(), name="add_section"),
     path("topics/add/", AddTopic.as_view(), name="add_topic"),
+    path("training-tasks/add/", AddTrainingTask.as_view(), name="add_training_task"),
 ]
