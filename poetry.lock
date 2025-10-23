@@ -715,6 +715,7 @@ files = [
 [package.dependencies]
 django = "*"
 django-stubs-ext = ">=5.2.7"
+mypy = {version = ">=1.13,<1.19", optional = true, markers = "extra == \"compatible-mypy\""}
 types-pyyaml = "*"
 typing-extensions = ">=4.11.0"
 
