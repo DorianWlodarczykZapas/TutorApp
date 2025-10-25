@@ -3,28 +3,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Quiz(models.Model):
-    section = (
-        (1, _("Real numbers")),
-        (2, _("Language of mathematics")),
-        (3, _("Systems of equations")),
-        (4, _("Functions")),
-        (5, _("Linear function")),
-        (6, _("Planimetry")),
-        (7, _("Quadratic function")),
-        (8, _("Polynomials")),
-        (9, _("Measurable function")),
-        (10, _("Trigonometry")),
-        (11, _("Planimetry circles")),
-        (12, _("Exponential and logarithmic functions")),
-        (13, _("Trigonometric functions")),
-        (14, _("Analytical geometry")),
-        (15, _("Sequences")),
-        (16, _("Differential calculus")),
-        (17, _("Statistics")),
-        (18, _("Probability")),
-        (19, _("Stereometry")),
+    section = models.ForeignKey(
+        Section, on_delete=models.CASCADE, related_name="topics", verbose_name="Section"
     )
-    type = models.IntegerField(choices=section)
     question = models.CharField(max_length=255)
     question_picture = models.ImageField(
         upload_to="question_picture/", blank=True, null=True
