@@ -9,14 +9,14 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
         fields = [
-            "type",
+            "section",
             "question",
             "question_picture",
             "explanation",
             "explanation_picture",
         ]
         labels = {
-            "type": _("Section"),
+            "section": _("Section"),
             "question": _("Question"),
             "question_picture": _("Question image"),
             "explanation": _("Explanation"),

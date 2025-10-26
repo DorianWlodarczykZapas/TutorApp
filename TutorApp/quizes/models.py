@@ -1,10 +1,13 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from examination_tasks.models import Section
 
 
 class Quiz(models.Model):
     section = models.ForeignKey(
-        Section, on_delete=models.CASCADE, related_name="topics", verbose_name="Section"
+        Section,
+        on_delete=models.CASCADE,
+        related_name="quiz_topics",
+        verbose_name="Section",
     )
     question = models.CharField(max_length=255)
     question_picture = models.ImageField(

@@ -1,7 +1,6 @@
 from typing import Any, Dict
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +11,7 @@ from ..forms import SectionForm
 from ..models import Section
 
 
-class AddSection(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddSection(TeacherRequiredMixin, CreateView):
     """
     Simple view that adds section to database via form
     """

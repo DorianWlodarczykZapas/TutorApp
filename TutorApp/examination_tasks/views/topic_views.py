@@ -1,7 +1,6 @@
 from typing import Any, Dict
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +11,7 @@ from ..forms import TopicForm
 from ..models import Topic
 
 
-class AddTopic(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddTopic(TeacherRequiredMixin, CreateView):
     """
     Simple view that adds topic to database via form
     """

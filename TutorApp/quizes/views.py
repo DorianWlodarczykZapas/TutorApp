@@ -11,7 +11,7 @@ from .forms import AnswerFormSet, CategorySelectForm, QuizForm
 from .models import Quiz
 
 
-class QuizCreateView(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class QuizCreateView(TeacherRequiredMixin, CreateView):
     """
     View for creating a quiz question (Quiz) with a set of answers (Answer).
     It is only available to users with the teacher role

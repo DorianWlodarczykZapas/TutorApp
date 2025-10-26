@@ -27,7 +27,7 @@ LEVEL_MAP = {
 }
 
 
-class AddExamTask(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddExamTask(TeacherRequiredMixin, CreateView):
     model = ExamTask
     form_class = AddExamTaskForm
     template_name = "examination_tasks/add_exam_task.html"
@@ -302,7 +302,7 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ExamTaskSearchEngine(FilterView):
+class ExamTaskSearchEngine(LoginRequiredMixin, FilterView):
     model = ExamTask
     filterset_class = ExamTaskFilter
     template_name = "examination_tasks/exam_task_search_engine.html"

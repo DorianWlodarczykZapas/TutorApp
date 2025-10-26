@@ -14,7 +14,7 @@ from ..models import Exam
 from ..services.examTaskDBService import ExamTaskDBService
 
 
-class AddExam(LoginRequiredMixin, TeacherRequiredMixin, CreateView):
+class AddExam(TeacherRequiredMixin, CreateView):
     """
     View for adding new matriculation exams.
     Access is restricted to logged-in users with teacher privileges.
