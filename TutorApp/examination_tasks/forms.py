@@ -126,6 +126,47 @@ class ExamTaskBasicForm(forms.Form):
         return bool(re.match(pattern, pages.strip()))
 
 
+class ExamTaskPreviewForm(forms.Form):
+    """
+    This form allows the user to see:
+    - The path to the generated PDF (task_screen)
+    - The extracted task text (task_content) – editable
+    - Confirmation checkbox
+    """
+
+    task_screen = forms.CharField(
+        label=_("Generated PDF Path"),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "readonly": "readonly",
+            }
+        ),
+        required=False,
+        help_text=_("Path to the extracted task PDF file (automatically generated)."),
+    )
+
+    task_content = forms.CharField(
+        label=_("Task Content (editable)"),
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 10,
+                "placeholder": _("Extracted task content..."),
+            }
+        ),
+        required=False,
+        help_text=_("You can edit the extracted text before saving."),
+    )
+
+    confirm = forms.BooleanField(
+        label=_("I confirm that the task preview is correct"),
+        required=True,
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        error_messages={"required": _("You must confirm the preview before saving.")},
+    )
+
+
 class TaskSearchForm(forms.Form):
     """
     Form used to validate and clean the parameters of
