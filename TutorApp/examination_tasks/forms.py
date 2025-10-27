@@ -30,7 +30,9 @@ class ExamForm(forms.ModelForm):
         }
 
 
-class AddExamTaskForm(forms.ModelForm):
+class ExamTaskBasicForm(forms.Form):
+    """First part of add exam task about adding all necessary parameters"""
+
     exam = forms.ModelChoiceField(
         queryset=Exam.objects.none(),
         label=_("Select Exam"),
@@ -60,7 +62,7 @@ class AddExamTaskForm(forms.ModelForm):
 
     task_pages = forms.CharField(
         label=_("Task Page(s)"),
-        required=False,
+        required=True,
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": _("e.g. 5 or 5-6")}
         ),
@@ -76,10 +78,6 @@ class AddExamTaskForm(forms.ModelForm):
         help_text=_("Page number(s) in the solutions PDF."),
     )
 
-    class Meta:
-        model = ExamTask
-        fields = ["exam", "task_id", "section", "topic", "task_pages", "answer_pages"]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -87,7 +85,7 @@ class AddExamTaskForm(forms.ModelForm):
             ExamTaskDBService.get_exams_with_available_tasks()
         )
 
-        if "exam" in self.data:
+        if self.data.get("exam"):
             try:
                 exam_id = int(self.data.get("exam"))
                 exam = Exam.objects.get(pk=exam_id)
@@ -97,6 +95,35 @@ class AddExamTaskForm(forms.ModelForm):
                 ) + ", ".join(map(str, missing))
             except (Exam.DoesNotExist, ValueError):
                 pass
+
+    def clean(self):
+        cleaned_data = super().clean()
+        exam = cleaned_data.get("exam")
+        task_id = cleaned_data.get("task_id")
+        task_pages = cleaned_data.get("task_pages")
+
+        if exam and not exam.exam_file:
+            raise forms.ValidationError(_("Selected exam has no PDF file attached."))
+
+        if exam and task_id:
+            if ExamTask.objects.filter(exam=exam, task_id=task_id).exists():
+                raise forms.ValidationError(
+                    _("Task %(task_id)s already exists for this exam.")
+                    % {"task_id": task_id}
+                )
+
+        if task_pages:
+            if not self._validate_page_format(task_pages):
+                raise forms.ValidationError(_("Invalid page format. Use '5' or '5-6'."))
+
+        return cleaned_data
+
+    def _validate_page_format(self, pages: str) -> bool:
+        """Method checking if pages has good format"""
+        import re
+
+        pattern = r"^\d+(-\d+)?$"
+        return bool(re.match(pattern, pages.strip()))
 
 
 class TaskSearchForm(forms.Form):
