@@ -4,19 +4,20 @@ from typing import Any, Dict
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.storage import FileSystemStorage
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from django.views.generic import CreateView, DetailView, ListView, View
+from django.views.generic import DetailView, ListView, View
 from django_filters.views import FilterView
+from formtools.wizard.views import SessionWizardView
 from users.views import TeacherRequiredMixin
 
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
-from ..forms import AddExamTaskForm
+from ..forms import ExamTaskBasicForm, ExamTaskPreviewForm
 from ..models import Exam, ExamTask, Topic
 from ..services.examTaskDBService import ExamTaskDBService
 from ..services.extractTaskFromPdf import ExtractTaskFromPdf
@@ -27,11 +28,35 @@ LEVEL_MAP = {
 }
 
 
-class AddExamTask(TeacherRequiredMixin, CreateView):
-    model = ExamTask
-    form_class = AddExamTaskForm
-    template_name = "examination_tasks/add_exam_task.html"
-    success_url = reverse_lazy("examination_tasks:add_exam_task")
+class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
+    """
+    Wizard for adding exam tasks in 2 steps:
+
+    Step 1 (basic_data): Collecting form data (exam, task_id, pages, etc.)
+    Step 2 (preview): Showing PDF and text preview before saving
+
+    User can:
+    - Cancel at any step (cleans temp files)
+    - Go back to edit (keeps temp files)
+    - Save task (moves temp PDF to final location)
+    """
+
+    form_list = [
+        ("basic_data", ExamTaskBasicForm),
+        ("preview", ExamTaskPreviewForm),
+    ]
+
+    template_name = "examination_tasks/add_exam_task_wizard.html"
+
+    file_storage = FileSystemStorage(
+        location=os.path.join(settings.MEDIA_ROOT, "temp_wizard")
+    )
+
+    def get(self, request, *args, **kwargs):
+        if "cancel" in request.GET:
+            return self.cancel()
+
+        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         exam = form.cleaned_data.get("exam")
