@@ -58,6 +58,16 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         return super().get(request, *args, **kwargs)
 
+    def get_context_data(self, form, **kwargs):
+
+        context = super().get_context_data(form, **kwargs)
+        context["title"] = _("Add New Exam Task")
+
+        if self.steps.current == "preview":
+            context.update(self._generate_preview_context())
+
+        return context
+
     def form_valid(self, form):
         exam = form.cleaned_data.get("exam")
         task_id = form.cleaned_data.get("task_id")
@@ -118,11 +128,6 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         messages.success(self.request, _("Task added successfully!"))
         return super().form_valid(form)
-
-    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
-        ctx = super().get_context_data(**kwargs)
-        ctx["title"] = _("Add New Exam Task")
-        return ctx
 
 
 class AjaxTopicsView(View):
