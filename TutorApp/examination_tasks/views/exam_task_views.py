@@ -68,6 +68,27 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         return context
 
+    def get_form_initial(self, step):
+        """
+        Sets initial values for forms
+
+        """
+        initial = super().get_form_initial(step)
+
+        if step == "preview":
+
+            task_content = self.storage.extra_data.get("task_content", "")
+            task_screen = self.storage.extra_data.get("task_screen", "")
+
+            initial.update(
+                {
+                    "task_content": task_content,
+                    "task_screen": task_screen,
+                }
+            )
+
+        return initial
+
     def form_valid(self, form):
         exam = form.cleaned_data.get("exam")
         task_id = form.cleaned_data.get("task_id")
