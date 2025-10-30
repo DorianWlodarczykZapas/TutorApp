@@ -1,6 +1,7 @@
 import os
 from typing import Any, Dict
 
+import pymupdf
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -88,6 +89,69 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             )
 
         return initial
+
+    def _generate_preview_context(self) -> Dict[str, Any]:
+        """
+        Generates pdf and task content only once
+
+        Returns:
+            Dictionary data to show in template
+        """
+        basic_data = self.get_cleaned_data_for_step("basic_data")
+
+        if not basic_data:
+            return {}
+
+        exam = basic_data["exam"]
+        task_id = basic_data["task_id"]
+        task_pages = basic_data["task_pages"]
+
+        try:
+
+            page_number = (
+                int(task_pages.split("-")[0]) if "-" in task_pages else int(task_pages)
+            )
+
+            exam_file_path = exam.exam_file.path
+
+            temp_output_dir = os.path.join(settings.MEDIA_ROOT, "temp_wizard")
+            os.makedirs(temp_output_dir, exist_ok=True)
+
+            extracted_pdf_path = ExtractTaskFromPdf.extract_task(
+                file_path=exam_file_path,
+                task_number=task_id,
+                page_number=page_number,
+                output_dir=temp_output_dir,
+            )
+
+            doc = pymupdf.open(extracted_pdf_path)
+            text = ""
+            for page in doc:
+                text += page.get_text()
+            doc.close()
+
+            pdf_url = os.path.join(
+                settings.MEDIA_URL, "temp_wizard", os.path.basename(extracted_pdf_path)
+            )
+
+            relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
+
+            self.storage.extra_data["extracted_pdf_path"] = extracted_pdf_path
+            self.storage.extra_data["task_content"] = text
+            self.storage.extra_data["task_screen"] = relative_path
+
+            return {
+                "pdf_preview_url": pdf_url,
+                "task_text_preview": text[:500] + "..." if len(text) > 500 else text,
+                "task_screen_path": relative_path,
+            }
+
+        except Exception as e:
+            messages.error(
+                self.request,
+                _("Error generating preview: %(error)s") % {"error": str(e)},
+            )
+            return {"preview_error": str(e)}
 
     def form_valid(self, form):
         exam = form.cleaned_data.get("exam")
