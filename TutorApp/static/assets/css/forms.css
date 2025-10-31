@@ -67,3 +67,153 @@
   color: red;
   font-weight: 500;
 }
+
+.form-step {
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-step h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+}
+
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.required {
+    color: #dc3545;
+    margin-left: 0.25rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-control[readonly] {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.form-control[readonly]:focus {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.form-help-text {
+    display: block;
+    margin-top: 0.25rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.field-errors {
+    color: #dc3545;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.form-errors {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 1px solid #f5c6cb;
+}
+
+
+.form-check {
+    padding: 1rem;
+    background: #fff;
+    border: 2px solid #007bff;
+    border-radius: 6px;
+}
+
+.form-check-input {
+    margin-right: 0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+}
+
+.form-check-label {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+
+.preview-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.preview-section h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+
+.file-info {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: #e7f3ff;
+    border-left: 3px solid #007bff;
+    border-radius: 4px;
+}
+
+.file-info code {
+    background: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+    word-break: break-all;
+    display: inline-block;
+    margin: 0.25rem 0;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+
+#char-count {
+    font-weight: bold;
+    color: #007bff;
+}
