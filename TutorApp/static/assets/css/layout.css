@@ -29,3 +29,118 @@
     border-width: 3px;
   }
 }
+
+.wizard-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.wizard-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+
+.wizard-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    padding: 1rem 0;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.progress-step.active .step-number {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+.progress-step.active .step-label {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.progress-step.completed .step-number {
+    background: #28a745;
+    color: white;
+}
+
+.progress-connector {
+    width: 100px;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 0 1rem;
+}
+
+
+.wizard-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.button-spacer {
+    flex: 1;
+}
+
+
+@media (max-width: 768px) {
+    .wizard-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .wizard-progress {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .progress-connector {
+        width: 2px;
+        height: 50px;
+        margin: 0;
+    }
+
+    .wizard-buttons {
+        flex-direction: column;
+    }
+
+    .button-spacer {
+        display: none;
+    }
+}
