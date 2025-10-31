@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import Any, Dict
 
 import pymupdf
@@ -229,6 +230,85 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         messages.info(self.request, _("Task creation cancelled. No data was saved."))
 
         return redirect("examination_tasks:add_exam_task")
+
+    def done(self, form_list, **kwargs):
+        """
+        Method that uses all previous methods to save to database
+        Returns:
+            Redirect response
+        """
+
+        basic_data = self.get_cleaned_data_for_step("basic_data")
+        preview_data = self.get_cleaned_data_for_step("preview")
+
+        exam = basic_data["exam"]
+        task_id = basic_data["task_id"]
+
+        try:
+
+            temp_pdf_path = self.storage.extra_data.get("extracted_pdf_path")
+
+            if not temp_pdf_path or not os.path.exists(temp_pdf_path):
+                raise FileNotFoundError("Temporary PDF not found")
+
+            final_output_dir = os.path.join(
+                settings.MEDIA_ROOT,
+                "exam_tasks",
+                str(exam.subject.name),
+                str(exam.exam_type),
+                str(exam.year),
+                str(exam.month),
+            )
+            os.makedirs(final_output_dir, exist_ok=True)
+
+            final_pdf_name = f"zadanie_{task_id}.pdf"
+            final_pdf_path = os.path.join(final_output_dir, final_pdf_name)
+            shutil.move(temp_pdf_path, final_pdf_path)
+
+            relative_path = os.path.relpath(final_pdf_path, settings.MEDIA_ROOT)
+
+            ExamTask.objects.create(
+                exam=exam,
+                task_id=task_id,
+                section=basic_data.get("section"),
+                topic=basic_data.get("topic"),
+                task_pages=basic_data["task_pages"],
+                answer_pages=basic_data.get("answer_pages", ""),
+                task_screen=relative_path,
+                task_content=preview_data.get("task_content", ""),
+            )
+
+            self._cleanup_temp_files()
+
+            self.storage.reset()
+
+            messages.success(
+                self.request,
+                _("Task %(task_id)s added successfully!") % {"task_id": task_id},
+            )
+
+            return redirect("examination_tasks:add_exam_task")
+
+        except Exception as e:
+            messages.error(
+                self.request, _("Error saving task: %(error)s") % {"error": str(e)}
+            )
+            return self.render_revalidation_failure(
+                self.steps.current, self.get_form(), **kwargs
+            )
+
+    def _cleanup_temp_files(self):
+        """
+        Deletes all temp files which was created during adding exam task
+        """
+        temp_dir = os.path.join(settings.MEDIA_ROOT, "temp_wizard")
+        if os.path.exists(temp_dir):
+            try:
+                shutil.rmtree(temp_dir)
+                os.makedirs(temp_dir, exist_ok=True)
+            except Exception as e:
+
+                print(f"Warning: Could not clean temp directory: {e}")
 
 
 class AjaxTopicsView(View):
