@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
@@ -213,6 +213,22 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         messages.success(self.request, _("Task added successfully!"))
         return super().form_valid(form)
+
+    def cancel(self):
+        """
+        Cancels all savings in adding exam task
+
+        Returns:
+            Redirect response
+        """
+
+        self._cleanup_temp_files()
+
+        self.storage.reset()
+
+        messages.info(self.request, _("Task creation cancelled. No data was saved."))
+
+        return redirect("examination_tasks:add_exam_task")
 
 
 class AjaxTopicsView(View):
