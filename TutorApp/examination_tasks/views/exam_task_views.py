@@ -47,7 +47,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         ("preview", ExamTaskPreviewForm),
     ]
 
-    template_name = "examination_tasks/add_exam_task_wizard.html"
+    template_name = "examination_tasks/add_exam_task.html"
 
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, "temp_wizard")
