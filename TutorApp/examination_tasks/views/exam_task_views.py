@@ -154,67 +154,6 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             )
             return {"preview_error": str(e)}
 
-    def form_valid(self, form):
-        exam = form.cleaned_data.get("exam")
-        task_id = form.cleaned_data.get("task_id")
-        pages = form.cleaned_data.get("task_pages", "")
-
-        if exam and exam.exam_file and pages and task_id:
-            try:
-
-                page_number = int(pages.split("-")[0]) if "-" in pages else int(pages)
-
-                exam_file_path = exam.exam_file.path
-
-                output_dir = os.path.join(
-                    settings.MEDIA_ROOT,
-                    "exam_tasks",
-                    str(exam.subject.name),
-                    str(exam.exam_type),
-                    str(exam.year),
-                    str(exam.month),
-                )
-
-                os.makedirs(output_dir, exist_ok=True)
-
-                extracted_pdf_path = ExtractTaskFromPdf.extract_task(
-                    file_path=exam_file_path,
-                    task_number=task_id,
-                    page_number=page_number,
-                    output_dir=output_dir,
-                )
-
-                relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
-                form.instance.task_screen = relative_path
-
-                import pymupdf
-
-                doc = pymupdf.open(extracted_pdf_path)
-                text = ""
-                for page in doc:
-                    text += page.get_text()
-                doc.close()
-                form.instance.task_content = text
-
-            except Exception as e:
-                messages.error(
-                    self.request, f"Error extracting task from PDF: {str(e)}"
-                )
-                return self.form_invalid(form)
-        elif not exam:
-            messages.error(self.request, _("Please select an exam"))
-            return self.form_invalid(form)
-        elif not exam.exam_file:
-            messages.error(self.request, _("Selected exam has no PDF file"))
-            return self.form_invalid(form)
-        elif not pages:
-            messages.warning(
-                self.request, _("No page numbers provided - task screen not generated")
-            )
-
-        messages.success(self.request, _("Task added successfully!"))
-        return super().form_valid(form)
-
     def cancel(self):
         """
         Cancels all savings in adding exam task
