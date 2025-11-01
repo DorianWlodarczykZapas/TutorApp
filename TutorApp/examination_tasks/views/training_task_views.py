@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django_filters.views import FilterView
 from users.views import TeacherRequiredMixin
 
@@ -86,5 +86,32 @@ class TrainingTaskListView(LoginRequiredMixin, FilterView):
                 )
             else:
                 context["completion_percentage"] = 0
+
+        return context
+
+
+class TrainingTaskDetailView(LoginRequiredMixin, DetailView):
+
+    model = TrainingTask
+    template_name = "training_tasks/training_task_detail.html"
+    context_object_name = "task"
+
+    def get_queryset(self):
+
+        return (
+            super()
+            .get_queryset()
+            .select_related("section", "section__book")
+            .prefetch_related("completed_by")
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = _("Task Details")
+
+        if self.request.user.is_authenticated:
+            context["is_completed"] = self.object.completed_by.filter(
+                id=self.request.user.id
+            ).exists()
 
         return context
