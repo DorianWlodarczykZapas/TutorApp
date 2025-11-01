@@ -14,7 +14,11 @@ from .views.exam_task_views import (
 from .views.exam_views import AddExam, ExamListView
 from .views.section_views import AddSection
 from .views.topic_views import AddTopic
-from .views.training_task_views import AddTrainingTask
+from .views.training_task_views import (
+    AddTrainingTask,
+    TrainingTaskDetailView,
+    TrainingTaskListView,
+)
 
 app_name = "examination_tasks"
 
@@ -50,4 +54,10 @@ urlpatterns = [
     path("training-tasks/add/", AddTrainingTask.as_view(), name="add_training_task"),
     path("ajax/topics/", AjaxTopicsView.as_view(), name="ajax_get_topics"),
     path("ajax/preview-task/", AjaxPreviewTaskView.as_view(), name="ajax_preview_task"),
+    path(
+        "training_tasks/<int:pk>/",
+        TrainingTaskDetailView.as_view(),
+        name="training_tasks_detail",
+    ),
+    path("training_tasks/", TrainingTaskListView.as_view(), name="training_tasks_list"),
 ]
