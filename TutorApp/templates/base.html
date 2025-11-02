@@ -36,6 +36,7 @@
                             <label for="examToggle">{% trans "Examination Tasks" %}</label>
                             <div class="dropdown-content">
                                 <a href="{% url 'examination_tasks:exam_list' %}">{% trans "Exam List" %}</a>
+                                <a href="{% url 'examination*tasks:training_tasks_list' %}">{% trans "Training Tasks List" %}</a>
                                 {% if user.role_type == 2 %}
                                     <a href="{% url 'examination_tasks:exam_add' %}">{% trans "Add Exam" %}</a>
                                     <a href="{% url 'examination_tasks:add_exam_task' %}">{% trans "Add Exam Task" %}</a>
