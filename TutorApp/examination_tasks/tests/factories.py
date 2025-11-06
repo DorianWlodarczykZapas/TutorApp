@@ -6,9 +6,10 @@ from ..choices import (
     MONTH_CHOICES,
     YEAR_CHOICES,
     ExamTypeChoices,
+    SchoolLevelChoices,
     SubjectChoices,
 )
-from ..models import Exam
+from ..models import Book, Exam
 
 
 class ExamFactory(DjangoModelFactory):
@@ -45,3 +46,31 @@ class ExamFactory(DjangoModelFactory):
                 "random_element", elements=[choice[0] for choice in LEVEL_CHOICES]
             ).evaluate(None, None, {"locale": None})
         return None
+
+
+class BookFactory(DjangoModelFactory):
+    class Meta:
+        model = Book
+
+    title = factory.Faker("sentence", nb_words=3)
+    author = factory.Faker("name", locale="pl_PL")
+    publication_year = factory.Faker("random_int", min=2015, max=2024)
+    school_level = SchoolLevelChoices.PRIMARY
+    subject = 1
+    grade = 1
+
+    class Params:
+
+        primary_school = factory.Trait(
+            school_level=SchoolLevelChoices.PRIMARY,
+            grade=factory.Faker("random_element", elements=[7, 8]),
+        )
+
+        high_school = factory.Trait(
+            school_level=SchoolLevelChoices.HIGH_SCHOOL,
+            grade=factory.Faker("random_element", elements=[1, 2, 3, 4]),
+        )
+
+        multi_grade = factory.Trait(grade=None)
+
+        no_author = factory.Trait(author="", publication_year=None)
