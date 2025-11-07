@@ -9,7 +9,7 @@ from ..choices import (
     SchoolLevelChoices,
     SubjectChoices,
 )
-from ..models import Book, Exam
+from ..models import Book, Exam, Section
 
 
 class ExamFactory(DjangoModelFactory):
@@ -74,3 +74,26 @@ class BookFactory(DjangoModelFactory):
         multi_grade = factory.Trait(grade=None)
 
         no_author = factory.Trait(author="", publication_year=None)
+
+
+class SectionFactory(DjangoModelFactory):
+    class Meta:
+        model = Section
+
+    book = factory.SubFactory(BookFactory)
+
+    name = factory.Faker(
+        "random_element",
+        elements=[
+            "Linear Equations",
+            "Quadratic Equations",
+            "Thermodynamics",
+            "Kinematics",
+            "Organic Chemistry",
+            "Cell Biology",
+            "World War II",
+            "Renaissance",
+            "Grammar Basics",
+            "Reading Comprehension",
+        ],
+    )
