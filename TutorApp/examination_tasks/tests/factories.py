@@ -9,7 +9,7 @@ from ..choices import (
     SchoolLevelChoices,
     SubjectChoices,
 )
-from ..models import Book, Exam, Section
+from ..models import Book, Exam, Section, Topic
 
 
 class ExamFactory(DjangoModelFactory):
@@ -95,5 +95,25 @@ class SectionFactory(DjangoModelFactory):
             "Renaissance",
             "Grammar Basics",
             "Reading Comprehension",
+        ],
+    )
+
+
+class TopicFactory(DjangoModelFactory):
+    class Meta:
+        model = Topic
+
+    section = factory.SubFactory(SectionFactory)
+
+    name = factory.Faker(
+        "random_element",
+        elements=[
+            "Conditional probability",
+            "Vietes formulas",
+            "Bernoullis diagram",
+            "Binomial distribution",
+            "Quadratic equations - delta",
+            "Linear functions - graph",
+            "Pythagorean theorem",
         ],
     )
