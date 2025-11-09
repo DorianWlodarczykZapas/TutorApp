@@ -36,8 +36,53 @@ services:
    command: redis-server
    volumes:
      - redis_data:/data
+ celery:
+   container_name: celery
+   build:
+     context: .
+     dockerfile: Dockerfile
+   command: celery -A core.celery worker --loglevel=info --concurrency=2
 
-
+   volumes:
+     - .:/app
+   depends_on:
+     - db
+     - redis
+   environment:
+     - PYTHONPATH=/app/TutorApp
+     - CELERY_BROKER_URL=redis://redis:6379/1
+     - CELERY_RESULT_BACKEND=redis://redis:6379/1
+ celery-beat:
+   container_name: celery-beat
+   build:
+     context: .
+     dockerfile: Dockerfile
+   command: celery -A core.celery beat --loglevel=info
+   volumes:
+     - .:/app
+   depends_on:
+     - redis
+   environment:
+     - PYTHONPATH=/app/TutorApp
+     - CELERY_BROKER_URL=redis://redis:6379/1
+     - CELERY_RESULT_BACKEND=redis://redis:6379/1
+ flower:
+   container_name: flower
+   build:
+     context: .
+     dockerfile: Dockerfile
+   command: celery -A core.celery flower --port=5555
+   volumes:
+     - .:/app
+   ports:
+     - "5555:5555"
+   depends_on:
+     - redis
+     - celery
+   environment:
+     - PYTHONPATH=/app/TutorApp
+     - CELERY_BROKER_URL=redis://redis:6379/1
+     - CELERY_RESULT_BACKEND=redis://redis:6379/1
 volumes:
    postgres_data:
    redis_data:

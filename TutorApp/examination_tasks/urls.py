@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views.book_views import AddBook
 from .views.exam_task_views import (
-    AddExamTask,
+    AddExamTaskWizard,
     AjaxPreviewTaskView,
     AjaxTopicsView,
     ExamTaskListView,
@@ -26,7 +26,7 @@ urlpatterns = [
     path("exams/add/", AddExam.as_view(), name="exam_add"),
     path(
         "exams/tasks/add/",
-        AddExamTask.as_view(),
+        AddExamTaskWizard.as_view(),
         name="add_exam_task",
     ),
     path("tasks/<int:pk>/pdf/", TaskPdfView.as_view(), name="task-pdf"),
