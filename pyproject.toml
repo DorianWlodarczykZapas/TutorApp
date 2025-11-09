@@ -54,3 +54,30 @@ exclude_dirs = ["tests"]
 
 [tool.bandit.assert_used]
 skips = ['*_test.py', '*/test_*.py']
+
+
+[tool.mypy]
+python_version = "3.13"
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+warn_return_any = true
+ignore_missing_imports = true
+plugins = ["mypy_django_plugin.main"]
+mypy_path = "TutorApp"
+
+[tool.django-stubs]
+django_settings_module = "core.settings"
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "*.admin"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "*.tests.*"
+ignore_errors = true

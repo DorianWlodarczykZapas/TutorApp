@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
+from django.db import transaction
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -43,6 +44,9 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
     - Save task (moves temp PDF to final location)
     """
 
+    STEP_BASIC = "basic_data"
+    STEP_PREVIEW = "preview"
+
     form_list = [
         ("basic_data", ExamTaskBasicForm),
         ("preview", ExamTaskPreviewForm),
@@ -50,9 +54,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
     template_name = "examination_tasks/add_exam_task.html"
 
-    file_storage = FileSystemStorage(
-        location=os.path.join(settings.MEDIA_ROOT, "temp_wizard")
-    )
+    file_storage = FileSystemStorage(location=settings.TEMP_WIZARD_DIR)
 
     def get(self, request, *args, **kwargs):
         if "cancel" in request.GET:
@@ -65,7 +67,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         context = super().get_context_data(form, **kwargs)
         context["title"] = _("Add New Exam Task")
 
-        if self.steps.current == "preview":
+        if self.steps.current == self.STEP_PREVIEW:
             context.update(self._generate_preview_context())
 
         return context
@@ -77,7 +79,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         """
         initial = super().get_form_initial(step)
 
-        if step == "preview":
+        if step == self.STEP_PREVIEW:
 
             task_content = self.storage.extra_data.get("task_content", "")
             task_screen = self.storage.extra_data.get("task_screen", "")
@@ -98,7 +100,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         Returns:
             Dictionary data to show in template
         """
-        basic_data = self.get_cleaned_data_for_step("basic_data")
+        basic_data = self.get_cleaned_data_for_step(self.STEP_BASIC)
 
         if not basic_data:
             return {}
@@ -115,7 +117,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
             exam_file_path = exam.exam_file.path
 
-            temp_output_dir = os.path.join(settings.MEDIA_ROOT, "temp_wizard")
+            temp_output_dir = settings.TEMP_WIZARD_DIR
             os.makedirs(temp_output_dir, exist_ok=True)
 
             extracted_pdf_path = ExtractTaskFromPdf.extract_task(
@@ -132,7 +134,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             doc.close()
 
             pdf_url = os.path.join(
-                settings.MEDIA_URL, "temp_wizard", os.path.basename(extracted_pdf_path)
+                settings.TEMP_WIZARD_DIR, os.path.basename(extracted_pdf_path)
             )
 
             relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
@@ -170,6 +172,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         return redirect("examination_tasks:add_exam_task")
 
+    @transaction.atomic
     def done(self, form_list, **kwargs):
         """
         Method that uses all previous methods to save to database
@@ -240,7 +243,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         """
         Deletes all temp files which was created during adding exam task
         """
-        temp_dir = os.path.join(settings.MEDIA_ROOT, "temp_wizard")
+        temp_dir = settings.TEMP_WIZARD_DIR
         if os.path.exists(temp_dir):
             try:
                 shutil.rmtree(temp_dir)
@@ -274,7 +277,7 @@ class AjaxPreviewTaskView(View):
 
             pdf_path = exam.exam_file.path
 
-            temp_dir = os.path.join(settings.MEDIA_ROOT, "temp_previews")
+            temp_dir = settings.TEMP_PREVIEW_DIR
             os.makedirs(temp_dir, exist_ok=True)
 
             extracted_pdf_path = ExtractTaskFromPdf.extract_task(
@@ -371,11 +374,11 @@ class TaskCutPdfStreamView(LoginRequiredMixin, View):
         task = get_object_or_404(ExamTask, pk=task_pk)
         exam = task.exam
 
-        if kind == "task":
+        if kind == "task":  # STALA TASK
             source_file = exam.tasks_link
             pages_str = task.task_pages
             filename_prefix = "zadanie"
-        else:
+        elif kind == "answer":
             source_file = exam.solutions_link
             pages_str = task.answer_pages
             filename_prefix = "rozwiazanie"

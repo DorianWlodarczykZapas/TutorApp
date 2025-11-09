@@ -57,5 +57,6 @@ jobs:
           poetry run djlint . --lint
       - name: Run Mypy
         run: |
-          poetry run mypy TutorApp
+          cd TutorApp
+          poetry run mypy .
         continue-on-error: true

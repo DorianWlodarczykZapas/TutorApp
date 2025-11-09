@@ -105,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
 LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("pl", _("Polish")),
@@ -127,6 +126,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 MEDIA_URL = "/media/"
+
+TEMP_WIZARD_DIR = os.path.join(MEDIA_ROOT, "temp_wizard")
+TEMP_PREVIEW_DIR = os.path.join(MEDIA_ROOT, "temp_previews")
 
 INTERNAL_IPS = [
     "127.0.0.1",
