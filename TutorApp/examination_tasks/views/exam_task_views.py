@@ -21,7 +21,7 @@ from users.views import TeacherRequiredMixin
 
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..forms import ExamTaskBasicForm, ExamTaskPreviewForm
-from ..models import Exam, ExamTask, Topic
+from ..models import Exam, ExamTask
 from ..services.examTaskDBService import ExamTaskDBService
 from ..services.extractTaskFromPdf import ExtractTaskFromPdf
 
@@ -251,66 +251,6 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             except Exception as e:
 
                 print(f"Warning: Could not clean temp directory: {e}")
-
-
-class AjaxTopicsView(View):
-    """Returns list of topics for a given section (used for dynamic dropdown)."""
-
-    def get(self, request, *args, **kwargs):
-        section_id = request.GET.get("section_id")
-        topics = Topic.objects.filter(section_id=section_id).order_by("name")
-        data = [{"id": t.id, "name": t.name} for t in topics]
-        return JsonResponse(data, safe=False)
-
-
-class AjaxPreviewTaskView(View):
-    def post(self, request, *args, **kwargs):
-        try:
-            exam_id = request.POST.get("exam_id")
-            page_number = int(request.POST.get("page", "1"))
-            task_number = int(request.POST.get("task_number", "1"))
-
-            exam = Exam.objects.get(pk=exam_id)
-
-            if not exam.exam_file:
-                return JsonResponse({"error": "Exam file not found"}, status=400)
-
-            pdf_path = exam.exam_file.path
-
-            temp_dir = settings.TEMP_PREVIEW_DIR
-            os.makedirs(temp_dir, exist_ok=True)
-
-            extracted_pdf_path = ExtractTaskFromPdf.extract_task(
-                file_path=pdf_path,
-                task_number=task_number,
-                page_number=page_number,
-                output_dir=temp_dir,
-            )
-
-            import pymupdf
-
-            doc = pymupdf.open(extracted_pdf_path)
-            text = ""
-            for page in doc:
-                text += page.get_text()
-            doc.close()
-
-            pdf_url = os.path.join(
-                settings.MEDIA_URL,
-                os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT),
-            )
-
-            return JsonResponse(
-                {
-                    "pdf_url": pdf_url,
-                    "task_text": text[:500] + "..." if len(text) > 500 else text,
-                }
-            )
-
-        except Exam.DoesNotExist:
-            return JsonResponse({"error": "Exam not found"}, status=404)
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
 
 
 class TaskPdfView(LoginRequiredMixin, View):
