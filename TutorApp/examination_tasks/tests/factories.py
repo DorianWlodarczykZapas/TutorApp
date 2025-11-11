@@ -1,4 +1,5 @@
 import factory
+from django.contrib.auth import get_user_model
 from factory.django import DjangoModelFactory
 
 from ..choices import (
@@ -9,7 +10,7 @@ from ..choices import (
     SchoolLevelChoices,
     SubjectChoices,
 )
-from ..models import Book, Exam, Section, Topic
+from ..models import Book, Exam, ExamTask, Section, Topic
 
 
 class ExamFactory(DjangoModelFactory):
@@ -117,3 +118,76 @@ class TopicFactory(DjangoModelFactory):
             "Pythagorean theorem",
         ],
     )
+
+
+class ExamTaskFactory(DjangoModelFactory):
+    class Meta:
+        model = ExamTask
+
+    exam = factory.SubFactory(ExamFactory)
+    task_id = factory.Sequence(lambda n: n + 1)
+
+    section = None
+    topic = None
+
+    task_screen = factory.django.FileField(
+        filename=factory.LazyAttribute(lambda o: f"task_{o.task_id}.pdf"),
+        data=b"%PDF-1.4 fake content",
+    )
+
+    task_content = factory.Faker("paragraph", locale="pl_PL")
+    task_pages = "1"
+    answer_pages = "10"
+
+    @factory.post_generation
+    def completed_by(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            if isinstance(extracted, int):
+
+                User = get_user_model()
+                for i in range(extracted):
+                    user = User.objects.create_user(
+                        username=f"user_{self.id}_{i}",
+                        email=f"user_{self.id}_{i}@example.com",
+                    )
+                    self.completed_by.add(user)
+            else:
+
+                for user in extracted:
+                    self.completed_by.add(user)
+
+    class Params:
+
+        categorized = factory.Trait(
+            section=factory.SubFactory(SectionFactory),
+            topic=factory.SubFactory(TopicFactory),
+        )
+
+        multipage = factory.Trait(
+            task_pages=factory.Faker(
+                "random_element", elements=["1-2", "2-3", "3-4", "5-7"]
+            ),
+            answer_pages=factory.Faker(
+                "random_element", elements=["10-11", "12-13", "15-17"]
+            ),
+        )
+
+        completed = factory.Trait(completed_by=2)
+
+        math_task = factory.Trait(
+            exam=factory.SubFactory(ExamFactory, subject=SubjectChoices.MATH),
+            section=factory.SubFactory(
+                SectionFactory,
+                name="Quadratic Equations",
+                book__subject=SubjectChoices.MATH,
+            ),
+            topic=factory.SubFactory(
+                TopicFactory,
+                name="Vietes formulas",
+                section__book__subject=SubjectChoices.MATH,
+            ),
+            task_content="Solve quadratic equation",
+        )
