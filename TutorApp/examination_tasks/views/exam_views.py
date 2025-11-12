@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, F, Q
+from django.db.models import Count, F, Q, QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -52,7 +52,7 @@ class ExamListView(LoginRequiredMixin, ListView):
     context_object_name = "exams"
     paginate_by = 10
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Exam]:
         """
         Dynamically filters the queryset based on URL parameters for
         level and user's completion status.
