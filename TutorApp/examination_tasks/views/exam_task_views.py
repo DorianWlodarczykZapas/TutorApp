@@ -48,8 +48,8 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
     STEP_PREVIEW = "preview"
 
     form_list = [
-        ("basic_data", ExamTaskBasicForm),
-        ("preview", ExamTaskPreviewForm),
+        (STEP_BASIC, ExamTaskBasicForm),
+        (STEP_PREVIEW, ExamTaskPreviewForm),
     ]
 
     template_name = "examination_tasks/add_exam_task.html"
