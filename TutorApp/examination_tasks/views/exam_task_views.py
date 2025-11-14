@@ -173,20 +173,11 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             "task_screen_path": relative_path,
         }
 
-    def cancel(self):
-        """
-        Cancels all savings in adding exam task
-
-        Returns:
-            Redirect response
-        """
-
+    def cancel(self) -> HttpResponse:
+        """Cancels wizard and cleans temp files."""
         self._cleanup_temp_files()
-
         self.storage.reset()
-
         messages.info(self.request, _("Task creation cancelled. No data was saved."))
-
         return redirect("examination_tasks:add_exam_task")
 
     @transaction.atomic
