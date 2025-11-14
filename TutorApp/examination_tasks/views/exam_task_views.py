@@ -239,18 +239,15 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         return redirect("examination_tasks:add_exam_task")
 
-    def _cleanup_temp_files(self):
-        """
-        Deletes all temp files which was created during adding exam task
-        """
+    def _cleanup_temp_files(self) -> None:
+        """Deletes all temporary files used in wizard."""
         temp_dir = settings.TEMP_WIZARD_DIR
         if os.path.exists(temp_dir):
             try:
                 shutil.rmtree(temp_dir)
                 os.makedirs(temp_dir, exist_ok=True)
-            except Exception as e:
-
-                print(f"Warning: Could not clean temp directory: {e}")
+            except OSError as e:
+                logger.warning("Could not clean temp directory: %s", e)
 
 
 class TaskPdfView(LoginRequiredMixin, View):
