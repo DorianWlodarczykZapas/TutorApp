@@ -1,3 +1,4 @@
+import logging
 import os
 import shutil
 from typing import Any, Dict
@@ -9,7 +10,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.db.models import QuerySet
-from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
+from django.http import (
+    Http404,
+    HttpRequest,
+    HttpResponse,
+    HttpResponseNotFound,
+    JsonResponse,
+)
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -29,6 +36,7 @@ LEVEL_MAP = {
     "B": 1,
     "E": 2,
 }
+logger = logging.getLogger(__name__)
 
 
 class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
@@ -56,7 +64,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
     file_storage = FileSystemStorage(location=settings.TEMP_WIZARD_DIR)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         if "cancel" in request.GET:
             return self.cancel()
 
