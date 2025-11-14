@@ -1,7 +1,7 @@
 import logging
 import os
 import shutil
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import pymupdf
 from django.conf import settings
@@ -181,25 +181,19 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         return redirect("examination_tasks:add_exam_task")
 
     @transaction.atomic
-    def done(self, form_list, **kwargs):
-        """
-        Method that uses all previous methods to save to database
-        Returns:
-            Redirect response
-        """
-
-        basic_data = self.get_cleaned_data_for_step("basic_data")
-        preview_data = self.get_cleaned_data_for_step("preview")
+    def done(self, form_list: List[Form], **kwargs: Any) -> HttpResponse:
+        basic_data = self.get_cleaned_data_for_step(self.STEP_BASIC)
+        preview_data = self.get_cleaned_data_for_step(self.STEP_PREVIEW)
 
         exam = basic_data["exam"]
         task_id = basic_data["task_id"]
 
+        temp_pdf_path = self.storage.extra_data.get("extracted_pdf_path")
+        if not temp_pdf_path or not os.path.exists(temp_pdf_path):
+            messages.error(self.request, _("Temporary PDF missing."))
+            return redirect("examination_tasks:add_exam_task")
+
         try:
-
-            temp_pdf_path = self.storage.extra_data.get("extracted_pdf_path")
-
-            if not temp_pdf_path or not os.path.exists(temp_pdf_path):
-                raise FileNotFoundError("Temporary PDF not found")
 
             final_output_dir = os.path.join(
                 settings.MEDIA_ROOT,
@@ -211,41 +205,39 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             )
             os.makedirs(final_output_dir, exist_ok=True)
 
-            final_pdf_name = f"zadanie_{task_id}.pdf"
-            final_pdf_path = os.path.join(final_output_dir, final_pdf_name)
+            final_pdf_path = os.path.join(final_output_dir, f"zadanie_{task_id}.pdf")
+
             shutil.move(temp_pdf_path, final_pdf_path)
 
-            relative_path = os.path.relpath(final_pdf_path, settings.MEDIA_ROOT)
-
-            ExamTask.objects.create(
-                exam=exam,
-                task_id=task_id,
-                section=basic_data.get("section"),
-                topic=basic_data.get("topic"),
-                task_pages=basic_data["task_pages"],
-                answer_pages=basic_data.get("answer_pages", ""),
-                task_screen=relative_path,
-                task_content=preview_data.get("task_content", ""),
-            )
-
-            self._cleanup_temp_files()
-
-            self.storage.reset()
-
-            messages.success(
-                self.request,
-                _("Task %(task_id)s added successfully!") % {"task_id": task_id},
-            )
-
-            return redirect("examination_tasks:add_exam_task")
-
-        except Exception as e:
-            messages.error(
-                self.request, _("Error saving task: %(error)s") % {"error": str(e)}
-            )
+        except (OSError, shutil.Error) as e:
+            logger.error("Could not save final PDF: %s", e)
+            messages.error(self.request, _("Error saving task PDF."))
             return self.render_revalidation_failure(
                 self.steps.current, self.get_form(), **kwargs
             )
+
+        finally:
+
+            self._cleanup_temp_files()
+            self.storage.reset()
+
+        ExamTask.objects.create(
+            exam=exam,
+            task_id=task_id,
+            section=basic_data.get("section"),
+            topic=basic_data.get("topic"),
+            task_pages=basic_data["task_pages"],
+            answer_pages=basic_data.get("answer_pages", ""),
+            task_screen=os.path.relpath(final_pdf_path, settings.MEDIA_ROOT),
+            task_content=preview_data.get("task_content", ""),
+        )
+
+        messages.success(
+            self.request,
+            _("Task %(task_id)s added successfully!") % {"task_id": task_id},
+        )
+
+        return redirect("examination_tasks:add_exam_task")
 
     def _cleanup_temp_files(self):
         """
