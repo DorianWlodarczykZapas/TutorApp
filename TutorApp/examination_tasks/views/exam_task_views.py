@@ -81,7 +81,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         return context
 
-    def get_form_initial(self, step):
+    def get_form_initial(self, step: str) -> Dict[str, Any]:
         """
         Sets initial values for forms
 
@@ -90,13 +90,10 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         if step == self.STEP_PREVIEW:
 
-            task_content = self.storage.extra_data.get("task_content", "")
-            task_screen = self.storage.extra_data.get("task_screen", "")
-
             initial.update(
                 {
-                    "task_content": task_content,
-                    "task_screen": task_screen,
+                    "task_content": self.storage.extra_data.get("task_content", ""),
+                    "task_screen": self.storage.extra_data.get("task_screen", ""),
                 }
             )
 
