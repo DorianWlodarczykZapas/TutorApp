@@ -120,47 +120,58 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             page_number = (
                 int(task_pages.split("-")[0]) if "-" in task_pages else int(task_pages)
             )
+        except ValueError:
+            messages.error(self.request, _("Invalid page number format."))
+            return {"preview_error": _("Invalid page number format.")}
 
-            exam_file_path = exam.exam_file.path
+        exam_file_path = exam.exam_file.path
 
-            temp_output_dir = settings.TEMP_WIZARD_DIR
-            os.makedirs(temp_output_dir, exist_ok=True)
+        temp_output_dir = settings.TEMP_WIZARD_DIR
+        os.makedirs(temp_output_dir, exist_ok=True)
 
+        try:
             extracted_pdf_path = ExtractTaskFromPdf.extract_task(
                 file_path=exam_file_path,
                 task_number=task_id,
                 page_number=page_number,
                 output_dir=temp_output_dir,
             )
+        except FileNotFoundError:
+            messages.error(self.request, _("Exam file not found."))
+            return {"preview_error": "Exam file not found"}
+        except Exception:
+            logger.exception("Unexpected error while extracting PDF task")
+            messages.error(self.request, _("Unexpected PDF extraction error."))
+            return {"preview_error": "Unexpected error extracting PDF"}
 
+        try:
             doc = pymupdf.open(extracted_pdf_path)
-            text = ""
-            for page in doc:
-                text += page.get_text()
+            text = "".join(page.get_text() for page in doc)
             doc.close()
+        except pymupdf.FitzError:
+            logger.error("Could not read generated PDF (fitz error)")
+            return {"preview_error": "Error reading extracted PDF"}
+        except OSError as e:
+            logger.error("OS error reading PDF: %s", e)
+            return {"preview_error": "OS error reading extracted PDF"}
 
-            pdf_url = os.path.join(
-                settings.TEMP_WIZARD_DIR, os.path.basename(extracted_pdf_path)
-            )
+        relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
 
-            relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
-
-            self.storage.extra_data["extracted_pdf_path"] = extracted_pdf_path
-            self.storage.extra_data["task_content"] = text
-            self.storage.extra_data["task_screen"] = relative_path
-
-            return {
-                "pdf_preview_url": pdf_url,
-                "task_text_preview": text[:500] + "..." if len(text) > 500 else text,
-                "task_screen_path": relative_path,
+        self.storage.extra_data.update(
+            {
+                "extracted_pdf_path": extracted_pdf_path,
+                "task_content": text,
+                "task_screen": relative_path,
             }
+        )
 
-        except Exception as e:
-            messages.error(
-                self.request,
-                _("Error generating preview: %(error)s") % {"error": str(e)},
-            )
-            return {"preview_error": str(e)}
+        return {
+            "pdf_preview_url": os.path.join(
+                settings.TEMP_WIZARD_DIR, os.path.basename(extracted_pdf_path)
+            ),
+            "task_text_preview": text[:500] + "..." if len(text) > 500 else text,
+            "task_screen_path": relative_path,
+        }
 
     def cancel(self):
         """
