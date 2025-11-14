@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.db.models import QuerySet
+from django.forms import Form
 from django.http import (
     Http404,
     HttpRequest,
@@ -70,7 +71,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
         return super().get(request, *args, **kwargs)
 
-    def get_context_data(self, form, **kwargs):
+    def get_context_data(self, form: Form, **kwargs: Any) -> Dict[str, Any]:
 
         context = super().get_context_data(form, **kwargs)
         context["title"] = _("Add New Exam Task")
