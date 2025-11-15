@@ -1,28 +1,75 @@
 from django.db import models
 from examination_tasks.models import Section
+from django.conf import settings
+
 
 
 class Quiz(models.Model):
+    title = models.CharField(max_length=100)
     section = models.ForeignKey(
         Section,
         on_delete=models.CASCADE,
-        related_name="quiz_topics",
+        related_name="quizzes",
         verbose_name="Section",
     )
-    question = models.CharField(max_length=255)
-    question_picture = models.ImageField(
+
+
+
+    class Meta:
+        verbose_name_plural = "Quizzes"
+        ordering = ["section","title"]
+
+    def __str__(self):
+        return f"{self.title} {self.section}"
+
+class Question(models.Model):
+    text = models.TextField()
+    quiz = models.ForeignKey(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name="questions",
+        verbose_name="Quiz",
+    )
+
+    picture = models.ImageField(
         upload_to="question_picture/", blank=True, null=True
     )
-    explanation = models.TextField(blank=True, null=True)
+    explanation = models.TextField(blank=True)
     explanation_picture = models.ImageField(
         upload_to="explanation_picture/", blank=True, null=True
     )
 
+    def __str__(self):
+        return f"{self.quiz.title} - {self.text[:50]}"
 
 class Answer(models.Model):
-    quiz = models.ForeignKey("Quiz", on_delete=models.CASCADE, related_name="answers")
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="answers")
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.text} ({'Correct' if self.is_correct else 'Incorrect'})"
+
+
+class QuizAttempt(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    quiz = models.ForeignKey(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name="attempts",
+    )
+    score = models.IntegerField()
+    max_score = models.IntegerField()
+    completed_at = models.DateTimeField(null=True,blank=True)
+
+    class Meta:
+        ordering = ["-completed_at"]
+
+    def __str__(self):
+        return f"{self.user} - {self.quiz} - {self.score}/{self.max_score}"
