@@ -197,7 +197,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
             final_output_dir = os.path.join(
                 settings.MEDIA_ROOT,
-                "exam_tasks",
+                "exam_tasks",  # TODO do stałej
                 str(exam.subject.name),
                 str(exam.exam_type),
                 str(exam.year),
@@ -311,7 +311,7 @@ class TaskCutPdfStreamView(LoginRequiredMixin, View):
         task = get_object_or_404(ExamTask, pk=task_pk)
         exam = task.exam
 
-        if kind == "task":  # STALA TASK
+        if kind == "task":  # TODO STALA TASK
             source_file = exam.tasks_link
             pages_str = task.task_pages
             filename_prefix = "zadanie"
