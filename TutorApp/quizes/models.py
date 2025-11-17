@@ -1,7 +1,8 @@
+from django.conf import settings
 from django.db import models
 from examination_tasks.models import Section
-from django.conf import settings
 
+from TutorApp.examination_tasks import choices
 
 
 class Quiz(models.Model):
@@ -13,14 +14,13 @@ class Quiz(models.Model):
         verbose_name="Section",
     )
 
-
-
     class Meta:
         verbose_name_plural = "Quizzes"
-        ordering = ["section","title"]
+        ordering = ["section", "title"]
 
     def __str__(self):
         return f"{self.title} {self.section}"
+
 
 class Question(models.Model):
     text = models.TextField()
@@ -30,10 +30,14 @@ class Question(models.Model):
         related_name="questions",
         verbose_name="Quiz",
     )
-
-    picture = models.ImageField(
-        upload_to="question_picture/", blank=True, null=True
+    level_type = models.IntegerField(
+        choices=choices.LEVEL_CHOICES,
+        null=True,
+        blank=True,
+        help_text="Level of question. Can be Basic or Extended",
     )
+
+    picture = models.ImageField(upload_to="question_picture/", blank=True, null=True)
     explanation = models.TextField(blank=True)
     explanation_picture = models.ImageField(
         upload_to="explanation_picture/", blank=True, null=True
@@ -42,11 +46,11 @@ class Question(models.Model):
     def __str__(self):
         return f"{self.quiz.title} - {self.text[:50]}"
 
+
 class Answer(models.Model):
     question = models.ForeignKey(
-        Question,
-        on_delete=models.CASCADE,
-        related_name="answers")
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
 
@@ -66,7 +70,7 @@ class QuizAttempt(models.Model):
     )
     score = models.IntegerField()
     max_score = models.IntegerField()
-    completed_at = models.DateTimeField(null=True,blank=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ["-completed_at"]
