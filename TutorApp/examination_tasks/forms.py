@@ -156,16 +156,6 @@ class TaskSearchForm(forms.Form):
     is_done = forms.NullBooleanField(required=False)
 
 
-class SectionForm(forms.ModelForm):
-    class Meta:
-        model = Section
-        fields = ["book", "name"]
-        labels = {
-            "book": _("Book Title"),
-            "name": _("Section Name"),
-        }
-
-
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
