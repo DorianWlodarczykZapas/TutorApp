@@ -1,10 +1,9 @@
 from django.urls import path
 
-from .views import CategorySelectView, QuizCreateView
+from .views.quiz_views import AddQuiz
 
 app_name = "quizes"
 
 urlpatterns = [
-    path("add/", QuizCreateView.as_view(), name="add"),
-    path("", CategorySelectView.as_view(), name="category"),
+    path("add/", AddQuiz.as_view(), name="add_quiz"),
 ]
