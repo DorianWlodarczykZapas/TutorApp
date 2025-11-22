@@ -14,7 +14,7 @@ class QuestionForm(forms.ModelForm):
             "level_type": _("Level Type"),
             "picture": _("Illustration for the question"),
             "explanation": _("Explanation To The Question"),
-            "explanation_picture": _("Explanation By Picture To The Question"),
+            "explanation_picture": _("Explanation By Illustration To The Question"),
         }
 
 
