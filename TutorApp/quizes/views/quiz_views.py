@@ -1,5 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, ListView
 
 from ...users.views import TeacherRequiredMixin
@@ -13,6 +16,10 @@ class AddQuiz(TeacherRequiredMixin, CreateView):
     form_class = QuizForm
     template_name = "quizes/add_quiz.html"
     success_url = reverse_lazy("quizes:quiz_list")
+
+    def form_valid(self, form: QuizForm) -> HttpResponseRedirect:
+        messages.success(self.request, _("Quiz created successfully!"))
+        return super().form_valid(form)
 
 
 class QuizList(LoginRequiredMixin, ListView):
