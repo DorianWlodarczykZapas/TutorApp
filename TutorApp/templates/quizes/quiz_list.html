@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Quizzes" %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>{% trans "My Quizzes" %}</h1>
+        <a href="{% url 'quizes:add_quiz' %}" class="btn">{% trans "Add New Quiz" %}</a>
+        {% if quiz_list %}
+            <ul>
+                {% for quiz in quiz_list %}
+                    <li>
+                        <strong>{{ quiz.title }}</strong> - {{ quiz.section }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{% trans "No quizzes yet. Create your first quiz!" %}</p>
+        {% endif %}
+    </div>
+{% endblock %}
