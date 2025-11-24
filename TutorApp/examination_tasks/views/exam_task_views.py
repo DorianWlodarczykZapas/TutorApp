@@ -28,7 +28,7 @@ from formtools.wizard.views import SessionWizardView
 from users.views import TeacherRequiredMixin
 
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
-from ..forms import ExamTaskBasicForm, ExamTaskPreviewForm
+from ..forms.exam_tasks_forms import ExamTaskBasicForm, ExamTaskPreviewForm
 from ..models import Exam, ExamTask
 from ..services.examTaskDBService import ExamTaskDBService
 from ..services.extractTaskFromPdf import ExtractTaskFromPdf

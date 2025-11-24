@@ -3,8 +3,6 @@ from django.urls import path
 from .views.book_views import AddBook
 from .views.exam_task_views import (
     AddExamTaskWizard,
-    AjaxPreviewTaskView,
-    AjaxTopicsView,
     ExamTaskListView,
     ExamTaskSearchEngine,
     TaskCutPdfStreamView,
@@ -52,8 +50,6 @@ urlpatterns = [
     path("sections/add/", AddSection.as_view(), name="add_section"),
     path("topics/add/", AddTopic.as_view(), name="add_topic"),
     path("training-tasks/add/", AddTrainingTask.as_view(), name="add_training_task"),
-    path("ajax/topics/", AjaxTopicsView.as_view(), name="ajax_get_topics"),
-    path("ajax/preview-task/", AjaxPreviewTaskView.as_view(), name="ajax_preview_task"),
     path(
         "training_tasks/<int:pk>/",
         TrainingTaskDetailView.as_view(),

@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.db import models
+from examination_tasks import choices
 from examination_tasks.models import Section
-
-from TutorApp.examination_tasks import choices
 
 
 class Quiz(models.Model):

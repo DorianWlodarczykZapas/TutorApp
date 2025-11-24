@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from users.views import TeacherRequiredMixin
 
-from ..forms import SectionForm
+from ..forms.section_forms import SectionForm
 from ..models import Section
 
 

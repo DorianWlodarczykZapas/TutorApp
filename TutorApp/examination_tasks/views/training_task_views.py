@@ -10,7 +10,7 @@ from django_filters.views import FilterView
 from users.views import TeacherRequiredMixin
 
 from ..filters import TrainingTaskFilter
-from ..forms import TrainingTaskForm
+from ..forms.training_tasks_forms import TrainingTaskForm
 from ..models import TrainingTask
 
 
