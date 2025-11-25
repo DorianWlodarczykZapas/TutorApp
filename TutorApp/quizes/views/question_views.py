@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django_stubs_ext import StrOrPromise
 from users.views import TeacherRequiredMixin
-
+from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 from ..forms.question_forms import AnswerFormSet, QuestionForm
 from ..models import Question, Quiz
 
@@ -37,6 +38,8 @@ class AddQuestion(TeacherRequiredMixin, CreateView):
             self.object.save()
             formset.instance = self.object
             formset.save()
+
+             messages.success(self.request, _("Question has been successfully added."))
 
             return super().form_valid(form)
         else:
