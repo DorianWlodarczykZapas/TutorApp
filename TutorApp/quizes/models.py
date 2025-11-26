@@ -76,3 +76,27 @@ class QuizAttempt(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.quiz} - {self.score}/{self.max_score}"
+
+
+class UserAnswer(models.Model):
+    attempt = models.ForeignKey(
+        QuizAttempt,
+        on_delete=models.CASCADE,
+        related_name="answers",
+    )
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+    )
+    selected_answers = models.ManyToManyField(
+        Answer,
+        related_name="user_quiz_answers",
+    )
+    points_earned = models.FloatField(default=0)
+
+    class Meta:
+        ordering = ["question__id"]
+        unique_together = ["attempt", "question"]
+
+    def __str__(self):
+        return f"{self.attempt.user} - Q{self.question.id} - {self.points_earned}pts"
