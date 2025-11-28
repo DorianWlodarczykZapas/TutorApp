@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import FormView
 from formtools.wizard.views import SessionWizardView
 
@@ -33,4 +34,10 @@ class QuizStartView(LoginRequiredMixin, FormView):
         return context
 
     def form_valid(self, form):
-        pass
+        question_count = form.cleaned_data["question_count"]
+
+        quiz_pk = self.kwargs["quiz_pk"]
+        return redirect(
+            reverse("quizes:solve_quiz", kwargs={"quiz_pk": quiz_pk})
+            + f"?question_count={question_count}"
+        )
