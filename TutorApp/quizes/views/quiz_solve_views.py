@@ -1,5 +1,7 @@
+from typing import Any, Dict
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import FormView
@@ -24,7 +26,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
     form_class = QuizStartForm
     template_name = "quizes/quiz_solve_start.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
         quiz_pk = self.kwargs["quiz_pk"]
@@ -33,7 +35,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
 
         return context
 
-    def form_valid(self, form):
+    def form_valid(self, form: QuizStartForm) -> HttpResponseRedirect:
         question_count = form.cleaned_data["question_count"]
 
         quiz_pk = self.kwargs["quiz_pk"]
