@@ -32,6 +32,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
         quiz_pk = self.kwargs["quiz_pk"]
         quiz = get_object_or_404(Quiz, pk=quiz_pk)
         context["quiz"] = quiz
+        context["question_count"] = quiz.questions.count()
 
         return context
 
