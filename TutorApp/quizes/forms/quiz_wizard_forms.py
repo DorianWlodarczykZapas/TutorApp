@@ -1,6 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from ..models import Quiz
+
 
 class QuizStepForm(forms.Form):
     def __init__(self, question, *args, **kwargs):
@@ -27,3 +29,32 @@ class QuizStartForm(forms.Form):
         label=_("How many questions would you like?"),
         initial=10,
     )
+
+    def __init__(self, quiz: Quiz, *args, **kwargs):
+        self.quiz = quiz
+        super().__init__(*args, **kwargs)
+
+    def clean_question_count(self) -> str:
+        question_count = self.cleaned_data["question_count"]
+        available_questions = self.quiz.questions.count()
+
+        if available_questions == 0:
+            raise forms.ValidationError(
+                _("This quiz has no questions yet. Cannot start!")
+            )
+
+        if question_count == "all":
+            return question_count
+
+        question_count_int = int(question_count)
+
+        if available_questions < question_count_int:
+            raise forms.ValidationError(
+                _(
+                    "This quiz has only %(available)d question(s). "
+                    "You cannot select %(requested)d."
+                )
+                % {"available": available_questions, "requested": question_count_int}
+            )
+
+        return question_count
