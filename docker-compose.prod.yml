@@ -12,7 +12,6 @@ services:
      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
      - ./nginx/conf.d:/etc/nginx/conf.d:ro
      - static_volume:/app/TutorApp/staticfiles
-
  web:
    build:
      context: .
