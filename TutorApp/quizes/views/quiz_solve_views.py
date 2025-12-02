@@ -2,7 +2,7 @@ import logging
 from typing import Any, Dict, OrderedDict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import FormView
@@ -50,8 +50,24 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
         return OrderedDict(form_list)
 
-    def done(self, form_list, **kwargs) -> HttpResponse:
-        pass
+    # def done(self, form_list, **kwargs) -> HttpResponse:
+    #     quiz_pk = self.kwargs["quiz_pk"]
+    #     quiz = get_object_or_404(Quiz, pk=quiz_pk)
+    #
+    #     user_answers_data = []
+    #
+    #     total_score = 0
+    #
+    #     max_possible_score = 0
+    #
+    #     for step_name in self.get_form_list().keys():
+    #         step_data = self.get_cleaned_data_for_step(step_name)
+    #
+    #         selected_answers_ids = step_data.get["selected_answers", []]
+    #         question_id = int(step_name.split("_")[1])
+    #         question = get_object_or_404(Question, pk=question_id)
+    #
+    #     return redirect('quizes:quiz_list')
 
 
 class QuizStartView(LoginRequiredMixin, FormView):
