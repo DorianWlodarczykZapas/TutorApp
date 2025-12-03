@@ -67,7 +67,7 @@ class QuizAttempt(models.Model):
         on_delete=models.CASCADE,
         related_name="attempts",
     )
-    score = models.IntegerField()
+    score = models.FloatField()
     max_score = models.IntegerField()
     completed_at = models.DateTimeField(null=True, blank=True)
 
