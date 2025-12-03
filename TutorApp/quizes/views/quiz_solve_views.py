@@ -116,7 +116,7 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
             )
             user_answer.selected_answers.set(answer_objects)
 
-        return redirect("quizes:quiz_list")
+        return redirect("quizes:quiz_summary", attempt_id=quiz_attempt.id)
 
 
 class QuizStartView(LoginRequiredMixin, FormView):
