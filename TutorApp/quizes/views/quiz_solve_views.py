@@ -118,6 +118,16 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
         return redirect("quizes:quiz_summary", attempt_id=quiz_attempt.id)
 
+    def get_context_data(self, form: QuizStepForm, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(form=form, **kwargs)
+
+        current_step = self.steps.current
+
+        question_id = int(current_step.split("_")[1])
+        question = get_object_or_404(Question, pk=question_id)
+        context["question"] = question
+        return context
+
 
 class QuizStartView(LoginRequiredMixin, FormView):
     model = Quiz
