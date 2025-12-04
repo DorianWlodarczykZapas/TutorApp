@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Solve Quiz" %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {# Progress #}
+        <p>{% trans "Question" %} {{ wizard.steps.step1 }}/{{ wizard.steps.count }}</p>
+        {# Pytanie #}
+        <h2>{{ question.text }}</h2>
+        {% if question.picture %}<img src="{{ question.picture.url }}" alt="Question image">{% endif %}
+        {# Formularz #}
+        <form method="post">
+            {% csrf_token %}
+            {{ wizard.management_form }}
+            <h3>{% trans "Select answers:" %}</h3>
+            {{ form.as_p }}
+            {% if wizard.steps.prev %}
+                <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+            {% endif %}
+            <button type="submit">
+                {% if wizard.steps.last %}
+                    {% trans "Finish" %}
+                {% else %}
+                    {% trans "Next" %}
+                {% endif %}
+            </button>
+        </form>
+    </div>
+{% endblock %}
