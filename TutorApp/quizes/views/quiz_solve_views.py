@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
+
+    form_list = [("dummy", QuizStepForm)]
     template_name = "quizes/quiz_solve_wizard.html"
 
     def get_form_list(self) -> OrderedDict[str, type]:
