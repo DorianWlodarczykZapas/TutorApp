@@ -18,7 +18,7 @@ AUTH_USER_MODEL = "users.User"
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS: List[str] = []
+ALLOWED_HOSTS: List[str] = ["*"]
 
 
 INSTALLED_APPS = [
