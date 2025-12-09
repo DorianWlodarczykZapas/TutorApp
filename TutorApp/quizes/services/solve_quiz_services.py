@@ -3,7 +3,12 @@ from typing import List, Tuple
 
 class QuizSolveService:
     """
-    A class containing methods that handle actions related to solving quizzes.
+    Class containing services related to solving quizzes:
+
+        -method for collecting user responses
+        -method for comparing user responses with answers to questions
+        -method for calculating scores for a single question
+        -method for saving user solutions to the database
     """
 
     def calculate_score(self, questions, user_answers) -> float:
