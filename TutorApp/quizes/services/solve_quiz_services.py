@@ -1,6 +1,7 @@
 from typing import List, Tuple
 
 from django.forms import Form
+from django.utils.translation import gettext_lazy as _
 from users.models import User
 
 from ..models import Question, Quiz, QuizAttempt
@@ -62,7 +63,32 @@ class QuizSolveService:
              The user's question score
         """
 
-        pass
+        correct_answers = question.answers.filter(is_correct=True)
+        incorrect_answers = question.answers.filter(is_correct=False)
+
+        correct_ids = [answer.id for answer in correct_answers]
+        incorrect_ids = [answer.id for answer in incorrect_answers]
+
+        if len(correct_ids) == 0 or len(incorrect_ids) == 0:
+            raise ValueError(_("Question must have both correct and incorrect answers"))
+
+        points_per_correct = 1.0 / len(correct_ids)
+
+        points_per_incorrect = 1.0 / len(incorrect_ids)
+
+        earned_points = 0.0
+
+        for answer_id in selected_answer_ids:
+            if answer_id in correct_ids:
+                earned_points += points_per_correct
+            elif answer_id in incorrect_ids:
+                earned_points -= points_per_incorrect
+
+        earned_points = max(0, earned_points)
+
+        earned_points = round(earned_points, 2)
+
+        return earned_points
 
     def save_quiz_attempt(
         self,
@@ -78,8 +104,8 @@ class QuizSolveService:
             user: The user object
             quiz: The quiz object
             score: The user's quiz score
-            List of tuples (question_id, list of selected answer IDs)
-                  Example: [("question_5", [10, 12]), ("question_7", [20])]
+            user_answers: List of tuples (question_id, list of selected answer IDs)
+              Example: [("question_5", [10, 12]), ("question_7", [20])]
 
 
         Returns:
@@ -96,8 +122,8 @@ class QuizSolveService:
 
         Args:
             quiz_attempt : A QuizAttempt object
-            List of tuples (question_id, list of selected answer IDs)
-                  Example: [("question_5", [10, 12]), ("question_7", [20])]
+            user_answers: List of tuples (question_id, list of selected answer IDs)
+              Example: [("question_5", [10, 12]), ("question_7", [20])]
 
         """
         pass
