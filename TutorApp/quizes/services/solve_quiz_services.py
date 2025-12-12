@@ -13,6 +13,7 @@ class QuizSolveService:
 
         -method for comparing user responses with answers to questions
         -method for calculating scores for a single question
+        -method for calculating scores for quiz
         -method for saving user solutions to the database
     """
 
