@@ -32,7 +32,28 @@ class QuizSolveService:
         Returns:
              The user's quiz score
         """
-        pass
+
+        question_map = {question.id: question for question in questions}
+
+        total_score = 0.0
+
+        for question_id_str, selected_ids in user_answers:
+            question_id_int = int(question_id_str.split("_")[1])
+
+            if question_id_int not in question_map:
+                raise ValueError(
+                    _("Question %(id)s does not exist") % {"id": question_id_int}
+                )
+
+            question = question_map[question_id_int]
+
+            score = self.calculate_question_score(question, selected_ids)
+
+            total_score += score
+
+        total_score = round(total_score, 2)
+
+        return total_score
 
     def get_user_answers(self, form_list: List[Form]) -> List[Tuple[str, List[int]]]:
         """
