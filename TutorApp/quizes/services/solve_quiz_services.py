@@ -1,6 +1,5 @@
 from typing import List, Tuple
 
-from django.forms import Form
 from django.utils.translation import gettext_lazy as _
 from users.models import User
 
@@ -11,7 +10,7 @@ class QuizSolveService:
     """
     Class containing services related to solving quizzes:
 
-        -method for collecting user responses
+
         -method for comparing user responses with answers to questions
         -method for calculating scores for a single question
         -method for saving user solutions to the database
@@ -54,19 +53,6 @@ class QuizSolveService:
         total_score = round(total_score, 2)
 
         return total_score
-
-    def get_user_answers(self, form_list: List[Form]) -> List[Tuple[str, List[int]]]:
-        """
-        Method for getting the user answers
-
-        Args:
-        form_list : A list of  form steps from wizard
-
-        Returns:
-        A list of the user answers [quiz_question_id, user_answer]
-
-        """
-        pass
 
     def calculate_question_score(
         self, question: Question, selected_answer_ids: List[int]
