@@ -1,5 +1,6 @@
 from typing import List, Tuple
 
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from users.models import User
 
@@ -31,6 +32,9 @@ class QuizSolveService:
 
         Returns:
              The user's quiz score
+
+        Raises:
+            ValueError: If question_id in question_map does not exist
         """
 
         question_map = {question.id: question for question in questions}
@@ -69,6 +73,9 @@ class QuizSolveService:
         Returns:
 
              The user's question score
+
+        Raises:
+            ValueError: If question doesn't have both correct and incorrect answers
         """
 
         correct_answers = question.answers.filter(is_correct=True)
@@ -103,7 +110,7 @@ class QuizSolveService:
         user: User,
         quiz: Quiz,
         score: float,
-        user_answers: List[Tuple[str, List[int]]],
+        max_score: float,
     ) -> QuizAttempt:
         """
         Creates and save QuizAttempt object
@@ -112,15 +119,36 @@ class QuizSolveService:
             user: The user object
             quiz: The quiz object
             score: The user's quiz score
-            user_answers: List of tuples (question_id, list of selected answer IDs)
-              Example: [("question_5", [10, 12]), ("question_7", [20])]
+            max_score: The quiz max possible score
+
 
 
         Returns:
             QuizAttempt: A QuizAttempt object
+
+        Raises:
+            ValueError: If score is negative, max_score is not positive,
+                or score exceeds max_score
         """
 
-        pass
+        if score < 0:
+            raise ValueError(_("Score cannot be negative"))
+
+        if max_score <= 0:
+            raise ValueError(_("Max score must be positive"))
+
+        if score > max_score:
+            raise ValueError(_("Score cannot be greater than max score"))
+
+        quiz_attempt = QuizAttempt.objects.create(
+            user=user,
+            quiz=quiz,
+            score=score,
+            max_score=max_score,
+            completed_at=timezone.now(),
+        )
+
+        return quiz_attempt
 
     def save_user_answers(
         self, quiz_attempt: QuizAttempt, user_answers: List[Tuple[str, List[int]]]
