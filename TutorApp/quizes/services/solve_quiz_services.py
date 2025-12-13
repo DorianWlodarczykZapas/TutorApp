@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from users.models import User
 
-from ..models import Question, Quiz, QuizAttempt
+from ..models import Answer, Question, Quiz, QuizAttempt, UserAnswer
 
 
 class QuizSolveService:
@@ -162,4 +162,15 @@ class QuizSolveService:
               Example: [("question_5", [10, 12]), ("question_7", [20])]
 
         """
-        pass
+        for question_id_str, selected_ids in user_answers:
+            question_id_int = int(question_id_str.split("_")[1])
+            question = Question.objects.get(id=question_id_int)
+
+            points = self.calculate_question_score(question, selected_ids)
+            user_answer = UserAnswer.objects.create(
+                attempt=quiz_attempt, question=question, points_earned=points
+            )
+
+            answer_objects = Answer.objects.filter(id__in=selected_ids)
+
+            user_answer.selected_answers.set(answer_objects)
