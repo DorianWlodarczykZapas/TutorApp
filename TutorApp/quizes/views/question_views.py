@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
-from django_stubs_ext import StrOrPromise
 from users.views import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
@@ -46,6 +45,6 @@ class AddQuestion(TeacherRequiredMixin, CreateView):
         else:
             return self.form_invalid(form)
 
-    def get_success_url(self) -> StrOrPromise:
+    def get_success_url(self) -> str:
         quiz_pk = self.kwargs["quiz_pk"]
         return reverse_lazy("quizes:add_question", kwargs={"quiz_pk": quiz_pk})

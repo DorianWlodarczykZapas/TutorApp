@@ -10,8 +10,6 @@ from ..models import Answer, Question, Quiz, QuizAttempt, UserAnswer
 class QuizSolveService:
     """
     Class containing services related to solving quizzes:
-
-
         -method for comparing user responses with answers to questions
         -method for calculating scores for a single question
         -method for calculating scores for quiz

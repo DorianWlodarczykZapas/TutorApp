@@ -42,7 +42,7 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
                 question_count = int(question_count)
             except (ValueError, TypeError):
                 logger.warning(f"Invalid question_count '{question_count}', using 10")
-            question_count = 10
+                question_count = 10
 
         question_count = min(question_count, available_count)
         questions = questions[:question_count]
