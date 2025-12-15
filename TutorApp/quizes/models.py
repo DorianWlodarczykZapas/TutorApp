@@ -1,5 +1,8 @@
+from typing import List
+
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from examination_tasks import choices
 from examination_tasks.models import Section
 
@@ -19,6 +22,35 @@ class Quiz(models.Model):
 
     def __str__(self):
         return f"{self.title} {self.section}"
+
+    from models import Question
+
+    def get_random_questions(self, number_of_questions: int) -> List[Question]:
+        """
+        Return a list of randomly selected questions for  quiz.
+
+        Args:
+        number_of_questions: The number of questions to pick
+
+        Returns:
+        List of Question objects
+
+        Raises:
+            ValueError: If number_of_questions is negative or less than number of questions in database
+
+        """
+
+        if number_of_questions <= 0:
+            raise ValueError(_("Number of questions must be positive"))
+
+        if number_of_questions < all():
+            raise ValueError(
+                _(
+                    "Number of questions must be lower or even number of objects in question model"
+                )
+            )
+
+        return List[Question]
 
 
 class Question(models.Model):
