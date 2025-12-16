@@ -23,34 +23,39 @@ class Quiz(models.Model):
     def __str__(self):
         return f"{self.title} {self.section}"
 
-    from models import Question
-
-    def get_random_questions(self, number_of_questions: int) -> List[Question]:
+    def get_random_questions(self, number_of_questions: int) -> List["Question"]:
         """
         Return a list of randomly selected questions for  quiz.
 
         Args:
         number_of_questions: The number of questions to pick
 
+
         Returns:
         List of Question objects
 
         Raises:
-            ValueError: If number_of_questions is negative or less than number of questions in database
+            ValueError: If number_of_questions is not positive or exceeds available questions"
 
         """
+
+        available_questions = self.questions.count()
 
         if number_of_questions <= 0:
             raise ValueError(_("Number of questions must be positive"))
 
-        if number_of_questions < all():
+        if number_of_questions > available_questions:
             raise ValueError(
                 _(
-                    "Number of questions must be lower or even number of objects in question model"
+                    "Cannot request %(requested)d questions. Only %(available)d available."
                 )
+                % {"requested": number_of_questions, "available": available_questions}
             )
 
-        return List[Question]
+        questions = self.questions.order_by("?")
+        questions = questions[:number_of_questions]
+
+        return list(questions)
 
 
 class Question(models.Model):
@@ -76,6 +81,8 @@ class Question(models.Model):
 
     def __str__(self):
         return f"{self.quiz.title} - {self.text[:50]}"
+
+        return List[Question]
 
 
 class Answer(models.Model):
