@@ -652,3 +652,5 @@ msgstr "Rok Publikacji"
 msgid "Add Book"
 msgstr "Dodaj Książkę"
 
+msgid "Number of questions must be positive"
+msgstr "Liczba pytań musi być dodatnia"
