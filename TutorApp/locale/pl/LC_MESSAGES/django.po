@@ -654,3 +654,6 @@ msgstr "Dodaj Książkę"
 
 msgid "Number of questions must be positive"
 msgstr "Liczba pytań musi być dodatnia"
+
+msgid "Question has been successfully added"
+msgstr "Pytanie zostało pomyślnie dodane"
