@@ -28,28 +28,24 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         quiz_pk = self.kwargs["quiz_pk"]
         quiz = get_object_or_404(Quiz, pk=quiz_pk)
         question_count = self.request.GET.get("question_count", "all")
-        questions = quiz.questions.all()
 
-        available_count = questions.count()
-        if available_count == 0:
-            logger.error(f"Quiz {quiz_pk} has no questions!")
-            raise ValueError(f"Quiz '{quiz.title}' has no questions. Cannot start.")
-
-        questions = questions.order_by("?")
-
-        if question_count != "all":
+        if question_count == "all":
+            questions = quiz.questions.all().order_by("?")
+        else:
             try:
-                question_count = int(question_count)
+                count = int(question_count)
             except (ValueError, TypeError):
                 logger.warning(f"Invalid question_count '{question_count}', using 10")
-                question_count = 10
+                count = 10
+            questions = quiz.get_random_questions(count)
 
-        question_count = min(question_count, available_count)
-        questions = questions[:question_count]
+        if not questions:
+            logger.error(f"Quiz {quiz_pk} has no questions!")
+            raise ValueError(f"Quiz '{quiz.title}' has no questions.")
 
-        form_list = []
-        for question in questions:
-            form_list.append((f"question_{question.id}", QuizStepForm))
+        form_list = [
+            (f"question_{question.id}", QuizStepForm) for question in questions
+        ]
 
         return OrderedDict(form_list)
 
