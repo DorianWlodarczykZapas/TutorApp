@@ -19,7 +19,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
           cd TutorApp
-          git pull origin main
+          git pull origin master
         EOF
 
     - name: Deploy on VPS
