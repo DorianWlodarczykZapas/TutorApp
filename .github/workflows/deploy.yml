@@ -1,0 +1,35 @@
+name: Deploy to VPS
+on:
+  push:
+    branches: [ "main",  "master" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Pull latest code on VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          cd /TutorApp
+          git pull origin main
+        EOF
+
+    - name: Deploy on VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          cd /TutorApp/scripts
+          ./deploy.sh
+        EOF
+    - name: Notify on success
+      if: success()
+      run: echo "Deployment to ... successful"
+
+
