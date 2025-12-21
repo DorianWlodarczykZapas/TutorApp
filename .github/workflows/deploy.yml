@@ -18,7 +18,7 @@ jobs:
     - name: Pull latest code on VPS
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-          cd /TutorApp
+          cd TutorApp
           git pull origin main
         EOF
 
