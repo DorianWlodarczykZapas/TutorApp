@@ -1,15 +1,17 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from django.contrib import messages
-from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from users.views import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
-from ..models import Question, Quiz
+from ..models import Question, Quiz, QuizAttempt, UserAnswer
 
 
 class AddQuestion(TeacherRequiredMixin, CreateView):
@@ -48,3 +50,36 @@ class AddQuestion(TeacherRequiredMixin, CreateView):
     def get_success_url(self) -> str:
         quiz_pk = self.kwargs["quiz_pk"]
         return reverse_lazy("quizes:add_question", kwargs={"quiz_pk": quiz_pk})
+
+
+class QuestionReviewView(LoginRequiredMixin, DetailView):
+    model = UserAnswer
+    template_name = "quizes/question_review.html"
+    context_object_name = "user_answer"
+
+    def get_object(self, queryset: Optional[QuerySet[UserAnswer]] = None) -> UserAnswer:
+        attempt_pk: int = self.kwargs["attempt_pk"]
+        question_number: int = self.kwargs["question_number"]
+
+        try:
+            attempt: QuizAttempt = QuizAttempt.objects.get(
+                pk=attempt_pk,
+                user=self.request.user,
+            )
+        except QuizAttempt.DoesNotExist:
+            raise Http404("There is no attempt in this quiz for this user")
+
+        qs: QuerySet[UserAnswer] = (
+            UserAnswer.objects.filter(attempt=attempt)
+            .select_related("question")
+            .prefetch_related(
+                "selected_answers",
+                "question__answers",
+            )
+            .order_by("question__id")
+        )
+
+        try:
+            return qs[question_number - 1]
+        except IndexError:
+            raise Http404("There is no question in this attempt")

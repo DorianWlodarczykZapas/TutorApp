@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views.question_views import AddQuestion
+from .views.question_views import AddQuestion, QuestionReviewView
 from .views.quiz_solve_views import QuizStartView, SolveQuizWizard
 from .views.quiz_views import AddQuiz, QuizList
 
@@ -14,4 +14,9 @@ urlpatterns = [
     ),
     path("quiz/<int:quiz_pk>/solve/", SolveQuizWizard.as_view(), name="solve_quiz"),
     path("quiz/<int:quiz_pk>/start/", QuizStartView.as_view(), name="quiz_start"),
+    path(
+        "quiz/attempt/<int:attempt_pk>/question/<int:question_number>/",
+        QuestionReviewView.as_view(),
+        name="question_review",
+    ),
 ]

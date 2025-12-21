@@ -82,8 +82,6 @@ class Question(models.Model):
     def __str__(self):
         return f"{self.quiz.title} - {self.text[:50]}"
 
-        return List[Question]
-
 
 class Answer(models.Model):
     question = models.ForeignKey(
