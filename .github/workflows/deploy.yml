@@ -25,7 +25,7 @@ jobs:
     - name: Deploy on VPS
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-          cd /TutorApp/scripts
+          cd TutorApp/scripts
           ./deploy.sh
         EOF
     - name: Notify on success
