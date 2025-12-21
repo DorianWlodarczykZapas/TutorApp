@@ -83,3 +83,22 @@ class QuestionReviewView(LoginRequiredMixin, DetailView):
             return qs[question_number - 1]
         except IndexError:
             raise Http404("There is no question in this attempt")
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        user_answer = self.object
+
+        context["correct_answers"] = user_answer.question.answers.filter(
+            is_correct=True
+        )
+
+        question_number = self.kwargs["question_number"]
+        total_questions = user_answer.attempt.answers.count()
+
+        context["question_number"] = question_number
+        context["total_questions"] = total_questions
+        context["has_previous"] = question_number > 1
+        context["has_next"] = question_number < total_questions
+
+        return context
