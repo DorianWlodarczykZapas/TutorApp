@@ -657,3 +657,6 @@ msgstr "Liczba pytań musi być dodatnia"
 
 msgid "Question has been successfully added"
 msgstr "Pytanie zostało pomyślnie dodane"
+
+msgid "There is no question in this attempt"
+msgstr "W tej próbie nie ma żadnych pytań"
