@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for m in messages %}
+                <li class="alert {% if m.tags %}alert-{{ m.tags }}{% endif %}">{{ m }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="question-review">
+        <h1>
+            {% blocktrans with current=question_number total=total_questions %}
+            Question {{current}} of {{ total }}
+        {% endblocktrans %}
+        </h1>
+        <p>
+            {% blocktrans with points=user_answer.points_earned %}
+            Points earned: {{ points }}
+        {% endblocktrans %}
+        </p>
+        <div class="question-text">
+            <p>{{ user_answer.question.text }}</p>
+            {% if user_answer.question.picture %}
+                <img src="{{ user_answer.question.picture.url }}"
+                     alt="{% trans 'Question image' %}">
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
