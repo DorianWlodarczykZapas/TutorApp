@@ -27,5 +27,42 @@
                      alt="{% trans 'Question image' %}">
             {% endif %}
         </div>
+        <div class="answers-list">
+            {% for answer in user_answer.question.answers.all %}
+                {% if answer in user_answer.selected_answers.all %}
+                    {% if answer.is_correct %}
+                        <div class="answer-correct-selected">{{ answer.text }}</div>
+                    {% else %}
+                        <div class="answer-incorrect-selected">{{ answer.text }}</div>
+                    {% endif %}
+                {% else %}
+                    {% if answer.is_correct %}
+                        <div class="answer-correct-non-selected">{{ answer.text }}</div>
+                    {% else %}
+                        <div class="answer-incorrect-non-selected">{{ answer.text }}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if user_answer.question.explanation %}
+                <div class="question-explanation">
+                    <h3>{% trans "Explanation" %}</h3>
+                    <p>{{ user_answer.question.explanation }}</p>
+                    {% if user_answer.question.explanation_picture %}
+                        <img src="{{ user_answer.question.explanation_picture.url }}"
+                             alt="{% trans 'Explanation image' %}">
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="navigation-to-another-question">
+                {% if has_previous %}
+                    <a href="{% url 'quizes:question_review' attempt_pk=attempt_pk question_number=previous_number %}">
+                        {% trans "Previous" %}
+                    </a>
+                {% endif %}
+                {% if has_next %}
+                    <a href="{% url 'quizes:question_review' attempt_pk=attempt_pk question_number=next_number %}">{% trans "Next" %}</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

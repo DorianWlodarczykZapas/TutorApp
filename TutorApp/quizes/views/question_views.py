@@ -101,5 +101,7 @@ class QuestionReviewView(LoginRequiredMixin, DetailView):
         context["has_previous"] = question_number > 1
         context["has_next"] = question_number < total_questions
         context["attempt_pk"] = self.kwargs["attempt_pk"]
+        context["previous_number"] = question_number - 1
+        context["next_number"] = question_number + 1
 
         return context
