@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -26,3 +27,8 @@ class QuizList(LoginRequiredMixin, ListView):
     model = Quiz
     template_name = "quizes/quiz_list.html"
     context_object_name = "quiz_list"
+
+    def get_queryset(self) -> QuerySet[Quiz]:
+        return Quiz.objects.select_related("quizzes").annotate(
+            number_of_questions=Count("questions")
+        )
