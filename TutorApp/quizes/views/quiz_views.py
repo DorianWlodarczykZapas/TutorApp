@@ -1,3 +1,5 @@
+from typing import Any, Dict
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet
@@ -8,7 +10,7 @@ from django.views.generic import CreateView, ListView
 from users.views import TeacherRequiredMixin
 
 from ..forms.quiz_forms import QuizForm
-from ..models import Quiz
+from ..models import Quiz, QuizAttempt
 
 
 class AddQuiz(TeacherRequiredMixin, CreateView):
@@ -32,3 +34,23 @@ class QuizList(LoginRequiredMixin, ListView):
         return Quiz.objects.select_related("quizzes").annotate(
             number_of_questions=Count("questions")
         )
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        quizzes = list(context["quiz_list"])
+
+        user_attempts = QuizAttempt.objects.filter(user=self.request.user)
+
+        last_attempts = {}
+
+        for attempt in user_attempts:
+            if attempt.quiz_id not in last_attempts:
+                last_attempts[attempt.quiz_id] = attempt
+
+        for quiz in quizzes:
+            quiz.last_attempt = last_attempts.get(quiz.id)
+
+        context["quiz_list"] = quizzes
+
+        return context
