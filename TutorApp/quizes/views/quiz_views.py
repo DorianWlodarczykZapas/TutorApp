@@ -31,7 +31,7 @@ class QuizList(LoginRequiredMixin, ListView):
     context_object_name = "quiz_list"
 
     def get_queryset(self) -> QuerySet[Quiz]:
-        return Quiz.objects.select_related("quizzes").annotate(
+        return Quiz.objects.select_related("section").annotate(
             number_of_questions=Count("questions")
         )
 
