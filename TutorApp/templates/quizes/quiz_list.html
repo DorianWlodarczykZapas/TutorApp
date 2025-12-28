@@ -20,7 +20,7 @@
                 {% else %}
                     <p>{% trans "Not attempted yet" %}</p>
                 {% endif %}
-                <a href="#">{% trans "Start Quiz" %}</a>
+                <a href="{% url 'quizes:quiz_start' quiz_pk=quiz.pk %}">{% trans "Start Quiz" %}</a>
             </div>
         {% empty %}
             <p>{% trans "No quizzes available" %}</p>
