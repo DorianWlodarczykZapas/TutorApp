@@ -17,8 +17,8 @@ class TempFileService:
     def clean_the_temp_directory(self):
         pass
 
-    def check_if_file_exists(self):
+    def check_if_temp_file_exists(self):
         pass
 
-    def build_final_path(self):
+    def build_temp_file_final_path(self):
         pass
