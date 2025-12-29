@@ -1,3 +1,6 @@
+from ..models import Exam
+
+
 class TempFileService:
     """
     Class containing services related to temporary files.
@@ -8,17 +11,65 @@ class TempFileService:
         -method for building the final path
     """
 
-    def create_temp_directory(self):
+    def create_temp_directory(self, path: str) -> str:
+        """
+        Creates a temporary directory if not exists
+
+        Args:
+            path : The path of the directory
+
+        Returns:
+            The path of the directory
+        """
         pass
 
-    def transfer_the_temp_file(self):
+    def move_file(self, source_path: str, destination_path: str) -> bool:
+        """
+        Moves the  temporary file
+
+        Args:
+            source_path : The path of the source file
+            destination_path : The path of the destination
+
+        Returns:
+            Boolean indicating if the file was successfully transferred
+        """
         pass
 
-    def clean_the_temp_directory(self):
+    def cleanup_directory(self, path: str) -> bool:
+        """
+        Cleans the temporary directory
+
+        Args:
+             path: The path of the directory
+
+        Returns:
+            Boolean indicating if the file was successfully cleaned
+        """
         pass
 
-    def check_if_temp_file_exists(self):
+    def file_exists(self, path: str) -> bool:
+        """
+        Checks if the temporary file exists
+
+        Args:
+            path: The path of the temporary file
+
+        Returns:
+            Boolean indicating if the temporary file exists
+        """
         pass
 
-    def build_temp_file_final_path(self):
+    def build_final_path(self, exam: Exam, task_id: int) -> str:
+        """
+        Builds the final path of the temporary file
+
+        Args:
+            exam : The exam object
+            task_id : The task id
+
+        Returns:
+            The final path of the temporary file
+
+        """
         pass
