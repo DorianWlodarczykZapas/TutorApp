@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from ..models import Exam
 
@@ -29,7 +30,7 @@ class TempFileService:
 
         return path
 
-    def move_file(self, source_path: str, destination_path: str) -> bool:
+    def move_file(self, source_path: str, destination_path: str) -> str:
         """
         Moves the  temporary file
 
@@ -38,9 +39,14 @@ class TempFileService:
             destination_path : The path of the destination
 
         Returns:
-            Boolean indicating if the file was successfully transferred
+            Path to the moved file (typically same as destination_path)
+
+        Raises:
+            FileNotFoundError: If source_path does not exist
+            OSError: If move fails (permissions, disk space, etc.)
         """
-        pass
+
+        return shutil.move(source_path, destination_path)
 
     def cleanup_directory(self, path: str) -> bool:
         """
