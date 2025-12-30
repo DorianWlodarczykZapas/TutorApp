@@ -3,6 +3,7 @@ from .extractTaskContentFromLines import ExtractTaskContentFromLines
 from .extractTaskFromPdf import ExtractTaskFromPdf
 from .extractTaskPagesFromPdf import ExtractTaskPagesFromPdf
 from .extractTaskTextFromPdf import ExtractTaskTextFromPdf
+from .tempFileService import TempFileService
 
 __all__ = [
     "ExamTaskDBService",
@@ -10,4 +11,5 @@ __all__ = [
     "ExtractTaskContentFromLines",
     "ExtractTaskTextFromPdf",
     "ExtractTaskPagesFromPdf",
+    "TempFileService",
 ]

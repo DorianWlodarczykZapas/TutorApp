@@ -1,6 +1,5 @@
 import logging
 import os
-import shutil
 from typing import Any, Dict, List
 
 import pymupdf
@@ -32,6 +31,7 @@ from ..forms.exam_tasks_forms import ExamTaskBasicForm, ExamTaskPreviewForm
 from ..models import Exam, ExamTask
 from ..services.examTaskDBService import ExamTaskDBService
 from ..services.extractTaskFromPdf import ExtractTaskFromPdf
+from ..services.tempFileService import TempFileService
 
 LEVEL_MAP = {
     "B": 1,
@@ -52,6 +52,8 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
     - Go back to edit (keeps temp files)
     - Save task (moves temp PDF to final location)
     """
+
+    temp_file_service = TempFileService()
 
     STEP_BASIC = "basic_data"
     STEP_PREVIEW = "preview"
@@ -100,14 +102,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         return initial
 
     def _generate_preview_context(self) -> Dict[str, Any]:
-        """
-        Generates pdf and task content only once
-
-        Returns:
-            Dictionary data to show in template
-        """
         basic_data = self.get_cleaned_data_for_step(self.STEP_BASIC)
-
         if not basic_data:
             return {}
 
@@ -116,44 +111,36 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         task_pages = basic_data["task_pages"]
 
         try:
-
-            page_number = (
-                int(task_pages.split("-")[0]) if "-" in task_pages else int(task_pages)
-            )
+            page_number = int(task_pages.split("-")[0])
         except ValueError:
             messages.error(self.request, _("Invalid page number format."))
             return {"preview_error": _("Invalid page number format.")}
 
-        exam_file_path = exam.exam_file.path
-
-        temp_output_dir = settings.TEMP_WIZARD_DIR
-        os.makedirs(temp_output_dir, exist_ok=True)
+        temp_dir = self.temp_file_service.create_temp_directory(
+            settings.TEMP_WIZARD_DIR
+        )
 
         try:
             extracted_pdf_path = ExtractTaskFromPdf.extract_task(
-                file_path=exam_file_path,
+                file_path=exam.exam_file.path,
                 task_number=task_id,
                 page_number=page_number,
-                output_dir=temp_output_dir,
+                output_dir=temp_dir,
             )
         except FileNotFoundError:
             messages.error(self.request, _("Exam file not found."))
-            return {"preview_error": "Exam file not found"}
+            return {"preview_error": _("Exam file not found")}
         except Exception:
             logger.exception("Unexpected error while extracting PDF task")
-            messages.error(self.request, _("Unexpected PDF extraction error."))
-            return {"preview_error": "Unexpected error extracting PDF"}
+            return {"preview_error": _("Unexpected PDF extraction error")}
 
         try:
             doc = pymupdf.open(extracted_pdf_path)
             text = "".join(page.get_text() for page in doc)
             doc.close()
-        except pymupdf.FitzError:
-            logger.error("Could not read generated PDF (fitz error)")
-            return {"preview_error": "Error reading extracted PDF"}
-        except OSError as e:
-            logger.error("OS error reading PDF: %s", e)
-            return {"preview_error": "OS error reading extracted PDF"}
+        except Exception:
+            logger.exception("Error reading extracted PDF")
+            return {"preview_error": _("Error reading extracted PDF")}
 
         relative_path = os.path.relpath(extracted_pdf_path, settings.MEDIA_ROOT)
 
@@ -166,9 +153,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
         )
 
         return {
-            "pdf_preview_url": os.path.join(
-                settings.TEMP_WIZARD_DIR, os.path.basename(extracted_pdf_path)
-            ),
+            "pdf_preview_url": extracted_pdf_path,
             "task_text_preview": text[:500] + "..." if len(text) > 500 else text,
             "task_screen_path": relative_path,
         }
@@ -194,22 +179,20 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             return redirect("examination_tasks:add_exam_task")
 
         try:
-
-            final_output_dir = os.path.join(
-                settings.MEDIA_ROOT,
-                "exam_tasks",  # TODO do stałej
-                str(exam.subject.name),
-                str(exam.exam_type),
-                str(exam.year),
-                str(exam.month),
+            final_pdf_path = self.temp_file_service.build_final_path(
+                exam=exam,
+                task_id=task_id,
+                media_root=settings.MEDIA_ROOT,
             )
-            os.makedirs(final_output_dir, exist_ok=True)
 
-            final_pdf_path = os.path.join(final_output_dir, f"zadanie_{task_id}.pdf")
+            os.makedirs(os.path.dirname(final_pdf_path), exist_ok=True)
 
-            shutil.move(temp_pdf_path, final_pdf_path)
+            self.temp_file_service.move_file(
+                source_path=temp_pdf_path,
+                destination_path=final_pdf_path,
+            )
 
-        except (OSError, shutil.Error) as e:
+        except Exception as e:
             logger.error("Could not save final PDF: %s", e)
             messages.error(self.request, _("Error saving task PDF."))
             return self.render_revalidation_failure(
@@ -217,8 +200,7 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
             )
 
         finally:
-
-            self._cleanup_temp_files()
+            self.temp_file_service.recreate_directory(settings.TEMP_WIZARD_DIR)
             self.storage.reset()
 
         ExamTask.objects.create(
@@ -241,13 +223,10 @@ class AddExamTaskWizard(TeacherRequiredMixin, SessionWizardView):
 
     def _cleanup_temp_files(self) -> None:
         """Deletes all temporary files used in wizard."""
-        temp_dir = settings.TEMP_WIZARD_DIR
-        if os.path.exists(temp_dir):
-            try:
-                shutil.rmtree(temp_dir)
-                os.makedirs(temp_dir, exist_ok=True)
-            except OSError as e:
-                logger.warning("Could not clean temp directory: %s", e)
+        try:
+            self.temp_file_service.recreate_directory(settings.TEMP_WIZARD_DIR)
+        except OSError as e:
+            logger.warning("Could not clean temp directory: %s", e)
 
 
 class TaskPdfView(LoginRequiredMixin, View):
