@@ -1,3 +1,5 @@
+import os
+
 from ..models import Exam
 
 
@@ -57,8 +59,10 @@ class TempFileService:
 
         Returns:
             Boolean indicating if the temporary file exists
+
+
         """
-        pass
+        return os.path.exists(path)
 
     def build_final_path(self, exam: Exam, task_id: int) -> str:
         """
