@@ -22,8 +22,12 @@ class TempFileService:
 
         Returns:
             The path of the directory
+
         """
-        pass
+
+        os.makedirs(path, exist_ok=True)
+
+        return path
 
     def move_file(self, source_path: str, destination_path: str) -> bool:
         """
