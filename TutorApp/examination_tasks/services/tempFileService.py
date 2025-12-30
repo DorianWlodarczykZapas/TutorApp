@@ -9,8 +9,7 @@ class TempFileService:
     Class containing services related to temporary files.
         -method for creating a temporary directory
         -method for transferring the temporary file
-        -method for cleaning the directory
-        -method for checking if the file exists
+        -method for recreating the directory
         -method for building the final path
     """
 
@@ -48,42 +47,45 @@ class TempFileService:
 
         return shutil.move(source_path, destination_path)
 
-    def cleanup_directory(self, path: str) -> bool:
+    def recreate_directory(self, path: str) -> None:
         """
-        Cleans the temporary directory
+        Removes directory and recreates it empty
 
         Args:
              path: The path of the directory
 
-        Returns:
-            Boolean indicating if the file was successfully cleaned
+
+        Raises:
+        OSError: If directory cannot be removed or recreated
         """
-        pass
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.makedirs(path, exist_ok=True)
 
-    def file_exists(self, path: str) -> bool:
-        """
-        Checks if the temporary file exists
-
-        Args:
-            path: The path of the temporary file
-
-        Returns:
-            Boolean indicating if the temporary file exists
-
-
-        """
-        return os.path.exists(path)
-
-    def build_final_path(self, exam: Exam, task_id: int) -> str:
+    def build_final_path(
+        self, exam: Exam, task_id: int, media_root: str, base_dir: str = "exam_tasks"
+    ) -> str:
         """
         Builds the final path of the temporary file
 
         Args:
             exam : The exam object
             task_id : The task id
+            media_root: Root media directory (e.g., settings.MEDIA_ROOT)
+            base_dir : The base directory
+
 
         Returns:
-            The final path of the temporary file
+            The final path of the  file
 
         """
-        pass
+
+        return os.path.join(
+            media_root,
+            base_dir,
+            str(exam.subject.name),
+            str(exam.exam_type),
+            str(exam.year),
+            str(exam.month),
+            f"zadanie_{task_id}.pdf",
+        )
