@@ -3,11 +3,11 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, ListView
-from users.views import TeacherRequiredMixin
+from users.mixins import TeacherRequiredMixin
 
 from ..forms.quiz_forms import QuizForm
 from ..models import Quiz, QuizAttempt
@@ -20,7 +20,7 @@ class AddQuiz(TeacherRequiredMixin, CreateView):
     template_name = "quizes/add_quiz.html"
     success_url = reverse_lazy("quizes:quiz_list")
 
-    def form_valid(self, form: QuizForm) -> HttpResponseRedirect:
+    def form_valid(self, form: QuizForm) -> HttpResponse:
         messages.success(self.request, _("Quiz created successfully!"))
         return super().form_valid(form)
 

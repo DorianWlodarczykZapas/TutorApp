@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView
 from django_filters.views import FilterView
-from users.views import TeacherRequiredMixin
+from users.mixins import TeacherRequiredMixin
 
 from ..filters import TrainingTaskFilter
 from ..forms.training_tasks_forms import TrainingTaskForm

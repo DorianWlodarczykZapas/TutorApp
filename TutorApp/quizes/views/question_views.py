@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView
-from users.views import TeacherRequiredMixin
+from users.mixins import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
 from ..models import Question, Quiz, QuizAttempt, UserAnswer

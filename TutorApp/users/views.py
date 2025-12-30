@@ -8,7 +8,6 @@ from django.contrib.auth.views import (
     PasswordResetDoneView,
     PasswordResetView,
 )
-from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -82,20 +81,6 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["page_title"] = _("Home")
         return context
-
-
-class TeacherRequiredMixin(LoginRequiredMixin):
-    """
-    Mixin, which verifies that the logged-in user has teacher rights.
-    """
-
-    def dispatch(self, request, *args, **kwargs):
-        user_service = UserService(request.user)
-
-        if not user_service.is_teacher():
-            raise PermissionDenied(_("Only teachers can perform this action."))
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 class CustomPasswordResetView(PasswordResetView):

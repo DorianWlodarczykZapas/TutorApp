@@ -24,7 +24,7 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import DetailView, ListView, View
 from django_filters.views import FilterView
 from formtools.wizard.views import SessionWizardView
-from users.views import TeacherRequiredMixin
+from users.mixins import TeacherRequiredMixin
 
 from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..forms.exam_tasks_forms import ExamTaskBasicForm, ExamTaskPreviewForm
