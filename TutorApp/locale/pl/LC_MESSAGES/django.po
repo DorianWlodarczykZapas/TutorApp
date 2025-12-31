@@ -660,3 +660,6 @@ msgstr "Pytanie zostało pomyślnie dodane"
 
 msgid "There is no question in this attempt"
 msgstr "W tej próbie nie ma żadnych pytań"
+
+msgid "Invalid page number format"
+msgstr "Nieprawidłowy typ strony"
