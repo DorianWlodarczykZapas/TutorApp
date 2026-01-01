@@ -666,3 +666,6 @@ msgstr "Nieprawidłowy typ strony"
 
 msgid "Exam file not found"
 msgstr "Nie znaleziono pliku egzaminacyjnego"
+
+msgid "Unexpected error while extracting PDF task"
+msgstr "Nieoczekiwany błąd podczas wyodrębniania zadania PDF"
