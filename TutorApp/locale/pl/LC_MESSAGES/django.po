@@ -672,3 +672,6 @@ msgstr "Nieoczekiwany błąd podczas wyodrębniania zadania PDF"
 
 msgid "Error reading extracted PDF"
 msgstr "Błąd podczas odczytu wyodrębnionego pliku PDF"
+
+msgid "Task creation cancelled. No data was saved"
+msgstr "Tworzenie zadania anulowane. Żadne dane nie zostały zapisane."
