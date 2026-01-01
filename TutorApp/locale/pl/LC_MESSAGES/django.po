@@ -663,3 +663,6 @@ msgstr "W tej próbie nie ma żadnych pytań"
 
 msgid "Invalid page number format"
 msgstr "Nieprawidłowy typ strony"
+
+msgid "Exam file not found"
+msgstr "Nie znaleziono pliku egzaminacyjnego"
