@@ -669,3 +669,6 @@ msgstr "Nie znaleziono pliku egzaminacyjnego"
 
 msgid "Unexpected error while extracting PDF task"
 msgstr "Nieoczekiwany błąd podczas wyodrębniania zadania PDF"
+
+msgid "Error reading extracted PDF"
+msgstr "Błąd podczas odczytu wyodrębnionego pliku PDF"
