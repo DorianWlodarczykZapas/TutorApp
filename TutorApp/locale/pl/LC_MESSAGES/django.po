@@ -674,4 +674,7 @@ msgid "Error reading extracted PDF"
 msgstr "Błąd podczas odczytu wyodrębnionego pliku PDF"
 
 msgid "Task creation cancelled. No data was saved"
-msgstr "Tworzenie zadania anulowane. Żadne dane nie zostały zapisane."
+msgstr "Tworzenie zadania anulowane. Żadne dane nie zostały zapisane"
+
+msgid "Incorrect PDF source type"
+msgstr "Nieprawidłowy typ źródła pliku PDF"
