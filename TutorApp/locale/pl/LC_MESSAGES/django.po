@@ -678,3 +678,6 @@ msgstr "Tworzenie zadania anulowane. Żadne dane nie zostały zapisane"
 
 msgid "Incorrect PDF source type"
 msgstr "Nieprawidłowy typ źródła pliku PDF"
+
+msgid "Unable to read the path to the PDF"
+msgstr "Nie można odczytać ścieżki do pliku PDF"
