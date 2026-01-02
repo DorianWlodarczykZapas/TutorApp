@@ -56,3 +56,6 @@ class Motif(models.Model):
         verbose_name = "Motif in subject"
         verbose_name_plural = "Motifs in subject"
         ordering = ["subject", "section", "level_type"]
+
+    def __str__(self):
+        return f"{self.subject} - {self.section} - {self.level_type}"
