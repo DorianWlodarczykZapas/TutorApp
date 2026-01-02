@@ -1,6 +1,6 @@
 from django.db import models
 
-from ..examination_tasks.choices import SubjectChoices
+from ..examination_tasks.choices import LEVEL_CHOICES, SubjectChoices
 from ..examination_tasks.models import Section
 
 
@@ -22,17 +22,32 @@ class Motif(models.Model):
         max_length=10, choices=SubjectChoices, verbose_name="Subject", default=1
     )
     section = models.ForeignKey(
-        Section, on_delete=models.CASCADE, related_name="topics", verbose_name="Section"
+        Section, on_delete=models.CASCADE, related_name="motifs", verbose_name="Section"
     )
+    level_type = models.IntegerField(
+        choices=LEVEL_CHOICES,
+        null=True,
+        blank=True,
+        help_text="Motif level: basic or extended (Matriculation only)",
+    )
+
     content = models.CharField(
         max_length=255,
+        verbose_name=" Motif content",
+        help_text="Whole motif content",
     )
-    answer = models.CharField()
+
+    answer = models.CharField(
+        verbose_name="answer",
+        help_text="Explanation about chosen motif",
+    )
     answer_picture = models.ImageField(
         upload_to="motifs/subject/section/",
         blank=True,
         null=True,
+        help_text="Motif explanation picture if needed",
     )
     is_in_matriculation_sheets = models.BooleanField(
         default=False,
+        verbose_name="If exists in matriculation sheets",
     )
