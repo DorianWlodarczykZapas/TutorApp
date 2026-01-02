@@ -59,4 +59,5 @@ class Motif(models.Model):
         ordering = ["subject", "section", "level_type"]
 
     def __str__(self):
-        return f"{self.subject} - {self.section} - {self.level_type}"
+        level = self.get_level_type_display() if self.level_type else "No Level"
+        return f"{self.get_subject_display()} - {self.section.name} - {level}: {self.content[:50]}"
