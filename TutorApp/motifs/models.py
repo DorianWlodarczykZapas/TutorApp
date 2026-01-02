@@ -38,11 +38,12 @@ class Motif(models.Model):
     )
 
     answer = models.CharField(
+        max_length=255,
         verbose_name="answer",
         help_text="Explanation about chosen motif",
     )
     answer_picture = models.ImageField(
-        upload_to="motifs/subject/section/",
+        upload_to=motif_image_path,
         blank=True,
         null=True,
         help_text="Motif explanation picture if needed",
