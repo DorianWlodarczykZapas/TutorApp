@@ -51,3 +51,8 @@ class Motif(models.Model):
         default=False,
         verbose_name="If exists in matriculation sheets",
     )
+
+    class Meta:
+        verbose_name = "Motif in subject"
+        verbose_name_plural = "Motifs in subject"
+        ordering = ["subject", "section", "level_type"]
