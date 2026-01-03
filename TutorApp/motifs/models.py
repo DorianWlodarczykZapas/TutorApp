@@ -33,12 +33,11 @@ class Motif(models.Model):
 
     content = models.CharField(
         max_length=255,
-        verbose_name=" Motif content",
+        verbose_name="Motif content",
         help_text="Whole motif content",
     )
 
-    answer = models.CharField(
-        max_length=255,
+    answer = models.TextField(
         verbose_name="answer",
         help_text="Explanation about chosen motif",
     )
@@ -51,6 +50,12 @@ class Motif(models.Model):
     is_in_matriculation_sheets = models.BooleanField(
         default=False,
         verbose_name="If exists in matriculation sheets",
+    )
+
+    is_mandatory = models.BooleanField(
+        default=True,
+        verbose_name="Mandatory for students",
+        help_text="Whether students must learn this motif",
     )
 
     class Meta:
