@@ -110,19 +110,19 @@ msgstr "Zaawansowany"
 
 #: .\examination_tasks\choices.py:56
 msgid "Mathematics"
-msgstr ""
+msgstr "Matematyka"
 
 #: .\examination_tasks\choices.py:57
 msgid "Physics"
-msgstr ""
+msgstr "Fizyka"
 
 #: .\examination_tasks\filters.py:100
 msgid "Search in task"
-msgstr ""
+msgstr "Wyszukiwanie w zadaniu"
 
 #: .\examination_tasks\filters.py:104
 msgid "Search..."
-msgstr ""
+msgstr "Wyszukiwanie..."
 
 #: .\examination_tasks\filters.py:112
 #: .\templates\examination_tasks\add_section.html:18
@@ -153,7 +153,7 @@ msgstr "Dział z książki"
 #: .\examination_tasks\forms\training_tasks_forms.py:16
 #: .\templates\examination_tasks\add_training_task.html:38
 msgid "Difficulty Level"
-msgstr ""
+msgstr "Poziom trudności"
 
 #: .\examination_tasks\filters.py:132
 #: .\templates\examination_tasks\exam_list.html:22
@@ -166,7 +166,7 @@ msgstr "Statystyka"
 
 #: .\examination_tasks\filters.py:134
 msgid "All tasks"
-msgstr ""
+msgstr "Wszystkie zadania"
 
 #: .\examination_tasks\filters.py:135
 #: .\templates\examination_tasks\exam_list.html:30
@@ -214,7 +214,7 @@ msgstr "Rodzaj egzaminu"
 
 #: .\examination_tasks\forms\exam_forms.py:22 .\motifs\models.py:22
 msgid "Subject"
-msgstr ""
+msgstr "Przedmiot szkolny"
 
 #: .\examination_tasks\forms\exam_forms.py:23
 #: .\templates\examination_tasks\exam_list.html:38
@@ -254,41 +254,41 @@ msgstr "Numer zadania"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:20
 msgid "e.g. 1"
-msgstr ""
+msgstr "np. 1"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:27
 #: .\examination_tasks\forms\training_tasks_forms.py:15
 #: .\templates\examination_tasks\add_training_task.html:33
 msgid "Section (optional)"
-msgstr ""
+msgstr "Dział (opcjonalny)"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:34
 msgid "Topic (optional)"
-msgstr ""
+msgstr "Temat (opcjonalny)"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:39
 msgid "Task Page(s)"
-msgstr ""
+msgstr "Strona(-y) zadań"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:42
 msgid "e.g. 5 or 5-6"
-msgstr ""
+msgstr "np. 5 lub 5-6"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:44
 msgid "Page number(s) in the PDF, e.g., '5' or '5-6'."
-msgstr ""
+msgstr "Numer(y) strony w pliku PDF, np. „5” lub „5-6”."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:48
 msgid "Answer Page(s)"
-msgstr ""
+msgstr "Strona(-y) z odpowiedziami"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:51
 msgid "e.g. 15 or 15-16"
-msgstr ""
+msgstr "np. 15 lub 15–16"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:53
 msgid "Page number(s) in the solutions PDF."
-msgstr ""
+msgstr "Numery stron w pliku PDF z rozwiązaniami."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:69
 #, fuzzy
