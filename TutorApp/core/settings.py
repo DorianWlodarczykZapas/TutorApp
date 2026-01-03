@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django_extensions",
     "django_filters",
+    "django_select2",
 ]
 
 INSTALLED_EXTENSIONS = [
