@@ -29,6 +29,7 @@ urlpatterns = [
     path("users/", include("users.urls", namespace="users")),
     path("quizes/", include("quizes.urls", namespace="quizes")),
     path("videos/", include("videos.urls", namespace="videos")),
+    path("motifs/", include("motifs.urls", namespace="motifs")),
 ]
 
 if settings.DEBUG:
