@@ -2,7 +2,7 @@ import factory
 from examination_tasks.tests.factories import SectionFactory
 from factory.django import DjangoModelFactory
 
-from TutorApp.motifs.models import Motif
+from .models import Motif
 
 
 class MotifFactory(DjangoModelFactory):
@@ -10,7 +10,7 @@ class MotifFactory(DjangoModelFactory):
     class Meta:
         model = Motif
 
-    subject = factory.Iterator(["math", "physics", "it"])
+    subject = factory.Iterator([1, 2])
 
     section = factory.SubFactory(SectionFactory)
 
@@ -24,3 +24,16 @@ class MotifFactory(DjangoModelFactory):
 
     is_in_matriculation_sheets = False
     is_mandatory = True
+
+    class Params:
+
+        matriculation = factory.Trait(
+            is_in_matriculation_sheets=True,
+            level_type=1,
+        )
+
+        with_picture = factory.Trait(
+            answer_picture=factory.django.ImageField(
+                filename="test_motif.jpg", width=800, height=600, color="blue"
+            )
+        )
