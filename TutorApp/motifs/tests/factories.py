@@ -2,7 +2,7 @@ import factory
 from examination_tasks.tests.factories import SectionFactory
 from factory.django import DjangoModelFactory
 
-from .models import Motif
+from TutorApp.motifs.models import Motif
 
 
 class MotifFactory(DjangoModelFactory):
