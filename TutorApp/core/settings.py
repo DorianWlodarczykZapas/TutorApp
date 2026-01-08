@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_filters",
     "django_select2",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 INSTALLED_EXTENSIONS = [
@@ -140,3 +142,6 @@ INTERNAL_IPS = [
 
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://redis:6379/1")
 CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND", default="redis://redis:6379/1")
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
