@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from users.mixins import TeacherRequiredMixin
 
-from .forms.motif_forms import AddMotifForm
-from .models import Motif
+from ..forms.motif_forms import AddMotifForm
+from ..models import Motif
 
 
 class AddMotifView(TeacherRequiredMixin, CreateView):
