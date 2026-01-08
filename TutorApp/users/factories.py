@@ -11,7 +11,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.Sequence(lambda n: f"user{n}")
     password = factory.PostGenerationMethodCall("set_password", "testpass123")
     role_type = 1
-    school_type = "PRIMARY"
+    school_type = 1
 
 
 class TeacherFactory(UserFactory):
