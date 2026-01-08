@@ -30,6 +30,7 @@ urlpatterns = [
     path("quizes/", include("quizes.urls", namespace="quizes")),
     path("videos/", include("videos.urls", namespace="videos")),
     path("motifs/", include("motifs.urls", namespace="motifs")),
+    path("select2/", include("django_select2.urls")),
 ]
 
 if settings.DEBUG:
