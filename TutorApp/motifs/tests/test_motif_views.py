@@ -1,4 +1,5 @@
 from django.test import Client, TestCase
+from examination_tasks.tests.factories import SectionFactory
 
 from TutorApp.users.factories import TeacherFactory
 
@@ -25,3 +26,24 @@ class AddMotifViewTest(TestCase):
         response = self.client.get("/motifs/add/")
 
         self.assertEqual(response.status_code, 200)
+
+    def test_can_teacher_add_motif(self):
+        """Test case that checks if teacher can add motif"""
+        teacher = TeacherFactory()
+        self.client.login(username=teacher.username, password="testpass123")
+
+        section = SectionFactory()
+
+        data = {
+            "subject": 1,
+            "section": section.pk,
+            "content": "How to solve equation",
+            "answer": "Step by step",
+            "level_type": 1,
+            "is_mandatory": True,
+            "is_in_matriculation_sheets": True,
+        }
+
+        response = self.client.post("/motifs/add/", data=data)
+
+        self.assertEqual(response.status_code, 302)
