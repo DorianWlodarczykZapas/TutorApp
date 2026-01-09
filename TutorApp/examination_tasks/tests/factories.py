@@ -22,7 +22,7 @@ class ExamFactory(DjangoModelFactory):
     )
 
     subject = factory.Faker(
-        "random_element", elements=[choice[0] for choice in SubjectChoices]
+        "random_element", elements=[choice[0] for choice in SubjectChoices.choices]
     )
 
     year = factory.Faker("random_element", elements=[y[0] for y in YEAR_CHOICES])
@@ -68,7 +68,7 @@ class BookFactory(DjangoModelFactory):
         )
 
         high_school = factory.Trait(
-            school_level=SchoolLevelChoices.HIGH_SCHOOL,
+            school_level=SchoolLevelChoices.choices,
             grade=factory.Faker("random_element", elements=[1, 2, 3, 4]),
         )
 
