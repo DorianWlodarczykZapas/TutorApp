@@ -18,8 +18,11 @@ def motif_image_path(instance, filename) -> str:
 
 
 class Motif(models.Model):
-    subject = models.CharField(
-        max_length=10, choices=SubjectChoices, verbose_name=_("Subject"), default=1
+    subject = models.IntegerField(
+        max_length=10,
+        choices=SubjectChoices.choices,
+        verbose_name=_("Subject"),
+        default=1,
     )
     section = models.ForeignKey(
         Section,
