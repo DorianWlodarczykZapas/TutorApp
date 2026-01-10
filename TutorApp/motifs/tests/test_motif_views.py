@@ -47,3 +47,29 @@ class AddMotifViewTest(TestCase):
         response = self.client.post("/motifs/add/", data=data)
 
         self.assertEqual(response.status_code, 302)
+
+    def test_is_motif_saved_to_database(self):
+        """Test case that checks if motif is saved to database"""
+
+        teacher = TeacherFactory()
+        self.client.login(username=teacher.username, password="testpass123")
+
+        section = SectionFactory()
+        number_of_motifs_before = Motif.objects.count()
+
+        data = {
+            "subject": 1,
+            "section": section.pk,
+            "content": "How to solve equation",
+            "answer": "Step by step",
+            "level_type": 1,
+            "is_mandatory": True,
+            "is_in_matriculation_sheets": True,
+
+        }
+
+        response = self.client.post("/motifs/add/", data=data)
+
+        number_of_motifs_after = Motif.objects.count()
+
+        self.assertEqual(number_of_motifs_after, number_of_motifs_before + 1)
