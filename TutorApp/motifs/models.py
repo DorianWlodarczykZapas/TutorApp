@@ -65,6 +65,11 @@ class Motif(models.Model):
         help_text=_("Whether students must learn this motif"),
     )
 
+    explanation_link = models.URLField(
+        verbose_name=_("Link to explanation video"),
+        help_text=_("Link to explanation video"),
+    )
+
     class Meta:
         verbose_name = _("Motif")
         verbose_name_plural = _("Motifs")
