@@ -20,3 +20,9 @@ class AddMotifView(TeacherRequiredMixin, CreateView):
         messages.success(self.request, _("Successfully added motif"))
 
         return response
+
+
+class MotifListView(LoginRequiredMixin, ListView):
+    model = Motif
+    template_name = "motifs/motif_list.html"
+    paginate_by = 10
