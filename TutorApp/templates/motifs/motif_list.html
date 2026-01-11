@@ -47,6 +47,12 @@
 
             <p><strong>{% trans "Mandatory" %}:</strong> {{ motif.is_mandatory|yesno }}</p>
             <p><strong>{% trans "In matriculation" %}:</strong> {{ motif.is_in_matriculation_sheets|yesno }}</p>
+
+            <div class="mt-3">
+    <a href="{% url 'motifs:delete_motif' motif.pk %}" class="btn btn-danger btn-sm">
+        {% trans "Delete" %}
+    </a>
+</div>
         </div>
     </div>
 </div>
