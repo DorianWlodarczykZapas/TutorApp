@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views.motif_views import AddMotifView
+from .views.motif_views import AddMotifView, MotifListView
 
 app_name = "motifs"
 
 urlpatterns = [
     path("add/", AddMotifView.as_view(), name="add_motif"),
+    path("", MotifListView.as_view(), name="list_motifs"),
 ]
