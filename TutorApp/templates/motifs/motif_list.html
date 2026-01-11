@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Motifs List" %}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{% trans "Motifs List" %}</h1>
+
+
+    <form method="get" class="mb-4">
+        {{ filter.form.as_p }}
+        <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
+        <a href="{% url 'motifs:list_motifs' %}" class="btn btn-secondary">{% trans "Clear" %}</a>
+    </form>
+
+
+    <div class="accordion" id="motifsAccordion">
+        {% for motif in object_list %}
+        <div class="accordion-item">
+    <h2 class="accordion-header">
+        <button class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#motif-{{ motif.id }}">
+            {{ motif.get_subject_display }} - {{ motif.section.name }} - {{ motif.content|truncatewords:8 }}
+        </button>
+    </h2>
+    <div id="motif-{{ motif.id }}"
+         class="accordion-collapse collapse"
+         data-bs-parent="#motifsAccordion">
+        <div class="accordion-body">
+            <p><strong>{% trans "Subject" %}:</strong> {{ motif.get_subject_display }}</p>
+            <p><strong>{% trans "Section" %}:</strong> {{ motif.section.name }}</p>
+            <p><strong>{% trans "Level" %}:</strong> {{ motif.get_level_type_display|default:"-" }}</p>
+            <p><strong>{% trans "Content" %}:</strong> {{ motif.content }}</p>
+            <p><strong>{% trans "Answer" %}:</strong> {{ motif.answer }}</p>
+
+            {% if motif.answer_picture %}
+            <p><strong>{% trans "Picture" %}:</strong> <img src="{{ motif.answer_picture.url }}" class="img-fluid" style="max-width: 400px;"></p>
+            {% endif %}
+
+            {% if motif.explanation_link %}
+            <p><strong>{% trans "Video" %}:</strong> <a href="{{ motif.explanation_link }}" target="_blank">{% trans "Watch explanation" %}</a></p>
+            {% endif %}
+
+            <p><strong>{% trans "Mandatory" %}:</strong> {{ motif.is_mandatory|yesno }}</p>
+            <p><strong>{% trans "In matriculation" %}:</strong> {{ motif.is_in_matriculation_sheets|yesno }}</p>
+        </div>
+    </div>
+</div>
+        {% empty %}
+        <p>{% trans "No motifs found" %}</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
