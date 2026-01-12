@@ -73,3 +73,28 @@ class AddMotifViewTest(TestCase):
         number_of_motifs_after = Motif.objects.count()
 
         self.assertEqual(number_of_motifs_after, number_of_motifs_before + 1)
+
+
+    def test_if_student_can_add_motif(self):
+        """Test case that checks if student can add motif"""
+
+        student = UserFactory()
+
+        section = SectionFactory()
+
+
+        data = {
+            "subject": 1,
+            "section": section.pk,
+            "content": "How to solve equation",
+            "answer": "Step by step",
+            "level_type": 1,
+            "is_mandatory": True,
+            "is_in_matriculation_sheets": True,
+        }
+
+        self.client.login(username=student.username, password="testpass123")
+
+        response = self.client.post("/motifs/add/", data=data)
+
+        self.assertEqual(response.status_code, 403)
