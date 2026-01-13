@@ -68,7 +68,7 @@ class AddMotifViewTest(TestCase):
 
         }
 
-        response = self.client.post("/motifs/add/", data=data)
+        self.client.post("/motifs/add/", data=data)
 
         number_of_motifs_after = Motif.objects.count()
 
