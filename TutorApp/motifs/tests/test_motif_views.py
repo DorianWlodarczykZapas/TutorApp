@@ -98,3 +98,10 @@ class AddMotifViewTest(TestCase):
         response = self.client.post("/motifs/add/", data=data)
 
         self.assertEqual(response.status_code, 403)
+
+    def test_anonymous_user_cannot_access_add_motif_page(self):
+        """Test case that checks if anonymous user cannot access add motif"""
+
+        response = self.client.get("/motifs/add/")
+
+        self.assertEqual(response.status_code, 302)
