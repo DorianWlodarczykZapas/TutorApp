@@ -111,6 +111,7 @@ class AddMotifViewTest(TestCase):
         """Test case that checks if saved motif has correct data"""
 
         teacher = TeacherFactory()
+        section = SectionFactory()
 
         self.client.login(username=teacher.username, password="testpass123")
 
@@ -127,8 +128,10 @@ class AddMotifViewTest(TestCase):
         self.client.post(
             "/motifs/add/", data=data)
 
-        self.assertEqual(last_motif.subject_id, data["subject"])
-        self.assertEqual(last_motif.section_id, data["section"])
+        last_motif = Motif.objects.last()
+
+        self.assertEqual(last_motif.subject, data["subject"])
+        self.assertEqual(last_motif.section.pk, data["section"])
         self.assertEqual(last_motif.content, data["content"])
         self.assertEqual(last_motif.answer, data["answer"])
         self.assertEqual(last_motif.level_type, data["level_type"])
