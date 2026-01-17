@@ -140,3 +140,29 @@ class AddMotifViewTest(TestCase):
             last_motif.is_in_matriculation_sheets,
             data["is_in_matriculation_sheets"],
         )
+
+    def test_form_without_content(self):
+        """Test case that checks if form without content is correct"""
+
+        teacher = TeacherFactory()
+        section = SectionFactory()
+
+        self.client.login(username=teacher.username, password="testpass123")
+
+        count_before = Motif.objects.count()
+
+        data = {
+            "subject": 1,
+            "section": section.pk,
+            "content": "",
+            "answer": "Step by step",
+            "level_type": 1,
+            "is_mandatory": True,
+            "is_in_matriculation_sheets": True,
+        }
+
+        response = self.client.post("/motifs/add/", data=data)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(Motif.objects.count(), count_before)
