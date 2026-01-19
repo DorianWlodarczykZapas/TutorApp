@@ -188,3 +188,23 @@ class AddMotifViewTest(TestCase):
 
 
         self.assertFalse(Motif.objects.filter(pk=motif.pk).exists())
+
+    def test_student_cannot_delete_motif(self):
+        """Test that student gets 403 when trying to delete motif"""
+
+        student = UserFactory()
+        motif = MotifFactory()
+
+
+        count_before = Motif.objects.count()
+
+
+        self.client.login(username=student.username, password="testpass123")
+        response = self.client.post(f"/motifs/{motif.pk}/delete/")
+
+
+        self.assertEqual(response.status_code, 403)
+
+
+        self.assertEqual(Motif.objects.count(), count_before)
+        self.assertTrue(Motif.objects.filter(pk=motif.pk).exists())
