@@ -1,6 +1,6 @@
 from django.test import Client, TestCase
 from examination_tasks.tests.factories import SectionFactory
-
+from ..models import Motif
 from TutorApp.users.factories import TeacherFactory
 
 
@@ -75,7 +75,7 @@ class AddMotifViewTest(TestCase):
         self.assertEqual(number_of_motifs_after, number_of_motifs_before + 1)
 
 
-    def test_if_student_can_add_motif(self):
+    def test_student_cannot_add_motif(self):
         """Test case that checks if student can add motif"""
 
         student = UserFactory()
