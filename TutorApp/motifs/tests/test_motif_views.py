@@ -208,3 +208,11 @@ class AddMotifViewTest(TestCase):
 
         self.assertEqual(Motif.objects.count(), count_before)
         self.assertTrue(Motif.objects.filter(pk=motif.pk).exists())
+
+    def test_anonymous_cannot_see_list(self):
+        """Test case that checks if anonymous user cannot see list"""
+
+        response = self.client.get("/motifs/")
+
+        self.assertEqual(response.status_code, 302)
+
