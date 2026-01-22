@@ -216,3 +216,17 @@ class AddMotifViewTest(TestCase):
 
         self.assertEqual(response.status_code, 302)
 
+
+    def test_logged_user_can_see_motif_list(self):
+        """Test case that checks if logged user can see motif list"""
+
+        student = StudentFactory()
+
+        self.client.login(username=student.username, password="testpass123")
+
+        response = self.client.get("/motifs/")
+
+        self.assertEqual(response.status_code, 200)
+
+
+
