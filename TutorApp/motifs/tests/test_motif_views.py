@@ -1,8 +1,8 @@
 from django.test import Client, TestCase
 from examination_tasks.tests.factories import SectionFactory
 from ..models import Motif
-from TutorApp.users.factories import TeacherFactory
-
+from TutorApp.users.factories import TeacherFactory, UserFactory
+from .factories import MotifFactory
 
 class AddMotifViewTest(TestCase):
 
@@ -220,7 +220,7 @@ class AddMotifViewTest(TestCase):
     def test_logged_user_can_see_motif_list(self):
         """Test case that checks if logged user can see motif list"""
 
-        student = StudentFactory()
+        student = UserFactory()
 
         self.client.login(username=student.username, password="testpass123")
 
