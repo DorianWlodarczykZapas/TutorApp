@@ -228,5 +228,23 @@ class AddMotifViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_filtering_by_subject_works(self):
+        """Test case that filters motifs by subject"""
+
+        user = UserFactory()
+
+        self.client.login(username=user.username, password="testpass123")
+
+        motif_math = MotifFactory(subject=1)
+        motif_physics = MotifFactory(subject=2)
+
+        response = self.client.get("/motifs/?subject=1")
+        motifs_in_response = response.context['object_list']
+
+        self.assertEqual(len(motifs_in_response), 1)
+
+        self.assertIn(motif_math, motifs_in_response)
+        self.assertNotIn(motif_physics, motifs_in_response)
+
 
 
