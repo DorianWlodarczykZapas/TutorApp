@@ -1,8 +1,11 @@
 from django.test import Client, TestCase
 from examination_tasks.tests.factories import SectionFactory
-from ..models import Motif
+
 from TutorApp.users.factories import TeacherFactory, UserFactory
+
+from ..models import Motif
 from .factories import MotifFactory
+
 
 class AddMotifViewTest(TestCase):
 
@@ -65,7 +68,6 @@ class AddMotifViewTest(TestCase):
             "level_type": 1,
             "is_mandatory": True,
             "is_in_matriculation_sheets": True,
-
         }
 
         self.client.post("/motifs/add/", data=data)
@@ -74,14 +76,12 @@ class AddMotifViewTest(TestCase):
 
         self.assertEqual(number_of_motifs_after, number_of_motifs_before + 1)
 
-
     def test_student_cannot_add_motif(self):
         """Test case that checks if student can add motif"""
 
         student = UserFactory()
 
         section = SectionFactory()
-
 
         data = {
             "subject": 1,
@@ -106,7 +106,6 @@ class AddMotifViewTest(TestCase):
 
         self.assertEqual(response.status_code, 302)
 
-
     def test_saved_motif_has_correct_data(self):
         """Test case that checks if saved motif has correct data"""
 
@@ -125,8 +124,7 @@ class AddMotifViewTest(TestCase):
             "is_in_matriculation_sheets": True,
         }
 
-        self.client.post(
-            "/motifs/add/", data=data)
+        self.client.post("/motifs/add/", data=data)
 
         last_motif = Motif.objects.last()
 
@@ -173,19 +171,14 @@ class AddMotifViewTest(TestCase):
         teacher = TeacherFactory()
         motif = MotifFactory()
 
-
         count_before = Motif.objects.count()
-
 
         self.client.login(username=teacher.username, password="testpass123")
         response = self.client.post(f"/motifs/{motif.pk}/delete/")
 
-
         self.assertEqual(response.status_code, 302)
 
-
         self.assertEqual(Motif.objects.count(), count_before - 1)
-
 
         self.assertFalse(Motif.objects.filter(pk=motif.pk).exists())
 
@@ -195,16 +188,12 @@ class AddMotifViewTest(TestCase):
         student = UserFactory()
         motif = MotifFactory()
 
-
         count_before = Motif.objects.count()
-
 
         self.client.login(username=student.username, password="testpass123")
         response = self.client.post(f"/motifs/{motif.pk}/delete/")
 
-
         self.assertEqual(response.status_code, 403)
-
 
         self.assertEqual(Motif.objects.count(), count_before)
         self.assertTrue(Motif.objects.filter(pk=motif.pk).exists())
@@ -215,7 +204,6 @@ class AddMotifViewTest(TestCase):
         response = self.client.get("/motifs/")
 
         self.assertEqual(response.status_code, 302)
-
 
     def test_logged_user_can_see_motif_list(self):
         """Test case that checks if logged user can see motif list"""
@@ -239,12 +227,24 @@ class AddMotifViewTest(TestCase):
         motif_physics = MotifFactory(subject=2)
 
         response = self.client.get("/motifs/?subject=1")
-        motifs_in_response = response.context['object_list']
+        motifs_in_response = response.context["object_list"]
 
         self.assertEqual(len(motifs_in_response), 1)
 
         self.assertIn(motif_math, motifs_in_response)
         self.assertNotIn(motif_physics, motifs_in_response)
 
+    def test_pagination_works(self):
+        """Test case that checks if pagination works"""
 
+        Motif.objects.bulk_create([Motif(name=f"Motif {i}") for i in range(15)])
 
+        user = UserFactory()
+
+        self.client.login(username=user.username, password="testpass123")
+
+        response = self.client.get("/motifs/")
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(len(response.context["object_list"]), 15)
