@@ -236,8 +236,7 @@ class AddMotifViewTest(TestCase):
 
     def test_pagination_works(self):
         """Test case that checks if pagination works"""
-
-        Motif.objects.bulk_create([Motif(name=f"Motif {i}") for i in range(15)])
+        MotifFactory.create_batch(15)
 
         user = UserFactory()
 
@@ -247,4 +246,4 @@ class AddMotifViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(len(response.context["object_list"]), 15)
+        self.assertEqual(len(response.context["object_list"]), 10)
