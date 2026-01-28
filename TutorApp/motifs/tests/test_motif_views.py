@@ -247,3 +247,29 @@ class AddMotifViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         self.assertEqual(len(response.context["object_list"]), 10)
+
+    def test_form_validates_url_field(self):
+        """Test that explanation_link must be valid URL"""
+
+        teacher = TeacherFactory()
+        section = SectionFactory()
+        self.client.login(username=teacher.username, password="testpass123")
+
+        count_before = Motif.objects.count()
+
+        data = {
+            "subject": 1,
+            "section": section.pk,
+            "content": "How to solve equation",
+            "answer": "Step by step",
+            "level_type": 1,
+            "is_mandatory": True,
+            "is_in_matriculation_sheets": True,
+            "explanation_link": "not-a-valid-url",
+        }
+
+        response = self.client.post("/motifs/add/", data=data)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(Motif.objects.count(), count_before)
