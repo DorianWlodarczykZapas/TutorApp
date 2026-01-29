@@ -273,3 +273,13 @@ class AddMotifViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         self.assertEqual(Motif.objects.count(), count_before)
+
+    def test_deleting_nonexistent_motif(self):
+        """Test that checks if teacher can delete a non-existent motif"""
+        teacher = TeacherFactory()
+
+        self.client.login(username=teacher.username, password="testpass123")
+
+        response = self.client.post("/motifs/9999/delete/")
+
+        self.assertEqual(response.status_code, 404)
