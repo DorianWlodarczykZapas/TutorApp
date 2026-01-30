@@ -283,3 +283,18 @@ class AddMotifViewTest(TestCase):
         response = self.client.post("/motifs/9999/delete/")
 
         self.assertEqual(response.status_code, 404)
+
+    def test_accessing_delete_page_shows_confirmation(self):
+        """Test that GET on delete URL shows confirmation page"""
+        teacher = TeacherFactory()
+        motif = MotifFactory()
+
+        self.client.login(username=teacher.username, password="testpass123")
+
+        response = self.client.get(f"/motifs/{motif.pk}/delete/")
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertTemplateUsed(response, "motifs/motif_confirm_delete.html")
+
+        self.assertEqual(Motif.objects.count(), 1)
