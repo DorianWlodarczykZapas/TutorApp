@@ -122,6 +122,21 @@ class StudentProgressView(LoginRequiredMixin, ListView):
             user=self.request.user, exams=context["exams"]
         )
 
-        context["completion_map"] = completion_map
+        progress_data = []
+        for exam in context["exams"]:
+            completed = completion_map.get(exam.id, 0)
+            total = exam.tasks_count
+            percentage = (completed / total * 100) if total > 0 else 0
+
+            progress_data.append(
+                {
+                    "exam": exam,
+                    "completed": completed,
+                    "total": total,
+                    "percentage": round(percentage, 1),
+                }
+            )
+
+        context["progress_data"] = progress_data
 
         return context
