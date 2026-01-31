@@ -108,3 +108,20 @@ class ExamListView(LoginRequiredMixin, ListView):
 
         context["exams"] = exams_on_page
         return context
+
+
+class StudentProgressView(LoginRequiredMixin, ListView):
+    model = Exam
+    template_name = "examination_tasks/exam_progress.html"
+    context_object_name = "exams"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        completion_map = ExamTaskDBService.get_user_completion_map_for_exams(
+            user=self.request.user, exams=context["exams"]
+        )
+
+        context["completion_map"] = completion_map
+
+        return context
