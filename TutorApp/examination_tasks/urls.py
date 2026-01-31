@@ -9,7 +9,7 @@ from .views.exam_task_views import (
     TaskDisplayView,
     TaskPdfView,
 )
-from .views.exam_views import AddExam, ExamListView
+from .views.exam_views import AddExam, ExamListView, StudentProgressView
 from .views.section_views import AddSection
 from .views.topic_views import AddTopic
 from .views.training_task_views import (
@@ -56,4 +56,5 @@ urlpatterns = [
         name="training_tasks_detail",
     ),
     path("training_tasks/", TrainingTaskListView.as_view(), name="training_tasks_list"),
+    path("progress/", StudentProgressView.as_view(), name="student_progress"),
 ]
