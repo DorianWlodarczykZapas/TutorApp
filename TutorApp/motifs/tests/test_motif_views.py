@@ -298,3 +298,18 @@ class AddMotifViewTest(TestCase):
         self.assertTemplateUsed(response, "motifs/motif_confirm_delete.html")
 
         self.assertEqual(Motif.objects.count(), 1)
+
+    def test_filter_empty_motif_list(self):
+        """Test that checks if empty motif list works"""
+
+        user = UserFactory()
+
+        self.client.login(username=user.username, password="testpass123")
+
+        response = self.client.get("/motifs/?subject=2")
+
+        motifs_in_response = response.context["object_list"]
+
+        self.assertEqual(len(motifs_in_response), 0)
+
+        self.assertEqual(Motif.objects.count(), 1)
