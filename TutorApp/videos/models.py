@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from TutorApp.examination_tasks.choices import SubjectChoices
 from TutorApp.training_calendar.models import Section
 
 
@@ -11,7 +12,9 @@ class Video(models.Model):
         Section, on_delete=models.CASCADE, related_name="videos"
     )
 
-    subcategory = models.CharField(max_length=255)
+    subject = models.IntegerField(
+        choices=SubjectChoices.choices, verbose_name=_("Subject")
+    )
 
     class VideoLevel(models.TextChoices):
         PRIMARY = "1", _("Primary School")
