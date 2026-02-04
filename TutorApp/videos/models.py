@@ -44,3 +44,6 @@ class VideoTimestamp(models.Model):
 
     def __str__(self):
         return f"{self.video.title} – {self.label}"
+
+    class Meta:
+        ordering = ["start_time"]
