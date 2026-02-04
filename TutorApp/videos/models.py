@@ -47,3 +47,5 @@ class VideoTimestamp(models.Model):
 
     class Meta:
         ordering = ["start_time"]
+        verbose_name = _("Video Timestamp")
+        verbose_name_plural = _("Video Timestamps")
