@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from users.mixins import TeacherRequiredMixin
 
-from ..forms.section_forms import SectionForm
-from ..models import Section
+from TutorApp.examination_tasks.forms.section_forms import SectionForm
+from TutorApp.examination_tasks.models import Section
 
 
 class AddSection(TeacherRequiredMixin, CreateView):

@@ -9,9 +9,9 @@ from django.views.generic import CreateView, DetailView
 from django_filters.views import FilterView
 from users.mixins import TeacherRequiredMixin
 
-from ..filters import TrainingTaskFilter
-from ..forms.training_tasks_forms import TrainingTaskForm
-from ..models import TrainingTask
+from TutorApp.examination_tasks.filters import TrainingTaskFilter
+from TutorApp.examination_tasks.forms.training_tasks_forms import TrainingTaskForm
+from TutorApp.examination_tasks.models import TrainingTask
 
 
 class AddTrainingTask(TeacherRequiredMixin, CreateView):

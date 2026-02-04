@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from users.mixins import TeacherRequiredMixin
 
-from ..forms.book_forms import BookForm
-from ..models import Book
+from TutorApp.examination_tasks.forms.book_forms import BookForm
+from TutorApp.examination_tasks.models import Book
 
 
 class AddBook(TeacherRequiredMixin, CreateView):

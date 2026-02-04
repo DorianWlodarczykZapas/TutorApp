@@ -1,6 +1,14 @@
 from django.urls import path
 
-from .views.book_views import AddBook
+from TutorApp.training_tasks.views.book_views import AddBook
+from TutorApp.training_tasks.views.section_views import AddSection
+from TutorApp.training_tasks.views.topic_views import AddTopic
+from TutorApp.training_tasks.views.training_task_views import (
+    AddTrainingTask,
+    TrainingTaskDetailView,
+    TrainingTaskListView,
+)
+
 from .views.exam_task_views import (
     AddExamTaskWizard,
     ExamTaskListView,
@@ -10,13 +18,6 @@ from .views.exam_task_views import (
     TaskPdfView,
 )
 from .views.exam_views import AddExam, ExamListView, StudentProgressView
-from .views.section_views import AddSection
-from .views.topic_views import AddTopic
-from .views.training_task_views import (
-    AddTrainingTask,
-    TrainingTaskDetailView,
-    TrainingTaskListView,
-)
 
 app_name = "examination_tasks"
 
