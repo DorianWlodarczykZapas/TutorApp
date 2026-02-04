@@ -40,7 +40,7 @@ class VideoTimestamp(models.Model):
     )
     label = models.CharField(max_length=255)
     start_time = models.DurationField(help_text=_("Format: HH:MM:SS"))
-    timestamp_type = models.IntegerField(max_length=10, choices=TimestampType.choices)
+    timestamp_type = models.IntegerField(choices=TimestampType.choices)
 
     def __str__(self):
         return f"{self.video.title} – {self.label}"
