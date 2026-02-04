@@ -92,7 +92,7 @@ class TrainingTask(models.Model):
     section = models.ForeignKey(
         Section,
         on_delete=models.SET_NULL,
-        related_name="training_tasks",
+        related_name="courses",
         verbose_name="Chapter (optional)",
         null=True,
         blank=True,

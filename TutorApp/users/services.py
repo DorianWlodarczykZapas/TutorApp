@@ -4,18 +4,18 @@ from typing import Optional
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.utils import timezone
+from models import User
 from plans.models import Plan, UserPlan
-from users.forms import UserRegisterForm
-from users.models import User
 
 
 class UserService:
-    def __init__(self, user: Optional[User] = None):
+    def __init__(self, user: Optional["User"] = None):
         self.user = user
 
-    def register_user(self, form: UserRegisterForm, default_role_type: int = 1) -> User:
+    def register_user(self, form, default_role_type: int = 1):
         """Create and save a user from a registration form and assign a trial plan."""
-        user = form.save(commit=False)
+
+        user: User = form.save(commit=False)
         user.role_type = default_role_type
         user.save()
         self.user = user
@@ -23,19 +23,27 @@ class UserService:
         return user
 
     def is_teacher(self) -> bool:
-        """Check if the user is authenticated and has a teacher role."""
-        return self.user and self.user.is_authenticated and self.user.role_type == 2
+        return (
+            self.user
+            and self.user.is_authenticated
+            and getattr(self.user, "role_type", None) == 2
+        )
 
     def is_student(self) -> bool:
-        """Check if the user is authenticated and has a student role."""
-        return self.user and self.user.is_authenticated and self.user.role_type == 1
+        return (
+            self.user
+            and self.user.is_authenticated
+            and getattr(self.user, "role_type", None) == 1
+        )
 
     def is_admin(self) -> bool:
-        """Check if the user is authenticated and has an admin role."""
-        return self.user and self.user.is_authenticated and self.user.role_type == 3
+        return (
+            self.user
+            and self.user.is_authenticated
+            and getattr(self.user, "role_type", None) == 3
+        )
 
     def assign_trial_plan(self) -> bool:
-        """Assign a trial plan to the user if not already assigned. Returns True if successful."""
         if not self.user or not self.user.is_authenticated:
             return False
 
@@ -59,10 +67,8 @@ class UserService:
 
     def login_user(
         self, request: HttpRequest, username: str, password: str
-    ) -> Optional[User]:
-        """
-        Authenticate and log in the user. Returns the User if successful, otherwise None.
-        """
+    ) -> Optional["User"]:
+
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -71,8 +77,5 @@ class UserService:
         return None
 
     def logout_user(self, request: HttpRequest) -> None:
-        """
-        Logs out the current user.
-        """
         logout(request)
         self.user = None

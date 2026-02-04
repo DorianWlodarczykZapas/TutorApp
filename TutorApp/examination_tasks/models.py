@@ -3,7 +3,8 @@ import os
 from django.conf import settings
 from django.db import models
 
-from ..training_calendar.models import Topic
+from TutorApp.courses.models import Topic
+
 from . import choices
 from .choices import SubjectChoices
 

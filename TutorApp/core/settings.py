@@ -5,7 +5,7 @@ from typing import List
 import environ
 from django.utils.translation import gettext_lazy as _
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 env = environ.Env(DEBUG=(bool, False))
@@ -40,13 +40,13 @@ INSTALLED_APPS = [
 
 INSTALLED_EXTENSIONS = [
     "users",
-    "plans",
+    "plans.apps",
     "examination_tasks",
     "quizes",
-    "training_calendar",
+    "training_calendarg",
     "videos",
     "motifs",
-    "training_tasks",
+    "courses",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS

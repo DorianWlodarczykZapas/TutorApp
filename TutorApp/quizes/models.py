@@ -3,8 +3,9 @@ from typing import List
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from examination_tasks import choices
-from examination_tasks.models import Section
+
+from ..examination_tasks import choices
+from ..training_tasks.models import Section
 
 
 class Quiz(models.Model):

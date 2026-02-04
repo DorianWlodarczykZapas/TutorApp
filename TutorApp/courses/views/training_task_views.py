@@ -48,7 +48,7 @@ class TrainingTaskListView(LoginRequiredMixin, FilterView):
 
     model = TrainingTask
     filterset_class = TrainingTaskFilter
-    template_name = "training_tasks/training_task_list.html"
+    template_name = "courses/training_task_list.html"
     context_object_name = "tasks"
     paginate_by = 20
 
@@ -93,7 +93,7 @@ class TrainingTaskListView(LoginRequiredMixin, FilterView):
 class TrainingTaskDetailView(LoginRequiredMixin, DetailView):
 
     model = TrainingTask
-    template_name = "training_tasks/training_task_detail.html"
+    template_name = "courses/training_task_detail.html"
     context_object_name = "task"
 
     def get_queryset(self):
