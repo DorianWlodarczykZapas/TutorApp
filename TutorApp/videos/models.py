@@ -31,16 +31,16 @@ class Video(models.Model):
 
 
 class VideoTimestamp(models.Model):
-    class TimestampType(models.TextChoices):
-        EXERCISE = "1", _("Exercise")
-        TASK = "2", _("Task")
+    class TimestampType(models.IntegerChoices):
+        EXERCISE = 1, _("Exercise")
+        TASK = 2, _("Task")
 
     video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name="timestamps"
     )
     label = models.CharField(max_length=255)
     start_time = models.DurationField(help_text=_("Format: HH:MM:SS"))
-    type = models.CharField(max_length=10, choices=TimestampType.choices)
+    type = models.IntegerField(max_length=10, choices=TimestampType.choices)
 
     def __str__(self):
         return f"{self.video.title} – {self.label}"
