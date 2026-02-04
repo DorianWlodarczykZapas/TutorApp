@@ -31,6 +31,7 @@ urlpatterns = [
     path("videos/", include("videos.urls", namespace="videos")),
     path("motifs/", include("motifs.urls", namespace="motifs")),
     path("select2/", include("django_select2.urls")),
+    path("training_tasks/", include("training_tasks.urls", namespace="training_tasks")),
 ]
 
 if settings.DEBUG:
