@@ -1,8 +1,9 @@
 import django_filters
+from courses.models import Book, Section, Topic, TrainingTask
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Book, Exam, ExamTask, Section, Topic, TrainingTask
+from .models import Exam, ExamTask
 
 SCHOOL_PRIMARY = 1
 SCHOOL_SECONDARY = 2

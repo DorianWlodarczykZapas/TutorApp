@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.db import models
-
-from ..examination_tasks import choices
-from ..examination_tasks.choices import GradeChoices, SubjectChoices
+from examination_tasks import choices
+from examination_tasks.choices import GradeChoices, SubjectChoices
 
 
 class Book(models.Model):

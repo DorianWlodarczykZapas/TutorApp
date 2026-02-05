@@ -4,8 +4,9 @@ from typing import Optional
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.utils import timezone
-from models import User
 from plans.models import Plan, UserPlan
+
+from .models import User
 
 
 class UserService:

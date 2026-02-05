@@ -1,8 +1,7 @@
+from courses.models import Section
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from TutorApp.examination_tasks.choices import SchoolLevelChoices, SubjectChoices
-from TutorApp.training_tasks.models import Section
+from examination_tasks.choices import SchoolLevelChoices, SubjectChoices
 
 
 class Video(models.Model):

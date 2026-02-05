@@ -40,10 +40,10 @@ INSTALLED_APPS = [
 
 INSTALLED_EXTENSIONS = [
     "users",
-    "plans.apps",
+    "plans",
     "examination_tasks",
     "quizes",
-    "training_calendarg",
+    "training_calendar",
     "videos",
     "motifs",
     "courses",

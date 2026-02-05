@@ -1,8 +1,7 @@
+from courses.models import Section
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from ..examination_tasks.choices import LEVEL_CHOICES, SubjectChoices
-from ..training_tasks.models import Section
+from examination_tasks.choices import LEVEL_CHOICES, SubjectChoices
 
 
 def motif_image_path(instance, filename) -> str:

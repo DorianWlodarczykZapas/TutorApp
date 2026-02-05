@@ -1,11 +1,10 @@
 from typing import List
 
+from courses.models import Section
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from ..examination_tasks import choices
-from ..training_tasks.models import Section
+from examination_tasks import choices
 
 
 class Quiz(models.Model):

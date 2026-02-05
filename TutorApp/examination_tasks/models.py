@@ -1,9 +1,8 @@
 import os
 
+from courses.models import Topic
 from django.conf import settings
 from django.db import models
-
-from TutorApp.courses.models import Topic
 
 from . import choices
 from .choices import SubjectChoices
