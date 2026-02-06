@@ -23,10 +23,10 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import DetailView, ListView, View
 from django_filters.views import FilterView
+from examination_tasks.filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from formtools.wizard.views import SessionWizardView
 from users.mixins import TeacherRequiredMixin
 
-from ..filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
 from ..forms.exam_tasks_forms import ExamTaskBasicForm, ExamTaskPreviewForm
 from ..models import Exam, ExamTask
 from ..services.examTaskDBService import ExamTaskDBService

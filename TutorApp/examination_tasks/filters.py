@@ -49,6 +49,7 @@ class ExamTaskFilter(django_filters.FilterSet):
     )
 
     class Meta:
+
         model = ExamTask
         fields = ["section", "topic", "level_type", "completed_by"]
 
