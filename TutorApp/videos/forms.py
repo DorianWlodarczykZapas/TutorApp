@@ -12,15 +12,15 @@ class AddVideoForm(forms.ModelForm):
             "title",
             "level",
             "youtube_url",
-            "type",
-            "subcategory",
+            "section",
+            "subject",
         ]
         labels = {
             "title": _("Title"),
             "level": _("Education level"),
             "youtube_url": _("YouTube link"),
-            "type": _("Book section"),
-            "subcategory": _("Subcategory"),
+            "section": _("Book section"),
+            "subject": _("Subject"),
         }
         widgets = {
             "title": forms.TextInput(
@@ -29,23 +29,33 @@ class AddVideoForm(forms.ModelForm):
             "youtube_url": forms.URLInput(
                 attrs={"placeholder": _("https://youtube.com/...")}
             ),
-            "type": forms.Select(choices=Video.section),
-            "subcategory": forms.TextInput(
-                attrs={"placeholder": _("e.g. operations on fractions")}
-            ),
-            "level": forms.Select(choices=Video.VideoLevel.choices),
+            "section": forms.Select(),
+            "subject": forms.Select(),
+            "level": forms.Select(),
         }
 
 
 class VideoTimestampForm(forms.ModelForm):
     class Meta:
         model = VideoTimestamp
-        fields = ["label", "start_time", "type"]
+        fields = ["label", "start_time", "timestamp_type"]
+        labels = {
+            "label": _("Label"),
+            "start_time": _("Start time"),
+            "timestamp_type": _("Type"),
+        }
         widgets = {
-            "start_time": forms.TimeInput(format="%H:%M:%S"),
+            "start_time": forms.TimeInput(
+                format="%H:%M:%S",
+                attrs={"placeholder": "HH:MM:SS"},
+            ),
         }
 
 
 TimestampFormSet = inlineformset_factory(
-    Video, VideoTimestamp, form=VideoTimestampForm, extra=1, can_delete=True
+    Video,
+    VideoTimestamp,
+    form=VideoTimestampForm,
+    extra=1,
+    can_delete=True,
 )

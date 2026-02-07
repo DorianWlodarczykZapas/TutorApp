@@ -1,14 +1,16 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
-from users.mixins import TeacherRequiredMixin
+from django.views.generic import CreateView, DeleteView
 from django_filters.views import FilterView
+from users.mixins import TeacherRequiredMixin
+
+from ..filters import MotifFilter
 from ..forms.motif_forms import AddMotifForm
 from ..models import Motif
-from ..filters import MotifFilter
-from django.views.generic import DeleteView
+
 
 class AddMotifView(TeacherRequiredMixin, CreateView):
     model = Motif
@@ -29,9 +31,7 @@ class MotifListView(LoginRequiredMixin, FilterView):
     filterset_class = MotifFilter
     paginate_by = 10
 
+
 class MotifDeleteView(TeacherRequiredMixin, DeleteView):
     model = Motif
     success_url = reverse_lazy("motifs:list_motifs")
-
-
-

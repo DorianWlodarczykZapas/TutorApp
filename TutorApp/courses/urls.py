@@ -1,13 +1,12 @@
-from django.urls import path
-
-from TutorApp.courses.views.book_views import AddBook
-from TutorApp.courses.views.section_views import AddSection
-from TutorApp.courses.views.topic_views import AddTopic
-from TutorApp.courses.views.training_task_views import (
+from courses.views.book_views import AddBook
+from courses.views.section_views import AddSection
+from courses.views.topic_views import AddTopic
+from courses.views.training_task_views import (
     AddTrainingTask,
     TrainingTaskDetailView,
     TrainingTaskListView,
 )
+from django.urls import path
 
 app_name = "examination_tasks"
 

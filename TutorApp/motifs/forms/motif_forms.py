@@ -1,7 +1,7 @@
+from courses.models import Section
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_select2.forms import ModelSelect2Widget
-from examination_tasks.models import Section
 
 from ..models import Motif
 

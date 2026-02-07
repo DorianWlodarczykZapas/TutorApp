@@ -1,14 +1,13 @@
 from typing import Any, Dict
 
+from courses.forms.book_forms import BookForm
+from courses.models import Book
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from users.mixins import TeacherRequiredMixin
-
-from TutorApp.examination_tasks.forms.book_forms import BookForm
-from TutorApp.examination_tasks.models import Book
 
 
 class AddBook(TeacherRequiredMixin, CreateView):

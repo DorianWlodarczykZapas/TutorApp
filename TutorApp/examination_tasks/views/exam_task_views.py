@@ -23,7 +23,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import DetailView, ListView, View
 from django_filters.views import FilterView
-from examination_tasks.filters import SCHOOL_TO_EXAM_TYPE, ExamTaskFilter
+from examination_tasks.filters import SCHOOL_TO_EXAM_TYPE
 from formtools.wizard.views import SessionWizardView
 from users.mixins import TeacherRequiredMixin
 
@@ -373,9 +373,14 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
 
 class ExamTaskSearchEngine(LoginRequiredMixin, FilterView):
     model = ExamTask
-    filterset_class = ExamTaskFilter
+
     template_name = "examination_tasks/exam_task_search_engine.html"
     paginate_by = 20
+
+    def get_filterset_class(self):
+        from examination_tasks.filters import ExamTaskFilter
+
+        return ExamTaskFilter
 
     def get_queryset(self) -> QuerySet["ExamTask"]:
         qs = ExamTask.objects.select_related("exam").select_related("section", "topic")

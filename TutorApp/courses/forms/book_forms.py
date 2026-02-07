@@ -1,7 +1,6 @@
+from courses.models import Book
 from django.forms import forms
 from django.utils.translation import gettext_lazy as _
-
-from ..models import Book
 
 
 class BookForm(forms.Form):

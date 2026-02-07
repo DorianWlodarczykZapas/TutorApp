@@ -1,14 +1,13 @@
 from typing import Any, Dict
 
+from courses.forms.section_forms import SectionForm
+from courses.models import Section
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from users.mixins import TeacherRequiredMixin
-
-from TutorApp.examination_tasks.forms.section_forms import SectionForm
-from TutorApp.examination_tasks.models import Section
 
 
 class AddSection(TeacherRequiredMixin, CreateView):

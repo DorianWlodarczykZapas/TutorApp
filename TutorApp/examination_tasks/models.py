@@ -67,7 +67,7 @@ class ExamTask(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
     task_id = models.IntegerField()
     section = models.ForeignKey(
-        "Section",
+        "courses.Section",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

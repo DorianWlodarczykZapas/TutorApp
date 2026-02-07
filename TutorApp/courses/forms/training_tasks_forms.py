@@ -1,7 +1,6 @@
+from courses.models import TrainingTask
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
-from ..models import TrainingTask
 
 
 class TrainingTaskForm(forms.ModelForm):
