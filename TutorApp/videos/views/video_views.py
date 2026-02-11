@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView
 from users.mixins import TeacherRequiredMixin
 from videos.forms.video_form import AddVideoForm
 from videos.forms.video_formset import VideoTimestampFormSet
@@ -55,3 +55,8 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
             return self.render_to_response(
                 self.get_context_data(form=form, timestamp_formset=timestamp_formset)
             )
+
+
+class VideoDeleteView(TeacherRequiredMixin, DeleteView):
+    model = Video
+    success_url = reverse_lazy("videos:list")
