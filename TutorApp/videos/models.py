@@ -15,10 +15,6 @@ class Video(models.Model):
         choices=SubjectChoices.choices, verbose_name=_("Subject")
     )
 
-    class VideoLevel(models.TextChoices):
-        PRIMARY = "1", _("Primary School")
-        SECONDARY = "2", _("Secondary School")
-
     level = models.IntegerField(
         choices=SchoolLevelChoices.choices, verbose_name=_("School Level")
     )
