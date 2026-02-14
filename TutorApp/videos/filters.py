@@ -1,7 +1,8 @@
-from typing import Any
+from typing import Any, Dict
 
 import django_filters
 from courses.models import Section
+from django import forms
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 
@@ -36,7 +37,29 @@ class VideoFilterSet(django_filters.FilterSet):
         model = Video
         fields = ["title", "section", "subject", "level"]
 
-    def filter_strip_title(self, queryset: QuerySet, name: str, value: Any) -> QuerySet:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """
+        Initializes filters and injects CSS classes for Select2
+        """
+        super().__init__(*args, **kwargs)
+
+        select2_attrs: Dict[str, str] = {
+            "class": "form-control select2-init",
+            "style": "width: 100%",
+        }
+
+        if "section" in self.filters:
+            self.filters["section"].field.widget = forms.Select(attrs=select2_attrs)
+
+        if "subject" in self.filters:
+            self.filters["subject"].field.widget = forms.Select(attrs=select2_attrs)
+
+        if "level" in self.filters:
+            self.filters["level"].field.widget = forms.Select(attrs=select2_attrs)
+
+    def filter_strip_title(
+        self, queryset: QuerySet[Video], name: str, value: str
+    ) -> QuerySet[Video]:
         """
         Cleans the filter value of whitespace before executing the query.
 
