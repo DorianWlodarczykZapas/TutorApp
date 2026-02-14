@@ -1,14 +1,19 @@
 from typing import Any, Dict
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
+from django.db.models import QuerySet
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView
+from django_filters.views import FilterView
 from users.mixins import TeacherRequiredMixin
 from videos.forms.video_form import AddVideoForm
 from videos.forms.video_formset import VideoTimestampFormSet
 from videos.models import Video
+
+from .filters import VideoFilterSet
 
 
 class VideoCreateView(TeacherRequiredMixin, CreateView):
@@ -60,3 +65,25 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
 class VideoDeleteView(TeacherRequiredMixin, DeleteView):
     model = Video
     success_url = reverse_lazy("videos:list")
+
+
+class VideoListView(LoginRequiredMixin, FilterView):
+
+    model = Video
+    filterset_class = VideoFilterSet
+    template_name: str = "videos/video_list.html"
+    paginate_by: int = 15
+    context_object_name: str = "videos"
+
+    def get_queryset(self) -> QuerySet[Video]:
+        """
+        Returns an optimized QuerySet with a forced sort order.
+
+        Sort order:
+        1. Section name (ascending)
+        2. Difficulty level (defined in IntegerChoices)
+        3. Title (alphabetical)
+        """
+        return Video.objects.select_related("section").order_by(
+            "section__name", "level", "title"
+        )
