@@ -1,8 +1,9 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Set
 
+import django_filters
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Page, Paginator
+from django.core.paginator import Page
 from django.db import transaction
 from django.db.models import QuerySet
 from django.urls import reverse_lazy
@@ -69,7 +70,6 @@ class VideoDeleteView(TeacherRequiredMixin, DeleteView):
 
 
 class VideoListView(LoginRequiredMixin, FilterView):
-
     model = Video
     filterset_class = VideoFilterSet
     template_name = "videos/video_list.html"
@@ -77,14 +77,7 @@ class VideoListView(LoginRequiredMixin, FilterView):
     context_object_name = "videos"
 
     def get_queryset(self) -> QuerySet[Video]:
-        """
-        Returns an optimized QuerySet with a forced sort order.
 
-        Sort order:
-        1. Section name (ascending)
-        2. Difficulty level (defined in IntegerChoices)
-        3. Title (alphabetical)
-        """
         return Video.objects.select_related("section").order_by(
             "section__name", "level", "title"
         )
@@ -96,15 +89,27 @@ class VideoListView(LoginRequiredMixin, FilterView):
         page_obj: Optional[Page] = context.get("page_obj")
 
         if page_obj:
-            paginator: Paginator = page_obj.paginator
-            context["total_count"] = paginator.count
-            context["current_page"] = page_obj.number
-            context["total_pages"] = paginator.num_pages
+            context.update(
+                {
+                    "total_count": page_obj.paginator.count,
+                    "current_page": page_obj.number,
+                    "total_pages": page_obj.paginator.num_pages,
+                    "start_idx": page_obj.start_index(),
+                    "end_idx": page_obj.end_index(),
+                }
+            )
         else:
 
-            context["total_count"] = len(self.object_list)
-            context["current_page"] = 1
-            context["total_pages"] = 1
+            total: int = len(self.object_list)
+            context.update(
+                {
+                    "total_count": total,
+                    "current_page": 1,
+                    "total_pages": 1,
+                    "start_idx": 1 if total > 0 else 0,
+                    "end_idx": total,
+                }
+            )
 
         filterset = context.get("filter")
         context["has_filters_applied"] = (
@@ -113,12 +118,17 @@ class VideoListView(LoginRequiredMixin, FilterView):
 
         return context
 
-    def _are_filters_applied(self, filterset) -> bool:
+    def _are_filters_applied(
+        self, filterset: Optional[django_filters.FilterSet]
+    ) -> bool:
         """
         Helper method for checking active filters.
 
         """
-        excluded_params = {"page", "csrfmiddlewaretoken"}
+        if not filterset or not filterset.data:
+            return False
+
+        excluded_params: Set[str] = {"page", "csrfmiddlewaretoken"}
 
         return any(
             value and str(value).strip()
