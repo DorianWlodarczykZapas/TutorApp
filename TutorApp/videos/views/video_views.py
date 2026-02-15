@@ -8,7 +8,7 @@ from django.db import transaction
 from django.db.models import QuerySet
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, DetailView
 from django_filters.views import FilterView
 from users.mixins import TeacherRequiredMixin
 from videos.forms.video_form import AddVideoForm
@@ -135,3 +135,7 @@ class VideoListView(LoginRequiredMixin, FilterView):
             for key, value in filterset.data.items()
             if key not in excluded_params
         )
+
+
+class VideoDetailsView(LoginRequiredMixin, DetailView):
+    model = Video
