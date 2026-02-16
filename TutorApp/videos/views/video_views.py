@@ -82,34 +82,34 @@ class VideoListView(LoginRequiredMixin, FilterView):
             "section__name", "level", "title"
         )
 
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+    def _get_pagination_context(
+        self, page_obj: Optional[Page], object_list
+    ) -> Dict[str, Any]:
+        """Extract pagination-related context data."""
+        if page_obj:
+            return {
+                "total_count": page_obj.paginator.count,
+                "current_page": page_obj.number,
+                "total_pages": page_obj.paginator.num_pages,
+                "start_idx": page_obj.start_index(),
+                "end_idx": page_obj.end_index(),
+            }
 
+        total: int = len(object_list)
+        return {
+            "total_count": total,
+            "current_page": 1,
+            "total_pages": 1,
+            "start_idx": 1 if total > 0 else 0,
+            "end_idx": total,
+        }
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context: Dict[str, Any] = super().get_context_data(**kwargs)
 
         page_obj: Optional[Page] = context.get("page_obj")
-
-        if page_obj:
-            context.update(
-                {
-                    "total_count": page_obj.paginator.count,
-                    "current_page": page_obj.number,
-                    "total_pages": page_obj.paginator.num_pages,
-                    "start_idx": page_obj.start_index(),
-                    "end_idx": page_obj.end_index(),
-                }
-            )
-        else:
-
-            total: int = len(self.object_list)
-            context.update(
-                {
-                    "total_count": total,
-                    "current_page": 1,
-                    "total_pages": 1,
-                    "start_idx": 1 if total > 0 else 0,
-                    "end_idx": total,
-                }
-            )
+        pagination_context = self._get_pagination_context(page_obj, self.object_list)
+        context.update(pagination_context)
 
         filterset = context.get("filter")
         context["has_filters_applied"] = (
