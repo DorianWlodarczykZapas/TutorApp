@@ -139,3 +139,6 @@ class VideoListView(LoginRequiredMixin, FilterView):
 
 class VideoDetailsView(LoginRequiredMixin, DetailView):
     model = Video
+
+    def get_queryset(self) -> QuerySet[Video]:
+        return Video.objects.prefetch_related("timestamps")
