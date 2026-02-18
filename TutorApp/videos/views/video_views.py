@@ -5,15 +5,16 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
-from django.db.models import QuerySet
+from django.db.models import Prefetch, QuerySet
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView
 from django_filters.views import FilterView
+from plans.models import Plan, UserPlan
 from users.mixins import TeacherRequiredMixin
 from videos.forms.video_form import AddVideoForm
 from videos.forms.video_formset import VideoTimestampFormSet
-from videos.models import Video
+from videos.models import Video, VideoTimestamp
 
 from .filters import VideoFilterSet
 
@@ -141,4 +142,25 @@ class VideoDetailsView(LoginRequiredMixin, DetailView):
     model = Video
 
     def get_queryset(self) -> QuerySet[Video]:
-        return Video.objects.prefetch_related("timestamps")
+        user = self.request.user
+
+        try:
+            user_plan = user.userplan
+            is_premium_or_trial = user_plan.is_active and user_plan.plan.type in [
+                Plan.PlanType.PREMIUM,
+                Plan.PlanType.TRIAL,
+            ]
+        except UserPlan.DoesNotExist:
+            is_premium_or_trial = False
+
+        if is_premium_or_trial:
+            return Video.objects.prefetch_related("timestamps")
+        else:
+            return Video.objects.prefetch_related(
+                Prefetch(
+                    "timestamps",
+                    queryset=VideoTimestamp.objects.filter(
+                        timestamp_type=VideoTimestamp.TimestampType.EXERCISE
+                    ),
+                )
+            )
