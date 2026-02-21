@@ -4,12 +4,21 @@ from typing import Optional
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.utils import timezone
+from examination_tasks.choices import GradeChoices, SchoolLevelChoices
 from plans.models import Plan, UserPlan
 
 from .models import User
 
 
 class UserService:
+    PRIMARY_GRADES = {GradeChoices.PRIMARY_7, GradeChoices.PRIMARY_8}
+    SECONDARY_GRADES = {
+        GradeChoices.SECONDARY_1,
+        GradeChoices.SECONDARY_2,
+        GradeChoices.SECONDARY_3,
+        GradeChoices.SECONDARY_4,
+    }
+
     def __init__(self, user: Optional["User"] = None):
         self.user = user
 
@@ -80,3 +89,24 @@ class UserService:
     def logout_user(self, request: HttpRequest) -> None:
         logout(request)
         self.user = None
+
+    @staticmethod
+    def resolve_school_type(grade: int) -> int | None:
+        if grade in UserService.PRIMARY_GRADES:
+            return SchoolLevelChoices.PRIMARY
+        elif grade in UserService.SECONDARY_GRADES:
+            return SchoolLevelChoices.SECONDARY
+        return None
+
+    def update_user_profile(self, username: str, email: str) -> "User":
+        self.user.username = username
+        self.user.email = email
+        self._resolve_and_set_school_type()
+        self.user.save()
+        return self.user
+
+    def _resolve_and_set_school_type(self) -> None:
+        """Automatically updates school_type based on grade"""
+        if not self.is_student() or not self.user.grade:
+            return
+        self.user.school_type = self.resolve_school_type(self.user.grade)
