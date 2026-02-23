@@ -38,5 +38,5 @@ class AddBook(TeacherRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.role_type != 2:
-            return redirect("users:some_page")
+            return redirect("users:home")
         return super().dispatch(request, *args, **kwargs)
