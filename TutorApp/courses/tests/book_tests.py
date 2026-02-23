@@ -27,8 +27,14 @@ class AddBookViewTests(TestCase):
 
     def test_can_student_access(self):
         """Test case that checks if student can access adding book page"""
-        self.client.login(
-            username=self.student.username, password=self.teacher.password
-        )
+        self.client.force_login(self.student)
         response = self.client.get(reverse("add_book"))
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
+
+    def test_can_teacher_access(self):
+        """
+        Test case that checks if teacher can access adding book page
+        """
+        self.client.force_login(self.teacher)
+        response = self.client.get(reverse("add_book"))
+        self.assertEqual(response.status_code, 200)
