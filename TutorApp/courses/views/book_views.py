@@ -4,6 +4,7 @@ from courses.forms.book_forms import BookForm
 from courses.models import Book
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
@@ -34,3 +35,8 @@ class AddBook(TeacherRequiredMixin, CreateView):
         """
         messages.success(self.request, _("Book added successfully!"))
         return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role_type != 2:
+            return redirect("users:some_page")
+        return super().dispatch(request, *args, **kwargs)
