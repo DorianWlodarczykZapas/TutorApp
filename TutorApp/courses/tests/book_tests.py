@@ -1,8 +1,9 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 from examination_tasks.choices import SchoolLevelChoices
+from users.factories import TeacherFactory, UserFactory
 
-from TutorApp.users.factories import TeacherFactory, UserFactory
+from .models import Book
 
 
 class AddBookViewTests(TestCase):
@@ -38,3 +39,10 @@ class AddBookViewTests(TestCase):
         self.client.force_login(self.teacher)
         response = self.client.get(reverse("add_book"))
         self.assertEqual(response.status_code, 200)
+
+    def test_add_book(self):
+        """Test case that checks if book can be added"""
+        self.client.force_login(self.teacher)
+        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Book.objects.filter(title="Math for 8 grader").exists())
