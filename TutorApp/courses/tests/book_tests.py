@@ -88,3 +88,11 @@ class AddBookViewTests(TestCase):
         response = self.client.post(reverse("add_book"), data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
+
+    def test_add_book_with_too_long_school_type(self):
+        """Test case that checks if book with too long school type can be added"""
+        self.valid_data["school_type"] = "b" * 21
+        self.client.force_login(self.teacher)
+        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Book.objects.count(), 0)
