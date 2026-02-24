@@ -79,3 +79,12 @@ class AddBookViewTests(TestCase):
         response = self.client.post(reverse("add_book"), data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
+
+    def test_add_book_with_non_existing_school_level(self):
+        """Test case that checks if book with non-existing school level can be added
+        Available school levels are (1) - primary, (2) - secondary"""
+        self.valid_data["school_level"] = 4
+        self.client.force_login(self.teacher)
+        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Book.objects.count(), 0)
