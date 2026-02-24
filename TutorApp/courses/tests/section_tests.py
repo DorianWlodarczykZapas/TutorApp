@@ -20,3 +20,9 @@ class AddSectionTests(TestCase):
         """Test case that checks if unauthorized access is working"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
+
+    def test_can_student_access(self):
+        """Test case that checks if student can access adding section page"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
