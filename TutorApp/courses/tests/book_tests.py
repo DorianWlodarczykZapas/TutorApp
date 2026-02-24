@@ -46,3 +46,11 @@ class AddBookViewTests(TestCase):
         response = self.client.post(reverse("add_book"), data=self.valid_data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Book.objects.filter(title="Math for 8 grader").exists())
+
+    def test_add_book_without_title(self):
+        """Test case that checks if book without title can be added"""
+        self.valid_data["title"] = None
+        self.client.force_login(self.teacher)
+        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Book.objects.count(), 0)
