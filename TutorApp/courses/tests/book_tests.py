@@ -23,13 +23,13 @@ class AddBookViewTests(TestCase):
 
     def test_unauthorized_access(self):
         """Test case that checks if unauthorized access is working"""
-        response = self.client.get(reverse("add_book"))
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
 
     def test_can_student_access(self):
         """Test case that checks if student can access adding book page"""
         self.client.force_login(self.student)
-        response = self.client.get(reverse("add_book"))
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
 
     def test_can_teacher_access(self):
@@ -37,13 +37,13 @@ class AddBookViewTests(TestCase):
         Test case that checks if teacher can access adding book page
         """
         self.client.force_login(self.teacher)
-        response = self.client.get(reverse("add_book"))
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
     def test_add_book(self):
         """Test case that checks if book can be added"""
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Book.objects.filter(title="Math for 8 grader").exists())
 
@@ -51,7 +51,7 @@ class AddBookViewTests(TestCase):
         """Test case that checks if book without title can be added"""
         self.valid_data["title"] = None
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
 
@@ -59,7 +59,7 @@ class AddBookViewTests(TestCase):
         """Test case that checks if book with grade below minimum (7) can be added"""
         self.valid_data["grade"] = 4
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
 
@@ -67,7 +67,7 @@ class AddBookViewTests(TestCase):
         """Test case that checks if book with wrong publication year can be added"""
         self.valid_data["publication_year"] = "apple"
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
 
@@ -76,7 +76,7 @@ class AddBookViewTests(TestCase):
         Available subjects are (1) - math, (2) - physics"""
         self.valid_data["subject"] = 4
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
 
@@ -85,7 +85,7 @@ class AddBookViewTests(TestCase):
         Available school levels are (1) - primary, (2) - secondary"""
         self.valid_data["school_level"] = 4
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
 
@@ -93,6 +93,6 @@ class AddBookViewTests(TestCase):
         """Test case that checks if book with too long school type can be added"""
         self.valid_data["school_type"] = "b" * 21
         self.client.force_login(self.teacher)
-        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
