@@ -62,3 +62,11 @@ class AddBookViewTests(TestCase):
         response = self.client.post(reverse("add_book"), data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
+
+    def test_add_book_with_letters_in_publication_year(self):
+        """Test case that checks if book with wrong publication year can be added"""
+        self.valid_data["publication_year"] = "apple"
+        self.client.force_login(self.teacher)
+        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Book.objects.count(), 0)
