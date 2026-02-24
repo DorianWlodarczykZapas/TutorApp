@@ -54,3 +54,11 @@ class AddBookViewTests(TestCase):
         response = self.client.post(reverse("add_book"), data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
+
+    def test_add_book_with_wrong_grade(self):
+        """Test case that checks if book with grade below minimum (7) can be added"""
+        self.valid_data["grade"] = 4
+        self.client.force_login(self.teacher)
+        response = self.client.post(reverse("add_book"), data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Book.objects.count(), 0)
