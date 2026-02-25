@@ -1,3 +1,4 @@
+from courses.models import Section
 from courses.tests.factories import BookFactory
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -34,3 +35,10 @@ class AddSectionTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
+
+    def test_add_section(self):
+        """Test case that adds section"""
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Section.objects.filter(name="Quadratic Equation").exists())
