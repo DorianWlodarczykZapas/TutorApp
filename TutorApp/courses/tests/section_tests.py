@@ -42,3 +42,10 @@ class AddSectionTests(TestCase):
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Section.objects.filter(name="Quadratic Equation").exists())
+
+    def test_add_section_without_book(self):
+        """Test case that adds section without book"""
+        self.valid_data["book"] = None
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
