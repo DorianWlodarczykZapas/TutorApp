@@ -38,13 +38,10 @@ class Book(models.Model):
 
 
 class Section(models.Model):
-    book = models.ForeignKey(
+    books = models.ManyToManyField(
         Book,
-        on_delete=models.CASCADE,
         related_name="sections",
-        verbose_name="Book",
-        null=True,
-        blank=True,
+        verbose_name="Books",
     )
     name = models.CharField(
         max_length=255,
