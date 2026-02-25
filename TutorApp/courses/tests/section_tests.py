@@ -49,3 +49,21 @@ class AddSectionTests(TestCase):
         self.client.force_login(self.teacher)
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
+
+    def test_add_section_without_name(self):
+        """Test case that adds section without name"""
+        self.valid_data["name"] = None
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Section.objects.count(), 0)
+
+    def test_add_section_with_many_books(self):
+        """Test case that adds section with many books"""
+        books = BookFactory.create_batch(5)
+        self.valid_data["books"] = [book.pk for book in books]
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 302)
+        section = Section.objects.get(name="Quadratic Equation")
+        self.assertEqual(section.books.count(), 5)
