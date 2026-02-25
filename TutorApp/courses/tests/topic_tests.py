@@ -55,3 +55,11 @@ class AddTopicTests(TestCase):
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Topic.objects.count(), 0)
+
+    def test_add_duplicate_topic(self):
+        """Test case that checks if duplicate topic can be added"""
+        Topic.objects.create(section=self.section, name="Viete's Formulas")
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Topic.objects.count(), 1)
