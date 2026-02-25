@@ -1,3 +1,4 @@
+from courses.models import Topic
 from courses.tests.factories import SectionFactory
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -31,3 +32,10 @@ class AddTopicTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
+
+    def test_add_topic(self):
+        """Test case that adds topic"""
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Topic.objects.filter(name="Viete's Formulas").exists())
