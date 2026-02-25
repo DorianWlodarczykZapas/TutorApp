@@ -13,7 +13,7 @@ class AddSectionTests(TestCase):
         self.teacher = TeacherFactory.create()
         self.book = BookFactory.create()
         self.valid_data = {
-            "book": self.book.pk,
+            "book": [self.book.pk],
             "name": "Quadratic Equation",
         }
 
