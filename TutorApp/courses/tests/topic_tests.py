@@ -39,3 +39,11 @@ class AddTopicTests(TestCase):
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Topic.objects.filter(name="Viete's Formulas").exists())
+
+    def test_add_topic_without_section(self):
+        """Test case that adds topic without section"""
+        self.valid_data["section"] = None
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Topic.objects.count(), 0)
