@@ -144,6 +144,7 @@ class SectionVideoListView(LoginRequiredMixin, ListView):
     model = Video
     template_name = "videos/section_video_list.html"
     context_object_name = "videos"
+    paginate_by = 20
 
     def get_queryset(self) -> QuerySet[Video]:
         self.section = get_object_or_404(Section, pk=self.kwargs["section_pk"])
