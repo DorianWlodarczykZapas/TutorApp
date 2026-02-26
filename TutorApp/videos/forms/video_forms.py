@@ -2,6 +2,7 @@ import re
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django_select2.forms import ModelSelect2Widget
 from videos.models import Video
 
 
@@ -41,3 +42,15 @@ class AddVideoForm(forms.ModelForm):
 
         normalized_url = f"https://www.youtube.com/watch?v={video_id}"
         return normalized_url
+
+
+class VideoFilterForm(forms.Form):
+    title = forms.ModelChoiceField(
+        queryset=Video.objects.all(),
+        widget=ModelSelect2Widget(
+            model=Video,
+            search_fields=["title__icontains"],
+        ),
+        required=False,
+        label=_("Search videos"),
+    )
