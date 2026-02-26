@@ -156,6 +156,7 @@ class SectionVideoListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["section"] = self.section
+        context["form"] = VideoFilterForm(self.request.GET)
         return context
 
 
