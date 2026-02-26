@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
+from django_select2.forms import ModelSelect2Widget
 
 from .models import Video, VideoTimestamp
 
@@ -59,3 +60,15 @@ TimestampFormSet = inlineformset_factory(
     extra=1,
     can_delete=True,
 )
+
+
+class VideoFilterForm(forms.Form):
+    title = forms.ModelChoiceField(
+        queryset=Video.objects.all(),
+        widget=ModelSelect2Widget(
+            model=Video,
+            search_fields=["title__icontains"],
+        ),
+        required=False,
+        label=_("Search videos"),
+    )
