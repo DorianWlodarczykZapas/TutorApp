@@ -1,14 +1,16 @@
 from typing import Any, Dict, Optional, Set
 
 import django_filters
+from courses.models import Section
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
 from django.db.models import Prefetch, QuerySet
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, DetailView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django_filters.views import FilterView
 from plans.models import Plan, UserPlan
 from users.mixins import TeacherRequiredMixin
@@ -23,7 +25,7 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
     model = Video
     form_class = AddVideoForm
     template_name = "videos/add_video.html"
-    success_url = reverse_lazy("videoos:add")
+    success_url = reverse_lazy("videos:add")
 
     def get_timestamp_formset(self, form=None):
         """Helper method to create and return a formset"""
@@ -136,6 +138,16 @@ class VideoListView(LoginRequiredMixin, FilterView):
             for key, value in filterset.data.items()
             if key not in excluded_params
         )
+
+
+class SectionVideoListView(LoginRequiredMixin, ListView):
+    model = Video
+    template_name = "videos/section_video_list.html"
+    context_object_name = "videos"
+
+    def get_queryset(self) -> QuerySet[Video]:
+        self.section = get_object_or_404(Section, pk=self.kwargs.get("section_pk"))
+        return Video.objects.filter(section=self.section)
 
 
 class VideoDetailsView(LoginRequiredMixin, DetailView):
