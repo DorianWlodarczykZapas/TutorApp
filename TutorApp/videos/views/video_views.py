@@ -146,8 +146,8 @@ class SectionVideoListView(LoginRequiredMixin, ListView):
     context_object_name = "videos"
 
     def get_queryset(self) -> QuerySet[Video]:
-        self.section = get_object_or_404(Section, pk=self.kwargs.get("section_pk"))
-        return Video.objects.filter(section=self.section)
+        self.section = get_object_or_404(Section, pk=self.kwargs["section_pk"])
+        return self.section.videos.all()
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
