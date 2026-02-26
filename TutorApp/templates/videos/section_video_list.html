@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% trans "Videos" %} – {{ section.name }}
+{% endblock %}
+{% block content %}
+    <a href="{% url 'video_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+    <ul>
+        {% for video in videos %}
+            <li>
+                {{ forloop.counter }}. {{ video.title }}
+                <a href="{% url 'video_detail' video.pk %}" class="btn btn-primary">{% trans "Watch" %}</a>
+            </li>
+        {% empty %}
+            <p>{% trans "No videos available." %}</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
