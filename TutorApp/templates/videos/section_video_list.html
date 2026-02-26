@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load static %}
 {% block title %}
     {% trans "Videos" %} – {{ section.name }}
 {% endblock %}
 {% block content %}
     <a href="{% url 'video_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+        <a href="{% url 'section_videos' section.pk %}"
+           class="btn btn-secondary">{% trans "Clear" %}</a>
+    </form>
     <ul>
         {% for video in videos %}
             <li>
@@ -16,4 +21,17 @@
             <p>{% trans "No videos available." %}</p>
         {% endfor %}
     </ul>
+    {% if is_paginated %}
+        <nav>
+            {% if page_obj.has_previous %}
+                <a href="?{% if request.GET.title %}title={{ request.GET.title }}&{% endif %}page={{ page_obj.previous_page_number }}"
+                   class="btn btn-secondary">{% trans "Previous" %}</a>
+            {% endif %}
+            <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?{% if request.GET.title %}title={{ request.GET.title }}&{% endif %}page={{ page_obj.next_page_number }}"
+                   class="btn btn-secondary">{% trans "Next" %}</a>
+            {% endif %}
+        </nav>
+    {% endif %}
 {% endblock %}
