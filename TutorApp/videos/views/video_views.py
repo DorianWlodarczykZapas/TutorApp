@@ -149,6 +149,11 @@ class SectionVideoListView(LoginRequiredMixin, ListView):
         self.section = get_object_or_404(Section, pk=self.kwargs.get("section_pk"))
         return Video.objects.filter(section=self.section)
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["section"] = self.section
+        return context
+
 
 class VideoDetailsView(LoginRequiredMixin, DetailView):
     model = Video
