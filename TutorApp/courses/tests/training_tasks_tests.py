@@ -55,3 +55,10 @@ class AddTrainingTasksTests(TestCase):
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(TrainingTask.objects.count(), 0)
+
+    def test_add_training_task_with_empty_answer(self):
+        """Test case that adds training task with empty answer"""
+        self.valid_data["answer"] = ""
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 0)
