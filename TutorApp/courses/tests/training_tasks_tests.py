@@ -76,3 +76,10 @@ class AddTrainingTasksTests(TestCase):
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
+
+    def test_add_training_task_with_invalid_section(self):
+        """Test case that adds training task with invalid section"""
+        self.valid_data["section"] = 99999
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 0)
