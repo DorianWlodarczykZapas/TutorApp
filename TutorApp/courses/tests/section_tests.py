@@ -67,3 +67,11 @@ class AddSectionTests(TestCase):
         self.assertEqual(response.status_code, 302)
         section = Section.objects.get(name="Quadratic Equation")
         self.assertEqual(section.books.count(), 5)
+
+    def test_add_section_with_too_long_name(self):
+        """Test case that adds section with too long name"""
+        self.valid_data["name"] = "x" * 256
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Section.objects.count(), 0)
