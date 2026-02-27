@@ -104,3 +104,10 @@ class AddTrainingTasksTests(TestCase):
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
+
+    def test_add_training_task_answer_too_long(self):
+        """Test case that adds training task with answer exceeding max_length"""
+        self.valid_data["answer"] = "x" * 256
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 0)
