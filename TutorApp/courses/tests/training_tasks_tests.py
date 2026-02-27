@@ -1,3 +1,4 @@
+from courses.models import TrainingTask
 from courses.tests.factories import SectionFactory
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -36,3 +37,13 @@ class AddTrainingTasksTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
+
+    def test_add_training_task(self):
+        """Test case that adds training task"""
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(
+            TrainingTask.objects.filter(task_content="Solve this equation").exists()
+        )
