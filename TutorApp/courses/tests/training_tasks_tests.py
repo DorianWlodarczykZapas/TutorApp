@@ -69,3 +69,10 @@ class AddTrainingTasksTests(TestCase):
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
+
+    def test_add_training_task_with_wrong_level_type(self):
+        """Test case that adds training task with wrong level type"""
+        self.valid_data["level"] = "a"
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 0)
