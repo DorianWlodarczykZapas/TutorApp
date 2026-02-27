@@ -90,3 +90,10 @@ class AddTrainingTasksTests(TestCase):
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 1)
+
+    def test_add_training_task_with_level_zero(self):
+        """Test case that adds training task with level 0"""
+        self.valid_data["level"] = 0
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 0)
