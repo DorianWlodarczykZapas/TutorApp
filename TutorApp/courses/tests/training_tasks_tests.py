@@ -47,3 +47,11 @@ class AddTrainingTasksTests(TestCase):
         self.assertTrue(
             TrainingTask.objects.filter(task_content="Solve this equation").exists()
         )
+
+    def test_add_training_task_with_empty_content(self):
+        """Test case that adds training task with empty content"""
+        self.valid_data["task_content"] = ""
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(TrainingTask.objects.count(), 0)
