@@ -191,4 +191,10 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.context["completion_percentage"],20)
 
+    def test_queryset_returns_correct_tasks(self):
+        """Test case where queryset returns all objects"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["tasks"].count(),1)
+
 
