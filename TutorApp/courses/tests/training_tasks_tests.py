@@ -128,6 +128,20 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
 
+    def test_access_page(self):
+        """Test case that checks if access is working"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_completion_percentage_is_zero_when_no_tasks(self):
+        """Test case about 0% progress"""
+        self.task.delete()
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["completion_percentage"], 0)
+
 
 
 
