@@ -3,6 +3,8 @@ from courses.models import Book, Section, Topic
 from examination_tasks.choices import SchoolLevelChoices
 from factory.django import DjangoModelFactory
 
+from TutorApp.examination_tasks.choices import DifficultyLevelChoices
+
 
 class BookFactory(DjangoModelFactory):
     class Meta:
@@ -73,3 +75,21 @@ class TopicFactory(DjangoModelFactory):
             "Pythagorean theorem",
         ],
     )
+
+
+class TrainingTaskFactory(DjangoModelFactory):
+    class Meta:
+        model = TrainingTask
+
+
+    task_content = factory.Faker("paragraph")
+    answer = factory.Faker("word")
+    image = None
+    section = factory.SubFactory(SectionFactory)
+    level = DifficultyLevelChoices.INTERMEDIATE
+
+    @factory.post_generation
+    def completed_by_users(self, create, extracted, **kwargs):
+        if not create or not extracted:
+            return
+        self.completed_by.add(*extracted)
