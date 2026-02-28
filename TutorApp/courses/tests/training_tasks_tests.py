@@ -176,4 +176,11 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.context["completed_tasks"], 1)
 
+    def test_context_total_tasks_multiple(self):
+        """Test case about multiple training tasks"""
+        TrainingTaskFactory.create_batch(5, section = self.section)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["total_tasks"], 6)
+
 
