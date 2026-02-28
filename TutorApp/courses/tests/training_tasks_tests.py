@@ -3,7 +3,7 @@ from courses.tests.factories import SectionFactory, TrainingTaskFactory
 from django.test import Client, TestCase
 from django.urls import reverse
 from users.factories import TeacherFactory, UserFactory
-
+from django.utils.translation import gettext as _
 
 class AddTrainingTasksTests(TestCase):
     def setUp(self):
@@ -156,5 +156,11 @@ class TrainingTaskListTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.context["completion_percentage"], 50)
+
+    def test_context_has_title(self):
+        """Test case about context title"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["title"], _("Training Tasks"))
 
 
