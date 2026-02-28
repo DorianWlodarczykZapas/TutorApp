@@ -183,4 +183,12 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.context["total_tasks"], 6)
 
+    def test_completion_percentage_with_multiple_tasks(self):
+        """Testing when 1/5 tasks are completed"""
+        tasks = TrainingTaskFactory.create_batch(4, section=self.section)
+        self.task.completed_by.add(self.student)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["completion_percentage"],20)
+
 
