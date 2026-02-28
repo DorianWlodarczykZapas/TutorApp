@@ -163,4 +163,17 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.context["title"], _("Training Tasks"))
 
+    def test_context_has_total_tasks(self):
+        """Test case about total tasks value"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["total_tasks"], 1)
+
+    def test_context_has_completed_tasks(self):
+        """Test case about completed tasks value"""
+        self.task.completed_by.add(self.student)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["completed_tasks"], 1)
+
 
