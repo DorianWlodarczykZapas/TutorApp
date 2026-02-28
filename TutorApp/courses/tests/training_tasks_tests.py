@@ -1,5 +1,5 @@
 from courses.models import TrainingTask
-from courses.tests.factories import SectionFactory
+from courses.tests.factories import SectionFactory, TrainingTaskFactory
 from django.test import Client, TestCase
 from django.urls import reverse
 from users.factories import TeacherFactory, UserFactory
@@ -111,3 +111,15 @@ class AddTrainingTasksTests(TestCase):
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
+
+
+
+class TrainingTaskListTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("training_tasks_list")
+        self.student = UserFactory.create(grade=1)
+        self.book = BookFactory.create(grade=1)
+        self.section = SectionFactory.create(book=self.book)
+        self.task = TrainingTaskFactory.create(section=self.section)
+
