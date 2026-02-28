@@ -142,6 +142,13 @@ class TrainingTaskListTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["completion_percentage"], 0)
 
+    def test_completion_percentage_when_task_completed(self):
+        """Test case about 100% progress"""
+        self.task.completed_by.add(self.student)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["completion_percentage"], 100)
+
 
 
 
