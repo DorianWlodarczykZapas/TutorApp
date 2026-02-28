@@ -149,6 +149,12 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.context["completion_percentage"], 100)
 
-
+    def test_completion_percentage_partial(self):
+        """Test case about 50% progress"""
+        task2 = TrainingTaskFactory.create(section=self.section)
+        self.task.completed_by.add(self.student)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["completion_percentage"], 50)
 
 
