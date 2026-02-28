@@ -197,4 +197,9 @@ class TrainingTaskListTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.context["tasks"].count(),1)
 
-
+    def test_queryset_returns_all_tasks(self):
+        """Test case where queryset returns all objects(multiple tasks)"""
+        TrainingTaskFactory.create_batch(4, section=self.section)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["tasks"].count(), 5)
