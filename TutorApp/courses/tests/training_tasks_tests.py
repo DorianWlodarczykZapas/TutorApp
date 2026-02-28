@@ -123,3 +123,11 @@ class TrainingTaskListTests(TestCase):
         self.section = SectionFactory.create(book=self.book)
         self.task = TrainingTaskFactory.create(section=self.section)
 
+    def test_unauthorized_access(self):
+        """Test case that checks if unauthorized access is working"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+
+
+
