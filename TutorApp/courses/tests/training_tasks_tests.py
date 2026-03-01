@@ -244,3 +244,12 @@ class TrainingTaskFilterTests(TestCase):
         )
         self.assertEqual(filterset.qs.count(), 1)
         self.assertIn(self.uncompleted_task, filterset.qs)
+
+    def test_filter_completed_without_user(self):
+        """Test case about no user passed filter"""
+        filterset = TrainingTaskFilter(
+            data={"completed": "completed"},
+            queryset=TrainingTask.objects.all(),
+            user=None,
+        )
+        self.assertEqual(filterset.qs.count(), TrainingTask.objects.count())
