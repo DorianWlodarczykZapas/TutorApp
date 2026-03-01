@@ -1,3 +1,4 @@
+from courses.filters import TrainingTaskFilter
 from courses.models import TrainingTask
 from courses.tests.factories import BookFactory, SectionFactory, TrainingTaskFactory
 from django.test import Client, TestCase
@@ -222,3 +223,14 @@ class TrainingTaskFilterTests(TestCase):
         self.uncompleted_task = TrainingTaskFactory.create(section=self.section)
         self.completed_task = TrainingTaskFactory.create(section=self.section)
         self.completed_task.completed_by.add(self.student)
+
+    def test_filter_completed_tasks(self):
+        """Test case that filters completed tasks"""
+        filterset = TrainingTaskFilter(
+            data={"completed": "completed"},
+            queryset=TrainingTask.objects.all(),
+            user=self.student,
+        )
+
+        self.assertEqual(filterset.qs.count(), 1)
+        self.assertIn(self.completed_task, filterset.qs)
