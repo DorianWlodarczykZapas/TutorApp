@@ -234,3 +234,13 @@ class TrainingTaskFilterTests(TestCase):
 
         self.assertEqual(filterset.qs.count(), 1)
         self.assertIn(self.completed_task, filterset.qs)
+
+    def test_filter_uncompleted_tasks(self):
+        """Test case that filters uncompleted tasks"""
+        filterset = TrainingTaskFilter(
+            data={"completed": "uncompleted"},
+            queryset=TrainingTask.objects.all(),
+            user=self.student,
+        )
+        self.assertEqual(filterset.qs.count(), 1)
+        self.assertIn(self.uncompleted_task, filterset.qs)
