@@ -212,3 +212,13 @@ class TrainingTaskListTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.context["tasks"].count(), 1)
+
+
+class TrainingTaskFilterTests(TestCase):
+    def setUp(self):
+        self.student = UserFactory.create(grade=1)
+        self.book = BookFactory.create(grade=1)
+        self.section = SectionFactory.create(book=self.book)
+        self.uncompleted_task = TrainingTaskFactory.create(section=self.section)
+        self.completed_task = TrainingTaskFactory.create(section=self.section)
+        self.completed_task.completed_by.add(self.student)
