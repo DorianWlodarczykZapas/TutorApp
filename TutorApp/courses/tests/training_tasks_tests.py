@@ -1,9 +1,10 @@
 from courses.models import TrainingTask
-from courses.tests.factories import SectionFactory, TrainingTaskFactory
+from courses.tests.factories import BookFactory, SectionFactory, TrainingTaskFactory
 from django.test import Client, TestCase
 from django.urls import reverse
-from users.factories import TeacherFactory, UserFactory
 from django.utils.translation import gettext as _
+from users.factories import TeacherFactory, UserFactory
+
 
 class AddTrainingTasksTests(TestCase):
     def setUp(self):
@@ -113,7 +114,6 @@ class AddTrainingTasksTests(TestCase):
         self.assertEqual(TrainingTask.objects.count(), 0)
 
 
-
 class TrainingTaskListTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -151,7 +151,7 @@ class TrainingTaskListTests(TestCase):
 
     def test_completion_percentage_partial(self):
         """Test case about 50% progress"""
-        task2 = TrainingTaskFactory.create(section=self.section)
+        TrainingTaskFactory.create(section=self.section)
         self.task.completed_by.add(self.student)
         self.client.force_login(self.student)
         response = self.client.get(self.url)
@@ -178,24 +178,24 @@ class TrainingTaskListTests(TestCase):
 
     def test_context_total_tasks_multiple(self):
         """Test case about multiple training tasks"""
-        TrainingTaskFactory.create_batch(5, section = self.section)
+        TrainingTaskFactory.create_batch(5, section=self.section)
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.context["total_tasks"], 6)
 
     def test_completion_percentage_with_multiple_tasks(self):
         """Testing when 1/5 tasks are completed"""
-        tasks = TrainingTaskFactory.create_batch(4, section=self.section)
+        TrainingTaskFactory.create_batch(4, section=self.section)
         self.task.completed_by.add(self.student)
         self.client.force_login(self.student)
         response = self.client.get(self.url)
-        self.assertEqual(response.context["completion_percentage"],20)
+        self.assertEqual(response.context["completion_percentage"], 20)
 
     def test_queryset_returns_correct_tasks(self):
         """Test case where queryset returns all objects"""
         self.client.force_login(self.student)
         response = self.client.get(self.url)
-        self.assertEqual(response.context["tasks"].count(),1)
+        self.assertEqual(response.context["tasks"].count(), 1)
 
     def test_queryset_returns_all_tasks(self):
         """Test case where queryset returns all objects(multiple tasks)"""
@@ -203,3 +203,12 @@ class TrainingTaskListTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.context["tasks"].count(), 5)
+
+    def test_queryset_filters_by_user_grade(self):
+        """Test case where book has different grade"""
+        other_book = BookFactory.create(grade=2)
+        other_section = SectionFactory.create(book=other_book)
+        TrainingTaskFactory.create(section=other_section)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["tasks"].count(), 1)
