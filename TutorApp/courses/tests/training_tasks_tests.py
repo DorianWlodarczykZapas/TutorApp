@@ -253,3 +253,14 @@ class TrainingTaskFilterTests(TestCase):
             user=None,
         )
         self.assertEqual(filterset.qs.count(), TrainingTask.objects.count())
+
+    def test_qs_filters_by_grade_when_no_data(self):
+        """Test case about filter by grade with no data"""
+        other_book = BookFactory.create(grade=2)
+        other_section = SectionFactory.create(book=other_book)
+        TrainingTaskFactory.create(section=other_section)
+
+        filterset = TrainingTaskFilter(
+            data=None, queryset=TrainingTask.objects.all(), user=self.student
+        )
+        self.assertEqual(filterset.qs.count(), 2)
