@@ -3,7 +3,7 @@ from courses.models import Section
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from django_select2.forms import ModelSelect2Widget, Select2Widget
-from examination_tasks.choices import SubjectChoices
+from examination_tasks.choices import SchoolLevelChoices, SubjectChoices
 
 from .models import Video
 
@@ -46,7 +46,7 @@ class VideoFilterSet(django_filters.FilterSet):
     )
 
     level = django_filters.ChoiceFilter(
-        choices=Video.LevelChoices.choices,
+        choices=SchoolLevelChoices.choices,
         label=_("Level"),
         empty_label=_("All Levels"),
         widget=Select2Widget(
