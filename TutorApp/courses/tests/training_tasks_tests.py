@@ -312,3 +312,14 @@ class TrainingTaskDetailViewTests(TestCase):
         self.section = SectionFactory.create(book=self.book)
         self.task = TrainingTaskFactory.create(section=self.section)
         self.url = reverse("training_tasks_detail", kwargs={"pk": self.task.pk})
+
+    def test_unauthorized_access(self):
+        """Test case that checks if unauthorized access is working"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_access_page(self):
+        """Test case that checks if access is working"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
