@@ -277,3 +277,15 @@ class TrainingTaskFilterTests(TestCase):
             user=self.student,
         )
         self.assertEqual(filterset.qs.count(), 3)
+
+    def test_book_queryset_filtered_by_user_grade(self):
+        """Test case where book filter shows books same as user's grade"""
+        other_book = BookFactory.create(grade=2)
+
+        filterset = TrainingTaskFilter(
+            data=None, queryset=TrainingTask.objects.all(), user=self.student
+        )
+
+        book_queryset = filterset.filters["book"].queryset
+        self.assertIn(self.book, book_queryset)
+        self.assertNotIn(other_book, book_queryset)
