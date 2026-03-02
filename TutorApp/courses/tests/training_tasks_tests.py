@@ -289,3 +289,16 @@ class TrainingTaskFilterTests(TestCase):
         book_queryset = filterset.filters["book"].queryset
         self.assertIn(self.book, book_queryset)
         self.assertNotIn(other_book, book_queryset)
+
+    def test_section_queryset_filtered_by_user_grade(self):
+        """Test case where section filter shows sections same as user's grade"""
+        other_book = BookFactory.create(grade=2)
+        other_section = SectionFactory.create(book=other_book)
+
+        filterset = TrainingTaskFilter(
+            data=None, queryset=TrainingTask.objects.all(), user=self.student
+        )
+
+        section_queryset = filterset.filters["section"].queryset
+        self.assertIn(self.section, section_queryset)
+        self.assertNotIn(other_section, section_queryset)
