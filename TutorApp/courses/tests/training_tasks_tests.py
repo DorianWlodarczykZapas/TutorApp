@@ -302,3 +302,13 @@ class TrainingTaskFilterTests(TestCase):
         section_queryset = filterset.filters["section"].queryset
         self.assertIn(self.section, section_queryset)
         self.assertNotIn(other_section, section_queryset)
+
+
+class TrainingTaskDetailViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.student = UserFactory.create(grade=1)
+        self.book = BookFactory.create(grade=1)
+        self.section = SectionFactory.create(book=self.book)
+        self.task = TrainingTaskFactory.create(section=self.section)
+        self.url = reverse("training_tasks_detail", kwargs={"pk": self.task.pk})
