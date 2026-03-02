@@ -14,11 +14,10 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django_filters.views import FilterView
 from plans.models import Plan, UserPlan
 from users.mixins import TeacherRequiredMixin
+from videos.filters import VideoFilterSet
 from videos.forms.video_forms import AddVideoForm, VideoFilterForm
 from videos.forms.video_formset import VideoTimestampFormSet
 from videos.models import Video, VideoTimestamp
-
-from .filters import VideoFilterSet
 
 
 class VideoCreateView(TeacherRequiredMixin, CreateView):
