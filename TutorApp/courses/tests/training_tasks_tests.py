@@ -264,3 +264,16 @@ class TrainingTaskFilterTests(TestCase):
             data=None, queryset=TrainingTask.objects.all(), user=self.student
         )
         self.assertEqual(filterset.qs.count(), 2)
+
+    def test_qs_does_not_filter_by_grade_when_data_provided(self):
+        """Test case when data is passed but not filtered by grade"""
+        other_book = BookFactory.create(grade=2)
+        other_section = SectionFactory.create(book=other_book)
+        TrainingTaskFactory.create(section=other_section)
+
+        filterset = TrainingTaskFilter(
+            data={"completed": ""},
+            queryset=TrainingTask.objects.all(),
+            user=self.student,
+        )
+        self.assertEqual(filterset.qs.count(), 3)
