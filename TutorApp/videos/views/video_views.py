@@ -181,7 +181,14 @@ class VideoDetailsView(LoginRequiredMixin, DetailView):
             )
         )
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["timestamps"] = list(self.object.timestamps.values("label", "seconds"))
+        context["timestamps"] = [
+            {
+                "label": ts.label,
+                "seconds": ts.start_seconds,
+                "type": ts.get_timestamp_type_display(),
+            }
+            for ts in self.object.timestamps.all()
+        ]
         return context
