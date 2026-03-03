@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django_filters.views import FilterView
-from plans.models import Plan, UserPlan
+from plans.models import UserPlan
 from users.mixins import TeacherRequiredMixin
 from videos.filters import VideoFilterSet
 from videos.forms.video_forms import AddVideoForm, VideoFilterForm
@@ -164,25 +164,19 @@ class VideoDetailsView(LoginRequiredMixin, DetailView):
     model = Video
 
     def get_queryset(self) -> QuerySet[Video]:
-        user = self.request.user
-
         try:
-            user_plan = user.userplan
-            is_premium_or_trial = user_plan.is_active and user_plan.plan.type in [
-                Plan.PlanType.PREMIUM,
-                Plan.PlanType.TRIAL,
-            ]
+            is_premium_or_trial = self.request.user.userplan.is_premium_or_trial
         except UserPlan.DoesNotExist:
             is_premium_or_trial = False
 
         if is_premium_or_trial:
             return Video.objects.prefetch_related("timestamps")
-        else:
-            return Video.objects.prefetch_related(
-                Prefetch(
-                    "timestamps",
-                    queryset=VideoTimestamp.objects.filter(
-                        timestamp_type=VideoTimestamp.TimestampType.EXERCISE
-                    ),
-                )
+
+        return Video.objects.prefetch_related(
+            Prefetch(
+                "timestamps",
+                queryset=VideoTimestamp.objects.filter(
+                    timestamp_type=VideoTimestamp.TimestampType.EXERCISE
+                ),
             )
+        )
