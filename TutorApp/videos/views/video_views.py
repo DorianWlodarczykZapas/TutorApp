@@ -180,3 +180,8 @@ class VideoDetailsView(LoginRequiredMixin, DetailView):
                 ),
             )
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["timestamps"] = list(self.object.timestamps.values("label", "seconds"))
+        return context

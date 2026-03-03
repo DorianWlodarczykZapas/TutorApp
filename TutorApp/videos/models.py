@@ -45,6 +45,10 @@ class VideoTimestamp(models.Model):
     start_time = models.DurationField(help_text=_("Format: HH:MM:SS"))
     timestamp_type = models.IntegerField(choices=TimestampType.choices)
 
+    @property
+    def start_seconds(self):
+        return int(self.start_time.total_seconds())
+
     def __str__(self):
         return f"{self.video.title} – {self.label}"
 
