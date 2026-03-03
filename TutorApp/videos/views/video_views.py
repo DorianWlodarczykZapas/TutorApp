@@ -187,6 +187,7 @@ class VideoDetailsView(LoginRequiredMixin, DetailView):
             {
                 "label": ts.label,
                 "seconds": ts.start_seconds,
+                "time": ts.start_time_display,
                 "type": ts.get_timestamp_type_display(),
             }
             for ts in self.object.timestamps.all()
