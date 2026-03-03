@@ -47,6 +47,7 @@ class VideoTimestamp(models.Model):
 
     @property
     def start_seconds(self):
+        """Method that helps use timestamp with youtube api"""
         return int(self.start_time.total_seconds())
 
     def __str__(self):
