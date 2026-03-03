@@ -1,3 +1,5 @@
+import re
+
 from courses.models import Section
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +12,12 @@ class Video(models.Model):
     section = models.ForeignKey(
         Section, on_delete=models.CASCADE, related_name="videos"
     )
+
+    @property
+    def youtube_video_id(self):
+        """Converts video url to format available to set video in application"""
+        match = re.search(r"(?:v=|youtu\.be/)([a-zA-Z0-9_-]{11})", self.youtube_url)
+        return match.group(1) if match else ""
 
     subject = models.IntegerField(
         choices=SubjectChoices.choices, verbose_name=_("Subject")
