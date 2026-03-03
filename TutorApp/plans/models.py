@@ -36,5 +36,12 @@ class UserPlan(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def is_premium_or_trial(self):
+        return self.is_active and self.plan.type in [
+            Plan.PlanType.PREMIUM,
+            Plan.PlanType.TRIAL,
+        ]
+
     def __str__(self):
         return f"{self.user.username} - {self.plan.name}"
