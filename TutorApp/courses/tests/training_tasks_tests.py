@@ -343,3 +343,9 @@ class TrainingTaskDetailViewTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+    def test_context_has_title(self):
+        """Test case that checks if title is in context"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["title"], _("Task Details"))
