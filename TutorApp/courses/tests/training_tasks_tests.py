@@ -323,3 +323,9 @@ class TrainingTaskDetailViewTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+    def test_context_is_completed_false(self):
+        """Test case that checks if task is not completed"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["is_completed"], False)
