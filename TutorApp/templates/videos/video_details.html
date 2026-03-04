@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="video-header">
+        <a href="{% url 'section-video-list' video.section.pk %}"
+           class="back-btn">← {% trans "Back" %}</a>
+        <h1 class="video-title">{{ video.title }}</h1>
+    </div>
+{% endblock %}
