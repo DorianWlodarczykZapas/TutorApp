@@ -336,3 +336,10 @@ class TrainingTaskDetailViewTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.context["is_completed"], True)
+
+    def test_task_not_found(self):
+        """Test case that checks if task not found returns 404"""
+        url = reverse("training_tasks_detail", kwargs={"pk": 99999})
+        self.client.force_login(self.student)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
