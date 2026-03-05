@@ -37,6 +37,7 @@ class VideoTimestamp(models.Model):
     class TimestampType(models.IntegerChoices):
         EXERCISE = 1, _("Exercise")
         TASK = 2, _("Task")
+        LECTURE = 3, _("Lecture")
 
     video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name="timestamps"
