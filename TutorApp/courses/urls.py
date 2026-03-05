@@ -8,7 +8,7 @@ from courses.views.training_task_views import (
 )
 from django.urls import path
 
-app_name = "examination_tasks"
+app_name = "courses"
 
 urlpatterns = [
     path("books/add/", AddBook.as_view(), name="add_book"),
