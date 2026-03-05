@@ -10,7 +10,7 @@ app_name = "videos"
 
 urlpatterns = [
     path("", VideoListView.as_view(), name="video_list"),
-    path("add/", VideoCreateView.as_view(), name="add"),
+    path("add/", VideoCreateView.as_view(), name="add_video"),
     path("delete/<int:pk>/", VideoDeleteView.as_view(), name="delete"),
     path(
         "sections/<int:section_pk>/videos/",
