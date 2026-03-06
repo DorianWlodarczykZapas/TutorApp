@@ -1,7 +1,17 @@
 import re
+from datetime import timedelta
 
 from django.conf import settings
+from django.utils.translation import gettext as _
 from googleapiclient.discovery import build
+from videos.models import VideoTimestamp
+
+HEADER_MAP = {
+    "ĆWICZENIA": VideoTimestamp.TimestampType.EXERCISE,
+    "ZADANIA": VideoTimestamp.TimestampType.TASK,
+    "MATURA PODSTAWOWA": VideoTimestamp.TimestampType.LECTURE,
+    "MATURA ROZSZERZONA": VideoTimestamp.TimestampType.LECTURE,
+}
 
 
 class YoutubeService:
@@ -49,3 +59,48 @@ class YoutubeService:
             "title": snippet["title"],
             "description": snippet["description"],
         }
+
+    def parse_timestamps(self, text: str) -> list[dict]:
+        """Parses youtube description text into list of timestamps
+
+        Args:
+            text (str): youtube description text
+
+        Returns:
+              list[dict]: List of dictonaries with keys 'label', 'start_time', 'timestamp_type'
+
+        Raises:
+            ValueError: If timestamps or text is valid
+        """
+
+        results = []
+
+        current_type = None
+
+        for line in text.splitlines():
+            line = line.strip()
+
+            if not line:
+                continue
+
+            if line.upper() in HEADER_MAP:
+                current_type = HEADER_MAP[line.upper()]
+                continue
+
+            match = re.match(r"(\d{2}:\d{2}:\d{2})\s*-?\s*(.+)", line)
+            if match and current_type is not None:
+                time_str, label = match.groups()
+                h, m, s = map(int, time_str.split(":"))
+                start_time = timedelta(hours=h, minutes=m, seconds=s)
+
+                results.append(
+                    {
+                        "label": label.strip(),
+                        "start_time": start_time,
+                        "timestamp_type": current_type,
+                    }
+                )
+        if not results:
+            raise ValueError(_("No valid timestamps found"))
+
+        return results
