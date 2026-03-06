@@ -39,6 +39,8 @@ class VideoTimestamp(models.Model):
         TASK = 2, _("Task")
         LECTURE = 3, _("Lecture")
 
+    PREMIUM_TYPES = [TimestampType.TASK, TimestampType.LECTURE]
+
     video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name="timestamps"
     )
@@ -57,6 +59,11 @@ class VideoTimestamp(models.Model):
         hours, remainder = divmod(total, 3600)
         minutes, seconds = divmod(remainder, 60)
         return f"{hours:02}:{minutes:02}:{seconds:02}"
+
+    @property
+    def is_premium(self) -> bool:
+        """Returns True if timestamp is available only for premium users."""
+        return self.timestamp_type in self.PREMIUM_TYPES
 
     def __str__(self):
         return f"{self.video.title} – {self.label}"
