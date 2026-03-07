@@ -8,6 +8,13 @@ from videos.services import YoutubeService
 
 
 class AddVideoForm(forms.ModelForm):
+    timestamps_text = forms.CharField(
+        widget=forms.Textarea(attrs={"class": "form-control", "rows": 10}),
+        required=False,
+        label=_("Timestamps"),
+        help_text=_("Paste YouTube description with timestamps here"),
+    )
+
     class Meta:
         model = Video
         fields = ["title", "youtube_url", "section", "subject", "level"]
