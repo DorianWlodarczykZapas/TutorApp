@@ -7,13 +7,13 @@ from videos.models import Video
 from videos.services import YoutubeService
 
 
+
+
+
+
+
+
 class AddVideoForm(forms.ModelForm):
-    timestamps_text = forms.CharField(
-        widget=forms.Textarea(attrs={"class": "form-control", "rows": 10}),
-        required=False,
-        label=_("Timestamps"),
-        help_text=_("Paste YouTube description with timestamps here"),
-    )
 
     class Meta:
         model = Video
@@ -27,6 +27,14 @@ class AddVideoForm(forms.ModelForm):
         }
 
     def clean_youtube_url(self):
+        """Validates and normalizes YouTube URL.
+
+        Returns:
+            str: Normalized YouTube URL.
+
+        Raises:
+            ValidationError: If URL is not a valid YouTube link.
+        """
         url = self.cleaned_data.get("youtube_url")
 
         service = YouTubeService()
