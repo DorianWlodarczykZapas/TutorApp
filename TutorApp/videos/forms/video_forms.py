@@ -4,6 +4,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_select2.forms import ModelSelect2Widget
 from videos.models import Video
+from videos.services import YoutubeService
 
 
 class AddVideoForm(forms.ModelForm):
@@ -19,30 +20,17 @@ class AddVideoForm(forms.ModelForm):
         }
 
     def clean_youtube_url(self):
-
         url = self.cleaned_data.get("youtube_url")
 
-        patterns = [
-            r"(?:https?://)?(?:www\.)?youtube\.com/watch\?v=([a-zA-Z0-9_-]{11})",
-            r"(?:https?://)?(?:www\.)?youtu\.be/([a-zA-Z0-9_-]{11})",
-            r"(?:https?://)?(?:www\.)?youtube\.com/embed/([a-zA-Z0-9_-]{11})",
-        ]
-
-        video_id = None
-        for pattern in patterns:
-            match = re.search(pattern, url)
-            if match:
-                video_id = match.group(1)
-                break
+        service = YouTubeService()
+        video_id = service.extract_video_id(url)
 
         if not video_id:
             raise forms.ValidationError(
                 _("Invalid YouTube URL. Please provide a valid YouTube video link.")
             )
 
-        normalized_url = f"https://www.youtube.com/watch?v={video_id}"
-        return normalized_url
-
+        return f"https://www.youtube.com/watch?v={video_id}"
 
 class VideoFilterForm(forms.Form):
     title = forms.ModelChoiceField(
