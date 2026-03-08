@@ -16,7 +16,6 @@ from plans.models import UserPlan
 from users.mixins import TeacherRequiredMixin
 from videos.filters import VideoFilterSet
 from videos.forms.video_forms import AddVideoForm, VideoFilterForm
-from videos.forms.video_formset import VideoTimestampFormSet
 from videos.models import Video, VideoTimestamp
 
 
@@ -25,16 +24,6 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
     form_class = AddVideoForm
     template_name = "videos/add_video.html"
     success_url = reverse_lazy("videos:add_video")
-
-    def get_timestamp_formset(self, form=None):
-        """Helper method to create and return a formset"""
-
-        if self.request.POST:
-            return VideoTimestampFormSet(
-                self.request.POST, instance=form.instance if form else None
-            )
-
-        return VideoTimestampFormSet()
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
