@@ -24,7 +24,7 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
     model = Video
     form_class = AddVideoForm
     template_name = "videos/add_video.html"
-    success_url = reverse_lazy("videos:add")
+    success_url = reverse_lazy("videos:add_video")
 
     def get_timestamp_formset(self, form=None):
         """Helper method to create and return a formset"""
