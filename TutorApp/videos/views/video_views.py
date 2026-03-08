@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
 from django.db.models import Prefetch, QuerySet
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -18,12 +19,14 @@ from videos.filters import VideoFilterSet
 from videos.forms.video_forms import AddVideoForm, VideoFilterForm
 from videos.models import Video, VideoTimestamp
 
+from TutorApp.videos.services import YoutubeService
+
 
 class VideoCreateView(TeacherRequiredMixin, CreateView):
     model = Video
     form_class = AddVideoForm
     template_name = "videos/add_video.html"
-    success_url = reverse_lazy("videos:add_video")
+    success_url = reverse_lazy("videos:video_list")
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -33,26 +36,28 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form: AddVideoForm):
+        url = form.cleaned_data.get("youtube_url")
+        service = YoutubeService()
 
-        timestamp_formset = self.get_timestamp_formset(form)
+        try:
+            data = service.extract_video_title_and_description(url)
+        except ValueError as e:
+            form.add_error("youtube_url", str(e))
+            return self.form_invalid(form)
 
-        if timestamp_formset.is_valid():
-            with transaction.atomic():
-                self.object = form.save()
-                timestamp_formset.instance = self.object
-                timestamp_formset.save()
+        with transaction.atomic():
+            self.object = form.save(commit=False)
+            self.object.title = data["title"]
+            self.object.save()
 
-            messages.success(
-                self.request,
-                _("Movie '%(title)s' added successfully!")
-                % {"title": self.object.title},
-            )
-            return super().form_valid(form)
+            for ts in service.parse_timestamps(data["description"]):
+                VideoTimestamp.objects.create(video=self.object, **ts)
 
-        else:
-            return self.render_to_response(
-                self.get_context_data(form=form, timestamp_formset=timestamp_formset)
-            )
+        messages.success(
+            self.request,
+            _("Movie '%(title)s' added successfully!") % {"title": self.object.title},
+        )
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class VideoDeleteView(TeacherRequiredMixin, DeleteView):
