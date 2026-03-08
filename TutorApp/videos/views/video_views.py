@@ -7,8 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
 from django.db.models import Prefetch, QuerySet
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
@@ -57,7 +56,7 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
             self.request,
             _("Movie '%(title)s' added successfully!") % {"title": self.object.title},
         )
-        return HttpResponseRedirect(self.get_success_url())
+        return redirect(self.get_success_url())
 
 
 class VideoDeleteView(TeacherRequiredMixin, DeleteView):
