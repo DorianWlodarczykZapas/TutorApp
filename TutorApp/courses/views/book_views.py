@@ -18,8 +18,8 @@ class AddBook(TeacherRequiredMixin, CreateView):
 
     model = Book
     form_class = BookForm
-    template_name = "examination_tasks/add_book.html"
-    success_url = reverse_lazy("examination_tasks:add_book")
+    template_name = "courses/add_book.html"
+    success_url = reverse_lazy("courses:add_book")
 
     def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """
