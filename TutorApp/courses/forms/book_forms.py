@@ -1,9 +1,9 @@
 from courses.models import Book
-from django.forms import forms
+from django import forms
 from django.utils.translation import gettext_lazy as _
 
 
-class BookForm(forms.Form):
+class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = [
