@@ -120,7 +120,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 LOCALE_PATHS = [
-    BASE_DIR / "locale",
+    APPS_DIR / "locale",
 ]
 
 STATIC_URL = "static/"
