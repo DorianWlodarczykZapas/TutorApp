@@ -44,14 +44,20 @@ class DifficultyLevelChoices(models.IntegerChoices):
 
 
 class GradeChoices(models.IntegerChoices):
-    PRIMARY_7 = 7, "7th Grade - Primary"
-    PRIMARY_8 = 8, "8th Grade - Primary"
-    SECONDARY_1 = 9, "1st Year - Secondary"
-    SECONDARY_2 = 10, "2nd Year - Secondary"
-    SECONDARY_3 = 11, "3rd Year - Secondary"
-    SECONDARY_4 = 12, "4th Year - Secondary"
+    PRIMARY_7 = 7, _("7th Grade - Primary")
+    PRIMARY_8 = 8, _("8th Grade - Primary")
+    SECONDARY_1 = 9, _("1st Year - Secondary")
+    SECONDARY_2 = 10, _("2nd Year - Secondary")
+    SECONDARY_3 = 11, _("3rd Year - Secondary")
+    SECONDARY_4 = 12, _("4th Year - Secondary")
 
 
 class SubjectChoices(models.IntegerChoices):
     MATH = 1, _("Mathematics")
     PHYSICS = 2, _("Physics")
+
+
+class BookTypeChoices(models.IntegerChoices):
+    TEXTBOOK = 1, _("Textbook")
+    TASK_COLLECTION = 2, _("Task Collection")
+    WORK_CARDS = 3, _("Work Cards")
