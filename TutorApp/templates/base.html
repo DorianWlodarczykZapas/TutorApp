@@ -27,36 +27,12 @@
                 <div class="logo">Appname</div>
                 <nav class="nav-links">
                     {% if user.is_authenticated %}
-                        <a href="#">{% trans "Videos" %}</a>
-                        <a href="#">{% trans "Calendar" %}</a>
-                        <a href="#">{% trans "Training Tasks" %}</a>
-                        <a href="#">{% trans "Plans" %}</a>
-                        <div class="menu">
-                            <input type="checkbox" id="examToggle" hidden>
-                            <label for="examToggle">{% trans "Examination Tasks" %}</label>
-                            <div class="dropdown-content">
-                                <a href="{% url 'examination_tasks:exam_list' %}">{% trans "Exam List" %}</a>
-                                <a href="{% url 'courses:training_tasks_list' %}">{% trans "Training Tasks List" %}</a>
-                                {% if user.role_type == 2 %}
-                                    <a href="{% url 'examination_tasks:exam_add' %}">{% trans "Add Exam" %}</a>
-                                    <a href="{% url 'examination_tasks:add_exam_task' %}">{% trans "Add Exam Task" %}</a>
-                                    <a href="{% url 'courses:add_section' %}">{% trans "Add Section" %}</a>
-                                    <a href="{% url 'courses:add_topic' %}">{% trans "Add Topic" %}</a>
-                                    <a href="{% url 'courses:add_training_task' %}">{% trans "Add Training Task" %}</a>
-                                    <a href="{% url 'videos:add_video' %}">{% trans "Add Video" %}</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="menu">
-                            <input type="checkbox" id="motifToggle" hidden>
-                            <label for="motifToggle">{% trans "Motifs" %}</label>
-                            <div class="dropdown-content">
-                                <a href="{% url 'motifs:list_motifs' %}">{% trans "Motifs List" %}</a>
-                                {% if user.role_type == 2 %}
-                                    <a href="{% url 'motifs:add_motif' %}">{% trans "Add Motif" %}</a>
-                                {% endif %}
-                            </div>
-                        </div>
+                        {% include 'navigation_links/videos.html' %}
+                        {% include 'navigation_links/examination_tasks.html' %}
+                        {% include 'navigation_links/plans.html' %}
+                        {% include 'navigation_links/quizes.html' %}
+                        {% include 'navigation_links/motifs.html' %}
+                        {% include 'navigation_links/courses.html' %}
                     {% else %}
                         <a href="#">{% trans "Home" %}</a>
                         <a href="#">{% trans "About" %}</a>
