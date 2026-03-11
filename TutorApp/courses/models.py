@@ -7,16 +7,21 @@ from examination_tasks.choices import GradeChoices, SubjectChoices
 class Book(models.Model):
 
     title = models.CharField(max_length=255, verbose_name="Title")
-    author = models.CharField(max_length=255, blank=True, verbose_name="Author")
+    book_type = models.IntegerField(
+        max_length=20,
+        choices=choices.BookTypeChoices.choices,
+        verbose_name="Book Type",
+    )
+    authors = models.CharField(max_length=500, blank=True, verbose_name="Author")
     publication_year = models.IntegerField(
         null=True, blank=True, verbose_name="Publication Year"
     )
-    school_level = models.CharField(
+    school_level = models.IntegerField(
         max_length=20,
         choices=choices.SchoolLevelChoices.choices,
         verbose_name="School Level",
     )
-    subject = models.CharField(
+    subject = models.IntegerField(
         max_length=10, choices=SubjectChoices, verbose_name="Subject", default=1
     )
     grade = models.IntegerField(
