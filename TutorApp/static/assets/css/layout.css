@@ -1,13 +1,13 @@
 .main-content {
   display: flex;
   justify-content: center;
-  align-items: center;
+
   min-height: calc(100vh - 100px);
   padding: 20px;
 }
 
 .form-container {
-  width: 700px;
+  width: min(700px, 90%);
   background-color: white;
   border: 5px solid #008374;
   border-radius: 40px;
