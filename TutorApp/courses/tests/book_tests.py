@@ -1,24 +1,24 @@
+from courses.models import Book
 from django.test import Client, TestCase
 from django.urls import reverse
-from examination_tasks.choices import SchoolLevelChoices
+from examination_tasks.choices import BookTypeChoices, SchoolLevelChoices
 from users.factories import TeacherFactory, UserFactory
-
-from .models import Book
 
 
 class AddBookViewTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse("add_book")
+        self.url = reverse("courses:add_book")
         self.student = UserFactory.create()
         self.teacher = TeacherFactory.create()
         self.valid_data = {
             "title": "Math for 8 grader",
-            "author": "Jan Kowalski",
+            "authors": "Jan Kowalski",
             "publication_year": 2022,
             "school_level": SchoolLevelChoices.PRIMARY,
             "subject": 1,
             "grade": 8,
+            "book_type": BookTypeChoices.TEXTBOOK,
         }
 
     def test_unauthorized_access(self):
@@ -33,9 +33,7 @@ class AddBookViewTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_can_teacher_access(self):
-        """
-        Test case that checks if teacher can access adding book page
-        """
+        """Test case that checks if teacher can access adding book page"""
         self.client.force_login(self.teacher)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
@@ -49,7 +47,7 @@ class AddBookViewTests(TestCase):
 
     def test_add_book_without_title(self):
         """Test case that checks if book without title can be added"""
-        self.valid_data["title"] = None
+        self.valid_data["title"] = ""
         self.client.force_login(self.teacher)
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
@@ -72,8 +70,7 @@ class AddBookViewTests(TestCase):
         self.assertEqual(Book.objects.count(), 0)
 
     def test_add_book_with_non_existing_subject(self):
-        """Test case that checks if book with non-existing subject can be added
-        Available subjects are (1) - math, (2) - physics"""
+        """Test case that checks if book with non-existing subject can be added"""
         self.valid_data["subject"] = 4
         self.client.force_login(self.teacher)
         response = self.client.post(self.url, data=self.valid_data)
@@ -81,17 +78,16 @@ class AddBookViewTests(TestCase):
         self.assertEqual(Book.objects.count(), 0)
 
     def test_add_book_with_non_existing_school_level(self):
-        """Test case that checks if book with non-existing school level can be added
-        Available school levels are (1) - primary, (2) - secondary"""
+        """Test case that checks if book with non-existing school level can be added"""
         self.valid_data["school_level"] = 4
         self.client.force_login(self.teacher)
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Book.objects.count(), 0)
 
-    def test_add_book_with_too_long_school_type(self):
-        """Test case that checks if book with too long school type can be added"""
-        self.valid_data["school_type"] = "b" * 21
+    def test_add_book_with_non_existing_book_type(self):
+        """Test case that checks if book with non-existing book type can be added"""
+        self.valid_data["book_type"] = 99
         self.client.force_login(self.teacher)
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
