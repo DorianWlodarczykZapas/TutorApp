@@ -16,9 +16,9 @@ class AddSection(TeacherRequiredMixin, CreateView):
     """
 
     model = Section
-    form = SectionForm
-    template_name = "examination_tasks/add_section.html"
-    success_url = reverse_lazy("examination_tasks:add_section")
+    form_class = SectionForm
+    template_name = "courses/add_section.html"
+    success_url = reverse_lazy("courses:add_section")
 
     def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """
