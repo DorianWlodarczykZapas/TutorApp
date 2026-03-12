@@ -113,8 +113,8 @@ msgid "Book Title"
 msgstr "Tytuł Książki"
 
 #: .\courses\forms\book_forms.py:32
-msgid "Author"
-msgstr "Autor"
+msgid "Authors"
+msgstr "Autorzy"
 
 #: .\courses\forms\book_forms.py:33
 msgid "Publication Year"
@@ -185,10 +185,9 @@ msgid "Book added successfully!"
 msgstr "Książka dodana pomyślnie!"
 
 #: .\courses\views\section_views.py:28
-#, fuzzy
-#| msgid "Add New Book"
+
 msgid "Add New Section"
-msgstr "Dodaj Nową Książke"
+msgstr "Dodaj Nowy Dział"
 
 #: .\courses\views\section_views.py:35
 #, fuzzy
@@ -797,10 +796,9 @@ msgstr "Dodaj Książkę"
 
 #: .\templates\courses\add_section.html:27
 #: .\templates\navigation_links\courses.html:9
-#, fuzzy
-#| msgid "Book section"
+
 msgid "Add Section"
-msgstr "Dział z książki"
+msgstr "Dodaj Dział"
 
 #: .\templates\courses\add_topic.html:23
 msgid "Topic Name"
@@ -1846,6 +1844,18 @@ msgstr ""
 #| msgid "Exam added successfully!"
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Egzamin dodany pomyślnie"
+
+msgid "Book Type"
+msgstr "Rodzaj Książki"
+
+msgid "Textbook"
+msgstr "Podręcznik"
+
+msgid "Task Collection"
+msgstr "Zbiór zadań"
+
+msgid "Work Cards"
+msgstr "Karty Pracy"
 
 #~ msgid "Calendar"
 #~ msgstr "Kalendarz"
