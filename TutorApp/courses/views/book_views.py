@@ -37,6 +37,6 @@ class AddBook(TeacherRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.role_type != 2:
+        if not request.user.is_authenticated or request.user.role_type != 2:
             return redirect("users:home")
         return super().dispatch(request, *args, **kwargs)
