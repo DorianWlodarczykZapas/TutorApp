@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from typing import List
 
@@ -149,3 +150,16 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 YOUTUBE_API_KEY = env("YOUTUBE_API_KEY")
+
+if TESTING := "test" in sys.argv:
+    PASSWORD_HASHERS = [
+        "django.contrib.auth.hashers.MD5PasswordHasher",
+    ]
+
+SELECT2_CACHE_BACKEND = "default"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
