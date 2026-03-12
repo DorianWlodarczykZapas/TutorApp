@@ -8,7 +8,6 @@ class Book(models.Model):
 
     title = models.CharField(max_length=255, verbose_name="Title")
     book_type = models.IntegerField(
-        max_length=20,
         choices=choices.BookTypeChoices.choices,
         verbose_name="Book Type",
     )
@@ -17,12 +16,11 @@ class Book(models.Model):
         null=True, blank=True, verbose_name="Publication Year"
     )
     school_level = models.IntegerField(
-        max_length=20,
         choices=choices.SchoolLevelChoices.choices,
         verbose_name="School Level",
     )
     subject = models.IntegerField(
-        max_length=10, choices=SubjectChoices, verbose_name="Subject", default=1
+        choices=SubjectChoices, verbose_name="Subject", default=1
     )
     grade = models.IntegerField(
         choices=GradeChoices.choices,
@@ -39,7 +37,7 @@ class Book(models.Model):
 
     def __str__(self):
         grade_info = f" - {self.get_grade_display()}" if self.grade else ""
-        return f"{self.title}{grade_info} ({self.get_subject_display()})"
+        return f"{self.title} - {self.get_book_type_display()} {grade_info} ({self.get_subject_display()})"
 
 
 class Section(models.Model):
@@ -60,7 +58,7 @@ class Section(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return f"{self.book.title} - {self.name}"
+        return f"{self.books.title} - {self.name}"
 
 
 class Topic(models.Model):
