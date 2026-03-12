@@ -18,6 +18,11 @@
             <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
             {% if form.title.errors %}<div class="field-errors">{{ form.title.errors|striptags }}</div>{% endif %}
         </div>
+        <div class="floating-field field-select">
+            {{ form.book_type|add_class:"form-input" }}
+            <label for="{{ form.book_type.id_for_label }}">{{ form.book_type.label }}</label>
+            {% if form.book_type.errors %}<div class="field-errors">{{ form.book_type.errors|striptags }}</div>{% endif %}
+        </div>
         <div class="floating-field field-char">
             {{ form.authors|add_class:"form-input" }}
             <label for="{{ form.authors.id_for_label }}">{{ form.authors.label }}</label>
