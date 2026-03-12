@@ -13,6 +13,17 @@ class BookForm(forms.ModelForm):
         )
         subject_choices = [("", _("Subject"))] + list(choices.SubjectChoices.choices)
         grade_choices = [("", _("Grade"))] + list(choices.GradeChoices.choices)
+        book_type_choices = [("", _("Book Type"))] + list(
+            choices.BookTypeChoices.choices
+        )
+
+        self.fields["book_type"] = forms.TypedChoiceField(
+            choices=book_type_choices,
+            widget=forms.Select(attrs={"placeholder": " "}),
+            label=_("Book Type"),
+            coerce=int,
+            empty_value=None,
+        )
 
         self.fields["school_level"] = forms.TypedChoiceField(
             choices=school_level_choices,
@@ -41,6 +52,7 @@ class BookForm(forms.ModelForm):
         model = Book
         fields = [
             "title",
+            "book_type",
             "authors",
             "publication_year",
             "school_level",
