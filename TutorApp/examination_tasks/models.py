@@ -1,24 +1,28 @@
 import os
 
+from courses.choices import SubjectChoices
 from courses.models import Topic
 from django.conf import settings
 from django.db import models
-
-from . import choices
-from .choices import SubjectChoices
+from examination_tasks.choices import (
+    LEVEL_CHOICES,
+    MONTH_CHOICES,
+    YEAR_CHOICES,
+    ExamTypeChoices,
+)
 
 
 class Exam(models.Model):
     exam_type = models.IntegerField(
-        choices=choices.ExamTypeChoices.choices,
-        default=choices.ExamTypeChoices.MATRICULATION,
+        choices=ExamTypeChoices.choices,
+        default=ExamTypeChoices.MATRICULATION,
         verbose_name="Exam type",
     )
-    subject = models.CharField(
-        max_length=10, choices=SubjectChoices, verbose_name="Subject", default=1
+    subject = models.IntegerField(
+        choices=SubjectChoices.choices, verbose_name="Subject", default=1
     )
-    year = models.IntegerField(choices=choices.YEAR_CHOICES)
-    month = models.IntegerField(choices=choices.MONTH_CHOICES)
+    year = models.IntegerField(choices=YEAR_CHOICES)
+    month = models.IntegerField(choices=MONTH_CHOICES)
     tasks_link = models.FileField(upload_to="exam_pdfs/")
     solutions_link = models.FileField(
         upload_to="exam_answers_pdfs/", blank=True, null=True
@@ -27,7 +31,7 @@ class Exam(models.Model):
         default=0, help_text="Number of tasks in this exam"
     )
     level_type = models.IntegerField(
-        choices=choices.LEVEL_CHOICES,
+        choices=LEVEL_CHOICES,
         null=True,
         blank=True,
         help_text="Exam level: basic or extended (Matriculation only)",
@@ -38,13 +42,11 @@ class Exam(models.Model):
         ordering = ["-year", "-month", "-exam_type", "-level_type"]
 
     def __str__(self):
-
-        month_display = dict(choices.MONTH_CHOICES).get(self.month)
+        month_display = dict(MONTH_CHOICES).get(self.month)
         type_display = self.get_exam_type_display()
 
-        if self.exam_type == choices.ExamTypeChoices.MATRICULATION:
-
-            level_display = dict(choices.LEVEL_CHOICES).get(self.level_type)
+        if self.exam_type == ExamTypeChoices.MATRICULATION:
+            level_display = dict(LEVEL_CHOICES).get(self.level_type)
             level_str = f" – {level_display.lower()}" if level_display else ""
             return f"{type_display} {month_display} {self.year}{level_str}"
 
@@ -55,7 +57,7 @@ def exam_task_upload_path(instance, filename):
     exam = instance.exam
     return os.path.join(
         "exam_tasks",
-        str(exam.subject.name),
+        str(exam.get_subject_display()),
         str(exam.exam_type),
         str(exam.year),
         str(exam.month),
