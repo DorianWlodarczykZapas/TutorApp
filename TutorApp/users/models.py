@@ -1,7 +1,7 @@
+from courses.choices import GradeChoices, SchoolLevelChoices
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from examination_tasks.choices import GradeChoices, SchoolLevelChoices
 
 
 class User(AbstractUser):
