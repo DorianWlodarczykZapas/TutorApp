@@ -11,8 +11,10 @@ class TeacherRequiredMixin(LoginRequiredMixin):
     """
 
     def dispatch(self, request, *args, **kwargs):
-        user_service = UserService(request.user)
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
 
+        user_service = UserService(request.user)
         if not user_service.is_teacher():
             raise PermissionDenied(_("Only teachers can perform this action."))
 
