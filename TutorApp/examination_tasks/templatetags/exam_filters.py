@@ -1,6 +1,6 @@
 from django import template
+from examination_tasks.choices import MONTH_CHOICES
 
-from ..choices import MONTH_CHOICES
 from ..models import Exam
 
 register = template.Library()
