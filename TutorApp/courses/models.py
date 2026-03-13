@@ -1,14 +1,19 @@
+from courses.choices import (
+    BookTypeChoices,
+    DifficultyLevelChoices,
+    GradeChoices,
+    SchoolLevelChoices,
+    SubjectChoices,
+)
 from django.conf import settings
 from django.db import models
-from examination_tasks import choices
-from examination_tasks.choices import GradeChoices, SubjectChoices
 
 
 class Book(models.Model):
 
     title = models.CharField(max_length=255, verbose_name="Title")
     book_type = models.IntegerField(
-        choices=choices.BookTypeChoices.choices,
+        choices=BookTypeChoices.choices,
         verbose_name="Book Type",
     )
     authors = models.CharField(max_length=500, blank=True, verbose_name="Author")
@@ -16,11 +21,11 @@ class Book(models.Model):
         null=True, blank=True, verbose_name="Publication Year"
     )
     school_level = models.IntegerField(
-        choices=choices.SchoolLevelChoices.choices,
+        choices=SchoolLevelChoices.choices,
         verbose_name="School Level",
     )
     subject = models.IntegerField(
-        choices=SubjectChoices, verbose_name="Subject", default=1
+        choices=SubjectChoices.choices, verbose_name="Subject", default=1
     )
     grade = models.IntegerField(
         choices=GradeChoices.choices,
@@ -41,24 +46,9 @@ class Book(models.Model):
 
 
 class Section(models.Model):
-    books = models.ManyToManyField(
-        Book,
-        related_name="sections",
-        verbose_name="Books",
-    )
-    name = models.CharField(
-        max_length=255,
-        verbose_name="Section Name",
-        help_text="e.g., 'Linear Equations', 'Thermodynamics', 'Kinematics'",
-    )
-
-    class Meta:
-        verbose_name = "Section"
-        verbose_name_plural = "Sections"
-        ordering = ["name"]
-
-    def __str__(self):
-        return f"{self.books.title} - {self.name}"
+    grade = models.IntegerField(choices=GradeChoices.choices)
+    subject = models.IntegerField(choices=SubjectChoices.choices)
+    name = models.CharField(max_length=255)
 
 
 class Topic(models.Model):
@@ -98,8 +88,8 @@ class TrainingTask(models.Model):
     )
 
     level = models.IntegerField(
-        choices=choices.DifficultyLevelChoices.choices,
-        default=choices.DifficultyLevelChoices.INTERMEDIATE,
+        choices=DifficultyLevelChoices.choices,
+        default=DifficultyLevelChoices.INTERMEDIATE,
         verbose_name="Difficulty Level",
     )
     completed_by = models.ManyToManyField(
