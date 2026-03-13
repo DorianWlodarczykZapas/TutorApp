@@ -123,7 +123,7 @@ msgstr "Rok Publikacji"
 #: .\courses\forms\section_forms.py:12 .\courses\forms\topic_forms.py:11
 #: .\templates\courses\add_section.html:23
 msgid "Section Name"
-msgstr ""
+msgstr "Nazwa Działu"
 
 #: .\courses\forms\topic_forms.py:12
 msgid "Specific Topic"
@@ -190,8 +190,6 @@ msgid "Add New Section"
 msgstr "Dodaj Nowy Dział"
 
 #: .\courses\views\section_views.py:35
-#, fuzzy
-#| msgid "Exam added successfully!"
 msgid "Section added successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
