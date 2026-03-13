@@ -3,13 +3,14 @@ from courses.factories import SectionFactory, TopicFactory
 from django.contrib.auth import get_user_model
 from factory.django import DjangoModelFactory
 
-from ..choices import (
+from TutorApp.courses.choices import (
     LEVEL_CHOICES,
     MONTH_CHOICES,
     YEAR_CHOICES,
     ExamTypeChoices,
     SubjectChoices,
 )
+
 from ..models import Exam, ExamTask
 
 
