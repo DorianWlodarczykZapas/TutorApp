@@ -1,9 +1,8 @@
 import factory
-from courses.models import Book, Section, Topic
-from examination_tasks.choices import SchoolLevelChoices
+from courses.choices import SchoolLevelChoices
+from courses.models import Book, Section, Topic, TrainingTask
+from examination_tasks.choices import DifficultyLevelChoices
 from factory.django import DjangoModelFactory
-
-from TutorApp.examination_tasks.choices import DifficultyLevelChoices
 
 
 class BookFactory(DjangoModelFactory):
@@ -80,7 +79,6 @@ class TopicFactory(DjangoModelFactory):
 class TrainingTaskFactory(DjangoModelFactory):
     class Meta:
         model = TrainingTask
-
 
     task_content = factory.Faker("paragraph")
     answer = factory.Faker("word")
