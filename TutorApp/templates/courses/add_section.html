@@ -4,12 +4,8 @@
 {% block title %}
     {% trans "Add New Section" %}
 {% endblock %}
-{% block extra_head %}
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    {{ form.media }}
-{% endblock %}
 {% block content %}
-    <form method="post" class="form-container" enctype="multipart/form-data">
+    <form method="post" class="form-container">
         {% csrf_token %}
         <h1 class="form-title">{% trans "Add New Section" %}</h1>
         {% if form.non_field_errors %}
@@ -17,9 +13,15 @@
                 {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
             </div>
         {% endif %}
-        <div class="floating-field field-search">
-            {{ form.books }}
-            {% if form.books.errors %}<div class="field-errors">{{ form.books.errors|striptags }}</div>{% endif %}
+        <div class="floating-field field-select">
+            {{ form.grade|add_class:"form-input" }}
+            <label for="{{ form.grade.id_for_label }}">{{ form.grade.label }}</label>
+            {% if form.grade.errors %}<div class="field-errors">{{ form.grade.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-select">
+            {{ form.subject|add_class:"form-input" }}
+            <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
+            {% if form.subject.errors %}<div class="field-errors">{{ form.subject.errors|striptags }}</div>{% endif %}
         </div>
         <div class="floating-field field-char">
             {{ form.name|add_class:"form-input" }}
