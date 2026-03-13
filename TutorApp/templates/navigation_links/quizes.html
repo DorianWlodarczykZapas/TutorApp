@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="nav-menu">
+    <input type="checkbox" id="quizesToggle" hidden>
+    <label for="quizesToggle">{% trans "Quizes" %}</label>
+    <div class="dropdown-content">
+        <a href="{% url 'quizes:quiz_list' %}">{% trans "Quiz List" %}</a>
+        {% if user.role_type == 2 %}
+            <a href="{% url 'quizes:add_quiz' %}">{% trans "Add Quiz" %}</a>
+        {% endif %}
+    </div>
+</div>

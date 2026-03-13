@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="nav-menu">
+    <input type="checkbox" id="motifToggle" hidden>
+    <label for="motifToggle">{% trans "Motifs" %}</label>
+    <div class="dropdown-content">
+        <a href="{% url 'motifs:list_motifs' %}">{% trans "Motifs List" %}</a>
+        {% if user.role_type == 2 %}
+            <a href="{% url 'motifs:add_motif' %}">{% trans "Add Motif" %}</a>
+        {% endif %}
+    </div>
+</div>

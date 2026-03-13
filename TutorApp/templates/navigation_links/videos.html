@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="nav-menu">
+    <input type="checkbox" id="videosToggle" hidden>
+    <label for="videosToggle">{% trans "Videos" %}</label>
+    <div class="dropdown-content">
+        <a href="{% url 'videos:video_list' %}">{% trans "All Videos" %}</a>
+        {% if user.role_type == 2 %}
+            <a href="{% url 'videos:add_video' %}">{% trans "Add Video" %}</a>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="nav-menu">
+    <input type="checkbox" id="trainingToggle" hidden>
+    <label for="trainingToggle">{% trans "Training Tasks" %}</label>
+    <div class="dropdown-content">
+        <a href="{% url 'courses:training_tasks_list' %}">{% trans "Training Tasks List" %}</a>
+        {% if user.role_type == 2 %}
+            <a href="{% url 'courses:add_book' %}">{% trans "Add Book" %}</a>
+            <a href="{% url 'courses:add_section' %}">{% trans "Add Section" %}</a>
+            <a href="{% url 'courses:add_topic' %}">{% trans "Add Topic" %}</a>
+            <a href="{% url 'courses:add_training_task' %}">{% trans "Add Training Task" %}</a>
+        {% endif %}
+    </div>
+</div>
