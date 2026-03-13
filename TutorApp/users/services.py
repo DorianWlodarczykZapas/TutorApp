@@ -1,10 +1,10 @@
 from datetime import timedelta
 from typing import Optional
 
+from courses.choices import GradeChoices, SchoolLevelChoices
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.utils import timezone
-from examination_tasks.choices import GradeChoices, SchoolLevelChoices
 from plans.models import Plan, UserPlan
 
 from .models import User
