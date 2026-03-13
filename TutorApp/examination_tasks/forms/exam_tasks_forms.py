@@ -23,7 +23,7 @@ class ExamTaskBasicForm(forms.Form):
     )
 
     section = forms.ModelChoiceField(
-        queryset=Section.objects.all().order_by("books__title", "name"),
+        queryset=Section.objects.all().order_by("name"),
         required=False,
         label=_("Section (optional)"),
         widget=forms.Select(attrs={"class": "form-control"}),
