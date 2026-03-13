@@ -1,7 +1,7 @@
+from courses.choices import BookTypeChoices, SchoolLevelChoices
 from courses.models import Book
 from django.test import Client, TestCase
 from django.urls import reverse
-from examination_tasks.choices import BookTypeChoices, SchoolLevelChoices
 from users.factories import TeacherFactory, UserFactory
 
 
@@ -30,7 +30,7 @@ class AddBookViewTests(TestCase):
         """Test case that checks if student can access adding book page"""
         self.client.force_login(self.student)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 403)
 
     def test_can_teacher_access(self):
         """Test case that checks if teacher can access adding book page"""
