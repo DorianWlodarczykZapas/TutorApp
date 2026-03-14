@@ -1,31 +1,28 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load i18n %}
+{% load widget_tweaks %}
+{% block title %}
+    {% trans "Add New Topic" %}
+{% endblock %}
 {% block content %}
-    <div class="main-content">
-        <div class="form-container">
-            <h1 class="form-title">{{ title }}</h1>
-            {% if messages %}
-                <ul class="messages-list">
-                    {% for message in messages %}
-                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <form method="post" novalidate>
-                {% csrf_token %}
-                {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
-                <div class="form-group">
-                    <label for="{{ form.section.id_for_label }}" class="form-label">{% trans "Section" %}</label>
-                    {{ form.section }}
-                    {% if form.section.errors %}<div class="field-errors">{{ form.section.errors }}</div>{% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.name.id_for_label }}" class="form-label">{% trans "Topic Name" %}</label>
-                    {{ form.name }}
-                    {% if form.name.errors %}<div class="field-errors">{{ form.name.errors }}</div>{% endif %}
-                </div>
-                <button type="submit" class="btn-submit">{% trans "Add Topic" %}</button>
-            </form>
+    <form method="post" class="form-container">
+        {% csrf_token %}
+        <h1 class="form-title">{% trans "Add New Topic" %}</h1>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        <div class="floating-field field-select">
+            {{ form.section|add_class:"form-input" }}
+            <label for="{{ form.section.id_for_label }}">{{ form.section.label }}</label>
+            {% if form.section.errors %}<div class="field-errors">{{ form.section.errors|striptags }}</div>{% endif %}
         </div>
-    </div>
+        <div class="floating-field field-char">
+            {{ form.name|add_class:"form-input" }}
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {% if form.name.errors %}<div class="field-errors">{{ form.name.errors|striptags }}</div>{% endif %}
+        </div>
+        <button type="submit" class="btn-submit">{% trans "Add Topic" %}</button>
+    </form>
 {% endblock %}
