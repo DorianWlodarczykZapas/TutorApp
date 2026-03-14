@@ -126,8 +126,8 @@ msgid "Section Name"
 msgstr "Nazwa Działu"
 
 #: .\courses\forms\topic_forms.py:12
-msgid "Specific Topic"
-msgstr ""
+msgid "Input Topic Name"
+msgstr "Wpisz Nazwę Tematu"
 
 #: .\courses\forms\training_tasks_forms.py:11
 #: .\templates\courses\add_training_task.html:18
@@ -194,16 +194,14 @@ msgid "Section added successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
 #: .\courses\views\topic_views.py:28
-#, fuzzy
-#| msgid "Add New Book"
+
 msgid "Add New Topic"
-msgstr "Dodaj Nową Książke"
+msgstr "Dodaj Nowy Temat"
 
 #: .\courses\views\topic_views.py:35
-#, fuzzy
-#| msgid "Exam added successfully!"
+
 msgid "Topic added successfully!"
-msgstr "Egzamin dodany pomyślnie"
+msgstr "Temat dodany pomyślnie"
 
 #: .\courses\views\training_task_views.py:28
 #, fuzzy
@@ -805,7 +803,7 @@ msgstr ""
 #: .\templates\courses\add_topic.html:27
 #: .\templates\navigation_links\courses.html:10
 msgid "Add Topic"
-msgstr ""
+msgstr "Dodaj Temat"
 
 #: .\templates\courses\add_training_task.html:42
 #: .\templates\navigation_links\courses.html:11

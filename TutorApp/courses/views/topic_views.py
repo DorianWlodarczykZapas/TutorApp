@@ -16,9 +16,9 @@ class AddTopic(TeacherRequiredMixin, CreateView):
     """
 
     model = Topic
-    form = TopicForm
-    template_name = "examination_tasks/add_topic.html"
-    success_url = reverse_lazy("examination_tasks:add_topic")
+    form_class = TopicForm
+    template_name = "courses/add_topic.html"
+    success_url = reverse_lazy("courses:add_topic")
 
     def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """
