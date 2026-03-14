@@ -17,8 +17,7 @@ from users.mixins import TeacherRequiredMixin
 from videos.filters import VideoFilterSet
 from videos.forms.video_forms import AddVideoForm, VideoFilterForm
 from videos.models import Video, VideoTimestamp
-
-from TutorApp.videos.services import YoutubeService
+from videos.services import YoutubeService
 
 
 class VideoCreateView(TeacherRequiredMixin, CreateView):
