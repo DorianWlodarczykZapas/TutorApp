@@ -8,7 +8,7 @@ from users.factories import TeacherFactory, UserFactory
 class AddTopicTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse("add_topic")
+        self.url = reverse("courses:add_topic")
         self.student = UserFactory.create()
         self.teacher = TeacherFactory.create()
         self.section = SectionFactory.create()
@@ -31,7 +31,7 @@ class AddTopicTests(TestCase):
         """Test case that checks if student can access adding topic page"""
         self.client.force_login(self.student)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 403)
 
     def test_add_topic(self):
         """Test case that adds topic"""
@@ -42,7 +42,7 @@ class AddTopicTests(TestCase):
 
     def test_add_topic_without_section(self):
         """Test case that adds topic without section"""
-        self.valid_data["section"] = None
+        self.valid_data["section"] = ""
         self.client.force_login(self.teacher)
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 200)
