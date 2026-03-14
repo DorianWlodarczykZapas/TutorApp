@@ -1,7 +1,12 @@
 import factory
-from courses.choices import SchoolLevelChoices
+from courses.choices import (
+    BookTypeChoices,
+    DifficultyLevelChoices,
+    GradeChoices,
+    SchoolLevelChoices,
+    SubjectChoices,
+)
 from courses.models import Book, Section, Topic, TrainingTask
-from examination_tasks.choices import DifficultyLevelChoices
 from factory.django import DjangoModelFactory
 
 
@@ -10,11 +15,12 @@ class BookFactory(DjangoModelFactory):
         model = Book
 
     title = factory.Faker("sentence", nb_words=3)
-    author = factory.Faker("name", locale="pl_PL")
+    authors = factory.Faker("name", locale="pl_PL")
     publication_year = factory.Faker("random_int", min=2015, max=2024)
     school_level = SchoolLevelChoices.PRIMARY
     subject = 1
     grade = 1
+    book_type = BookTypeChoices.TEXTBOOK
 
     class Params:
 
@@ -30,14 +36,15 @@ class BookFactory(DjangoModelFactory):
 
         multi_grade = factory.Trait(grade=None)
 
-        no_author = factory.Trait(author="", publication_year=None)
+        no_author = factory.Trait(authors="", publication_year=None)
 
 
 class SectionFactory(DjangoModelFactory):
     class Meta:
         model = Section
 
-    book = factory.SubFactory(BookFactory)
+    grade = GradeChoices.PRIMARY_7
+    subject = SubjectChoices.MATH
 
     name = factory.Faker(
         "random_element",
