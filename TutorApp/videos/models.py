@@ -1,9 +1,9 @@
 import re
 
+from courses.choices import SchoolLevelChoices, SubjectChoices
 from courses.models import Section
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from examination_tasks.choices import SchoolLevelChoices, SubjectChoices
 
 
 class Video(models.Model):
