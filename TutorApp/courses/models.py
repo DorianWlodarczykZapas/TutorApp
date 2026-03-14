@@ -50,6 +50,11 @@ class Section(models.Model):
     subject = models.IntegerField(choices=SubjectChoices.choices)
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return (
+            f"{self.name} - {self.get_subject_display()} - {self.get_grade_display()}"
+        )
+
 
 class Topic(models.Model):
     section = models.ForeignKey(
