@@ -2,9 +2,29 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
-    <div class="video-header">
-        <a href="{% url 'section-video-list' video.section.pk %}"
-           class="back-btn">← {% trans "Back" %}</a>
-        <h1 class="video-title">{{ video.title }}</h1>
+    <div class="container mt-4">
+        <div class="video-header mb-3">
+            <a href="{% url 'section-video-list' video.section.pk %}"
+               class="back-btn">← {% trans "Back" %}</a>
+            <h1 class="video-title">{{ video.title }}</h1>
+        </div>
+        {{ video.youtube_video_id|json_script:"video-id" }}
+        {{ timestamps|json_script:"timestamps-data" }}
+        <div class="row">
+            {# player #}
+            <div class="col-lg-8">
+                <div id="player" style="aspect-ratio: 16/9;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{% trans "Timestamps" %}</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column gap-2" id="timestamp-buttons"></div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="{% static 'videos/js/youtube_player.js' %}"></script>
+    <script src="{% static 'videos/js/timestamps.js' %}"></script>
 {% endblock %}

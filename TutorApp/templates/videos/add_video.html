@@ -13,32 +13,34 @@
                             <h5>{% trans "Video Details" %}</h5>
                         </div>
                         <div class="card-body">
-                            {% for field in form %}
-                                <div class="mb-3">
-                                    {{ field.label_tag }}
-                                    {{ field }}
-                                    {% if field.errors %}<div class="invalid-feedback d-block">{{ field.errors }}</div>{% endif %}
+                            <div class="mb-3">
+                                <label for="id_youtube_url">{% trans "YouTube URL" %}</label>
+                                <div class="input-group">
+                                    {{ form.youtube_url }}
+                                    <button type="button" class="btn btn-outline-secondary" id="fetch-btn">{% trans "Fetch data" %}</button>
                                 </div>
+                                {% if form.youtube_url.errors %}<div class="invalid-feedback d-block">{{ form.youtube_url.errors }}</div>{% endif %}
+                            </div>
+                            {% for field in form %}
+                                {% if field.name != "youtube_url" %}
+                                    <div class="mb-3">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                        {% if field.errors %}<div class="invalid-feedback d-block">{{ field.errors }}</div>{% endif %}
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">{% trans "Timestamps" %}</h5>
-                            <button type="button" class="btn btn-sm btn-success" id="add-timestamp-btn">
-                                <i class="bi bi-plus-circle"></i> {% trans "Add Timestamp" %}
-                            </button>
+                    <div class="card mb-4 d-none" id="preview-card">
+                        <div class="card-header">
+                            <h5>{% trans "Preview" %}</h5>
                         </div>
                         <div class="card-body">
-                            {{ timestamp_formset.management_form }}
-                            <div id="timestamp-formset-container">
-                                {% for form in timestamp_formset %}
-                                    <div class="timestamp-form-wrapper border-bottom pb-3 mb-3">
-                                        {{ form.as_p }}
-                                        <button type="button" class="btn btn-sm btn-danger remove-timestamp">{% trans "Remove" %}</button>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                            <p>
+                                <strong>{% trans "Title" %}:</strong> <span id="preview-title"></span>
+                            </p>
+                            <div id="preview-timestamps"></div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">{% trans "Save Video" %}</button>
@@ -46,11 +48,5 @@
             </div>
         </div>
     </div>
-    <template id="empty-timestamp-form">
-        <div class="timestamp-form-wrapper border-bottom pb-3 mb-3">
-            {{ timestamp_formset.empty_form.as_p }}
-            <button type="button" class="btn btn-sm btn-danger remove-timestamp">{% trans "Remove" %}</button>
-        </div>
-    </template>
-    <script src="{% static 'static/js/formset_handler.js' %}"></script>
+    <script src="{% static 'videos/js/add_video.js' %}"></script>
 {% endblock %}

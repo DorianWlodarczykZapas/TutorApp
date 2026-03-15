@@ -26,13 +26,6 @@ class VideoCreateView(TeacherRequiredMixin, CreateView):
     template_name = "videos/add_video.html"
     success_url = reverse_lazy("videos:video_list")
 
-    def get_context_data(self, **kwargs) -> Dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["timestamp_formset"] = self.get_timestamp_formset(
-            form=kwargs.get("form")
-        )
-        return context
-
     def form_valid(self, form: AddVideoForm):
         url = form.cleaned_data.get("youtube_url")
         service = YoutubeService()
