@@ -1,4 +1,5 @@
 import re
+from datetime import timedelta
 
 from courses.choices import SchoolLevelChoices, SubjectChoices
 from courses.models import Section
@@ -48,6 +49,14 @@ class VideoTimestamp(models.Model):
     start_time = models.DurationField(help_text=_("Format: HH:MM:SS"))
     timestamp_type = models.IntegerField(choices=TimestampType.choices)
 
+    @staticmethod
+    def format_duration(duration: timedelta) -> str:
+        """Formats timedelta into HH:MM:SS string."""
+        total = int(duration.total_seconds())
+        hours, remainder = divmod(total, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return f"{hours:02}:{minutes:02}:{seconds:02}"
+
     @property
     def start_seconds(self):
         """Method that helps use timestamp with youtube api"""
@@ -55,10 +64,7 @@ class VideoTimestamp(models.Model):
 
     @property
     def start_time_display(self):
-        total = int(self.start_time.total_seconds())
-        hours, remainder = divmod(total, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        return f"{hours:02}:{minutes:02}:{seconds:02}"
+        return self.format_duration(self.start_time)
 
     @property
     def is_premium(self) -> bool:
