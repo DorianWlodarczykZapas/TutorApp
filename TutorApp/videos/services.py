@@ -18,6 +18,7 @@ class YoutubeService:
     """Service to work with youtube api"""
 
     BASE_URL_PATTERN = r"(?:v=|youtu\.be/)([a-zA-Z0-9_-]{11})"
+    TIMESTAMP_PATTERN = r"(\d{2}:\d{2}(?::\d{2})?)\s*-?\s*(.+)"
 
     def __init__(self, *args, **kwargs):
         self.client = build("youtube", "v3", developerKey=settings.YOUTUBE_API_KEY)
@@ -31,7 +32,6 @@ class YoutubeService:
         Returns:
         11 characters long video id
         """
-
         match = re.search(self.BASE_URL_PATTERN, url)
         return match.group(1) if match else None
 
@@ -60,6 +60,22 @@ class YoutubeService:
             "description": snippet["description"],
         }
 
+    @staticmethod
+    def _parse_duration(time_str: str) -> timedelta:
+        """Parses MM:SS or HH:MM:SS string into timedelta.
+
+        Args:
+            time_str (str): time string in MM:SS or HH:MM:SS format
+        Returns:
+            timedelta
+        """
+        parts = list(map(int, time_str.split(":")))
+        if len(parts) == 2:
+            h, m, s = 0, parts[0], parts[1]
+        else:
+            h, m, s = parts
+        return timedelta(hours=h, minutes=m, seconds=s)
+
     def parse_timestamps(self, text: str) -> list[dict]:
         """Parses youtube description text into list of timestamps
 
@@ -72,9 +88,7 @@ class YoutubeService:
         Raises:
             ValueError: If timestamps or text is valid
         """
-
         results = []
-
         current_type = None
 
         for line in text.splitlines():
@@ -87,19 +101,17 @@ class YoutubeService:
                 current_type = HEADER_MAP[line.upper()]
                 continue
 
-            match = re.match(r"(\d{2}:\d{2}:\d{2})\s*-?\s*(.+)", line)
+            match = re.match(self.TIMESTAMP_PATTERN, line)
             if match and current_type is not None:
                 time_str, label = match.groups()
-                h, m, s = map(int, time_str.split(":"))
-                start_time = timedelta(hours=h, minutes=m, seconds=s)
-
                 results.append(
                     {
                         "label": label.strip(),
-                        "start_time": start_time,
+                        "start_time": self._parse_duration(time_str),
                         "timestamp_type": current_type,
                     }
                 )
+
         if not results:
             raise ValueError(_("No valid timestamps found"))
 
