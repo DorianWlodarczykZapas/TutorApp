@@ -1,4 +1,4 @@
-from common.forms import TypedChoiceMixin
+from core.forms import TypedChoiceMixin
 from courses.choices import GradeChoices, SubjectChoices
 from courses.models import Section
 from django import forms
