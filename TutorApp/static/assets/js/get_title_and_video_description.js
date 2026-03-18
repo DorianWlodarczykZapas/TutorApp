@@ -1,3 +1,9 @@
+const TIMESTAMP_TYPE_LABELS = {
+    1: "Exercise",
+    2: "Task",
+    3: "Lecture",
+};
+
 document.getElementById("fetch-btn").addEventListener("click", function () {
     const url = document.getElementById("id_youtube_url").value;
 
@@ -11,17 +17,23 @@ document.getElementById("fetch-btn").addEventListener("click", function () {
             return;
         }
 
-        document.getElementById("preview-title").textContent = data.title;
+        document.getElementById("preview-title").value = data.title;
 
-        const container = document.getElementById("preview-timestamps");
-        container.innerHTML = "";
+        const tbody = document.getElementById("preview-timestamps");
+        tbody.innerHTML = "";
         data.timestamps.forEach(ts => {
-            const div = document.createElement("div");
-            div.textContent = `${ts.start_time} - ${ts.label} (typ: ${ts.timestamp_type})`;
-            container.appendChild(div);
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${ts.start_time}</td>
+                <td>${ts.label}</td>
+                <td>${TIMESTAMP_TYPE_LABELS[ts.timestamp_type] ?? ts.timestamp_type}</td>
+            `;
+            tbody.appendChild(tr);
         });
 
-        document.getElementById("preview-card").classList.remove("d-none");
+        document.getElementById("preview-card").classList.remove("preview-card--hidden");
+
+
     })
     .catch(err => alert("Error: " + err));
 });
