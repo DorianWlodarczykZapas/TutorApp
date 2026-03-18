@@ -111,7 +111,7 @@
     align-items: center;
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid #e0e0e0;
+
 }
 
 .button-spacer {
@@ -143,4 +143,15 @@
     .button-spacer {
         display: none;
     }
+}
+
+.form-container--wide {
+    width: min(1100px, 90%);
+}
+
+.wizard-buttons--center {
+    justify-content: center !important;
+    gap: 20px;
+    max-width: 50%;
+    margin: 2rem auto 0 auto;
 }
