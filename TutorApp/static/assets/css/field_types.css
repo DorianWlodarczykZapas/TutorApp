@@ -54,6 +54,53 @@
     margin: 0 auto 25px auto;
 }
 
+/* ── URL – url field with fetch button and favicon preview ── */
+.floating-field.field-url {
+    max-width: 50%;
+    margin: 0 auto 25px auto;
+}
+
+.floating-field.field-url .fetch-btn {
+    display: block;
+    margin: 10px auto 0 auto;
+    padding: 10px 30px;
+    background: #006b5e;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.floating-field.field-url .fetch-btn:hover {
+    background: #00574d;
+}
+
+.floating-field.field-url .url-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 6px 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.floating-field.field-url .url-preview__favicon {
+    width: 16px;
+    height: 16px;
+}
+
+.floating-field.field-url .url-preview__domain {
+    font-family: 'Inter', sans-serif;
+}
+
+.floating-field.field-url .url-preview--hidden {
+    display: none;
+}
+
 @media (max-width: 480px) {
     .floating-field.field-short,
     .floating-field.field-select,
@@ -61,6 +108,9 @@
         max-width: 100%;
     }
     .floating-field.field-search {
+        max-width: 100%;
+    }
+    .floating-field.field-url {
         max-width: 100%;
     }
 }
@@ -99,4 +149,23 @@
 .floating-field.field-search .select2-selection__choice__remove {
     color: white;
     margin-right: 6px;
+}
+
+/* ── PREVIEW CARD ── */
+.preview-card {
+    margin: 25px auto;
+    max-width: 90%;
+}
+
+.preview-card--hidden {
+    display: none;
+}
+
+.preview-card__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
 }
