@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-11 13:11+0100\n"
+"POT-Creation-Date: 2026-03-18 12:06+0100\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -14,13 +14,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\core\settings.py:116
+#: .\core\settings.py:118
 msgid "Polish"
 msgstr "Polski"
 
-#: .\core\settings.py:117
+#: .\core\settings.py:119
 msgid "English"
 msgstr "Angielski"
+
+#: .\courses\choices.py:6
+msgid "Primary School"
+msgstr "Szkoła podstawowa"
+
+#: .\courses\choices.py:7
+msgid "Secondary School"
+msgstr "Szkoła średnia"
+
+#: .\courses\choices.py:11
+msgid "Easy"
+msgstr "Łatwy"
+
+#: .\courses\choices.py:12
+msgid "Intermediate"
+msgstr "Średni"
+
+#: .\courses\choices.py:13
+msgid "Advanced"
+msgstr "Zaawansowany"
+
+#: .\courses\choices.py:17
+msgid "7th Grade - Primary"
+msgstr "Klasa 7 - Szkoła Podstawowa"
+
+#: .\courses\choices.py:18
+msgid "8th Grade - Primary"
+msgstr "Klasa 8 - Szkoła Podstawowa"
+
+#: .\courses\choices.py:19
+msgid "1st Year - Secondary"
+msgstr "Klasa 1 - Szkoła Średnia"
+
+#: .\courses\choices.py:20
+msgid "2nd Year - Secondary"
+msgstr "Klasa 2 - Szkoła Średnia"
+
+#: .\courses\choices.py:21
+msgid "3rd Year - Secondary"
+msgstr "Klasa 3 - Szkoła Średnia"
+
+#: .\courses\choices.py:22
+msgid "4th Year - Secondary"
+msgstr "Klasa 4 - Szkoła Średnia"
+
+#: .\courses\choices.py:26
+msgid "Mathematics"
+msgstr "Matematyka"
+
+#: .\courses\choices.py:27
+msgid "Physics"
+msgstr "Fizyka"
+
+#: .\courses\choices.py:31
+msgid "Textbook"
+msgstr "Podręcznik"
+
+#: .\courses\choices.py:32
+msgid "Task Collection"
+msgstr "Zbiór zadań"
+
+#: .\courses\choices.py:33
+msgid "Work Cards"
+msgstr "Karty Pracy"
 
 #: .\courses\filters.py:23
 msgid "Search in task"
@@ -30,7 +94,7 @@ msgstr "Wyszukiwanie w zadaniu"
 msgid "Search..."
 msgstr "Wyszukiwanie..."
 
-#: .\courses\filters.py:35 .\templates\courses\add_section.html:18
+#: .\courses\filters.py:35
 #, fuzzy
 #| msgid "Add Book"
 msgid "Book"
@@ -41,11 +105,10 @@ msgid "All books"
 msgstr ""
 
 #: .\courses\filters.py:42 .\motifs\forms\motif_forms.py:18
-#: .\motifs\models.py:31 .\templates\courses\add_topic.html:18
+#: .\motifs\models.py:32
 #: .\templates\examination_tasks\exam_task_search_engine.html:36
 #: .\templates\motifs\motif_list.html:35 .\videos\filters.py:22
-#, fuzzy
-#| msgid "Book section"
+#: .\videos\forms\video_forms.py:22 .\videos\forms\video_forms.py:24
 msgid "Section"
 msgstr "Dział z książki"
 
@@ -92,40 +155,45 @@ msgstr "Ukończone"
 msgid "Not completed"
 msgstr "Ukończone"
 
-#: .\courses\forms\book_forms.py:9 .\courses\forms\book_forms.py:23
-#: .\videos\models.py:27
+#: .\courses\forms\book_forms.py:19
+msgid "Book Type"
+msgstr "Rodzaj Książki"
+
+#: .\courses\forms\book_forms.py:23 .\videos\forms\video_forms.py:19
+#: .\videos\models.py:28
 msgid "School Level"
 msgstr "Poziom szkoły"
 
-#: .\courses\forms\book_forms.py:13 .\courses\forms\book_forms.py:24
+#: .\courses\forms\book_forms.py:26 .\courses\forms\section_forms.py:12
 #: .\examination_tasks\forms\exam_forms.py:22 .\motifs\forms\motif_forms.py:17
-#: .\motifs\models.py:24 .\templates\motifs\motif_list.html:34
-#: .\videos\filters.py:37 .\videos\forms.py:23 .\videos\models.py:23
+#: .\motifs\models.py:25 .\templates\motifs\motif_list.html:34
+#: .\videos\filters.py:37 .\videos\forms\video_forms.py:18
+#: .\videos\models.py:24
 msgid "Subject"
 msgstr "Przedmiot szkolny"
 
-#: .\courses\forms\book_forms.py:17 .\courses\forms\book_forms.py:25
+#: .\courses\forms\book_forms.py:28 .\courses\forms\section_forms.py:13
 msgid "Grade"
 msgstr "Klasa"
 
-#: .\courses\forms\book_forms.py:31 .\courses\forms\section_forms.py:11
+#: .\courses\forms\book_forms.py:42
 msgid "Book Title"
 msgstr "Tytuł Książki"
 
-#: .\courses\forms\book_forms.py:32
+#: .\courses\forms\book_forms.py:43
 msgid "Authors"
 msgstr "Autorzy"
 
-#: .\courses\forms\book_forms.py:33
+#: .\courses\forms\book_forms.py:44
 msgid "Publication Year"
 msgstr "Rok Publikacji"
 
-#: .\courses\forms\section_forms.py:12 .\courses\forms\topic_forms.py:11
-#: .\templates\courses\add_section.html:23
+#: .\courses\forms\section_forms.py:19 .\courses\forms\topic_forms.py:10
+#: .\courses\forms\topic_forms.py:16
 msgid "Section Name"
 msgstr "Nazwa Działu"
 
-#: .\courses\forms\topic_forms.py:12
+#: .\courses\forms\topic_forms.py:17
 msgid "Input Topic Name"
 msgstr "Wpisz Nazwę Tematu"
 
@@ -175,31 +243,30 @@ msgstr "Zadania Treningowe"
 msgid "Task Details"
 msgstr ""
 
-#: .\courses\views\book_views.py:29 .\templates\courses\add_book.html:4
-#: .\templates\courses\add_book.html:8
+#: .\courses\views\book_views.py:28 .\templates\courses\add_book.html:5
+#: .\templates\courses\add_book.html:10
 msgid "Add New Book"
 msgstr "Dodaj Nową Książkę"
 
-#: .\courses\views\book_views.py:36
+#: .\courses\views\book_views.py:35
 msgid "Book added successfully!"
 msgstr "Książka dodana pomyślnie!"
 
-#: .\courses\views\section_views.py:28
-
+#: .\courses\views\section_views.py:28 .\templates\courses\add_section.html:5
+#: .\templates\courses\add_section.html:10
 msgid "Add New Section"
 msgstr "Dodaj Nowy Dział"
 
 #: .\courses\views\section_views.py:35
 msgid "Section added successfully!"
-msgstr "Egzamin dodany pomyślnie"
+msgstr "Dział dodany pomyślnie"
 
-#: .\courses\views\topic_views.py:28
-
+#: .\courses\views\topic_views.py:28 .\templates\courses\add_topic.html:5
+#: .\templates\courses\add_topic.html:10
 msgid "Add New Topic"
 msgstr "Dodaj Nowy Temat"
 
 #: .\courses\views\topic_views.py:35
-
 msgid "Topic added successfully!"
 msgstr "Temat dodany pomyślnie"
 
@@ -280,58 +347,6 @@ msgstr "Matura"
 #: .\examination_tasks\choices.py:32
 msgid "Eighth Grade Exam"
 msgstr "Egzamin Ósmoklasisty"
-
-#: .\examination_tasks\choices.py:36
-msgid "Primary School"
-msgstr "Szkoła podstawowa"
-
-#: .\examination_tasks\choices.py:37
-msgid "Secondary School"
-msgstr "Szkoła średnia"
-
-#: .\examination_tasks\choices.py:41
-msgid "Easy"
-msgstr "Łatwy"
-
-#: .\examination_tasks\choices.py:42
-msgid "Intermediate"
-msgstr "Średni"
-
-#: .\examination_tasks\choices.py:43
-msgid "Advanced"
-msgstr "Zaawansowany"
-
-#: .\examination_tasks\choices.py:47
-msgid "7th Grade - Primary"
-msgstr "Klasa 7 - Szkoła Podstawowa"
-
-#: .\examination_tasks\choices.py:48
-msgid "8th Grade - Primary"
-msgstr "Klasa 8 - Szkoła Podstawowa"
-
-#: .\examination_tasks\choices.py:49
-msgid "1st Year - Secondary"
-msgstr "Klasa 1 - Szkoła Średnia"
-
-#: .\examination_tasks\choices.py:50
-msgid "2nd Year - Secondary"
-msgstr "Klasa 2 - Szkoła Średnia"
-
-#: .\examination_tasks\choices.py:51
-msgid "3rd Year - Secondary"
-msgstr "Klasa 3 - Szkoła Średnia"
-
-#: .\examination_tasks\choices.py:52
-msgid "4th Year - Secondary"
-msgstr "Klasa 4 - Szkoła Średnia"
-
-#: .\examination_tasks\choices.py:56
-msgid "Mathematics"
-msgstr "Matematyka"
-
-#: .\examination_tasks\choices.py:57
-msgid "Physics"
-msgstr "Fizyka"
 
 #: .\examination_tasks\forms\exam_forms.py:21
 msgid "Exam Type"
@@ -566,11 +581,11 @@ msgstr "Egzamin dodany pomyślnie"
 msgid "Level type"
 msgstr "Poziom"
 
-#: .\motifs\forms\motif_forms.py:20 .\motifs\models.py:44
+#: .\motifs\forms\motif_forms.py:20 .\motifs\models.py:45
 msgid "Whole motif content"
 msgstr ""
 
-#: .\motifs\forms\motif_forms.py:21 .\motifs\models.py:49
+#: .\motifs\forms\motif_forms.py:21 .\motifs\models.py:50
 msgid "Explanation about chosen motif"
 msgstr ""
 
@@ -578,11 +593,11 @@ msgstr ""
 msgid "\"Motif explanation picture if needed"
 msgstr ""
 
-#: .\motifs\forms\motif_forms.py:23 .\motifs\models.py:59
+#: .\motifs\forms\motif_forms.py:23 .\motifs\models.py:60
 msgid "If exists in matriculation sheets"
 msgstr ""
 
-#: .\motifs\forms\motif_forms.py:24 .\motifs\models.py:65
+#: .\motifs\forms\motif_forms.py:24 .\motifs\models.py:66
 msgid "Whether students must learn this motif"
 msgstr ""
 
@@ -598,47 +613,47 @@ msgstr ""
 msgid "Step-by-step explanation..."
 msgstr ""
 
-#: .\motifs\models.py:37 .\templates\examination_tasks\exam_list.html:13
+#: .\motifs\models.py:38 .\templates\examination_tasks\exam_list.html:13
 #: .\templates\examination_tasks\exam_list.html:40
 #: .\templates\motifs\motif_list.html:36 .\videos\filters.py:50
 msgid "Level"
 msgstr "Poziom"
 
-#: .\motifs\models.py:38
+#: .\motifs\models.py:39
 #, fuzzy
 #| msgid "Exam level: basic or extended"
 msgid "Motif level: basic or extended (Matriculation only)"
 msgstr "Poziom egzaminu: podstawowy lub rozszerzony"
 
-#: .\motifs\models.py:43
+#: .\motifs\models.py:44
 #, fuzzy
 #| msgid "Task content"
 msgid "Motif content"
 msgstr "Treść zadania"
 
-#: .\motifs\models.py:48
+#: .\motifs\models.py:49
 msgid "answer"
 msgstr ""
 
-#: .\motifs\models.py:55
+#: .\motifs\models.py:56
 msgid "Motif explanation picture if needed"
 msgstr ""
 
-#: .\motifs\models.py:64
+#: .\motifs\models.py:65
 msgid "Mandatory for students"
 msgstr ""
 
-#: .\motifs\models.py:69 .\motifs\models.py:70
+#: .\motifs\models.py:70 .\motifs\models.py:71
 #, fuzzy
 #| msgid "Examination Tasks"
 msgid "Link to explanation video"
 msgstr "Egzaminy"
 
-#: .\motifs\models.py:74
+#: .\motifs\models.py:75
 msgid "Motif"
 msgstr ""
 
-#: .\motifs\models.py:75 .\templates\navigation_links\motifs.html:4
+#: .\motifs\models.py:76 .\templates\navigation_links\motifs.html:4
 msgid "Motifs"
 msgstr ""
 
@@ -765,42 +780,37 @@ msgstr "Pytanie zostało pomyślnie dodane"
 msgid "Quiz created successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
-#: .\templates\base.html:37 .\templates\users\home.html:4 .\users\views.py:82
+#: .\templates\base.html:40 .\templates\users\home.html:4 .\users\views.py:82
 msgid "Home"
 msgstr "Strona główna"
 
-#: .\templates\base.html:38
+#: .\templates\base.html:41
 msgid "About"
 msgstr "O nas"
 
-#: .\templates\base.html:39
+#: .\templates\base.html:42
 msgid "Services"
 msgstr "Usługi"
 
-#: .\templates\base.html:40
+#: .\templates\base.html:43
 msgid "Pricing"
 msgstr "Cennik"
 
-#: .\templates\base.html:41
+#: .\templates\base.html:44
 msgid "Contact"
 msgstr "Kontakt"
 
-#: .\templates\courses\add_book.html:65
+#: .\templates\courses\add_book.html:53
 #: .\templates\navigation_links\courses.html:8
 msgid "Add Book"
 msgstr "Dodaj Książkę"
 
-#: .\templates\courses\add_section.html:27
+#: .\templates\courses\add_section.html:31
 #: .\templates\navigation_links\courses.html:9
-
 msgid "Add Section"
 msgstr "Dodaj Dział"
 
-#: .\templates\courses\add_topic.html:23
-msgid "Topic Name"
-msgstr ""
-
-#: .\templates\courses\add_topic.html:27
+#: .\templates\courses\add_topic.html:26
 #: .\templates\navigation_links\courses.html:10
 msgid "Add Topic"
 msgstr "Dodaj Temat"
@@ -832,7 +842,7 @@ msgstr ""
 #: .\templates\examination_tasks\exam_task_preview.html:4
 #: .\templates\examination_tasks\exam_task_preview.html:11
 #: .\templates\examination_tasks\exam_task_search_engine.html:35
-#: .\videos\models.py:39
+#: .\videos\models.py:40
 msgid "Task"
 msgstr "Zadanie"
 
@@ -945,9 +955,10 @@ msgstr ""
 #: .\templates\examination_tasks\exam_task_search_engine.html:81
 #: .\templates\quizes\question_review.html:63
 #: .\templates\quizes\quiz_solve_wizard.html:26
+#: .\templates\videos\add_video_wizard.html:140
 #: .\templates\videos\section_video_list.html:33
 msgid "Next"
-msgstr ""
+msgstr "Dalej"
 
 #: .\templates\courses\training_tasks_list.html:122
 msgid "Last"
@@ -1361,22 +1372,20 @@ msgstr "Tytuł"
 msgid "Add Quiz"
 msgstr ""
 
-#: .\templates\navigation_links\videos.html:5
+#: .\templates\navigation_links\videos.html:4
 #: .\templates\videos\section_video_list.html:4
 msgid "Videos"
 msgstr "Nagrania"
 
-#: .\templates\navigation_links\videos.html:7
+#: .\templates\navigation_links\videos.html:6
 #, fuzzy
 #| msgid "Videos"
 msgid "All Videos"
 msgstr "Nagrania"
 
-#: .\templates\navigation_links\videos.html:9
-#, fuzzy
-#| msgid "Videos"
+#: .\templates\navigation_links\videos.html:8
 msgid "Add Video"
-msgstr "Nagrania"
+msgstr "Dodaj Nagranie"
 
 #: .\templates\quizes\add_question.html:4
 msgid "Add Question"
@@ -1579,49 +1588,43 @@ msgstr "Zarejestruj się"
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
-#: .\templates\videos\add_video.html:8
-#, fuzzy
-#| msgid "Add a new video"
+#: .\templates\videos\add_video_wizard.html:6
+#: .\templates\videos\add_video_wizard.html:14
 msgid "Add New Video"
 msgstr "Dodaj nowy film"
 
-#: .\templates\videos\add_video.html:13
-#, fuzzy
-#| msgid "Videos"
+#: .\templates\videos\add_video_wizard.html:19
 msgid "Video Details"
-msgstr "Nagrania"
+msgstr "Szczegóły filmu"
 
-#: .\templates\videos\add_video.html:17
-#, fuzzy
-#| msgid "YouTube link"
-msgid "YouTube URL"
-msgstr "Link do YouTube"
+#: .\templates\videos\add_video_wizard.html:24
+msgid "Title & Timestamps"
+msgstr "Tytuł I Timestampy"
 
-#: .\templates\videos\add_video.html:21
-msgid "Fetch data"
+#: .\templates\videos\add_video_wizard.html:94
+msgid "Time"
 msgstr ""
 
-#: .\templates\videos\add_video.html:43
+#: .\templates\videos\add_video_wizard.html:95 .\videos\forms\video_forms.py:37
+msgid "Label"
+msgstr "Etykieta"
+
+#: .\templates\videos\add_video_wizard.html:96 .\videos\forms\video_forms.py:47
 #, fuzzy
-#| msgid "Task preview"
-msgid "Preview"
-msgstr "Podgląd zadania"
+#| msgid "Exam Type"
+msgid "Type"
+msgstr "Rodzaj egzaminu"
 
-#: .\templates\videos\add_video.html:46 .\videos\filters.py:16
-#: .\videos\forms.py:19
-msgid "Title"
-msgstr "Tytuł"
-
-#: .\templates\videos\add_video.html:50
-#, fuzzy
-#| msgid "Videos"
-msgid "Save Video"
-msgstr "Nagrania"
-
+#: .\templates\videos\add_video_wizard.html:131
 #: .\templates\videos\section_video_list.html:7
 #: .\templates\videos\video_details.html:8
 msgid "Back"
-msgstr ""
+msgstr "Cofnij"
+
+#: .\templates\videos\add_video_wizard.html:138
+
+msgid "Save Video"
+msgstr "Zapisz Nagranie"
 
 #: .\templates\videos\section_video_list.html:10
 #, fuzzy
@@ -1637,7 +1640,7 @@ msgstr ""
 msgid "No videos available."
 msgstr ""
 
-#: .\templates\videos\video_details.html:27
+#: .\templates\videos\video_details.html:21
 msgid "Timestamps"
 msgstr ""
 
@@ -1711,7 +1714,7 @@ msgstr "Typ szkoły"
 msgid "This email is already in use."
 msgstr "Ten adres e-mail jest już używany."
 
-#: .\users\mixins.py:17
+#: .\users\mixins.py:19
 #, fuzzy
 #| msgid "Only teachers can add exam tasks."
 msgid "Only teachers can perform this action."
@@ -1736,6 +1739,10 @@ msgstr "Pomyślnie zalogowano."
 #: .\users\views.py:65
 msgid "Invalid username or password."
 msgstr ""
+
+#: .\videos\filters.py:16 .\videos\forms\video_forms.py:30
+msgid "Title"
+msgstr "Tytuł"
 
 #: .\videos\filters.py:23
 #, fuzzy
@@ -1769,89 +1776,73 @@ msgstr "Poziom"
 msgid "Select level..."
 msgstr ""
 
-#: .\videos\forms.py:20
-msgid "Education level"
-msgstr "Poziom edukacji"
-
-#: .\videos\forms.py:21
-msgid "YouTube link"
+#: .\videos\forms\video_forms.py:12
+#, fuzzy
+#| msgid "YouTube link"
+msgid "YouTube URL"
 msgstr "Link do YouTube"
 
-#: .\videos\forms.py:22
-msgid "Book section"
-msgstr "Dział z książki"
-
-#: .\videos\forms.py:27
-msgid "Topic title from the book"
-msgstr "Tytuł tematu z książki"
-
-#: .\videos\forms.py:30
-msgid "https://youtube.com/..."
-msgstr "https://youtube.com/..."
-
-#: .\videos\forms.py:43
-msgid "Label"
-msgstr ""
-
-#: .\videos\forms.py:44
+#: .\videos\forms\video_forms.py:41
 #, fuzzy
 #| msgid "Start Quiz"
 msgid "Start time"
 msgstr "Rozpocznij quiz"
 
-#: .\videos\forms.py:45
-#, fuzzy
-#| msgid "Exam Type"
-msgid "Type"
-msgstr "Rodzaj egzaminu"
-
-#: .\videos\forms\video_forms.py:28
+#: .\videos\forms\video_forms.py:59
 #, fuzzy
 #| msgid "Search in task"
 msgid "Search videos"
 msgstr "Wyszukiwanie w zadaniu"
 
-#: .\videos\models.py:38
+#: .\videos\models.py:39
 msgid "Exercise"
 msgstr "Ćwiczenie"
 
-#: .\videos\models.py:40
+#: .\videos\models.py:41
 msgid "Lecture"
-msgstr ""
+msgstr "Lekcja"
 
-#: .\videos\models.py:48
+#: .\videos\models.py:49
 msgid "Format: HH:MM:SS"
 msgstr "Format: GG:MM:SS"
 
-#: .\videos\models.py:73
+#: .\videos\models.py:79
 msgid "Video Timestamp"
 msgstr ""
 
-#: .\videos\models.py:74
+#: .\videos\models.py:80
 msgid "Video Timestamps"
 msgstr ""
 
-#: .\videos\services.py:104
+#: .\videos\services.py:116
 msgid "No valid timestamps found"
 msgstr ""
 
-#: .\videos\views\video_views.py:69
-#, fuzzy, python-format
-#| msgid "Exam added successfully!"
+#: .\videos\views\video_views.py:62
+
+
 msgid "Movie '%(title)s' added successfully!"
-msgstr "Egzamin dodany pomyślnie"
+msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
-msgid "Book Type"
-msgstr "Rodzaj Książki"
+#, fuzzy
+#~| msgid "Task preview"
+#~ msgid "Preview"
+#~ msgstr "Podgląd zadania"
 
-msgid "Textbook"
-msgstr "Podręcznik"
+#~ msgid "Education level"
+#~ msgstr "Poziom edukacji"
 
-msgid "Task Collection"
-msgstr "Zbiór zadań"
+#~ msgid "YouTube link"
+#~ msgstr "Link do YouTube"
 
-msgid "Work Cards"
-msgstr "Karty Pracy"
+#~ msgid "Book section"
+#~ msgstr "Dział z książki"
+
+#~ msgid "Topic title from the book"
+#~ msgstr "Tytuł tematu z książki"
+
+#~ msgid "https://youtube.com/..."
+#~ msgstr "https://youtube.com/..."
 
 #~ msgid "Calendar"
 #~ msgstr "Kalendarz"
