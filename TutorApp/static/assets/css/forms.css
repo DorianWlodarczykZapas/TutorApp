@@ -196,8 +196,11 @@
 }
 
 .floating-field {
-    position: relative;
     margin-bottom: 25px;
+}
+
+.floating-field__input-wrapper {
+    position: relative;
 }
 
 .floating-field .form-input {
@@ -236,3 +239,4 @@
 .floating-field .form-input:not(:placeholder-shown) + label {
     display: none;
 }
+
