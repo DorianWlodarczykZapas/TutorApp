@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}
+    {% trans "Add New Video" %}
+{% endblock %}
+{% block content %}
+    <form method="post"
+          class="form-container {% if wizard.steps.current == 'step_2' %}form-container--wide{% endif %}"
+          id="video-form"
+          novalidate>
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        <h1 class="form-title">{% trans "Add New Video" %}</h1>
+        <div class="wizard-progress">
+            <div class="progress-step {% if wizard.steps.step1 == 1 %}active{% else %}completed{% endif %}">
+                <div class="step-number">1</div>
+                <div class="step-label">{% trans "Video Details" %}</div>
+            </div>
+            <div class="progress-connector"></div>
+            <div class="progress-step {% if wizard.steps.step1 == 2 %}active{% endif %}">
+                <div class="step-number">2</div>
+                <div class="step-label">{% trans "Title & Timestamps" %}</div>
+            </div>
+        </div>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        {% if wizard.steps.current == "step_1" %}
+            <div class="floating-field field-url">
+                <div class="floating-field__input-wrapper">
+                    {{ form.youtube_url|add_class:"form-input" }}
+                    <label for="{{ form.youtube_url.id_for_label }}">{{ form.youtube_url.label }}</label>
+                </div>
+                {% if form.youtube_url.errors %}<div class="field-errors">{{ form.youtube_url.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-select">
+                <div class="floating-field__input-wrapper">
+                    {{ form.section|add_class:"form-input" }}
+                    <label for="{{ form.section.id_for_label }}">{{ form.section.label }}</label>
+                </div>
+                {% if form.section.errors %}<div class="field-errors">{{ form.section.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-select">
+                <div class="floating-field__input-wrapper">
+                    {{ form.subject|add_class:"form-input" }}
+                    <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
+                </div>
+                {% if form.subject.errors %}<div class="field-errors">{{ form.subject.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-select">
+                <div class="floating-field__input-wrapper">
+                    {{ form.level|add_class:"form-input" }}
+                    <label for="{{ form.level.id_for_label }}">{{ form.level.label }}</label>
+                </div>
+                {% if form.level.errors %}<div class="field-errors">{{ form.level.errors|striptags }}</div>{% endif %}
+            </div>
+        {% endif %}
+        {% if wizard.steps.current == "step_2" %}
+            <div class="floating-field field-long">
+                <div class="floating-field__input-wrapper">
+                    {{ form.title|add_class:"form-input" }}
+                    <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                </div>
+                {% if form.title.errors %}<div class="field-errors">{{ form.title.errors|striptags }}</div>{% endif %}
+            </div>
+            {{ formset.management_form }}
+            <div class="table-responsive">
+                <table class="exam-table exam-table--grid">
+                    <colgroup>
+                        <col style="width: 23%">
+                        <col style="width: 50%">
+                        <col style="width: 27%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>{% trans "Time" %}</th>
+                            <th>{% trans "Label" %}</th>
+                            <th>{% trans "Type" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ts_form in formset %}
+                            <tr>
+                                <td>
+                                    {{ ts_form.start_time|add_class:"form-control" }}
+                                    {% if ts_form.start_time.errors %}<div class="field-errors">{{ ts_form.start_time.errors|striptags }}</div>{% endif %}
+                                </td>
+                                <td>
+                                    {{ ts_form.label|add_class:"form-control" }}
+                                    {% if ts_form.label.errors %}<div class="field-errors">{{ ts_form.label.errors|striptags }}</div>{% endif %}
+                                </td>
+                                <td>
+                                    {{ ts_form.timestamp_type|add_class:"form-control" }}
+                                    {% if ts_form.timestamp_type.errors %}
+                                        <div class="field-errors">{{ ts_form.timestamp_type.errors|striptags }}</div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+        <div class="wizard-buttons wizard-buttons--center">
+            {% if wizard.steps.prev %}
+                <button type="submit"
+                        name="wizard_goto_step"
+                        value="{{ wizard.steps.prev }}"
+                        class="btn-outline-teal">{% trans "Back" %}</button>
+            {% endif %}
+            <button type="submit" class="btn-submit">
+                {% if wizard.steps.current == wizard.steps.last %}
+                    {% trans "Save Video" %}
+                {% else %}
+                    {% trans "Next" %}
+                {% endif %}
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}

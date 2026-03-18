@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django_select2",
     "crispy_forms",
     "crispy_bootstrap5",
+    "formtools",
 ]
 
 INSTALLED_EXTENSIONS = [
