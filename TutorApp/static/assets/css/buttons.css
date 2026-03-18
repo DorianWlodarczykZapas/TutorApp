@@ -8,7 +8,7 @@
   font-size: 32px;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
-  margin: 30px auto 20px;
+  margin: 0;
   display: block;
 }
 
@@ -147,4 +147,31 @@
     .wizard-buttons .btn {
         width: 100%;
     }
+}
+
+.btn-teal {
+    background: #008374;
+    color: white;
+}
+
+.btn-teal:hover {
+    background: #00695c;
+}
+
+.btn-outline-teal {
+    display: inline-block;
+    width: 270px;
+    height: 68px;
+    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+    background: white;
+    color: #008374;
+    border: 3px solid #008374;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-outline-teal:hover {
+    background: #f0f8f7;
 }
