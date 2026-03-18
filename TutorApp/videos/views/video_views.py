@@ -7,48 +7,129 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
 from django.db.models import Prefetch, QuerySet
+from django.forms.formsets import formset_factory
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, DetailView, ListView
+from django.views.generic import DeleteView, DetailView, ListView
 from django_filters.views import FilterView
+from formtools.wizard.views import SessionWizardView
 from plans.models import UserPlan
 from users.mixins import TeacherRequiredMixin
 from videos.filters import VideoFilterSet
-from videos.forms.video_forms import AddVideoForm, VideoFilterForm
+from videos.forms.video_forms import (
+    AddVideoStep1Form,
+    AddVideoStep2Form,
+    TimestampForm,
+    VideoFilterForm,
+)
 from videos.models import Video, VideoTimestamp
 from videos.services import YoutubeService
 
 
-class VideoCreateView(TeacherRequiredMixin, CreateView):
-    model = Video
-    form_class = AddVideoForm
-    template_name = "videos/add_video.html"
-    success_url = reverse_lazy("videos:video_list")
+class VideoCreateWizard(TeacherRequiredMixin, SessionWizardView):
 
-    def form_valid(self, form: AddVideoForm):
-        url = form.cleaned_data.get("youtube_url")
-        service = YoutubeService()
+    form_list = [
+        ("step_1", AddVideoStep1Form),
+        ("step_2", AddVideoStep2Form),
+    ]
 
-        try:
-            data = service.extract_video_title_and_description(url)
-        except ValueError as e:
-            form.add_error("youtube_url", str(e))
-            return self.form_invalid(form)
+    template_name = "videos/add_video_wizard.html"
+
+    def done(self, form_list, **kwargs):
+        step_1_data = self.get_cleaned_data_for_step("step_1")
+        step_2_data = self.get_cleaned_data_for_step("step_2")
+
+        TimestampFormSet = formset_factory(TimestampForm, extra=0)
+        formset = TimestampFormSet(self.request.POST, prefix="timestamps")
 
         with transaction.atomic():
-            self.object = form.save(commit=False)
-            self.object.title = data["title"]
-            self.object.save()
+            video = Video.objects.create(
+                title=step_2_data["title"],
+                youtube_url=step_1_data["youtube_url"],
+                section=step_1_data["section"],
+                subject=step_1_data["subject"],
+                level=step_1_data["level"],
+            )
+            if formset.is_valid():
+                for ts_form in formset:
+                    VideoTimestamp.objects.create(
+                        video=video,
+                        label=ts_form.cleaned_data["label"],
+                        start_time=YoutubeService._parse_duration(
+                            ts_form.cleaned_data["start_time"]
+                        ),
+                        timestamp_type=ts_form.cleaned_data["timestamp_type"],
+                    )
 
-            for ts in service.parse_timestamps(data["description"]):
-                VideoTimestamp.objects.create(video=self.object, **ts)
+            messages.success(
+                self.request,
+                _("Movie '%(title)s' added successfully!") % {"title": video.title},
+            )
 
-        messages.success(
-            self.request,
-            _("Movie '%(title)s' added successfully!") % {"title": self.object.title},
-        )
-        return redirect(self.get_success_url())
+        return redirect("videos:video_list")
+
+    def process_step(self, form):
+        if self.steps.current == "step_1":
+            url = form.cleaned_data["youtube_url"]
+            service = YoutubeService()
+            data = service.extract_video_title_and_description(url)
+            timestamps = service.parse_timestamps(data["description"])
+
+            self.storage.extra_data["title"] = data["title"]
+            self.storage.extra_data["timestamps"] = [
+                {
+                    "label": ts["label"],
+                    "start_time": VideoTimestamp.format_duration(ts["start_time"]),
+                    "timestamp_type": int(ts["timestamp_type"]),
+                }
+                for ts in timestamps
+            ]
+
+        return super().process_step(form)
+
+    def get_context_data(self, form, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(form=form, **kwargs)
+
+        if self.steps.current == "step_2":
+            TimestampFormSet = formset_factory(TimestampForm, extra=0)
+            initial_data = [
+                {
+                    "label": ts["label"],
+                    "start_time": ts["start_time"],
+                    "timestamp_type": ts["timestamp_type"],
+                }
+                for ts in self.storage.extra_data["timestamps"]
+            ]
+
+            if (
+                self.request.method == "POST"
+                and "timestamps-TOTAL_FORMS" in self.request.POST
+            ):
+                context["formset"] = TimestampFormSet(
+                    self.request.POST, prefix="timestamps"
+                )
+            else:
+                TimestampFormSet = formset_factory(TimestampForm, extra=0)
+                data = {
+                    "timestamps-TOTAL_FORMS": len(initial_data),
+                    "timestamps-INITIAL_FORMS": len(initial_data),
+                    "timestamps-MIN_NUM_FORMS": 0,
+                    "timestamps-MAX_NUM_FORMS": 1000,
+                }
+                for i, ts in enumerate(initial_data):
+                    data[f"timestamps-{i}-label"] = ts["label"]
+                    data[f"timestamps-{i}-start_time"] = ts["start_time"]
+                    data[f"timestamps-{i}-timestamp_type"] = ts["timestamp_type"]
+
+                context["formset"] = TimestampFormSet(data, prefix="timestamps")
+        return context
+
+    def get_form_initial(self, step):
+        initial = super().get_form_initial(step)
+        if step == "step_2":
+            initial["title"] = self.storage.extra_data.get("title", "")
+        return initial
 
 
 class VideoDeleteView(TeacherRequiredMixin, DeleteView):
