@@ -43,6 +43,12 @@ class VideoCreateWizard(TeacherRequiredMixin, SessionWizardView):
         TimestampFormSet = formset_factory(TimestampForm, extra=0)
         formset = TimestampFormSet(self.request.POST, prefix="timestamps")
 
+        if not formset.is_valid():
+            messages.error(
+                self.request, _("Invalid timestamp data. Please check your changes.")
+            )
+            return redirect("videos:add_video")
+
         with transaction.atomic():
             video = Video.objects.create(
                 title=step_2_data["title"],
@@ -51,21 +57,21 @@ class VideoCreateWizard(TeacherRequiredMixin, SessionWizardView):
                 subject=step_1_data["subject"],
                 level=step_1_data["level"],
             )
-            if formset.is_valid():
-                for ts_form in formset:
-                    VideoTimestamp.objects.create(
-                        video=video,
-                        label=ts_form.cleaned_data["label"],
-                        start_time=YoutubeService._parse_duration(
-                            ts_form.cleaned_data["start_time"]
-                        ),
-                        timestamp_type=ts_form.cleaned_data["timestamp_type"],
-                    )
 
-            messages.success(
-                self.request,
-                _("Movie '%(title)s' added successfully!") % {"title": video.title},
-            )
+            for ts_form in formset:
+                VideoTimestamp.objects.create(
+                    video=video,
+                    label=ts_form.cleaned_data["label"],
+                    start_time=YoutubeService._parse_duration(
+                        ts_form.cleaned_data["start_time"]
+                    ),
+                    timestamp_type=ts_form.cleaned_data["timestamp_type"],
+                )
+
+        messages.success(
+            self.request,
+            _("Movie '%(title)s' added successfully!") % {"title": video.title},
+        )
 
         return redirect("videos:video_list")
 
