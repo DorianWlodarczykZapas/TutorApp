@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 12:06+0100\n"
+"POT-Creation-Date: 2026-03-19 12:03+0100\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -108,7 +108,7 @@ msgstr ""
 #: .\motifs\models.py:32
 #: .\templates\examination_tasks\exam_task_search_engine.html:36
 #: .\templates\motifs\motif_list.html:35 .\videos\filters.py:22
-#: .\videos\forms\video_forms.py:22 .\videos\forms\video_forms.py:24
+#: .\videos\forms\video_forms.py:24 .\videos\forms\video_forms.py:26
 msgid "Section"
 msgstr "Dział z książki"
 
@@ -159,7 +159,7 @@ msgstr "Ukończone"
 msgid "Book Type"
 msgstr "Rodzaj Książki"
 
-#: .\courses\forms\book_forms.py:23 .\videos\forms\video_forms.py:19
+#: .\courses\forms\book_forms.py:23 .\videos\forms\video_forms.py:20
 #: .\videos\models.py:28
 msgid "School Level"
 msgstr "Poziom szkoły"
@@ -955,7 +955,7 @@ msgstr ""
 #: .\templates\examination_tasks\exam_task_search_engine.html:81
 #: .\templates\quizes\question_review.html:63
 #: .\templates\quizes\quiz_solve_wizard.html:26
-#: .\templates\videos\add_video_wizard.html:140
+#: .\templates\videos\add_video_wizard.html:119
 #: .\templates\videos\section_video_list.html:33
 msgid "Next"
 msgstr "Dalej"
@@ -1589,7 +1589,7 @@ msgid "Already have an account?"
 msgstr "Masz już konto?"
 
 #: .\templates\videos\add_video_wizard.html:6
-#: .\templates\videos\add_video_wizard.html:14
+#: .\templates\videos\add_video_wizard.html:15
 msgid "Add New Video"
 msgstr "Dodaj nowy film"
 
@@ -1601,28 +1601,26 @@ msgstr "Szczegóły filmu"
 msgid "Title & Timestamps"
 msgstr "Tytuł I Timestampy"
 
-#: .\templates\videos\add_video_wizard.html:94
+#: .\templates\videos\add_video_wizard.html:80
 msgid "Time"
 msgstr ""
 
-#: .\templates\videos\add_video_wizard.html:95 .\videos\forms\video_forms.py:37
+#: .\templates\videos\add_video_wizard.html:81 .\videos\forms\video_forms.py:39
 msgid "Label"
 msgstr "Etykieta"
 
-#: .\templates\videos\add_video_wizard.html:96 .\videos\forms\video_forms.py:47
+#: .\templates\videos\add_video_wizard.html:82 .\videos\forms\video_forms.py:49
 #, fuzzy
 #| msgid "Exam Type"
 msgid "Type"
 msgstr "Rodzaj egzaminu"
 
-#: .\templates\videos\add_video_wizard.html:131
+#: .\templates\videos\add_video_wizard.html:113
 #: .\templates\videos\section_video_list.html:7
-#: .\templates\videos\video_details.html:8
 msgid "Back"
 msgstr "Cofnij"
 
-#: .\templates\videos\add_video_wizard.html:138
-
+#: .\templates\videos\add_video_wizard.html:117
 msgid "Save Video"
 msgstr "Zapisz Nagranie"
 
@@ -1640,9 +1638,15 @@ msgstr ""
 msgid "No videos available."
 msgstr ""
 
-#: .\templates\videos\video_details.html:21
-msgid "Timestamps"
-msgstr ""
+#: .\templates\videos\video_details.html:11
+#, python-format
+msgid "Videos From Section %(name)s"
+msgstr "Nagrania z działu %(name)s"
+
+#: .\templates\videos\video_details.html:14
+
+msgid "Video Title"
+msgstr "Tytuł Filmu"
 
 #: .\templates\videos\video_list.html:5 .\templates\videos\video_list.html:11
 msgid "Video Library"
@@ -1740,7 +1744,7 @@ msgstr "Pomyślnie zalogowano."
 msgid "Invalid username or password."
 msgstr ""
 
-#: .\videos\filters.py:16 .\videos\forms\video_forms.py:30
+#: .\videos\filters.py:16 .\videos\forms\video_forms.py:32
 msgid "Title"
 msgstr "Tytuł"
 
@@ -1782,13 +1786,13 @@ msgstr ""
 msgid "YouTube URL"
 msgstr "Link do YouTube"
 
-#: .\videos\forms\video_forms.py:41
+#: .\videos\forms\video_forms.py:43
 #, fuzzy
 #| msgid "Start Quiz"
 msgid "Start time"
 msgstr "Rozpocznij quiz"
 
-#: .\videos\forms\video_forms.py:59
+#: .\videos\forms\video_forms.py:62
 #, fuzzy
 #| msgid "Search in task"
 msgid "Search videos"
@@ -1818,9 +1822,12 @@ msgstr ""
 msgid "No valid timestamps found"
 msgstr ""
 
-#: .\videos\views\video_views.py:62
+#: .\videos\views\video_views.py:48
+msgid "Invalid timestamp data. Please check your changes."
+msgstr ""
 
-
+#: .\videos\views\video_views.py:73
+#, python-format
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
