@@ -3,6 +3,7 @@ from videos.views.video_views import (
     SectionVideoListView,
     VideoCreateWizard,
     VideoDeleteView,
+    VideoDetailsView,
     VideoListView,
 )
 
@@ -17,4 +18,5 @@ urlpatterns = [
         SectionVideoListView.as_view(),
         name="section_videos",
     ),
+    path("<int:pk>/", VideoDetailsView.as_view(), name="video_details"),
 ]
