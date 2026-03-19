@@ -235,7 +235,7 @@ class SectionVideoListView(LoginRequiredMixin, ListView):
 class VideoDetailsView(LoginRequiredMixin, DetailView):
     model = Video
     template_name = "videos/video_details.html"
-    context_object_name = "videos"
+    context_object_name = "video"
 
     def get_queryset(self) -> QuerySet[Video]:
         try:
