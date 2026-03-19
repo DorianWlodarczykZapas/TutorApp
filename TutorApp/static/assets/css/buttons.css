@@ -60,7 +60,6 @@
     box-shadow: none;
 }
 
-
 .btn-primary {
     background: #007bff;
     color: white;
@@ -97,7 +96,6 @@
     background: #c82333;
 }
 
-
 .btn-outline-primary {
     background: white;
     color: #007bff;
@@ -131,7 +129,6 @@
     color: white;
 }
 
-
 .btn-sm {
     padding: 0.4rem 1rem;
     font-size: 0.9rem;
@@ -140,13 +137,6 @@
 .btn-lg {
     padding: 0.8rem 2rem;
     font-size: 1.1rem;
-}
-
-
-@media (max-width: 768px) {
-    .wizard-buttons .btn {
-        width: 100%;
-    }
 }
 
 .btn-teal {
@@ -170,8 +160,75 @@
     border-radius: 30px;
     cursor: pointer;
     transition: background 0.2s;
+    text-decoration: none;
 }
 
 .btn-outline-teal:hover {
     background: #f0f8f7;
+}
+
+
+.timestamp-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 16px;
+    background: #008374;
+    border: 2px solid #008374;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    width: 100%;
+}
+
+.timestamp-btn:hover {
+    background: #006b5e;
+    border-color: #006b5e;
+    transform: translateX(4px);
+}
+
+.timestamp-btn__time {
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+     color: white;
+    font-weight: 600;
+}
+
+.timestamp-btn__label {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+     color: white;
+    line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+    .wizard-buttons .btn {
+        width: 100%;
+    }
+}
+
+.btn-outline-teal--sm {
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    padding: 8px 20px;
+}
+
+.btn-nav {
+    color: #008374;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid #008374;
+    padding: 6px 16px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-nav:hover {
+    background: #e6f4f2;
 }
