@@ -22,7 +22,14 @@ class AddVideoStep1Form(TypedChoiceMixin, forms.Form):
         self.fields["section"] = forms.ModelChoiceField(
             queryset=Section.objects.all(),
             label=_("Section"),
-            widget=forms.Select(attrs={"placeholder": " "}),
+            widget=ModelSelect2Widget(
+                model=Section,
+                search_fields=["name__icontains"],
+                attrs={
+                    "placeholder": " ",
+                    "data-placeholder": _("Section"),
+                },
+            ),
             empty_label=_("Section"),
         )
 
