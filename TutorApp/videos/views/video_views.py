@@ -263,6 +263,7 @@ class VideoDetailsView(LoginRequiredMixin, DetailView):
                 "seconds": ts.start_seconds,
                 "time": ts.start_time_display,
                 "type": ts.get_timestamp_type_display(),
+                "timestamp_type": ts.timestamp_type,
             }
             for ts in self.object.timestamps.all()
         ]
