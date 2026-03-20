@@ -1,6 +1,7 @@
-from courses.models import Topic
+from courses.models import Section, Topic
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django_select2.forms import ModelSelect2Widget
 
 
 class TopicForm(forms.ModelForm):
@@ -18,6 +19,13 @@ class TopicForm(forms.ModelForm):
         }
 
         widgets = {
-            "section": forms.Select(attrs={"placeholder": " "}),
+            "section": ModelSelect2Widget(
+                model=Section,
+                search_fields=["name__icontains"],
+                attrs={
+                    "placeholder": _("Section Name"),
+                    "data-placeholder": _("Section Name"),
+                },
+            ),
             "name": forms.TextInput(attrs={"placeholder": " "}),
         }
