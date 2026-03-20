@@ -8,7 +8,7 @@
   font-size: 32px;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
-  margin: 0;
+  margin: 30px auto 20px;
   display: block;
 }
 
@@ -231,4 +231,18 @@
 
 .btn-nav:hover {
     background: #e6f4f2;
+}
+
+.btn-wizard-submit {
+  width: 270px;
+  height: 68px;
+  background-color: #008374;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 32px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin: 0;
+  display: inline-block;
 }
