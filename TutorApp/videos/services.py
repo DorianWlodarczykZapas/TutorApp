@@ -9,13 +9,14 @@ from videos.models import VideoTimestamp
 HEADER_MAP = {
     "ĆWICZENIA": VideoTimestamp.TimestampType.EXERCISE,
     "ZADANIA": VideoTimestamp.TimestampType.TASK,
-    "MATURA PODSTAWOWA": VideoTimestamp.TimestampType.LECTURE,
-    "MATURA ROZSZERZONA": VideoTimestamp.TimestampType.LECTURE,
+    "MATURA PODSTAWOWA": VideoTimestamp.TimestampType.MATRICULATION_BASIC,
+    "MATURA ROZSZERZONA": VideoTimestamp.TimestampType.MATRICULATION_EXTENDED,
+    "EGZAMIN ÓSMOKLASISTY": VideoTimestamp.TimestampType.EIGHT_GRADE_EXAM,
 }
 
 
 class YoutubeService:
-    """Service to work with youtube api"""
+    """Service to work with YouTube api"""
 
     BASE_URL_PATTERN = r"(?:v=|youtu\.be/)([a-zA-Z0-9_-]{11})"
     TIMESTAMP_PATTERN = r"(\d{2}:\d{2}(?::\d{2})?)\s*-?\s*(.+)"
@@ -36,7 +37,7 @@ class YoutubeService:
         return match.group(1) if match else None
 
     def extract_video_title_and_description(self, url: str) -> dict[str, str]:
-        """Gets video title and description based on url and youtube api
+        """Gets video title and description based on url and YouTube api
 
         Args:
             url (str): url to extract video id
