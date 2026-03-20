@@ -99,4 +99,9 @@
     text-align: center;
 }
 
+.timestamp-group-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 12px 0 4px 0;
+}
 
