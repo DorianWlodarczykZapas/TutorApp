@@ -39,8 +39,17 @@ class VideoTimestamp(models.Model):
         EXERCISE = 1, _("Exercise")
         TASK = 2, _("Task")
         LECTURE = 3, _("Lecture")
+        MATRICULATION_BASIC = 4, _("Matriculation Basic")
+        MATRICULATION_EXTENDED = 5, _("Matriculation Extended")
+        EIGHT_GRADE_EXAM = 6, _("Eight Exam")
 
-    PREMIUM_TYPES = [TimestampType.TASK, TimestampType.LECTURE]
+    PREMIUM_TYPES = [
+        TimestampType.TASK,
+        TimestampType.LECTURE,
+        TimestampType.MATRICULATION_BASIC,
+        TimestampType.MATRICULATION_EXTENDED,
+        TimestampType.EIGHT_GRADE_EXAM,
+    ]
 
     video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name="timestamps"
