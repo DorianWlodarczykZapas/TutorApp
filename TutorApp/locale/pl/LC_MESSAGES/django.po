@@ -271,10 +271,9 @@ msgid "Topic added successfully!"
 msgstr "Temat dodany pomyślnie"
 
 #: .\courses\views\training_task_views.py:28
-#, fuzzy
-#| msgid "Training Tasks"
+
 msgid "Add New Training Task"
-msgstr "Zadania Treningowe"
+msgstr "Dodaj Nowe Zadanie Treningowe"
 
 #: .\courses\views\training_task_views.py:32
 #, fuzzy
@@ -817,10 +816,9 @@ msgstr "Dodaj Temat"
 
 #: .\templates\courses\add_training_task.html:42
 #: .\templates\navigation_links\courses.html:11
-#, fuzzy
-#| msgid "Training Tasks"
+
 msgid "Add Training Task"
-msgstr "Zadania Treningowe"
+msgstr "Dodaj Zadanie Treningowe"
 
 #: .\templates\courses\training_task_detail.html:22
 #, fuzzy
