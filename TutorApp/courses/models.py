@@ -5,8 +5,10 @@ from courses.choices import (
     SchoolLevelChoices,
     SubjectChoices,
 )
-from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+from users.models import User
 
 
 class Book(models.Model):
@@ -91,21 +93,59 @@ class TrainingTask(models.Model):
         null=True,
         blank=True,
     )
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="training_tasks",
+        verbose_name=_("Book"),
+    )
+    page_number = models.IntegerField(null=True, blank=True)
 
     level = models.IntegerField(
         choices=DifficultyLevelChoices.choices,
         default=DifficultyLevelChoices.INTERMEDIATE,
         verbose_name="Difficulty Level",
     )
-    completed_by = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        related_name="completed_training_tasks",
+
+    explanation_timestamp = models.ForeignKey(
+        "videos.VideoTimestamp",
+        null=True,
         blank=True,
+        on_delete=models.SET_NULL,
+        related_name="training_tasks",
     )
 
     class Meta:
         verbose_name = "Training Task"
         verbose_name_plural = "Training Tasks"
 
+    def clean(self):
+        if self.page_number and not self.book:
+            raise ValidationError(_("Page number requires a book to be selected."))
+
     def __str__(self):
         return self.task_content[:80] + "..."
+
+
+class UserTaskCompletion(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("User"),
+    )
+    task = models.ForeignKey(
+        TrainingTask,
+        on_delete=models.CASCADE,
+        verbose_name=_("Task"),
+    )
+    completed_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ["user", "task"]
+        verbose_name = _("User Task Completion")
+        verbose_name_plural = _("User Task Completions")
+
+    def __str__(self):
+        return f"{self.user} - {self.task.pk} - {self.completed_at}"
