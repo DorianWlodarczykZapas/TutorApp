@@ -2,7 +2,6 @@ import re
 from datetime import timedelta
 
 from courses.choices import SchoolLevelChoices, SubjectChoices
-from courses.models import Section
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -11,7 +10,7 @@ class Video(models.Model):
     title = models.CharField(max_length=255)
     youtube_url = models.URLField()
     section = models.ForeignKey(
-        Section, on_delete=models.CASCADE, related_name="videos"
+        "courses.Section", on_delete=models.CASCADE, related_name="videos"
     )
 
     @property
@@ -79,6 +78,14 @@ class VideoTimestamp(models.Model):
     def is_premium(self) -> bool:
         """Returns True if timestamp is available only for premium users."""
         return self.timestamp_type in self.PREMIUM_TYPES
+
+    @property
+    def next_start_seconds(self) -> int | None:
+        """Returns next timestamp if available, None otherwise."""
+        next_ts = VideoTimestamp.objects.filter(
+            video=self.video, start_time__gt=self.start_time
+        ).first()
+        return next_ts.start_seconds if next_ts else None
 
     def __str__(self):
         return f"{self.video.title} – {self.label}"
