@@ -20,8 +20,8 @@ class AddTrainingTask(TeacherRequiredMixin, CreateView):
 
     model = TrainingTask
     form_class = TrainingTaskForm
-    template_name = "examination_tasks/add_training_task.html"
-    success_url = reverse_lazy("examination_tasks:add_training_task")
+    template_name = "courses/add_training_task.html"
+    success_url = reverse_lazy("courses:add_training_task")
 
     def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
         data = super().get_context_data(**kwargs)
