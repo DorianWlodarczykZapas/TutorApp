@@ -218,3 +218,42 @@
         max-width: 100%;
     }
 }
+
+.floating-field.field-file {
+    max-width: 50%;
+    margin: 0 auto 25px auto;
+}
+
+.floating-field.field-file .form-input {
+    height: auto;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.floating-field.field-file .form-input::-webkit-file-upload-button {
+    background-color: #008374;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.floating-field.field-file .form-input::-webkit-file-upload-button:hover {
+    background-color: #00695c;
+}
+
+.floating-field.field-file .field-file__label {
+    display: block;
+    font-size: 14px;
+    color: #008374;
+    font-weight: 600;
+    margin-bottom: 8px;
+    position: static;
+    transform: none;
+    background: none;
+    pointer-events: auto;
+}
