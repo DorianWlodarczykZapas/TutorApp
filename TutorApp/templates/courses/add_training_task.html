@@ -1,46 +1,71 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load i18n %}
+{% load widget_tweaks %}
+{% block title %}
+    {% trans "Add New Training Task" %}
+{% endblock %}
 {% block content %}
-    <div class="main-content">
-        <div class="form-container">
-            <h1 class="form-title">{{ title }}</h1>
-            {% if messages %}
-                <ul class="messages-list">
-                    {% for message in messages %}
-                        <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <form method="post" enctype="multipart/form-data" novalidate>
-                {% csrf_token %}
-                {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
-                <div class="form-group">
-                    <label for="{{ form.task_content.id_for_label }}" class="form-label">{% trans "Task Content" %}</label>
-                    {{ form.task_content }}
-                    {% if form.task_content.errors %}<div class="field-errors">{{ form.task_content.errors }}</div>{% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.answer.id_for_label }}" class="form-label">{% trans "Answer" %}</label>
-                    {{ form.answer }}
-                    {% if form.answer.errors %}<div class="field-errors">{{ form.answer.errors }}</div>{% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.image.id_for_label }}" class="form-label">{% trans "Task Image (optional)" %}</label>
-                    {{ form.image }}
-                    {% if form.image.errors %}<div class="field-errors">{{ form.image.errors }}</div>{% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.section.id_for_label }}" class="form-label">{% trans "Section (optional)" %}</label>
-                    {{ form.section }}
-                    {% if form.section.errors %}<div class="field-errors">{{ form.section.errors }}</div>{% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.level.id_for_label }}" class="form-label">{% trans "Difficulty Level" %}</label>
-                    {{ form.level }}
-                    {% if form.level.errors %}<div class="field-errors">{{ form.level.errors }}</div>{% endif %}
-                </div>
-                <button type="submit" class="btn-submit">{% trans "Add Training Task" %}</button>
-            </form>
+    <form method="post" class="form-container" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="form-title">{% trans "Add New Task" %}</h1>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        <div class="floating-field field-long">
+            <div class="floating-field__input-wrapper">
+                {{ form.task_content|add_class:"form-input" }}
+                <label for="{{ form.task_content.id_for_label }}">{{ form.task_content.label }}</label>
+            </div>
+            {% if form.task_content.errors %}<div class="field-errors">{{ form.task_content.errors|striptags }}</div>{% endif %}
         </div>
-    </div>
+        <div class="floating-field field-file">
+            <div class="floating-field__input-wrapper">
+                <label for="{{ form.image.id_for_label }}" class="field-file__label">{{ form.image.label }}</label>
+                {{ form.image|add_class:"form-input" }}
+            </div>
+            {% if form.image.errors %}<div class="field-errors">{{ form.image.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-short">
+            <div class="floating-field__input-wrapper">
+                {{ form.answer|add_class:"form-input" }}
+                <label for="{{ form.answer.id_for_label }}">{{ form.answer.label }}</label>
+            </div>
+            {% if form.answer.errors %}<div class="field-errors">{{ form.answer.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-search-single">
+            <div class="floating-field__input-wrapper">{{ form.book }}</div>
+            {% if form.book.errors %}<div class="field-errors">{{ form.book.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-search-single">
+            <div class="floating-field__input-wrapper">{{ form.section }}</div>
+            {% if form.section.errors %}<div class="field-errors">{{ form.section.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-short">
+            <div class="floating-field__input-wrapper">
+                {{ form.page_number|add_class:"form-input" }}
+                <label for="{{ form.page_number.id_for_label }}">{{ form.page_number.label }}</label>
+            </div>
+            {% if form.page_number.errors %}<div class="field-errors">{{ form.page_number.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-select">
+            <div class="floating-field__input-wrapper">
+                {{ form.level|add_class:"form-input" }}
+                <label for="{{ form.level.id_for_label }}">{{ form.level.label }}</label>
+            </div>
+            {% if form.level.errors %}<div class="field-errors">{{ form.level.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-search-single">
+            <div class="floating-field__input-wrapper">{{ form.explanation_timestamp }}</div>
+            {% if form.explanation_timestamp.errors %}
+                <div class="field-errors">{{ form.explanation_timestamp.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn-submit">{% trans "Add Task" %}</button>
+    </form>
+{% endblock %}
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    {{ form.media }}
 {% endblock %}
