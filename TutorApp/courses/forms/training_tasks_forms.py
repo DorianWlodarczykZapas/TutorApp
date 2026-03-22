@@ -1,3 +1,5 @@
+from core.forms import TypedChoiceMixin
+from courses.choices import DifficultyLevelChoices
 from courses.models import Book, Section, TrainingTask
 from django import forms
 from django.utils.translation import gettext_lazy as _
@@ -5,12 +7,15 @@ from django_select2.forms import ModelSelect2Widget
 from videos.models import VideoTimestamp
 
 
-class TrainingTaskForm(forms.ModelForm):
+class TrainingTaskForm(TypedChoiceMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["section"].empty_label = _("Section Name")
         self.fields["book"].empty_label = _("Book Name")
+        self.fields["level"] = self._make_typed_choice(
+            DifficultyLevelChoices, _("Level Type")
+        )
 
     class Meta:
         model = TrainingTask
@@ -38,12 +43,10 @@ class TrainingTaskForm(forms.ModelForm):
             "task_content": forms.Textarea(
                 attrs={
                     "rows": 5,
-                    "placeholder": _("Enter the task content here..."),
+                    "placeholder": (" "),
                 }
             ),
-            "answer": forms.TextInput(
-                attrs={"placeholder": _("Enter the correct answer...")}
-            ),
+            "answer": forms.TextInput(attrs={"placeholder": _(" ")}),
             "section": ModelSelect2Widget(
                 model=Section,
                 search_fields=["name__icontains"],
