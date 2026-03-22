@@ -105,7 +105,6 @@ class TrainingTask(models.Model):
 
     level = models.IntegerField(
         choices=DifficultyLevelChoices.choices,
-        default=DifficultyLevelChoices.INTERMEDIATE,
         verbose_name="Difficulty Level",
     )
 
