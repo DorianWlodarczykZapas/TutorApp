@@ -5,6 +5,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from users.factories import TeacherFactory, UserFactory
+from videos.tests.factories import VideoTimestampFactory
 
 
 class AddTrainingTasksTests(TestCase):
@@ -14,11 +15,17 @@ class AddTrainingTasksTests(TestCase):
         self.teacher = TeacherFactory.create()
         self.url = reverse("add_training_tasks")
         self.section = SectionFactory.create()
+        self.book = BookFactory.create()
+        self.page_number = 25
+        self.timestamp = VideoTimestampFactory.create()
         self.valid_data = {
             "task_content": "Solve this equation",
             "answer": "4",
             "level": 3,
             "section": self.section.pk,
+            "book": self.book.pk,
+            "page_number": self.page_number,
+            "explanation_timestamp": self.timestamp.pk,
         }
 
     def test_unauthorized_access(self):
