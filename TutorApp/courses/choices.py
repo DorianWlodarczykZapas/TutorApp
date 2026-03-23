@@ -13,6 +13,11 @@ class DifficultyLevelChoices(models.IntegerChoices):
     ADVANCED = 3, _("Advanced")
 
 
+class TaskSourceChoices(models.IntegerChoices):
+    BOOK = 1, _("Book")
+    WORKSHEET = 2, _("Worksheet/Generator")
+
+
 class GradeChoices(models.IntegerChoices):
     PRIMARY_7 = 7, _("7th Grade - Primary")
     PRIMARY_8 = 8, _("8th Grade - Primary")
