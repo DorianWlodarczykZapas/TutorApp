@@ -121,6 +121,13 @@ class AddTrainingTasksTests(TestCase):
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
 
+    def test_add_training_task_with_page_number_without_book(self):
+        """Test case that adds training task with page number but without book"""
+        self.valid_data["book"] = ""
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 0)
+
 
 class TrainingTaskListTests(TestCase):
     def setUp(self):
