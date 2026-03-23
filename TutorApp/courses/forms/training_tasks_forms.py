@@ -1,5 +1,5 @@
 from core.forms import TypedChoiceMixin
-from courses.choices import DifficultyLevelChoices
+from courses.choices import DifficultyLevelChoices, TaskSourceChoices
 from courses.models import Book, Section, TrainingTask
 from django import forms
 from django.utils.translation import gettext_lazy as _
@@ -16,10 +16,14 @@ class TrainingTaskForm(TypedChoiceMixin, forms.ModelForm):
         self.fields["level"] = self._make_typed_choice(
             DifficultyLevelChoices, _("Level Type")
         )
+        self.fields["source"] = self._make_typed_choice(
+            TaskSourceChoices, _("Task Source")
+        )
 
     class Meta:
         model = TrainingTask
         fields = [
+            "source",
             "task_content",
             "answer",
             "image",
@@ -30,6 +34,7 @@ class TrainingTaskForm(TypedChoiceMixin, forms.ModelForm):
             "explanation_timestamp",
         ]
         labels = {
+            "source": _("Task Source"),
             "task_content": _("Task Content"),
             "answer": _("Answer"),
             "image": _("Task Image (optional)"),
