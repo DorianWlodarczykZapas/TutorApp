@@ -4,6 +4,7 @@ from courses.choices import (
     GradeChoices,
     SchoolLevelChoices,
     SubjectChoices,
+    TaskSourceChoices,
 )
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -116,13 +117,21 @@ class TrainingTask(models.Model):
         related_name="training_tasks",
     )
 
+    source = models.IntegerField(
+        choices=TaskSourceChoices.choices,
+        verbose_name="Task Source",
+    )
+
     class Meta:
         verbose_name = "Training Task"
         verbose_name_plural = "Training Tasks"
 
     def clean(self):
-        if self.page_number and not self.book:
-            raise ValidationError(_("Page number requires a book to be selected."))
+        if self.source == TaskSourceChoices.BOOK:
+            if not self.book:
+                raise ValidationError(_("Book task requires a book."))
+            if not self.page_number:
+                raise ValidationError(_("Book task requires a page number."))
 
     def __str__(self):
         return self.task_content[:80] + "..."
