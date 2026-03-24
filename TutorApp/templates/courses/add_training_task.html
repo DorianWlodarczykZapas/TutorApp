@@ -13,6 +13,13 @@
                 {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
             </div>
         {% endif %}
+        <div class="floating-field field-select">
+            <div class="floating-field__input-wrapper">
+                {{ form.source|add_class:"form-input" }}
+                <label for="{{ form.source.id_for_label }}">{{ form.source.label }}</label>
+            </div>
+            {% if form.source.errors %}<div class="field-errors">{{ form.source.errors|striptags }}</div>{% endif %}
+        </div>
         <div class="floating-field field-long">
             <div class="floating-field__input-wrapper">
                 {{ form.task_content|add_class:"form-input" }}
