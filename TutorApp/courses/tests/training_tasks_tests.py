@@ -1,3 +1,4 @@
+from courses.choices import TaskSourceChoices
 from courses.filters import TrainingTaskFilter
 from courses.models import TrainingTask
 from courses.tests.factories import BookFactory, SectionFactory, TrainingTaskFactory
@@ -13,12 +14,13 @@ class AddTrainingTasksTests(TestCase):
         self.client = Client()
         self.student = UserFactory.create()
         self.teacher = TeacherFactory.create()
-        self.url = reverse("add_training_tasks")
+        self.url = reverse("courses:add_training_task")
         self.section = SectionFactory.create()
         self.book = BookFactory.create()
         self.page_number = 25
         self.timestamp = VideoTimestampFactory.create()
         self.valid_data = {
+            "source": 1,
             "task_content": "Solve this equation",
             "answer": "4",
             "level": 3,
@@ -45,7 +47,7 @@ class AddTrainingTasksTests(TestCase):
         """Test case that checks if student can access adding topic page"""
         self.client.force_login(self.student)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 403)
 
     def test_add_training_task(self):
         """Test case that adds training task"""
@@ -121,16 +123,27 @@ class AddTrainingTasksTests(TestCase):
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
 
-    def test_add_training_task_with_page_number_without_book(self):
-        """Test case that adds training task with page number but without book"""
+    def test_add_worksheet_task_without_book(self):
+        """Test case that adds worksheet task without book - should succeed"""
+        self.valid_data["source"] = TaskSourceChoices.WORKSHEET
         self.valid_data["book"] = ""
+        self.valid_data["page_number"] = ""
+        self.client.force_login(self.teacher)
+        self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(TrainingTask.objects.count(), 1)
+
+    def test_add_book_task_without_page_number(self):
+        """Test case that adds book task without page number"""
+        self.valid_data["source"] = TaskSourceChoices.BOOK
+        self.valid_data["page_number"] = ""
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
 
-    def test_add_training_task_with_book_without_page_number(self):
-        """Test case that adds training task with book but without page number"""
-        self.valid_data["page_number"] = ""
+    def test_add_book_task_without_book(self):
+        """Test case that adds book task without book"""
+        self.valid_data["source"] = TaskSourceChoices.BOOK
+        self.valid_data["book"] = ""
         self.client.force_login(self.teacher)
         self.client.post(self.url, data=self.valid_data)
         self.assertEqual(TrainingTask.objects.count(), 0)
