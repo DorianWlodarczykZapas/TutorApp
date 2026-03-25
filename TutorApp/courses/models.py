@@ -148,7 +148,9 @@ class UserTaskCompletion(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("Task"),
     )
-    completed_at = models.DateTimeField(auto_now=True)
+    completed_at = models.DateTimeField(
+        auto_now_add=False, default=None, null=True, blank=True
+    )
 
     class Meta:
         unique_together = ["user", "task"]
