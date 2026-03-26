@@ -1,6 +1,6 @@
 .btn-submit {
-  width: 270px;
-  height: 68px;
+  width: 420px;
+  height: 80px;
   background-color: #008374;
   color: white;
   border: none;
@@ -245,4 +245,11 @@
   cursor: pointer;
   margin: 0;
   display: inline-block;
+}
+
+.btn-nav-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1rem 0;
 }
