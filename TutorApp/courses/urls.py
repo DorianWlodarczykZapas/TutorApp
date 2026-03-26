@@ -16,7 +16,7 @@ urlpatterns = [
     path("topics/add/", AddTopic.as_view(), name="add_topic"),
     path("training-tasks/add/", AddTrainingTask.as_view(), name="add_training_task"),
     path(
-        "courses/<int:pk>/",
+        "training-tasks/<int:pk>/",
         TrainingTaskDetailView.as_view(),
         name="training_tasks_detail",
     ),
