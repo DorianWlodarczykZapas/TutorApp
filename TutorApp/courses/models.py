@@ -78,8 +78,13 @@ class Topic(models.Model):
 
 
 class TrainingTask(models.Model):
-    task_content = models.TextField(verbose_name="Task Content")
-    answer = models.CharField(max_length=255, verbose_name="Answer")
+    task_content = models.TextField(
+        verbose_name="Task Content",
+        help_text=_("Use $...$ for inline math, e.g., $x=2$"),
+    )
+    answer = models.TextField(
+        verbose_name="Answer", help_text=_("Use $...$ for inline math, e.g., $x=2$")
+    )
     image = models.ImageField(
         upload_to="tasks_images/",
         null=True,
