@@ -1,103 +1,105 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% block title %}{{ title }}{% endblock %}
+{% block main_class %}main-content main-content--full{% endblock %}
+{% block title %}
+    {% trans "Training Task" %}
+{% endblock %}
 {% block content %}
     <div class="task-detail-container">
-        <nav class="breadcrumb">
-            <a href="{% url 'training_tasks:task_list' %}">{% trans "Training Tasks" %}</a>
-            <span class="separator">›</span>
-            {% if task.section %}
-                <span>{{ task.section.book.title }}</span>
-                <span class="separator">›</span>
-                <span>{{ task.section.name }}</span>
-            {% else %}
-                <span>{% trans "Task Details" %}</span>
-            {% endif %}
-        </nav>
+        <div class="btn-nav-container">
+            <a href="{% url 'courses:training_tasks_list' %}" class="btn-nav">{% trans "Tasks List" %}</a>
+        </div>
         <div class="task-detail-header">
-            <div class="task-meta">
+            <div class="task-detail-meta">
+                <span class="task-detail-badge task-detail-badge--level">
+                    <span class="badge__label">{% trans "Difficulty" %}:</span>
+                    <span class="badge__value">{{ task.get_level_display }}</span>
+                </span>
+                <span class="task-detail-badge task-detail-badge--source">
+                    <span class="badge__label">{% trans "Source" %}:</span>
+                    <span class="badge__value">{{ task.get_source_display }}</span>
+                </span>
                 {% if task.section %}
-                    <div class="meta-item">
-                        <span class="meta-label">📚 {% trans "Book:" %}</span>
-                        <span class="meta-value">{{ task.section.book.title }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">📖 {% trans "Section:" %}</span>
-                        <span class="meta-value">{{ task.section.name }}</span>
-                    </div>
+                    <span class="task-detail-badge task-detail-badge--section">
+                        <span class="badge__label">{% trans "Section" %}:</span>
+                        <span class="badge__value">{{ task.section }}</span>
+                    </span>
                 {% endif %}
-                <div class="meta-item">
-                    <span class="meta-label">⭐ {% trans "Difficulty:" %}</span>
-                    <span class="difficulty-badge level-{{ task.level }}">{{ task.get_level_display }}</span>
+                {% if task.book %}
+                    <span class="task-detail-badge task-detail-badge--book">
+                        <span class="badge__label">{% trans "Book" %}:</span>
+                        <span class="badge__value">
+                            {{ task.book.title }}
+                            {% if task.page_number %}
+                                ({% trans "Page" %} {{ task.page_number }})
+                            {% endif %}
+                        </span>
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="task-detail-card">
+            <div class="task-detail-content-wrapper">
+                <p class="task-detail-content">{{ task.task_content }}</p>
+            </div>
+            {% if task.image %}
+                <div class="task-detail-image-wrapper">
+                    <img src="{{ task.image.url }}"
+                         alt="{% trans 'Task image' %}"
+                         class="task-detail-image">
                 </div>
+            {% endif %}
+        </div>
+        <details class="task-detail-answer task-detail-answer--centered">
+            <summary class="answer-summary">{% trans "Show Answer" %}</summary>
+            <div class="answer-content">
+                <p>{{ task.answer }}</p>
+            </div>
+        </details>
+        <form id="complete-task-form"
+              method="post"
+              data-url="{% url 'courses:training_tasks_detail' task.pk %}"
+              class="task-detail-complete-form">
+            {% csrf_token %}
+            <button type="submit"
+                    id="btn-complete"
+                    class="btn-submit {% if is_completed %}btn-submit--completed{% endif %}"
+                    {% if is_completed %}disabled{% endif %}>
                 {% if is_completed %}
-                    <div class="meta-item">
-                        <span class="completion-badge-large">✓ {% trans "Completed" %}</span>
+                    ✓ {% trans "Completed" %}
+                {% else %}
+                    {% trans "Mark as Completed" %}
+                {% endif %}
+            </button>
+        </form>
+        {% if video_id %}
+            <div class="task-detail-video">
+                <h2 class="task-detail-video-title">{% trans "Explanation" %}</h2>
+                {% if is_premium %}
+                    <div class="video-player-wrapper">
+                        <div id="player"></div>
+                        <div class="player-overlay"></div>
+                    </div>
+                {% else %}
+                    <div class="task-detail-locked">
+                        <p class="task-detail-locked__text">🔒 {% trans "This explanation is available for Premium users only." %}</p>
+                        <a href="{% url 'plans:plans_list' %}" class="btn-submit">{% trans "Upgrade to Premium" %}</a>
                     </div>
                 {% endif %}
             </div>
-        </div>
-        <div class="task-content-section">
-            <h2 class="section-title">📝 {% trans "Task" %}</h2>
-            <div class="task-content-box">
-                {# Task image #}
-                {% if task.image %}
-                    <div class="task-image-container">
-                        <img src="{{ task.image.url }}"
-                             alt="{% trans 'Task image' %}"
-                             class="task-image"
-                             id="task-image">
-                        <button type="button" class="btn-zoom" id="zoom-btn">🔍 {% trans "Zoom" %}</button>
-                    </div>
-                {% endif %}
-                {# Task text #}
-                <div class="task-text">{{ task.task_content|linebreaks }}</div>
-            </div>
-        </div>
-        <div class="answer-section">
-            <div class="answer-header">
-                <h2 class="section-title">💡 {% trans "Answer" %}</h2>
-                <button type="button" class="btn btn-primary" id="toggle-answer-btn">
-                    <span id="toggle-text">{% trans "Show Answer" %}</span>
-                </button>
-            </div>
-            <div class="answer-content-box hidden" id="answer-box">
-                <div class="answer-text">
-                    <strong>{% trans "Answer:" %}</strong> {{ task.answer }}
-                </div>
-                {% if not is_completed %}
-                    <div class="answer-actions">
-                        <p class="answer-prompt">{% trans "Did you solve it correctly?" %}</p>
-                        <button type="button"
-                                class="btn btn-success"
-                                id="mark-completed-btn"
-                                data-task-id="{{ task.pk }}">✓ {% trans "Mark as Completed" %}</button>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="task-navigation">
-            <a href="{% url 'training_tasks:task_list' %}" class="btn btn-secondary">← {% trans "Back to List" %}</a>
-            <div class="nav-buttons">
-                {# Previous task button (you can implement this with get_previous_by logic) #}
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        id="prev-task-btn"
-                        disabled>← {% trans "Previous Task" %}</button>
-                {# Next task button #}
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        id="next-task-btn"
-                        disabled>{% trans "Next Task" %} →</button>
-            </div>
-        </div>
+        {% endif %}
     </div>
-    <div class="modal hidden" id="image-modal">
-        <div class="modal-backdrop" id="modal-backdrop"></div>
-        <div class="modal-content">
-            <button type="button" class="modal-close" id="modal-close">✕</button>
-            <img src="" alt="{% trans 'Task image zoomed' %}" id="modal-image">
-        </div>
-    </div>
+    {% if video_id and is_premium %}
+        <script id="video-id" type="application/json">"{{ video_id }}"</script>
+        <script id="start-seconds" type="application/json">{{ start_seconds }}</script>
+        <script id="end-seconds" type="application/json">{{ end_seconds|default:"null" }}</script>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'assets/js/mark_task_ajax.js' %}"></script>
+    {% if video_id and is_premium %}
+        <script src="{% static 'assets/js/youtube_player.js' %}"></script>
+        <script src="{% static 'assets/js/task_player.js' %}"></script>
+    {% endif %}
 {% endblock %}
