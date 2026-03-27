@@ -1,7 +1,13 @@
 const startSeconds = JSON.parse(document.getElementById('start-seconds').textContent);
 const endSeconds = JSON.parse(document.getElementById('end-seconds').textContent);
-
+const slider = document.getElementById('seek-slider');
 let intervalId = null;
+document.getElementById('time-current').textContent = formatTime(startSeconds)
+document.getElementById('time-end').textContent = formatTime(endSeconds)
+
+slider.addEventListener('input', (e) => {
+    seekTo(e.target.value);
+});
 
 function seekTo(seconds) {
     player.seekTo(seconds, true);
@@ -9,16 +15,26 @@ function seekTo(seconds) {
     watchForEnd();
 }
 
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds/60)
+    const secs = seconds % 60
+    return `${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+}
+
 function watchForEnd() {
     if (intervalId) clearInterval(intervalId);
 
     if (endSeconds === null) return;
 
+
     intervalId = setInterval(() => {
+        slider.value = player.getCurrentTime();
+        document.getElementById('time-current').textContent = formatTime(Math.floor(player.getCurrentTime()) )
+
         if (player.getCurrentTime() >= endSeconds) {
-            player.pauseVideo();
             clearInterval(intervalId);
             intervalId = null;
+            seekTo(startSeconds);
         }
     }, 500);
 }
