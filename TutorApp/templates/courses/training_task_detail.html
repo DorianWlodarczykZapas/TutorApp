@@ -81,6 +81,15 @@
                         <div id="player"></div>
                         <div class="player-overlay"></div>
                     </div>
+                    <div class="seek-container">
+                        <span id="time-current"></span>
+                        <input type="range"
+                               id="seek-slider"
+                               min="{{ start_seconds }}"
+                               max="{{ end_seconds }}"
+                               value="{{ start_seconds }}">
+                        <span id="time-end"></span>
+                    </div>
                 {% else %}
                     <div class="task-detail-locked">
                         <p class="task-detail-locked__text">🔒 {% trans "This explanation is available for Premium users only." %}</p>
