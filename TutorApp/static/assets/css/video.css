@@ -105,3 +105,24 @@
     margin: 12px 0 4px 0;
 }
 
+.seek-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    border: 2px solid #008374;
+}
+
+.seek-container #seek-slider {
+    flex: 1;
+    accent-color: #008374;
+}
+
+.seek-container span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #008374;
+    min-width: 40px;
+}
