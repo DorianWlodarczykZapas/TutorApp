@@ -5,6 +5,7 @@ from courses.forms.training_tasks_forms import TrainingTaskForm
 from courses.models import TrainingTask, UserTaskCompletion
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Exists, OuterRef, QuerySet
 from django.http import HttpRequest, HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -41,10 +42,9 @@ class TrainingTaskListView(LoginRequiredMixin, FilterView):
 
     Features:
     - Automatic filtering by user's grade (default)
-    - Search by task content
-    - Filter by book, section, difficulty level
-    - Filter by completion status
-    - Pagination
+    - Search by task content, section
+    - Filter by level
+    - Sort by completed status
     """
 
     model = TrainingTask
@@ -53,42 +53,20 @@ class TrainingTaskListView(LoginRequiredMixin, FilterView):
     context_object_name = "tasks"
     paginate_by = 20
 
-    def get_filterset_kwargs(self, filterset_class):
-
-        kwargs = super().get_filterset_kwargs(filterset_class)
-        kwargs["user"] = self.request.user
-        return kwargs
-
-    def get_queryset(self):
-
-        queryset = super().get_queryset()
-
-        queryset = queryset.select_related("section", "section__book").prefetch_related(
-            "completed_by"
-        )
-
-        return queryset
-
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        context["title"] = _("Training Tasks")
-
-        if self.request.user.is_authenticated:
-            all_tasks = self.get_queryset()
-            context["total_tasks"] = all_tasks.count()
-            context["completed_tasks"] = all_tasks.filter(
-                completed_by=self.request.user
-            ).count()
-
-            if context["total_tasks"] > 0:
-                context["completion_percentage"] = round(
-                    (context["completed_tasks"] / context["total_tasks"]) * 100
+    def get_queryset(self) -> QuerySet[TrainingTask]:
+        user = self.request.user
+        return (
+            TrainingTask.objects.annotate(
+                is_completed=Exists(
+                    UserTaskCompletion.objects.filter(
+                        task=OuterRef("pk"),
+                        user=user,
+                    )
                 )
-            else:
-                context["completion_percentage"] = 0
-
-        return context
+            )
+            .order_by("is_completed")
+            .select_related("section")
+        )
 
 
 class TrainingTaskDetailView(LoginRequiredMixin, DetailView):
