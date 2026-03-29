@@ -49,7 +49,7 @@ class TrainingTaskListView(LoginRequiredMixin, FilterView):
 
     model = TrainingTask
     filterset_class = TrainingTaskFilter
-    template_name = "courses/training_task_list.html"
+    template_name = "courses/training_tasks_list.html"
     context_object_name = "tasks"
     paginate_by = 20
 
