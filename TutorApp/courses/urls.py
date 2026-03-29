@@ -20,5 +20,9 @@ urlpatterns = [
         TrainingTaskDetailView.as_view(),
         name="training_tasks_detail",
     ),
-    path("courses/", TrainingTaskListView.as_view(), name="training_tasks_list"),
+    path(
+        "training-tasks-list/",
+        TrainingTaskListView.as_view(),
+        name="training_tasks_list",
+    ),
 ]
