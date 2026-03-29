@@ -6,65 +6,38 @@
     <div class="training-tasks-container">
         <div class="page-header">
             <h1>{{ title }}</h1>
-            {% if user.is_authenticated %}
-                <div class="user-stats">
-                    <div class="stat-item">
-                        <span class="stat-value">{{ completed_tasks }}</span>
-                        <span class="stat-label">{% trans "Completed" %}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">{{ total_tasks }}</span>
-                        <span class="stat-label">{% trans "Total" %}</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="progress-circle" data-percentage="{{ completion_percentage }}">
-                            <span>{{ completion_percentage }}%</span>
-                        </div>
-                        <span class="stat-label">{% trans "Progress" %}</span>
-                    </div>
-                </div>
-            {% endif %}
         </div>
         <div class="filters-container">
             <form method="get" class="filters-form" id="filter-form">
                 <div class="filters-grid">
-                    {# Search #}
                     <div class="filter-group filter-search">
                         <label for="{{ filter.form.search.id_for_label }}">{{ filter.form.search.label }}</label>
                         {{ filter.form.search }}
                     </div>
-                    {# Book #}
-                    <div class="filter-group">
-                        <label for="{{ filter.form.book.id_for_label }}">{{ filter.form.book.label }}</label>
-                        {{ filter.form.book }}
-                    </div>
-                    {# Section #}
-                    <div class="filter-group">
+                    <div class="filter-group field-search-single">
                         <label for="{{ filter.form.section.id_for_label }}">{{ filter.form.section.label }}</label>
                         {{ filter.form.section }}
                     </div>
-                    {# Completed status #}
                     <div class="filter-group">
                         <label for="{{ filter.form.completed.id_for_label }}">{{ filter.form.completed.label }}</label>
                         {{ filter.form.completed }}
                     </div>
-                </div>
-                {# Difficulty level checkboxes #}
-                <div class="filter-group filter-checkboxes">
-                    <label>{{ filter.form.level.label }}</label>
-                    <div class="checkbox-group">
-                        {% for choice in filter.form.level %}
-                            <label class="checkbox-label">
-                                {{ choice.tag }}
-                                <span>{{ choice.choice_label }}</span>
-                            </label>
-                        {% endfor %}
+                    <div class="filter-group filter-checkboxes">
+                        <label>{{ filter.form.level.label }}</label>
+                        <div class="checkbox-group">
+                            {% for choice in filter.form.level %}
+                                <label class="checkbox-label">
+                                    {{ choice.tag }}
+                                    <span>{{ choice.choice_label }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-                {# Buttons #}
-                <div class="filter-actions">
-                    <button type="submit" class="btn btn-primary">🔍 {% trans "Apply Filters" %}</button>
-                    <a href="{% url 'training_tasks:task_list' %}" class="btn btn-secondary">✕ {% trans "Clear Filters" %}</a>
+                    <div class="filter-actions">
+                        <button type="submit" class="btn btn-primary">🔍 {% trans "Apply Filters" %}</button>
+                        <a href="{% url 'courses:training_tasks_list' %}"
+                           class="btn btn-secondary">✕ {% trans "Clear Filters" %}</a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -72,33 +45,29 @@
             {% if tasks %}
                 <div class="tasks-count">
                     {% blocktrans count counter=page_obj.paginator.count %}
-                    Found {{ counter }} task
-                {% plural %}
-                    Found {{ counter }} tasks
-                {% endblocktrans %}
+                        Found {{ counter }} task
+                    {% plural %}
+                        Found {{ counter }} tasks
+                    {% endblocktrans %}
                 </div>
                 <div class="tasks-grid">
                     {% for task in tasks %}
-                        <div class="task-card {% if user in task.completed_by.all %}completed{% endif %}">
-                            {# Task header #}
+                        <div class="task-card {% if task.is_completed %}task-card--completed{% endif %}">
                             <div class="task-header">
                                 {% if task.section %}
-                                    <span class="task-section">📚 {{ task.section.book.title }} - {{ task.section.name }}</span>
+                                    <span class="task-section">📚 {{ task.section.get_subject_display }} - {{ task.section.name }}</span>
                                 {% endif %}
-                                {# Difficulty badge #}
                                 <span class="difficulty-badge level-{{ task.level }}">{{ task.get_level_display }}</span>
                             </div>
-                            {# Task content #}
                             <div class="task-content">
                                 {% if task.image %}<img src="{{ task.image.url }}" alt="Task image" class="task-image">{% endif %}
                                 <p class="task-text">{{ task.task_content|truncatewords:30 }}</p>
                             </div>
-                            {# Task footer #}
                             <div class="task-footer">
-                                {% if user in task.completed_by.all %}
+                                {% if task.is_completed %}
                                     <span class="completion-badge">✓ {% trans "Completed" %}</span>
                                 {% endif %}
-                                <a href="{% url 'training_tasks:training_tasks_detail' task.pk %}"
+                                <a href="{% url 'courses:training_tasks_detail' task.pk %}"
                                    class="btn btn-sm btn-primary">{% trans "Solve" %} →</a>
                             </div>
                         </div>
@@ -126,23 +95,23 @@
             {% else %}
                 <div class="no-results">
                     <p>😔 {% trans "No tasks found matching your criteria." %}</p>
-                    <a href="{% url 'training_tasks:trainins_tasks_list' %}"
+                    <a href="{% url 'courses:training_tasks_list' %}"
                        class="btn btn-primary">{% trans "Show all tasks" %}</a>
                 </div>
             {% endif %}
         </div>
     </div>
 {% endblock %}
-{% block extra_js %}
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    {{ filter.form.media }}
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-
-    const selects = document.querySelectorAll('.filters-form select');
-    selects.forEach(select => {
-        select.addEventListener('change', function() {
-
+        document.querySelectorAll('.filter-select').forEach(select => {
+            const update = () => {
+                select.classList.toggle('selected', select.value !== '');
+            };
+            update();
+            select.addEventListener('change', update);
         });
-    });
-});
     </script>
 {% endblock %}
