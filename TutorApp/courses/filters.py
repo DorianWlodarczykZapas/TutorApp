@@ -1,16 +1,15 @@
 import django_filters
+from django import forms
 from django.utils.translation import gettext_lazy as _
+from django_select2.forms import ModelSelect2Widget
 
 from .models import Section, TrainingTask
 
 
 def filter_section(request):
-
     if request is None:
         return Section.objects.none()
-    else:
-        user = request.user
-        return Section.objects.filter(grade=user.grade)
+    return Section.objects.all().order_by("name")
 
 
 class TrainingTaskFilter(django_filters.FilterSet):
@@ -27,7 +26,16 @@ class TrainingTaskFilter(django_filters.FilterSet):
         lookup_expr="icontains",
     )
 
-    section = django_filters.ModelChoiceFilter(queryset=filter_section)
+    section = django_filters.ModelChoiceFilter(
+        queryset=filter_section,
+        label=_("Section"),
+        empty_label=_("All sections"),
+        widget=ModelSelect2Widget(
+            model=Section,
+            search_fields=["name__icontains"],
+            attrs={"class": "field-search-single"},
+        ),
+    )
 
     level = django_filters.MultipleChoiceFilter(
         choices=TrainingTask._meta.get_field("level").choices,
@@ -35,12 +43,14 @@ class TrainingTaskFilter(django_filters.FilterSet):
 
     completed = django_filters.ChoiceFilter(
         method="filter_completed",
+        label=_("Status"),
         choices=[
             ("", _("All tasks")),
             ("completed", _("Completed")),
             ("uncompleted", _("Not completed")),
         ],
         empty_label=None,
+        widget=forms.Select(attrs={"class": "filter-select"}),
     )
 
     class Meta:
