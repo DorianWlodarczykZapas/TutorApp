@@ -24,6 +24,12 @@ class TrainingTaskFilter(django_filters.FilterSet):
     search = django_filters.CharFilter(
         field_name="task_content",
         lookup_expr="icontains",
+        widget=forms.Textarea(
+            attrs={
+                "rows": 4,
+                "style": "resize: none;",
+            }
+        ),
     )
 
     section = django_filters.ModelChoiceFilter(
@@ -39,6 +45,7 @@ class TrainingTaskFilter(django_filters.FilterSet):
 
     level = django_filters.MultipleChoiceFilter(
         choices=TrainingTask._meta.get_field("level").choices,
+        widget=forms.CheckboxSelectMultiple(),
     )
 
     completed = django_filters.ChoiceFilter(
