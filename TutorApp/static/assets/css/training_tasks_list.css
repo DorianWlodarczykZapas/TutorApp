@@ -1,8 +1,7 @@
 
 .training-tasks-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px 20px;
+    max-width: 100%;
+    padding: 30px 40px;
 }
 
 .page-header h1 {
@@ -25,10 +24,22 @@
 
 .filters-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    grid-template-columns: 2fr 1.5fr auto;
+    grid-template-areas:
+         "search  section  ."
+        "search  status   ."
+        "search  level    buttons";
     gap: 16px;
-    align-items: end;
+    align-items: start;
+
 }
+
+.filter-search     { grid-area: search; }
+.filter-section    { grid-area: section; }
+.filter-status     { grid-area: status; }
+.filter-checkboxes { grid-area: level; }
+.filter-actions    { grid-area: buttons; align-self: center; }
+
 
 .filter-group label {
     display: block;
@@ -42,7 +53,9 @@
 }
 
 .filter-group input,
-.filter-group select {
+.filter-group select,
+.filter-group textarea
+    {
     width: 100%;
     height: 52px;
     padding: 0 20px;
@@ -58,9 +71,31 @@
     text-align: center;
 }
 
+.filter-search textarea {
+    height: 100%;
+    min-height: 120px;
+    border-radius: 20px;
+    padding: 16px 20px;
+    resize: none;
+    text-align: left;
+    color: #333;
+}
 .filter-group input {
     color: #333;
     text-align: left;
+    height: 100%;
+    min-height: 52px;
+}
+
+.filter-search input {
+    flex: 1;
+    height: auto !important;
+    min-height: 52px;
+}
+.filter-search {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .filter-group input:focus,
@@ -105,14 +140,9 @@
     right: 15px;
 }
 
-
-.filter-checkboxes {
-    align-self: end;
-}
-
 .checkbox-group {
     display: flex;
-    flex-wrap: wrap;
+     flex-wrap: nowrap;
     gap: 8px;
     margin-top: 8px;
 }
@@ -121,7 +151,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 14px;
+    padding: 5px 10px;
     border: 2px solid #008374;
     border-radius: 25px;
     cursor: pointer;
@@ -130,7 +160,9 @@
     transition: all 0.2s;
     background: white;
     color: #008374;
+     white-space: nowrap;
 }
+
 
 .checkbox-label:hover {
     background: #f0f8f7;
@@ -142,12 +174,29 @@
 
 
 .filter-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    grid-area: buttons;
     align-self: end;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
+.filter-actions .btn,
+.filter-actions .btn-nav {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border-radius: 25px;
+    white-space: nowrap;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-label:has(input:checked) {
+    background: #008374;
+    color: white;
+}
 
 .tasks-count {
     font-size: 0.9rem;
@@ -163,6 +212,7 @@
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 24px;
 }
+
 
 .task-card {
     background: white;
@@ -226,9 +276,7 @@
 .level-3 { background: #f8d7da; color: #721c24; }
 
 
-.task-content {
-    flex: 1;
-}
+.task-content { flex: 1; }
 
 .task-image {
     width: 100%;
@@ -280,19 +328,20 @@
 }
 
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
     .filters-grid {
-        grid-template-columns: 2fr 1fr 1fr;
-    }
-
-    .filter-checkboxes,
-    .filter-actions {
-        grid-column: span 3;
-        flex-direction: row;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "search  search"
+            "section status"
+            "level   level"
+            "buttons buttons";
     }
 }
 
 @media (max-width: 768px) {
+    .training-tasks-container { padding: 20px; }
+
     .filters-container {
         padding: 20px;
         border-radius: 20px;
@@ -301,18 +350,15 @@
 
     .filters-grid {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "search"
+            "section"
+            "status"
+            "level"
+            "buttons";
     }
 
-    .filter-checkboxes,
-    .filter-actions {
-        grid-column: span 1;
-    }
+    .filter-actions { flex-direction: row; }
 
-    .filter-actions {
-        flex-direction: column;
-    }
-
-    .tasks-grid {
-        grid-template-columns: 1fr;
-    }
+    .tasks-grid { grid-template-columns: 1fr; }
 }
