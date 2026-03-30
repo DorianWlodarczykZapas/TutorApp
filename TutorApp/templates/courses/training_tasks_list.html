@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block title %}{{ title }}{% endblock %}
+{% block main_class %}main-content--full{% endblock %}
 {% block content %}
     <div class="training-tasks-container">
         <div class="page-header">
@@ -14,11 +15,11 @@
                         <label for="{{ filter.form.search.id_for_label }}">{{ filter.form.search.label }}</label>
                         {{ filter.form.search }}
                     </div>
-                    <div class="filter-group field-search-single">
+                    <div class="filter-group filter-section field-search-single">
                         <label for="{{ filter.form.section.id_for_label }}">{{ filter.form.section.label }}</label>
                         {{ filter.form.section }}
                     </div>
-                    <div class="filter-group">
+                    <div class="filter-group filter-status">
                         <label for="{{ filter.form.completed.id_for_label }}">{{ filter.form.completed.label }}</label>
                         {{ filter.form.completed }}
                     </div>
@@ -34,9 +35,8 @@
                         </div>
                     </div>
                     <div class="filter-actions">
-                        <button type="submit" class="btn btn-primary">🔍 {% trans "Apply Filters" %}</button>
-                        <a href="{% url 'courses:training_tasks_list' %}"
-                           class="btn btn-secondary">✕ {% trans "Clear Filters" %}</a>
+                        <button type="submit" class="btn btn-teal btn-sm">🔍 {% trans "Apply Filters" %}</button>
+                        <a href="{% url 'courses:training_tasks_list' %}" class="btn-nav">✕ {% trans "Clear Filters" %}</a>
                     </div>
                 </div>
             </form>
@@ -68,7 +68,7 @@
                                     <span class="completion-badge">✓ {% trans "Completed" %}</span>
                                 {% endif %}
                                 <a href="{% url 'courses:training_tasks_detail' task.pk %}"
-                                   class="btn btn-sm btn-primary">{% trans "Solve" %} →</a>
+                                   class="btn btn-sm btn-teal">{% trans "Solve" %} →</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -94,9 +94,8 @@
                 {% endif %}
             {% else %}
                 <div class="no-results">
-                    <p>😔 {% trans "No tasks found matching your criteria." %}</p>
-                    <a href="{% url 'courses:training_tasks_list' %}"
-                       class="btn btn-primary">{% trans "Show all tasks" %}</a>
+                    <p>{% trans "No tasks found matching your criteria." %}</p>
+                    <a href="{% url 'courses:training_tasks_list' %}" class="btn btn-teal">{% trans "Show all tasks" %}</a>
                 </div>
             {% endif %}
         </div>
