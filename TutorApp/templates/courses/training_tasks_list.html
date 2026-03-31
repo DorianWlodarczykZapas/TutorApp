@@ -35,8 +35,9 @@
                         </div>
                     </div>
                     <div class="filter-actions">
-                        <button type="submit" class="btn btn-teal btn-sm">🔍 {% trans "Apply Filters" %}</button>
-                        <a href="{% url 'courses:training_tasks_list' %}" class="btn-nav">✕ {% trans "Clear Filters" %}</a>
+                        <button type="submit" class="filter-btn-apply">{% trans "Apply Filters" %}</button>
+                        <a href="{% url 'courses:training_tasks_list' %}"
+                           class="filter-btn-clear">{% trans "Clear Filters" %}</a>
                     </div>
                 </div>
             </form>
@@ -68,7 +69,7 @@
                                     <span class="completion-badge">✓ {% trans "Completed" %}</span>
                                 {% endif %}
                                 <a href="{% url 'courses:training_tasks_detail' task.pk %}"
-                                   class="btn btn-sm btn-teal">{% trans "Solve" %} →</a>
+                                   class="btn btn-sm btn-teal">{% trans "Solve" %}</a>
                             </div>
                         </div>
                     {% endfor %}
