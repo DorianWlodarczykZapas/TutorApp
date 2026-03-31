@@ -75,10 +75,7 @@ class UserService:
         )
         return True
 
-    def login_user(
-        self, request: HttpRequest, username: str, password: str
-    ) -> Optional["User"]:
-
+    def login_user(self, request, username, password):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
