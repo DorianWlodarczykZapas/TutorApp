@@ -23,7 +23,8 @@
 }
 
 .nav-links > a,
-.nav-menu > label {
+.nav-menu > label,
+.nav-menu > a {
     color: white;
     margin-left: clamp(15px, 3vw, 30px);
     text-decoration: none;
