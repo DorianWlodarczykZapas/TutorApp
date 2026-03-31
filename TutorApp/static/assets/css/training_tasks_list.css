@@ -24,10 +24,10 @@
 
 .filters-grid {
     display: grid;
-    grid-template-columns: 2fr 1.5fr auto;
+   grid-template-columns: 50% 30% 20%;
     grid-template-areas:
-         "search  section  ."
-        "search  status   ."
+        "search  section  buttons"
+        "search  status   buttons"
         "search  level    buttons";
     gap: 16px;
     align-items: start;
@@ -50,6 +50,7 @@
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    text-align: center;
 }
 
 .filter-group input,
@@ -142,12 +143,15 @@
 
 .checkbox-group {
     display: flex;
-     flex-wrap: nowrap;
-    gap: 8px;
+    flex-wrap: nowrap;
     margin-top: 8px;
+    gap: 8px;
+
 }
 
 .checkbox-label {
+     flex: 1;
+     justify-content: center;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -175,19 +179,49 @@
 
 .filter-actions {
     grid-area: buttons;
-    align-self: end;
+    align-self: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 8px;
+    align-items: center;
+
 }
 
-.filter-actions .btn,
-.filter-actions .btn-nav {
-    padding: 5px 10px;
-    font-size: 0.85rem;
+
+
+
+
+.filter-btn-apply,
+.filter-btn-clear {
+    width: 75%;
+    padding: 12px 20px;
+    font-weight: 600;
     border-radius: 25px;
-    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
 }
+
+.filter-btn-apply {
+    background: #008374;
+    color: white;
+    border: none;
+}
+
+.filter-btn-apply:hover { background: #00695c; }
+
+.filter-btn-clear {
+    background: white;
+    color: #008374;
+    border: 2px solid #008374;
+}
+
+.filter-btn-clear:hover { background: #f0f8f7; }
 
 .checkbox-label input[type="checkbox"] {
     display: none;
@@ -302,6 +336,7 @@
     border-top: 2px solid #e1e4e8;
     padding-top: 14px;
     margin-top: auto;
+
 }
 
 .completion-badge {
