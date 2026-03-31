@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 12:05+0200\n"
+"POT-Creation-Date: 2026-03-31 21:10+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -12,7 +12,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: .\core\settings.py:118
 msgid "Polish"
@@ -96,7 +97,6 @@ msgid "Work Cards"
 msgstr "Karty Pracy"
 
 #: .\courses\filters.py:27
-
 msgid "Task content"
 msgstr "Treść Zadania"
 
@@ -109,13 +109,15 @@ msgstr "Treść Zadania"
 msgid "Section"
 msgstr "Dział z książki"
 
-#: .\courses\filters.py:39
-#, fuzzy
-#| msgid "Book section"
-msgid "All sections"
-msgstr "Dział z książki"
+#: .\courses\filters.py:39 .\videos\filters.py:23
+msgid "All Sections"
+msgstr "Działy Z Książki"
 
-#: .\courses\filters.py:54 .\templates\examination_tasks\exam_list.html:22
+#: .\courses\filters.py:50 .\courses\forms\training_tasks_forms.py:42
+msgid "Difficulty Level"
+msgstr "Poziom trudności"
+
+#: .\courses\filters.py:55 .\templates\examination_tasks\exam_list.html:22
 #: .\templates\examination_tasks\exam_task_list.html:21
 #: .\templates\examination_tasks\exam_task_search_engine.html:39
 #, fuzzy
@@ -123,12 +125,12 @@ msgstr "Dział z książki"
 msgid "Status"
 msgstr "Statystyka"
 
-#: .\courses\filters.py:56
+#: .\courses\filters.py:57
 msgid "All tasks"
 msgstr "Wszystkie zadania"
 
-#: .\courses\filters.py:57 .\templates\courses\training_task_detail.html:70
-#: .\templates\courses\training_tasks_list.html:68
+#: .\courses\filters.py:58 .\templates\courses\training_task_detail.html:70
+#: .\templates\courses\training_tasks_list.html:69
 #: .\templates\examination_tasks\exam_list.html:30
 #: .\templates\examination_tasks\exam_task_list.html:32
 #: .\templates\examination_tasks\exam_task_preview.html:17
@@ -137,11 +139,10 @@ msgstr "Wszystkie zadania"
 msgid "Completed"
 msgstr "Ukończone"
 
-#: .\courses\filters.py:58
+#: .\courses\filters.py:59
 #: .\templates\examination_tasks\exam_task_preview.html:19
 #: .\templates\examination_tasks\exam_task_preview.html:81
 #: .\templates\examination_tasks\exam_task_search_engine.html:60
-
 msgid "Not completed"
 msgstr "Nieukończone"
 
@@ -223,10 +224,6 @@ msgstr "Rysunek Do Zadania (niewymagane)"
 #: .\examination_tasks\forms\exam_tasks_forms.py:28
 msgid "Section (optional)"
 msgstr "Dział (opcjonalny)"
-
-#: .\courses\forms\training_tasks_forms.py:42
-msgid "Difficulty Level"
-msgstr "Poziom trudności"
 
 #: .\courses\forms\training_tasks_forms.py:43
 #, fuzzy
@@ -827,23 +824,27 @@ msgstr "Pytanie zostało pomyślnie dodane"
 msgid "Quiz created successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
-#: .\templates\base.html:46 .\templates\users\home.html:4 .\users\views.py:82
+#: .\templates\base.html:45
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: .\templates\base.html:47 .\templates\users\home.html:4 .\users\views.py:86
 msgid "Home"
 msgstr "Strona główna"
 
-#: .\templates\base.html:47
+#: .\templates\base.html:48
 msgid "About"
 msgstr "O nas"
 
-#: .\templates\base.html:48
+#: .\templates\base.html:49
 msgid "Services"
 msgstr "Usługi"
 
-#: .\templates\base.html:49
+#: .\templates\base.html:50
 msgid "Pricing"
 msgstr "Cennik"
 
-#: .\templates\base.html:50
+#: .\templates\base.html:51
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -889,7 +890,7 @@ msgid "Source"
 msgstr "Pochodzenie Zadania"
 
 #: .\templates\courses\training_task_detail.html:35
-#: .\templates\courses\training_tasks_list.html:85
+#: .\templates\courses\training_tasks_list.html:86
 msgid "Page"
 msgstr "Strona"
 
@@ -927,14 +928,13 @@ msgstr ""
 msgid "Apply Filters"
 msgstr "Zastosuj Filtry"
 
-#: .\templates\courses\training_tasks_list.html:39
+#: .\templates\courses\training_tasks_list.html:40
 #: .\templates\videos\video_list.html:48
 msgid "Clear Filters"
 msgstr "Wyczyść Filtry"
 
-#: .\templates\courses\training_tasks_list.html:47
+#: .\templates\courses\training_tasks_list.html:48
 #, python-format
-
 msgid ""
 "\n"
 "                        Found %(counter)s task\n"
@@ -956,15 +956,15 @@ msgstr[2] ""
 "                        Znaleziono %(counter)s zadań\n"
 "                    "
 
-#: .\templates\courses\training_tasks_list.html:71
+#: .\templates\courses\training_tasks_list.html:72
 msgid "Solve"
 msgstr "Rozwiąż"
 
-#: .\templates\courses\training_tasks_list.html:80
+#: .\templates\courses\training_tasks_list.html:81
 msgid "First"
 msgstr ""
 
-#: .\templates\courses\training_tasks_list.html:82
+#: .\templates\courses\training_tasks_list.html:83
 #: .\templates\examination_tasks\exam_task_search_engine.html:75
 #: .\templates\quizes\question_review.html:59
 #: .\templates\quizes\quiz_solve_wizard.html:20
@@ -972,11 +972,11 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: .\templates\courses\training_tasks_list.html:85
+#: .\templates\courses\training_tasks_list.html:86
 msgid "of"
 msgstr ""
 
-#: .\templates\courses\training_tasks_list.html:89
+#: .\templates\courses\training_tasks_list.html:90
 #: .\templates\examination_tasks\exam_task_search_engine.html:81
 #: .\templates\quizes\question_review.html:63
 #: .\templates\quizes\quiz_solve_wizard.html:26
@@ -985,15 +985,15 @@ msgstr ""
 msgid "Next"
 msgstr "Dalej"
 
-#: .\templates\courses\training_tasks_list.html:91
+#: .\templates\courses\training_tasks_list.html:92
 msgid "Last"
 msgstr ""
 
-#: .\templates\courses\training_tasks_list.html:97
+#: .\templates\courses\training_tasks_list.html:98
 msgid "No tasks found matching your criteria."
 msgstr "Nie znaleziono zadań spełniających kryteria"
 
-#: .\templates\courses\training_tasks_list.html:98
+#: .\templates\courses\training_tasks_list.html:99
 msgid "Show all tasks"
 msgstr "Pokaż wszystkie zadania"
 
@@ -1361,10 +1361,10 @@ msgid "No motifs found"
 msgstr "Nie znaleziono pliku egzaminacyjnego"
 
 #: .\templates\navigation_links\courses.html:6
-#, fuzzy
-#| msgid "Training Tasks"
+#: .\templates\navigation_links\courses.html:12
+
 msgid "Training Tasks List"
-msgstr "Zadania Treningowe"
+msgstr "Lista Zadań Treningowych"
 
 #: .\templates\navigation_links\courses.html:11
 msgid "Add Training Task"
@@ -1550,7 +1550,7 @@ msgid "Forgot your password?"
 msgstr "Zapomniałeś hasła?"
 
 #: .\templates\users\password_reset_complete.html:4
-#: .\templates\users\password_reset_complete.html:8 .\users\views.py:122
+#: .\templates\users\password_reset_complete.html:8 .\users\views.py:126
 msgid "Password reset complete"
 msgstr "Resetowanie hasła zakończone"
 
@@ -1561,7 +1561,7 @@ msgstr ""
 "hasła."
 
 #: .\templates\users\password_reset_confirm.html:5
-#: .\templates\users\password_reset_confirm.html:9 .\users\views.py:113
+#: .\templates\users\password_reset_confirm.html:9 .\users\views.py:117
 msgid "Set your new password"
 msgstr "Ustaw nowe hasło"
 
@@ -1570,7 +1570,7 @@ msgid "Change my password"
 msgstr "Zmień moje hasło"
 
 #: .\templates\users\password_reset_done.html:4
-#: .\templates\users\password_reset_done.html:8 .\users\views.py:103
+#: .\templates\users\password_reset_done.html:8 .\users\views.py:107
 msgid "Check your email"
 msgstr "Sprawdź swoją skrzynkę e-mail"
 
@@ -1590,7 +1590,7 @@ msgstr ""
 "użyłeś przy rejestracji."
 
 #: .\templates\users\password_reset_form.html:5
-#: .\templates\users\password_reset_form.html:9 .\users\views.py:94
+#: .\templates\users\password_reset_form.html:9 .\users\views.py:98
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
 
@@ -1754,22 +1754,17 @@ msgstr "Tylko nauczyciele mogą dodawać zadania egzaminacyjne."
 msgid "Users"
 msgstr "Nazwa użytkownika"
 
-#: .\users\views.py:62
+#: .\users\views.py:67
 msgid "You have been successfully logged in."
 msgstr "Pomyślnie zalogowano."
 
-#: .\users\views.py:65
+#: .\users\views.py:70
 msgid "Invalid username or password."
 msgstr ""
 
 #: .\videos\filters.py:16 .\videos\forms\video_forms.py:39
 msgid "Title"
 msgstr "Tytuł"
-
-#: .\videos\filters.py:23
-
-msgid "All Sections"
-msgstr "Działy Z Książki"
 
 #: .\videos\filters.py:28
 #, fuzzy
@@ -1865,6 +1860,11 @@ msgstr ""
 #, python-format
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
+
+#, fuzzy
+#~| msgid "Book section"
+#~ msgid "All sections"
+#~ msgstr "Dział z książki"
 
 #~ msgid "Search..."
 #~ msgstr "Wyszukiwanie..."
@@ -2095,9 +2095,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 #~ msgstr ""
 #~ "Aby wydrukować lub pobrać, najedź myszką na dokument i użyj paska "
 #~ "narzędzi, który pojawi się w rogu, lub kliknij prawym przyciskiem myszy."
-
-#~ msgid "Logout"
-#~ msgstr "Wyloguj"
 
 #~ msgid "There is no question in this attempt"
 #~ msgstr "W tej próbie nie ma żadnych pytań"
