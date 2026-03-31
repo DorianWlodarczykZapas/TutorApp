@@ -142,6 +142,7 @@
 .btn-teal {
     background: #008374;
     color: white;
+    border-radius: 20px;
 }
 
 .btn-teal:hover {
