@@ -42,6 +42,9 @@
                         {% include 'navigation_links/quizes.html' %}
                         {% include 'navigation_links/motifs.html' %}
                         {% include 'navigation_links/courses.html' %}
+                        <div class="nav-menu">
+                            <a href="{% url 'users:logout' %}">{% trans "Logout" %}</a>
+                        </div>
                     {% else %}
                         <a href="#">{% trans "Home" %}</a>
                         <a href="#">{% trans "About" %}</a>
@@ -55,14 +58,29 @@
         {% if messages %}
             <div class="message-container">
                 {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                    {% if message.message == 'show_upgrade_modal' %}
+                        <div class="modal-overlay" id="upgradeModal">
+                            <div class="modal-box">
+                                <h2>{% trans "Your trial has ended" %}</h2>
+                                <p>{% trans "Upgrade to Premium to keep access." %}</p>
+                                <div class="modal-actions">
+                                    <a href="{% url 'plans:plans_list' %}" class="btn btn-teal">{% trans "See plans" %}</a>
+                                    <button class="btn btn-outline-teal--sm"
+                                            onclick="document.getElementById('upgradeModal').style.display='none'">
+                                        {% trans "Maybe later" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endif %}
         <main class="{% block main_class %}main-content{% endblock %}">
             {% block content %}{% endblock %}
         </main>
-        <
         {% block scripts %}{% endblock %}
     </body>
 </html>
