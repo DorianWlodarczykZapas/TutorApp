@@ -13,6 +13,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, TemplateView, View
+from plans.models import UserPlan
+from plans.services import PlanService
 
 from .forms import LoginForm, UserRegisterForm
 from .models import User
@@ -49,7 +51,7 @@ class LoginView(View):
             return redirect(self.success_url)
         return render(request, self.template_name, {"form": self.form_class()})
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -59,11 +61,14 @@ class LoginView(View):
             user = service.login_user(request, username, password)
 
             if user:
+                user_plan = UserPlan.objects.filter(user=user).first()
+                if user_plan:
+                    PlanService(user_plan).downgrade_if_expired()
+
                 messages.success(request, _("You have been successfully logged in."))
                 return redirect(self.success_url)
 
             messages.error(request, _("Invalid username or password."))
-
         return render(request, self.template_name, {"form": form})
 
 
