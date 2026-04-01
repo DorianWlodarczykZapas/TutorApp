@@ -8,6 +8,7 @@ class Plan(models.Model):
         BASE = 1, _("Base")
         PREMIUM = 2, _("Premium")
         TRIAL = 3, _("Trial")
+        ULTIMATE = 4, _("Ultimate")
 
     name = models.CharField(max_length=255)
     type = models.IntegerField(choices=PlanType.choices, default=PlanType.BASE)
