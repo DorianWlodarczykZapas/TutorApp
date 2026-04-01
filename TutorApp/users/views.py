@@ -1,5 +1,7 @@
+import json
 from typing import Any, Dict
 
+from courses.choices import GradeChoices, SchoolLevelChoices
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
@@ -32,6 +34,24 @@ class UserRegisterView(CreateView):
         service.register_user(form)
         messages.success(self.request, "Account has been created. You can now log in.")
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["grade_choices_json"] = json.dumps(
+            {
+                SchoolLevelChoices.PRIMARY: [
+                    [choice[0], str(choice[1])]
+                    for choice in GradeChoices.choices
+                    if choice[0] in UserService.PRIMARY_GRADES
+                ],
+                SchoolLevelChoices.SECONDARY: [
+                    [choice[0], str(choice[1])]
+                    for choice in GradeChoices.choices
+                    if choice[0] in UserService.SECONDARY_GRADES
+                ],
+            }
+        )
+        return context
 
     def form_invalid(self, form: UserRegisterForm) -> HttpResponse:
         messages.error(
