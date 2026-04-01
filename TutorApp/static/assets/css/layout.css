@@ -189,3 +189,21 @@
     padding: 20px 40px;
      align-items: stretch;
 }
+
+.login-link {
+    margin-top: 15px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: #555;
+    text-align: center;
+}
+
+.login-link a {
+    color: #008374;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    color: #006b5e;
+}
