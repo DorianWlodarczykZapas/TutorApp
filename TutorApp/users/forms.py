@@ -1,3 +1,5 @@
+from core.forms import TypedChoiceMixin
+from courses.choices import GradeChoices, SchoolLevelChoices
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -5,25 +7,34 @@ from django.utils.translation import gettext_lazy as _
 from .models import User
 
 
-class UserRegisterForm(UserCreationForm):
+class UserRegisterForm(TypedChoiceMixin, UserCreationForm):
     email = forms.EmailField(required=True, label=_("Email"))
 
     class Meta:
         model = User
-        fields = ["username", "email", "password1", "password2", "school_type"]
+        fields = ["username", "email", "password1", "password2", "school_type", "grade"]
         labels = {
             "username": _("Username"),
             "password1": _("Password"),
             "password2": _("Confirm Password"),
             "school_type": _("School Type"),
         }
+        widgets = {
+            "username": forms.TextInput(attrs={"placeholder": " "}),
+            "email": forms.EmailInput(attrs={"placeholder": " "}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs.update(
-                {"class": "form-control", "placeholder": field.label}
-            )
+        self.fields["school_type"] = self._make_typed_choice(
+            SchoolLevelChoices, _("School Type"), required=False
+        )
+
+        self.fields["password1"].widget.attrs.update({"placeholder": " "})
+        self.fields["password2"].widget.attrs.update({"placeholder": " "})
+        self.fields["grade"] = self._make_typed_choice(
+            GradeChoices, _("Grade"), required=False
+        )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
