@@ -13,17 +13,21 @@
                 {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
             </div>
         {% endif %}
-        <div class="form-group">
-            <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
-            {{ form.username|add_class:"form-input" }}
+        <div class="floating-field field-char">
+            <div class="floating-field__input-wrapper">
+                {{ form.username|add_class:"form-input"|attr:"placeholder: " }}
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            </div>
             {% for error in form.username.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
         </div>
-        <div class="form-group">
-            <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
-            {{ form.password|add_class:"form-input" }}
+        <div class="floating-field field-char">
+            <div class="floating-field__input-wrapper">
+                {{ form.password|add_class:"form-input"|attr:"placeholder: " }}
+                <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+            </div>
             {% for error in form.password.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
         </div>
-        <button type="submit" class="btn-submit">{% trans "Log in" %}</button>
+        <button type="submit" class="btn-login">{% trans "Log in" %}</button>
         <div class="login-link">
             {% trans "Don’t have an account yet?" %}
             <a href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
