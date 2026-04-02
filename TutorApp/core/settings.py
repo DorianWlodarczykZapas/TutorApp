@@ -20,6 +20,9 @@ AUTH_USER_MODEL = "users.User"
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+
 ALLOWED_HOSTS: List[str] = ["*"]
 
 
