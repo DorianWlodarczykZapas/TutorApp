@@ -7,6 +7,7 @@
             "type": 1,
             "description": "Basic plan with limited features.",
             "price": "0.00",
+            "currency": "pln",
             "billing_period": "monthly",
             "advanced_features_enabled": false,
             "trial_days": 0,
@@ -22,11 +23,13 @@
             "type": 2,
             "description": "Premium plan with all features.",
             "price": "29.99",
+            "currency": "pln",
             "billing_period": "monthly",
             "advanced_features_enabled": true,
             "trial_days": 0,
             "created_at": "2024-01-01T00:00:00Z",
             "updated_at": "2024-01-01T00:00:00Z"
+
         }
     },
     {
@@ -37,6 +40,7 @@
             "type": 3,
             "description": "Trial plan for new users.",
             "price": "0.00",
+            "currency": "pln",
             "billing_period": "trial",
             "advanced_features_enabled": true,
             "trial_days": 14,
@@ -52,11 +56,13 @@
             "type": 4,
             "description": "Ultimate plan with all features, no renewal period.",
             "price": "199.99",
+            "currency": "pln",
             "billing_period": "lifetime",
             "advanced_features_enabled": true,
             "trial_days": 0,
             "created_at": "2024-01-01T00:00:00Z",
             "updated_at": "2024-01-01T00:00:00Z"
+
         }
     }
 ]
