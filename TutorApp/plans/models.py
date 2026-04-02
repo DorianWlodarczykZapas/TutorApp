@@ -14,11 +14,13 @@ class Plan(models.Model):
     type = models.IntegerField(choices=PlanType.choices, default=PlanType.BASE)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    currency = models.CharField(max_length=3, default="pln")
     billing_period = models.CharField(max_length=50)
     advanced_features_enabled = models.BooleanField(default=False)
     trial_days = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    stripe_price_id = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -36,6 +38,7 @@ class UserPlan(models.Model):
     trial_days = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    stripe_customer_id = models.CharField(max_length=255, null=True, blank=True)
 
     @property
     def is_premium_or_trial(self):
