@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% trans "Plans" %}
+{% endblock %}
+{% block main_class %}main-content--full{% endblock %}
+{% block content %}
+    <div class="training-tasks-container">
+        <div class="page-header">
+            <h1>{% trans "Choose Your Plan" %}</h1>
+        </div>
+        {% if user_plan %}
+            <div class="filters-container plans-current-plan-container">
+                <div class="plans-current-plan">
+                    <div>
+                        <span class="plans-current-plan__label">{% trans "Current Plan" %}</span>
+                        <p class="plans-current-plan__value">{{ current_plan }}</p>
+                    </div>
+                    {% if valid_to %}
+                        <div>
+                            <span class="plans-current-plan__label">{% trans "Valid To" %}</span>
+                            <p class="plans-current-plan__value">{{ valid_to }}</p>
+                        </div>
+                    {% endif %}
+                    {% if user_plan.is_trial %}
+                        <span class="difficulty-badge level-2">{% trans "Trial" %}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="tasks-grid plans-grid">
+            {% for plan in plans %}
+                <div class="task-card {% if user_plan.plan == plan %}task-card--completed{% endif %}">
+                    <div class="task-header">
+                        <span class="task-section">{{ plan.get_type_display }}</span>
+                        {% if user_plan.plan == plan %}
+                            <span class="completion-badge">✓ {% trans "Active" %}</span>
+                        {% endif %}
+                    </div>
+                    <div class="task-content">
+                        <h2 class="plans-card__title">{{ plan.name }}</h2>
+                        <p class="task-text">{{ plan.description }}</p>
+                    </div>
+                    <div class="plans-card__price-wrapper">
+                        <span class="plans-card__price">
+                            {{ plan.price }} <small class="plans-card__currency">{{ plan.currency|upper }}</small>
+                        </span>
+                        <p class="plans-card__price-period">/ {{ plan.billing_period }}</p>
+                    </div>
+                    {% if plan.advanced_features_enabled %}
+                        <div class="plans-card__features">
+                            <span class="difficulty-badge level-1">{% trans "Advanced Features" %}</span>
+                        </div>
+                    {% endif %}
+                    <div class="task-footer">
+                        {% if user_plan.plan == plan %}
+                            <span class="plans-card__active-label">✓ {% trans "Your current plan" %}</span>
+                        {% else %}
+                            <button class="btn btn-teal btn-sm"
+                                    onclick="selectPlan({{ plan.id }})"
+                                    {% if plan.price == 0 %}disabled{% endif %}>{% trans "Choose" %}</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="modal-overlay" id="paymentModal" style="display: none;">
+        <div class="modal-box">
+            <h2>{% trans "Confirm Plan" %}</h2>
+            <p id="modalPlanName"></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">{% trans "Cancel" %}</button>
+                <button class="btn btn-teal" onclick="confirmPayment()">{% trans "Proceed to Payment" %}</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+    let selectedPlanId = null;
+
+    function selectPlan(planId) {
+        selectedPlanId = planId;
+        document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+        selectedPlanId = null;
+    }
+
+    function confirmPayment() {
+        if (selectedPlanId) {
+            window.location.href = `{% url 'plans:payment' 0 %}`.replace('0', selectedPlanId);
+        }
+    }
+    </script>
+{% endblock %}
