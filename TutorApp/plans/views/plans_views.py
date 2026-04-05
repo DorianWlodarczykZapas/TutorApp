@@ -1,11 +1,12 @@
 import stripe
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import ListView
 from plans.models import Plan, UserPlan
-from plans.services import StripeService
+from plans.services import PlanService, StripeService
 
 
 class PlansListView(LoginRequiredMixin, ListView):
@@ -38,3 +39,45 @@ class ProcessPaymentView(LoginRequiredMixin, View):
                 return JsonResponse({"subscription_id": result.id})
         except stripe.error.StripeError as e:
             return JsonResponse({"error": str(e)}, status=400)
+
+    def get(self, request, plan_id):
+        plan = get_object_or_404(Plan, id=plan_id)
+        return render(
+            request,
+            "plans/payment.html",
+            {"plan": plan, "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY},
+        )
+
+
+class StripeWebhookView(View):
+    def post(self, request):
+        payload = request.body
+        sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+            )
+        except stripe.error.SignatureVerificationError:
+            return HttpResponse(status=400)
+
+        if event.type == "payment_intent.succeeded":
+            payment_intent = event.data.object
+            customer_id = payment_intent.customer
+            try:
+                user_plan = UserPlan.objects.get(stripe_customer_id=customer_id)
+            except UserPlan.DoesNotExist:
+                return HttpResponse(status=400)
+
+            PlanService(user_plan=user_plan).activate_ultimate()
+
+        elif event.type == "customer.subscription.updated":
+            subscription = event.data.object
+            customer_id = subscription.customer
+            try:
+                user_plan = UserPlan.objects.get(stripe_customer_id=customer_id)
+            except UserPlan.DoesNotExist:
+                return HttpResponse(status=400)
+            PlanService(user_plan=user_plan).activate_premium()
+
+        return HttpResponse(status=200)
