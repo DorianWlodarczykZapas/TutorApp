@@ -1,6 +1,8 @@
+from datetime import date
 from decimal import Decimal
 
 import stripe
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.utils import timezone
 from plans.models import Plan, UserPlan
@@ -23,6 +25,25 @@ class PlanService:
                 return True
             return False
         return False
+
+    def activate_ultimate(self) -> None:
+        ultimate_plan = Plan.objects.get(type=Plan.PlanType.ULTIMATE)
+        self.user_plan.plan = ultimate_plan
+        self.user_plan.valid_to = None
+        self.user_plan.is_active = True
+
+        self.user_plan.last_payment_date = date.today()
+        self.user_plan.save()
+
+    def activate_premium(self) -> None:
+        premium_plan = Plan.objects.get(type=Plan.PlanType.PREMIUM)
+        today = date.today()
+        self.user_plan.plan = premium_plan
+        self.user_plan.valid_to = today + relativedelta(months=1)
+        self.user_plan.is_active = True
+        self.user_plan.last_payment_date = today
+        self.user_plan.next_payment_date = today + relativedelta(months=1)
+        self.user_plan.save()
 
 
 class StripeService:
