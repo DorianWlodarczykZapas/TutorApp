@@ -30,7 +30,7 @@ class UserPlan(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     start_date = models.DateField()
-    valid_to = models.DateField()
+    valid_to = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     last_payment_date = models.DateField(null=True, blank=True)
     next_payment_date = models.DateField(null=True, blank=True)
