@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% trans "Confirm Plan" %}
+{% endblock %}
+{% block main_class %}main-content{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <h1 class="form-title">{% trans "Confirm Plan" %}</h1>
+        <div class="filters-container plans-payment-summary">
+            <div class="plans-current-plan">
+                <div>
+                    <span class="plans-current-plan__label">{% trans "Selected Plan" %}</span>
+                    <p class="plans-card__title">{{ plan.name }}</p>
+                    <p class="task-text">{{ plan.description }}</p>
+                </div>
+                <div>
+                    <span class="plans-card__price">
+                        {{ plan.price }} <small class="plans-card__currency">{{ plan.currency|upper }}</small>
+                    </span>
+                    <p class="plans-card__price-period">/ {{ plan.billing_period }}</p>
+                </div>
+            </div>
+        </div>
+        <p class="plans-current-plan__label plans-confirm-title">{% trans "Choose payment method" %}</p>
+        <div class="plans-confirm-methods">
+            <a href="{% url 'plans:card_payment_process' plan.id %}"
+               class="plans-confirm-method-btn">
+                <span class="plans-confirm-method-icon">💳</span>
+                <span class="plans-confirm-method-label">{% trans "Card" %}</span>
+            </a>
+            <a href="{% url 'plans:blik_payment_process' plan.id %}"
+               class="plans-confirm-method-btn">
+                <span class="plans-confirm-method-icon">📱</span>
+                <span class="plans-confirm-method-label">{% trans "BLIK" %}</span>
+            </a>
+        </div>
+        <div class="payment-back-link">
+            <a href="{% url 'plans:plans' %}">← {% trans "Back to Plans" %}</a>
+        </div>
+    </div>
+{% endblock %}
