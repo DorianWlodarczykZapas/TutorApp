@@ -57,44 +57,13 @@
                         {% if user_plan.plan == plan %}
                             <span class="plans-card__active-label">✓ {% trans "Your current plan" %}</span>
                         {% else %}
-                            <button class="btn btn-teal btn-sm"
-                                    onclick="selectPlan({{ plan.id }})"
-                                    {% if plan.price == 0 %}disabled{% endif %}>{% trans "Choose" %}</button>
+                            <a href="{% url 'plans:confirm_payment' plan.id %}"
+                               class="btn btn-teal btn-sm"
+                               {% if plan.price == 0 %}disabled{% endif %}>{% trans "Choose" %}</a>
                         {% endif %}
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
-    <div class="modal-overlay" id="paymentModal" style="display: none;">
-        <div class="modal-box">
-            <h2>{% trans "Confirm Plan" %}</h2>
-            <p id="modalPlanName"></p>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeModal()">{% trans "Cancel" %}</button>
-                <button class="btn btn-teal" onclick="confirmPayment()">{% trans "Proceed to Payment" %}</button>
-            </div>
-        </div>
-    </div>
-{% endblock %}
-{% block scripts %}
-    <script>
-    let selectedPlanId = null;
-
-    function selectPlan(planId) {
-        selectedPlanId = planId;
-        document.getElementById('paymentModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('paymentModal').style.display = 'none';
-        selectedPlanId = null;
-    }
-
-    function confirmPayment() {
-        if (selectedPlanId) {
-            window.location.href = `{% url 'plans:payment' 0 %}`.replace('0', selectedPlanId);
-        }
-    }
-    </script>
 {% endblock %}
