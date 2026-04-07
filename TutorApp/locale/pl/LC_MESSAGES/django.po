@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 21:10+0200\n"
+"POT-Creation-Date: 2026-04-07 21:47+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: .\core\settings.py:118
+#: .\core\settings.py:122
 msgid "Polish"
 msgstr "Polski"
 
-#: .\core\settings.py:119
+#: .\core\settings.py:123
 msgid "English"
 msgstr "Angielski"
 
@@ -164,6 +164,7 @@ msgid "Subject"
 msgstr "Przedmiot szkolny"
 
 #: .\courses\forms\book_forms.py:28 .\courses\forms\section_forms.py:13
+#: .\users\forms.py:36
 msgid "Grade"
 msgstr "Klasa"
 
@@ -719,9 +720,13 @@ msgstr "Podstawowy"
 msgid "Premium"
 msgstr "Premium"
 
-#: .\plans\models.py:10
+#: .\plans\models.py:10 .\templates\plans\plans_list.html:27
 msgid "Trial"
-msgstr "Trial"
+msgstr "Próbny"
+
+#: .\plans\models.py:11
+msgid "Ultimate"
+msgstr "Dożytowni"
 
 #: .\quizes\forms\question_forms.py:13
 msgid "Question Content"
@@ -824,29 +829,45 @@ msgstr "Pytanie zostało pomyślnie dodane"
 msgid "Quiz created successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
-#: .\templates\base.html:45
+#: .\templates\base.html:46
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: .\templates\base.html:47 .\templates\users\home.html:4 .\users\views.py:86
+#: .\templates\base.html:49 .\templates\users\home.html:4 .\users\views.py:107
 msgid "Home"
 msgstr "Strona główna"
 
-#: .\templates\base.html:48
+#: .\templates\base.html:50
 msgid "About"
 msgstr "O nas"
 
-#: .\templates\base.html:49
+#: .\templates\base.html:51
 msgid "Services"
 msgstr "Usługi"
 
-#: .\templates\base.html:50
+#: .\templates\base.html:52
 msgid "Pricing"
 msgstr "Cennik"
 
-#: .\templates\base.html:51
+#: .\templates\base.html:53
 msgid "Contact"
 msgstr "Kontakt"
+
+#: .\templates\base.html:64
+msgid "Your trial has ended"
+msgstr ""
+
+#: .\templates\base.html:65
+msgid "Upgrade to Premium to keep access."
+msgstr ""
+
+#: .\templates\base.html:67
+msgid "See plans"
+msgstr ""
+
+#: .\templates\base.html:70
+msgid "Maybe later"
+msgstr ""
 
 #: .\templates\courses\add_book.html:67
 #: .\templates\navigation_links\courses.html:8
@@ -1361,8 +1382,6 @@ msgid "No motifs found"
 msgstr "Nie znaleziono pliku egzaminacyjnego"
 
 #: .\templates\navigation_links\courses.html:6
-#: .\templates\navigation_links\courses.html:12
-
 msgid "Training Tasks List"
 msgstr "Lista Zadań Treningowych"
 
@@ -1387,6 +1406,16 @@ msgstr "Dodaj Zadanie Egzaminacyjne"
 #| msgid "Book section"
 msgid "Add Motif"
 msgstr "Dział z książki"
+
+#: .\templates\navigation_links\plans.html:4
+#: .\templates\plans\plans_list.html:5
+msgid "Plans"
+msgstr "Plany"
+
+#: .\templates\navigation_links\plans.html:6
+
+msgid "Plans List"
+msgstr "Lista Planów"
 
 #: .\templates\navigation_links\quizes.html:4
 msgid "Quizes"
@@ -1417,6 +1446,108 @@ msgstr "Nagrania"
 #: .\templates\navigation_links\videos.html:8
 msgid "Add Video"
 msgstr "Dodaj Nagranie"
+
+#: .\templates\plans\blik_payment.html:5 .\templates\plans\blik_payment.html:10
+msgid "BLIK Payment"
+msgstr ""
+
+#: .\templates\plans\blik_payment.html:14
+#: .\templates\plans\card_payment.html:14
+#: .\templates\plans\confirm_plan.html:14
+#, fuzzy
+#| msgid "Select Exam"
+msgid "Selected Plan"
+msgstr "Wybierz egzamin"
+
+#: .\templates\plans\blik_payment.html:41
+#: .\templates\plans\card_payment.html:45 .\users\forms.py:11
+msgid "Email"
+msgstr "E-mail"
+
+#: .\templates\plans\blik_payment.html:53
+msgid "BLIK Code"
+msgstr ""
+
+#: .\templates\plans\blik_payment.html:57
+#: .\templates\plans\card_payment.html:54
+#, fuzzy
+#| msgid "May"
+msgid "Pay"
+msgstr "Maj"
+
+#: .\templates\plans\blik_payment.html:60
+#: .\templates\plans\card_payment.html:57
+#: .\templates\videos\add_video_wizard.html:110
+#: .\templates\videos\section_video_list.html:7
+msgid "Back"
+msgstr "Cofnij"
+
+#: .\templates\plans\card_payment.html:5 .\templates\plans\card_payment.html:10
+msgid "Card Payment"
+msgstr ""
+
+#: .\templates\plans\card_payment.html:49
+#, fuzzy
+#| msgid "Video Details"
+msgid "Card Details"
+msgstr "Szczegóły filmu"
+
+#: .\templates\plans\confirm_plan.html:5 .\templates\plans\confirm_plan.html:10
+#, fuzzy
+#| msgid "Confirm Password"
+msgid "Confirm Plan"
+msgstr "Potwierdź hasło"
+
+#: .\templates\plans\confirm_plan.html:26
+msgid "Choose payment method"
+msgstr ""
+
+#: .\templates\plans\confirm_plan.html:31
+msgid "Card"
+msgstr ""
+
+#: .\templates\plans\confirm_plan.html:36
+msgid "BLIK"
+msgstr ""
+
+#: .\templates\plans\confirm_plan.html:40
+#, fuzzy
+#| msgid "Back to Exam List"
+msgid "Back to Plans"
+msgstr "Powrót do listy egzaminów"
+
+#: .\templates\plans\plans_list.html:11
+msgid "Choose Your Plan"
+msgstr "Wybierz Swój Plan"
+
+#: .\templates\plans\plans_list.html:17
+msgid "Current Plan"
+msgstr "Obecny Plan"
+
+#: .\templates\plans\plans_list.html:22
+msgid "Valid To"
+msgstr ""
+
+#: .\templates\plans\plans_list.html:38
+#, fuzzy
+#| msgid "Functions"
+msgid "Active"
+msgstr "Funkcje"
+
+#: .\templates\plans\plans_list.html:53
+#, fuzzy
+#| msgid "Advanced"
+msgid "Advanced Features"
+msgstr "Zaawansowany"
+
+#: .\templates\plans\plans_list.html:58
+msgid "Your current plan"
+msgstr "Twój Obecny Plan"
+
+#: .\templates\plans\plans_list.html:62
+
+msgid "Choose"
+msgstr "Wybierz"
 
 #: .\templates\quizes\add_question.html:4
 msgid "Add Question"
@@ -1531,26 +1662,26 @@ msgstr ""
 msgid "Login"
 msgstr "Logowanie"
 
-#: .\templates\users\login.html:26
+#: .\templates\users\login.html:30
 #: .\templates\users\password_reset_complete.html:11
-#: .\templates\users\register.html:27
+#: .\templates\users\register.html:64
 msgid "Log in"
 msgstr ""
 
-#: .\templates\users\login.html:28
+#: .\templates\users\login.html:32
 msgid "Don’t have an account yet?"
 msgstr "Nie masz jeszcze konta?"
 
-#: .\templates\users\login.html:29 .\templates\users\register.html:24
+#: .\templates\users\login.html:33 .\templates\users\register.html:61
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: .\templates\users\login.html:32
+#: .\templates\users\login.html:36
 msgid "Forgot your password?"
 msgstr "Zapomniałeś hasła?"
 
 #: .\templates\users\password_reset_complete.html:4
-#: .\templates\users\password_reset_complete.html:8 .\users\views.py:126
+#: .\templates\users\password_reset_complete.html:8 .\users\views.py:147
 msgid "Password reset complete"
 msgstr "Resetowanie hasła zakończone"
 
@@ -1561,7 +1692,7 @@ msgstr ""
 "hasła."
 
 #: .\templates\users\password_reset_confirm.html:5
-#: .\templates\users\password_reset_confirm.html:9 .\users\views.py:117
+#: .\templates\users\password_reset_confirm.html:9 .\users\views.py:138
 msgid "Set your new password"
 msgstr "Ustaw nowe hasło"
 
@@ -1570,7 +1701,7 @@ msgid "Change my password"
 msgstr "Zmień moje hasło"
 
 #: .\templates\users\password_reset_done.html:4
-#: .\templates\users\password_reset_done.html:8 .\users\views.py:107
+#: .\templates\users\password_reset_done.html:8 .\users\views.py:128
 msgid "Check your email"
 msgstr "Sprawdź swoją skrzynkę e-mail"
 
@@ -1590,7 +1721,7 @@ msgstr ""
 "użyłeś przy rejestracji."
 
 #: .\templates\users\password_reset_form.html:5
-#: .\templates\users\password_reset_form.html:9 .\users\views.py:98
+#: .\templates\users\password_reset_form.html:9 .\users\views.py:119
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
 
@@ -1609,7 +1740,7 @@ msgstr "Resetowanie hasła zakończone"
 msgid "Register"
 msgstr "Zarejestruj się"
 
-#: .\templates\users\register.html:26
+#: .\templates\users\register.html:63
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
@@ -1639,11 +1770,6 @@ msgstr "Etykieta"
 #| msgid "Exam Type"
 msgid "Type"
 msgstr "Rodzaj egzaminu"
-
-#: .\templates\videos\add_video_wizard.html:110
-#: .\templates\videos\section_video_list.html:7
-msgid "Back"
-msgstr "Cofnij"
 
 #: .\templates\videos\add_video_wizard.html:113
 msgid "Save Video"
@@ -1718,27 +1844,23 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\users\forms.py:9
-msgid "Email"
-msgstr "E-mail"
-
-#: .\users\forms.py:15 .\users\forms.py:37 .\users\forms.py:39
+#: .\users\forms.py:17 .\users\forms.py:48 .\users\forms.py:50
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: .\users\forms.py:16 .\users\forms.py:42 .\users\forms.py:43
+#: .\users\forms.py:18 .\users\forms.py:53 .\users\forms.py:54
 msgid "Password"
 msgstr "Hasło"
 
-#: .\users\forms.py:17
+#: .\users\forms.py:19
 msgid "Confirm Password"
 msgstr "Potwierdź hasło"
 
-#: .\users\forms.py:18
+#: .\users\forms.py:20 .\users\forms.py:30
 msgid "School Type"
 msgstr "Typ szkoły"
 
-#: .\users\forms.py:31
+#: .\users\forms.py:42
 msgid "This email is already in use."
 msgstr "Ten adres e-mail jest już używany."
 
@@ -1754,11 +1876,11 @@ msgstr "Tylko nauczyciele mogą dodawać zadania egzaminacyjne."
 msgid "Users"
 msgstr "Nazwa użytkownika"
 
-#: .\users\views.py:67
+#: .\users\views.py:88
 msgid "You have been successfully logged in."
 msgstr "Pomyślnie zalogowano."
 
-#: .\users\views.py:70
+#: .\users\views.py:91
 msgid "Invalid username or password."
 msgstr ""
 
@@ -1885,11 +2007,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 #~ msgstr "Dział z książki"
 
 #, fuzzy
-#~| msgid "Back to Exam List"
-#~ msgid "Back to List"
-#~ msgstr "Powrót do listy egzaminów"
-
-#, fuzzy
 #~| msgid "Go to Task"
 #~ msgid "Next Task"
 #~ msgstr "Przejdź do zadania"
@@ -1916,14 +2033,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 #~ msgid "Calendar"
 #~ msgstr "Kalendarz"
-
-#~ msgid "Plans"
-#~ msgstr "Plany"
-
-#, fuzzy
-#~| msgid "Choose a category"
-#~ msgid "Choose year"
-#~ msgstr "Wybierz kategorię"
 
 #, fuzzy
 #~| msgid "Task"
