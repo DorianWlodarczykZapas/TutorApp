@@ -1438,10 +1438,8 @@ msgid "Videos"
 msgstr "Nagrania"
 
 #: .\templates\navigation_links\videos.html:6
-#, fuzzy
-#| msgid "Videos"
 msgid "All Videos"
-msgstr "Nagrania"
+msgstr "Wszystkie Nagrania"
 
 #: .\templates\navigation_links\videos.html:8
 msgid "Add Video"
