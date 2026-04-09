@@ -3,6 +3,7 @@ import json
 import stripe
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
@@ -26,6 +27,10 @@ class PlansListView(LoginRequiredMixin, ListView):
         context["current_plan"] = user_plan.plan.name
         context["valid_to"] = user_plan.valid_to
         return context
+
+    def get_queryset(self) -> QuerySet:
+        user_plan = self.request.user.userplan
+        return PlanService(user_plan).get_available_plans()
 
 
 class CardProcessPaymentView(LoginRequiredMixin, View):
