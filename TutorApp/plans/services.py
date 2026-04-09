@@ -5,6 +5,7 @@ from decimal import Decimal
 import stripe
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
+from django.db.models import QuerySet
 from django.utils import timezone
 from plans.models import Plan, UserPlan
 
@@ -42,9 +43,25 @@ class PlanService:
         self.user_plan.plan = premium_plan
         self.user_plan.valid_to = today + relativedelta(months=1)
         self.user_plan.is_active = True
+        self.user_plan.is_trial = False
         self.user_plan.last_payment_date = today
         self.user_plan.next_payment_date = today + relativedelta(months=1)
         self.user_plan.save()
+
+    def get_available_plans(self) -> QuerySet:
+        current_type = self.user_plan.plan.type
+
+        match current_type:
+            case Plan.PlanType.ULTIMATE:
+                return Plan.objects.none()
+            case Plan.PlanType.PREMIUM:
+                return Plan.objects.filter(type=Plan.PlanType.ULTIMATE)
+            case Plan.PlanType.TRIAL:
+                return Plan.objects.exclude(type=Plan.PlanType.TRIAL)
+            case _:
+                return Plan.objects.exclude(
+                    type__in=[Plan.PlanType.TRIAL, Plan.PlanType.BASE]
+                )
 
 
 class PaymentStrategy(ABC):
