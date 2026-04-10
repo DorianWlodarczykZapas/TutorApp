@@ -14,18 +14,19 @@ class PlanService:
     def __init__(self, user_plan: UserPlan):
         self.user_plan = user_plan
 
+    def downgrade_to_base(self) -> bool:
+        base_plan = Plan.objects.filter(type=Plan.PlanType.BASE).first()
+        if base_plan:
+            self.user_plan.plan = base_plan
+            self.user_plan.is_trial = False
+            self.user_plan.save()
+            return True
+        return False
+
     def downgrade_if_expired(self) -> bool:
         today = timezone.now().date()
-
         if self.user_plan.is_trial and today > self.user_plan.valid_to:
-            base_plan = Plan.objects.filter(type=Plan.PlanType.BASE).first()
-
-            if base_plan:
-                self.user_plan.plan = base_plan
-                self.user_plan.is_trial = False
-                self.user_plan.save()
-                return True
-            return False
+            return self.downgrade_to_base()
         return False
 
     def activate_ultimate(self) -> None:
@@ -33,7 +34,7 @@ class PlanService:
         self.user_plan.plan = ultimate_plan
         self.user_plan.valid_to = None
         self.user_plan.is_active = True
-
+        self.user_plan.is_trial = False
         self.user_plan.last_payment_date = date.today()
         self.user_plan.save()
 
@@ -56,12 +57,10 @@ class PlanService:
                 return Plan.objects.none()
             case Plan.PlanType.PREMIUM:
                 return Plan.objects.filter(type=Plan.PlanType.ULTIMATE)
-            case Plan.PlanType.TRIAL:
-                return Plan.objects.exclude(type=Plan.PlanType.TRIAL)
             case _:
                 return Plan.objects.exclude(
                     type__in=[Plan.PlanType.TRIAL, Plan.PlanType.BASE]
-                )
+                ).order_by("type")
 
 
 class PaymentStrategy(ABC):
@@ -125,6 +124,7 @@ class StripeService:
             currency=plan.currency,
             customer=customer_id,
             payment_method=payment_method_id,
+            metadata={"plan_type": "ultimate"},
         )
 
     def create_subscription(
