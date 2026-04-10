@@ -7,19 +7,17 @@
 {% block main_class %}main-content{% endblock %}
 {% block content %}
     <div class="form-container">
-        <h1 class="form-title">{% trans "Card Payment" %}</h1>
-        <div class="filters-container plans-payment-summary">
-            <div class="plans-current-plan">
-                <div>
-                    <span class="plans-current-plan__label">{% trans "Selected Plan" %}</span>
-                    <p class="plans-card__title">{{ plan.name }}</p>
-                </div>
-                <div>
-                    <span class="plans-card__price">
-                        {{ plan.price }} <small class="plans-card__currency">{{ plan.currency|upper }}</small>
-                    </span>
-                    <p class="plans-card__price-period">/ {{ plan.billing_period }}</p>
-                </div>
+        <div class="plans-back-top">
+            <a href="{% url 'plans:confirm_payment' plan.id %}"
+               class="btn btn-outline-teal btn-outline-teal--sm">{% trans "Back" %}</a>
+        </div>
+        <h1 class="form-title plans-payment-title">{% trans "Card Payment" %}</h1>
+        <div class="plans-confirm-summary">
+            <p class="plans-confirm-selected-label">{% trans "Selected Plan" %}</p>
+            <p class="plans-card__title">{{ plan.name }}</p>
+            <div class="plans-confirm-price">
+                <span class="plans-card__price">{{ plan.price }} <small>{{ plan.currency|upper }}</small></span>
+                <span class="plans-card__price-period">/ {{ plan.billing_period }}</span>
             </div>
         </div>
         <div id="payment-data"
@@ -53,9 +51,6 @@
             <button type="submit" class="btn-submit" id="submit-btn">
                 {% trans "Pay" %} {{ plan.price }} {{ plan.currency|upper }}
             </button>
-            <div class="payment-back-link">
-                <a href="{% url 'plans:confirm_payment' plan.id %}">← {% trans "Back" %}</a>
-            </div>
         </form>
     </div>
 {% endblock %}
