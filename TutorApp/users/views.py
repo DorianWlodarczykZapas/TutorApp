@@ -32,7 +32,9 @@ class UserRegisterView(CreateView):
     def form_valid(self, form: UserRegisterForm) -> HttpResponse:
         service = UserService()
         service.register_user(form)
-        messages.success(self.request, "Account has been created. You can now log in.")
+        messages.success(
+            self.request, _("Account has been created. You can now log in.")
+        )
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

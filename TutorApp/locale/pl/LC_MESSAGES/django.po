@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 12:11+0200\n"
+"POT-Creation-Date: 2026-04-10 11:10+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -1451,10 +1451,9 @@ msgstr ""
 #: .\templates\plans\blik_payment.html:14
 #: .\templates\plans\card_payment.html:14
 #: .\templates\plans\confirm_plan.html:14
-#, fuzzy
-#| msgid "Select Exam"
+
 msgid "Selected Plan"
-msgstr "Wybierz egzamin"
+msgstr "Wybrany Plan"
 
 #: .\templates\plans\blik_payment.html:41
 #: .\templates\plans\card_payment.html:45 .\users\forms.py:11
@@ -1490,58 +1489,61 @@ msgid "Card Details"
 msgstr "Szczegóły filmu"
 
 #: .\templates\plans\confirm_plan.html:5 .\templates\plans\confirm_plan.html:10
-#, fuzzy
-#| msgid "Confirm Password"
+
 msgid "Confirm Plan"
-msgstr "Potwierdź hasło"
+msgstr "Potwierdź Plan"
 
 #: .\templates\plans\confirm_plan.html:26
 msgid "Choose payment method"
-msgstr ""
+msgstr "Wybierz Metodę Płatności"
 
 #: .\templates\plans\confirm_plan.html:31
 msgid "Card"
-msgstr ""
+msgstr "Karta"
 
 #: .\templates\plans\confirm_plan.html:36
 msgid "BLIK"
 msgstr ""
 
 #: .\templates\plans\confirm_plan.html:40
-#, fuzzy
-#| msgid "Back to Exam List"
+
 msgid "Back to Plans"
-msgstr "Powrót do listy egzaminów"
+msgstr "Powrót do listy planów"
 
 #: .\templates\plans\plans_list.html:12
 msgid "Choose Your Plan"
 msgstr "Wybierz Swój Plan"
 
-#: .\templates\plans\plans_list.html:32
-#, fuzzy
-#| msgid "Advanced"
-msgid "Advanced Features"
-msgstr "Zaawansowany"
-
-#: .\templates\plans\plans_list.html:39
-msgid "Choose"
-msgstr "Wybierz"
-
-#: .\templates\plans\plans_list.html:49
-msgid "You have the best plan!"
-msgstr "Masz Już Najlepszy Możliwy Plan!"
-
-#: .\templates\plans\plans_list.html:52
+#: .\templates\plans\plans_list.html:18 .\templates\plans\plans_list.html:74
 #, fuzzy
 #| msgid "Plans"
 msgid "Plan"
 msgstr "Plany"
 
-#: .\templates\plans\plans_list.html:57
+#: .\templates\plans\plans_list.html:23 .\templates\plans\plans_list.html:79
 msgid "Valid To"
 msgstr "Ważny Do"
 
-#: .\templates\plans\plans_list.html:58
+#: .\templates\plans\plans_list.html:38
+
+msgid "Subscription"
+msgstr "Subskrypcja"
+
+#: .\templates\plans\plans_list.html:56
+#, fuzzy
+#| msgid "Advanced"
+msgid "Advanced Features"
+msgstr "Zaawansowany"
+
+#: .\templates\plans\plans_list.html:62
+msgid "Choose"
+msgstr "Wybierz"
+
+#: .\templates\plans\plans_list.html:71
+msgid "You have the best plan!"
+msgstr "Masz Już Najlepszy Możliwy Plan!"
+
+#: .\templates\plans\plans_list.html:80
 msgid "Lifetime"
 msgstr "Dożytowni"
 
@@ -1871,6 +1873,10 @@ msgstr "Tylko nauczyciele mogą dodawać zadania egzaminacyjne."
 #| msgid "Username"
 msgid "Users"
 msgstr "Nazwa użytkownika"
+
+#: .\users\views.py:35
+msgid "Account has been created. You can now log in."
+msgstr "Konto zostało utworzone. Teraz możesz się zalogować."
 
 #: .\users\views.py:88
 msgid "You have been successfully logged in."
