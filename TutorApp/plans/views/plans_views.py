@@ -1,4 +1,5 @@
 import json
+from datetime import date
 
 import stripe
 from django.conf import settings
@@ -20,12 +21,18 @@ class PlansListView(LoginRequiredMixin, ListView):
     context_object_name = "plans"
 
     def get_context_data(self, *args, **kwargs):
+        days_left = None
         context = super().get_context_data(**kwargs)
         user = self.request.user
         user_plan = user.userplan
+
+        if user_plan.valid_to:
+            days_left = (user_plan.valid_to - date.today()).days
         context["user_plan"] = user_plan
         context["current_plan"] = user_plan.plan.name
         context["valid_to"] = user_plan.valid_to
+        context["plan_type"] = user_plan.plan.type
+        context["days_left"] = days_left
         return context
 
     def get_queryset(self) -> QuerySet:
@@ -123,8 +130,13 @@ class StripeWebhookView(View):
             return HttpResponse(status=400)
 
         if event.type == "payment_intent.succeeded":
-            payment_intent = event.data.object
-            customer_id = payment_intent.customer
+            payment_intent = event.data.object.to_dict()
+            metadata = payment_intent.get("metadata", {})
+
+            if metadata.get("plan_type") != "ultimate":
+                return HttpResponse(status=200)
+
+            customer_id = payment_intent.get("customer")
             try:
                 user_plan = UserPlan.objects.get(stripe_customer_id=customer_id)
             except UserPlan.DoesNotExist:
@@ -132,13 +144,36 @@ class StripeWebhookView(View):
 
             PlanService(user_plan=user_plan).activate_ultimate()
 
-        elif event.type == "customer.subscription.updated":
-            subscription = event.data.object
+        elif event.type == "invoice.paid":
+            invoice = event.data.object.to_dict()
+            parent = invoice.get("parent", {})
+            subscription_details = parent.get("subscription_details", {})
+            subscription_id = (
+                subscription_details.get("subscription")
+                if subscription_details
+                else None
+            )
+
+            if not subscription_id:
+                return HttpResponse(status=200)
+
+            subscription = stripe.Subscription.retrieve(subscription_id)
             customer_id = subscription.customer
+
             try:
                 user_plan = UserPlan.objects.get(stripe_customer_id=customer_id)
             except UserPlan.DoesNotExist:
                 return HttpResponse(status=400)
+
             PlanService(user_plan=user_plan).activate_premium()
+
+        elif event.type == "customer.subscription.deleted":
+            subscription = event.data.object.to_dict()
+            customer_id = subscription.get("customer")
+            try:
+                user_plan = UserPlan.objects.get(stripe_customer_id=customer_id)
+            except UserPlan.DoesNotExist:
+                return HttpResponse(status=400)
+            PlanService(user_plan=user_plan).downgrade_to_base()
 
         return HttpResponse(status=200)
