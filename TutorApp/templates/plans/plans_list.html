@@ -8,14 +8,36 @@
 {% block content %}
     {% if plans %}
         <div class="training-tasks-container">
-            <div class="page-header">
+            <div class="page-header plans-page-header">
                 <h1>{% trans "Choose Your Plan" %}</h1>
+            </div>
+            <div class="plans-current-info">
+                <div class="plans-ultimate-banner__info">
+                    <div class="plans-ultimate-banner__col">
+                        <span class="plans-current-plan__label">{% trans "Plan" %}</span>
+                        <p class="plans-card__title">{{ current_plan }}</p>
+                    </div>
+                    <div class="plans-ultimate-banner__divider"></div>
+                    <div class="plans-ultimate-banner__col">
+                        <span class="plans-current-plan__label">{% trans "Valid To" %}</span>
+                        <p class="plans-card__title {% if days_left <= 5 %}plans-current-info__expiring{% endif %}">
+                            {{ valid_to }}
+                            {% if days_left <= 5 %}{% endif %}
+                        </p>
+                    </div>
+                </div>
             </div>
             <div class="tasks-grid plans-grid">
                 {% for plan in plans %}
                     <div class="task-card plans-card--{{ plan.type }}">
                         <div class="task-header">
-                            <span class="task-section">{{ plan.get_type_display }}</span>
+                            <span class="task-section">
+                                {% if plan.type == 2 %}
+                                    {% trans "Subscription" %}
+                                {% else %}
+                                    {{ plan.get_type_display }}
+                                {% endif %}
+                            </span>
                         </div>
                         <div class="task-content">
                             <h2 class="plans-card__title">{{ plan.name }}</h2>
@@ -25,13 +47,8 @@
                             <span class="plans-card__price">
                                 {{ plan.price }} <small class="plans-card__currency">{{ plan.currency|upper }}</small>
                             </span>
-                            <p class="plans-card__price-period">/ {{ plan.billing_period }}</p>
+                            <span class="plans-card__price-period">/ {{ plan.billing_period }}</span>
                         </div>
-                        {% if plan.advanced_features_enabled %}
-                            <div class="plans-card__features">
-                                <span class="difficulty-badge level-1">{% trans "Advanced Features" %}</span>
-                            </div>
-                        {% endif %}
                         <div class="task-footer">
                             <a href="{% url 'plans:confirm_payment' plan.id %}"
                                class="btn btn-teal btn-sm"
