@@ -252,11 +252,11 @@ msgstr ""
 
 #: .\courses\models.py:137
 msgid "Book task requires a book."
-msgstr ""
+msgstr "Zadanie z książki wymaga podania książki"
 
 #: .\courses\models.py:139
 msgid "Book task requires a page number."
-msgstr ""
+msgstr "Zadanie z ksiązki wymaga podania numeru strony"
 
 #: .\courses\models.py:149 .\users\models.py:24
 #, fuzzy
