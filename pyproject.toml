@@ -30,6 +30,7 @@ dependencies = [
     "django-crispy-forms (>=2.5,<3.0)",
     "crispy-bootstrap5 (>=2025.6,<2026.0)",
     "google-api-python-client (>=2.191.0,<3.0.0)",
+    "stripe (>=15.0.1,<16.0.0)",
 ]
 
 
