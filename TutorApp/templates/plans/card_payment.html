@@ -43,12 +43,12 @@
                     <label for="email">{% trans "Email" %}</label>
                 </div>
             </div>
+            <p class="plans-payment-card-label">{% trans "Card Details" %}</p>
             <div class="floating-field field-char">
-                <label class="plans-current-plan__label">{% trans "Card Details" %}</label>
                 <div id="card-element" class="payment-card-element"></div>
                 <div id="card-errors" class="payment-card-errors"></div>
             </div>
-            <button type="submit" class="btn-submit" id="submit-btn">
+            <button type="submit" class="plans-payment-submit" id="submit-btn">
                 {% trans "Pay" %} {{ plan.price }} {{ plan.currency|upper }}
             </button>
         </form>
