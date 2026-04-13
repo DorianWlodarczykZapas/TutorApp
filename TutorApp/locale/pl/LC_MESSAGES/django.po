@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-10 11:10+0200\n"
+"POT-Creation-Date: 2026-04-13 21:53+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -833,7 +833,7 @@ msgstr "Egzamin dodany pomyślnie"
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: .\templates\base.html:49 .\templates\users\home.html:4 .\users\views.py:107
+#: .\templates\base.html:49 .\templates\users\home.html:4 .\users\views.py:109
 msgid "Home"
 msgstr "Strona główna"
 
@@ -1444,69 +1444,66 @@ msgstr "Wszystkie Nagrania"
 msgid "Add Video"
 msgstr "Dodaj Nagranie"
 
-#: .\templates\plans\blik_payment.html:5 .\templates\plans\blik_payment.html:10
+#: .\templates\plans\blik_payment.html:5 .\templates\plans\blik_payment.html:14
 msgid "BLIK Payment"
-msgstr ""
+msgstr "Płatność Blikiem"
 
-#: .\templates\plans\blik_payment.html:14
-#: .\templates\plans\card_payment.html:14
-#: .\templates\plans\confirm_plan.html:14
-
-msgid "Selected Plan"
-msgstr "Wybrany Plan"
-
-#: .\templates\plans\blik_payment.html:41
-#: .\templates\plans\card_payment.html:45 .\users\forms.py:11
-msgid "Email"
-msgstr "E-mail"
-
-#: .\templates\plans\blik_payment.html:53
-msgid "BLIK Code"
-msgstr ""
-
-#: .\templates\plans\blik_payment.html:57
-#: .\templates\plans\card_payment.html:54
-#, fuzzy
-#| msgid "May"
-msgid "Pay"
-msgstr "Maj"
-
-#: .\templates\plans\blik_payment.html:60
-#: .\templates\plans\card_payment.html:57
+#: .\templates\plans\blik_payment.html:12
+#: .\templates\plans\card_payment.html:12
 #: .\templates\videos\add_video_wizard.html:110
 #: .\templates\videos\section_video_list.html:7
 msgid "Back"
 msgstr "Cofnij"
 
-#: .\templates\plans\card_payment.html:5 .\templates\plans\card_payment.html:10
-msgid "Card Payment"
-msgstr ""
+#: .\templates\plans\blik_payment.html:16
+#: .\templates\plans\card_payment.html:16
+#: .\templates\plans\confirm_plan.html:12
+msgid "Selected Plan"
+msgstr "Wybrany Plan"
 
-#: .\templates\plans\card_payment.html:49
-#, fuzzy
-#| msgid "Video Details"
+#: .\templates\plans\blik_payment.html:40
+#: .\templates\plans\card_payment.html:44 .\users\forms.py:11
+msgid "Email"
+msgstr "E-mail"
+
+#: .\templates\plans\blik_payment.html:43
+msgid "BLIK Code"
+msgstr "Kod BLIK"
+
+#: .\templates\plans\blik_payment.html:53
+msgid "Enter 6-digit code"
+msgstr "Wpisz 6 cyfrowy kod"
+
+#: .\templates\plans\blik_payment.html:57
+#: .\templates\plans\card_payment.html:53
+msgid "Pay"
+msgstr "Zapłać"
+
+#: .\templates\plans\card_payment.html:5 .\templates\plans\card_payment.html:14
+msgid "Card Payment"
+msgstr "Płatność Kartą"
+
+#: .\templates\plans\card_payment.html:47
 msgid "Card Details"
-msgstr "Szczegóły filmu"
+msgstr "Dane Karty"
 
 #: .\templates\plans\confirm_plan.html:5 .\templates\plans\confirm_plan.html:10
-
 msgid "Confirm Plan"
 msgstr "Potwierdź Plan"
 
-#: .\templates\plans\confirm_plan.html:26
+#: .\templates\plans\confirm_plan.html:21
 msgid "Choose payment method"
 msgstr "Wybierz Metodę Płatności"
 
-#: .\templates\plans\confirm_plan.html:31
+#: .\templates\plans\confirm_plan.html:28
 msgid "Card"
 msgstr "Karta"
 
-#: .\templates\plans\confirm_plan.html:36
+#: .\templates\plans\confirm_plan.html:35
 msgid "BLIK"
 msgstr ""
 
-#: .\templates\plans\confirm_plan.html:40
-
+#: .\templates\plans\confirm_plan.html:39
 msgid "Back to Plans"
 msgstr "Powrót do listy planów"
 
@@ -1514,36 +1511,29 @@ msgstr "Powrót do listy planów"
 msgid "Choose Your Plan"
 msgstr "Wybierz Swój Plan"
 
-#: .\templates\plans\plans_list.html:18 .\templates\plans\plans_list.html:74
+#: .\templates\plans\plans_list.html:17 .\templates\plans\plans_list.html:67
 #, fuzzy
 #| msgid "Plans"
 msgid "Plan"
 msgstr "Plany"
 
-#: .\templates\plans\plans_list.html:23 .\templates\plans\plans_list.html:79
+#: .\templates\plans\plans_list.html:22 .\templates\plans\plans_list.html:72
 msgid "Valid To"
 msgstr "Ważny Do"
 
-#: .\templates\plans\plans_list.html:38
-
+#: .\templates\plans\plans_list.html:36
 msgid "Subscription"
 msgstr "Subskrypcja"
 
-#: .\templates\plans\plans_list.html:56
-#, fuzzy
-#| msgid "Advanced"
-msgid "Advanced Features"
-msgstr "Zaawansowany"
-
-#: .\templates\plans\plans_list.html:62
+#: .\templates\plans\plans_list.html:55
 msgid "Choose"
 msgstr "Wybierz"
 
-#: .\templates\plans\plans_list.html:71
+#: .\templates\plans\plans_list.html:64
 msgid "You have the best plan!"
 msgstr "Masz Już Najlepszy Możliwy Plan!"
 
-#: .\templates\plans\plans_list.html:80
+#: .\templates\plans\plans_list.html:73
 msgid "Lifetime"
 msgstr "Dożytowni"
 
@@ -1679,7 +1669,7 @@ msgid "Forgot your password?"
 msgstr "Zapomniałeś hasła?"
 
 #: .\templates\users\password_reset_complete.html:4
-#: .\templates\users\password_reset_complete.html:8 .\users\views.py:147
+#: .\templates\users\password_reset_complete.html:8 .\users\views.py:149
 msgid "Password reset complete"
 msgstr "Resetowanie hasła zakończone"
 
@@ -1690,7 +1680,7 @@ msgstr ""
 "hasła."
 
 #: .\templates\users\password_reset_confirm.html:5
-#: .\templates\users\password_reset_confirm.html:9 .\users\views.py:138
+#: .\templates\users\password_reset_confirm.html:9 .\users\views.py:140
 msgid "Set your new password"
 msgstr "Ustaw nowe hasło"
 
@@ -1699,7 +1689,7 @@ msgid "Change my password"
 msgstr "Zmień moje hasło"
 
 #: .\templates\users\password_reset_done.html:4
-#: .\templates\users\password_reset_done.html:8 .\users\views.py:128
+#: .\templates\users\password_reset_done.html:8 .\users\views.py:130
 msgid "Check your email"
 msgstr "Sprawdź swoją skrzynkę e-mail"
 
@@ -1719,7 +1709,7 @@ msgstr ""
 "użyłeś przy rejestracji."
 
 #: .\templates\users\password_reset_form.html:5
-#: .\templates\users\password_reset_form.html:9 .\users\views.py:119
+#: .\templates\users\password_reset_form.html:9 .\users\views.py:121
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
 
@@ -1874,15 +1864,15 @@ msgstr "Tylko nauczyciele mogą dodawać zadania egzaminacyjne."
 msgid "Users"
 msgstr "Nazwa użytkownika"
 
-#: .\users\views.py:35
+#: .\users\views.py:36
 msgid "Account has been created. You can now log in."
 msgstr "Konto zostało utworzone. Teraz możesz się zalogować."
 
-#: .\users\views.py:88
+#: .\users\views.py:90
 msgid "You have been successfully logged in."
 msgstr "Pomyślnie zalogowano."
 
-#: .\users\views.py:91
+#: .\users\views.py:93
 msgid "Invalid username or password."
 msgstr ""
 
@@ -1984,6 +1974,11 @@ msgstr ""
 #, python-format
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
+
+#, fuzzy
+#~| msgid "Advanced"
+#~ msgid "Advanced Features"
+#~ msgstr "Zaawansowany"
 
 #~ msgid "Current Plan"
 #~ msgstr "Obecny Plan"
