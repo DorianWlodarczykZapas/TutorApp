@@ -6,7 +6,9 @@ from django.db.models import Count, QuerySet
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView
+from django_filters.views import FilterView
+from quizes.filters import QuizFilterSet
 from users.mixins import TeacherRequiredMixin
 
 from ..forms.quiz_forms import QuizForm
@@ -25,8 +27,9 @@ class AddQuiz(TeacherRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class QuizList(LoginRequiredMixin, ListView):
+class QuizList(LoginRequiredMixin, FilterView):
     model = Quiz
+    filterset_class = QuizFilterSet
     template_name = "quizes/quiz_list.html"
     context_object_name = "quiz_list"
 
@@ -40,13 +43,13 @@ class QuizList(LoginRequiredMixin, ListView):
 
         quizzes = list(context["quiz_list"])
 
-        user_attempts = QuizAttempt.objects.filter(user=self.request.user)
+        user_attempts = (
+            QuizAttempt.objects.filter(user=self.request.user)
+            .order_by("quiz", "-completed_at")
+            .distinct("quiz")
+        )
 
-        last_attempts = {}
-
-        for attempt in user_attempts:
-            if attempt.quiz_id not in last_attempts:
-                last_attempts[attempt.quiz_id] = attempt
+        last_attempts = {attempt.quiz_id: attempt for attempt in user_attempts}
 
         for quiz in quizzes:
             quiz.last_attempt = last_attempts.get(quiz.id)
