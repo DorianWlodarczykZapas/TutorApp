@@ -745,10 +745,9 @@ msgid "Explanation By Illustration To The Question"
 msgstr ""
 
 #: .\quizes\forms\quiz_forms.py:12
-#, fuzzy
-#| msgid "Title"
+
 msgid "Quiz Title"
-msgstr "Tytuł"
+msgstr "Tytuł Quizu"
 
 #: .\quizes\forms\quiz_forms.py:12
 msgid "Subject Section"
@@ -824,10 +823,9 @@ msgid "Question has been successfully added."
 msgstr "Pytanie zostało pomyślnie dodane"
 
 #: .\quizes\views\quiz_views.py:24
-#, fuzzy
-#| msgid "Exam added successfully!"
+
 msgid "Quiz created successfully!"
-msgstr "Egzamin dodany pomyślnie"
+msgstr "Quiz dodany pomyślnie"
 
 #: .\templates\base.html:46
 msgid "Logout"
@@ -1429,7 +1427,7 @@ msgstr "Tytuł"
 #: .\templates\navigation_links\quizes.html:8
 #: .\templates\quizes\add_quiz.html:33
 msgid "Add Quiz"
-msgstr ""
+msgstr "Dodaj Quiz"
 
 #: .\templates\navigation_links\videos.html:4
 #: .\templates\videos\section_video_list.html:4
@@ -1561,10 +1559,9 @@ msgid "Save Question"
 msgstr ""
 
 #: .\templates\quizes\add_quiz.html:5 .\templates\quizes\add_quiz.html:17
-#, fuzzy
-#| msgid "Add New Exam"
+
 msgid "Add New Quiz"
-msgstr "Dodaj nowy egzamin"
+msgstr "Dodaj Nowy Quiz"
 
 #: .\templates\quizes\question_review.html:14
 #, python-format
@@ -1593,10 +1590,9 @@ msgid "Explanation image"
 msgstr "Egzaminy"
 
 #: .\templates\quizes\quiz_list.html:5
-#, fuzzy
-#| msgid "Available Exams"
+
 msgid "Available Quizzes"
-msgstr "Dostępne Egzaminy"
+msgstr "Dostępne Quizy"
 
 #: .\templates\quizes\quiz_list.html:10
 #, python-format
@@ -1605,6 +1601,9 @@ msgid ""
 "                    Questions: %(count)s\n"
 "                "
 msgstr ""
+"\n"
+"                    Pytania: %(count)s\n"
+"                "
 
 #: .\templates\quizes\quiz_list.html:16
 #, python-format
@@ -1616,7 +1615,7 @@ msgstr ""
 
 #: .\templates\quizes\quiz_list.html:21
 msgid "Not attempted yet"
-msgstr ""
+msgstr "Brak podejść"
 
 #: .\templates\quizes\quiz_list.html:23
 msgid "Start Quiz"
