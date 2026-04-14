@@ -274,3 +274,8 @@
 .btn-login:hover {
     background: #00695c;
 }
+
+.btn-submit--form {
+    width: 100%;
+    max-width: 50%;
+}
