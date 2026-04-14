@@ -1,29 +1,84 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% block main_class %}main-content--full{% endblock %}
 {% block content %}
-    <div class="quiz-list">
-        <h1>{% trans "Available Quizzes" %}</h1>
-        {% for quiz in quiz_list %}
-            <div class="quiz-list-info">
-                <h2>{{ quiz.title }} - {{ quiz.section }}</h2>
-                <p>
-                    {% blocktrans with count=quiz.number_of_questions %}
-                    Questions: {{ count }}
-                {% endblocktrans %}
-                </p>
-                {% if quiz.last_attempt %}
-                    <p>
-                        {% blocktrans with score=quiz.last_attempt.score max=quiz.last_attempt.max_score %}
-                    Last result: {{ score }}/{{ max }}
-                {% endblocktrans %}
-                    </p>
-                {% else %}
-                    <p>{% trans "Not attempted yet" %}</p>
-                {% endif %}
-                <a href="{% url 'quizes:quiz_start' quiz_pk=quiz.pk %}">{% trans "Start Quiz" %}</a>
-            </div>
-        {% empty %}
-            <p>{% trans "No quizzes available" %}</p>
-        {% endfor %}
+    <div class="training-tasks-container">
+        <div class="page-header">
+            <h1>{% trans "Available Quizzes" %}</h1>
+        </div>
+        <div class="filters-container">
+            <form method="get" class="filters-form" id="filter-form">
+                <div class="filters-grid">
+                    <div class="filter-group filter-search">
+                        <label for="{{ filter.form.title.id_for_label }}">{{ filter.form.title.label }}</label>
+                        {{ filter.form.title }}
+                    </div>
+                    <div class="filter-group filter-section field-search-single">
+                        <label for="{{ filter.form.section.id_for_label }}">{{ filter.form.section.label }}</label>
+                        {{ filter.form.section }}
+                    </div>
+                    <div class="filter-group filter-subject field-search-single">
+                        <label for="{{ filter.form.subject.id_for_label }}">{{ filter.form.subject.label }}</label>
+                        {{ filter.form.subject }}
+                    </div>
+                    <div class="filter-actions">
+                        <button type="submit" class="filter-btn-apply">{% trans "Apply Filters" %}</button>
+                        <a href="{% url 'quizes:quiz_list' %}" class="filter-btn-clear">{% trans "Clear Filters" %}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="exam-table">
+                <thead>
+                    <tr>
+                        <th>{% trans "LP" %}</th>
+                        <th>{% trans "Subject" %}</th>
+                        <th>{% trans "Quiz Title" %}</th>
+                        <th>{% trans "Number of questions" %}</th>
+                        <th>{% trans "Last Attempt" %}</th>
+                        <th>{% trans "Result" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for quiz in quiz_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ quiz.section.get_subject_display }}</td>
+                            <td>{{ quiz.title }}</td>
+                            <td>{{ quiz.number_of_questions }}</td>
+                            <td>
+                                {% if quiz.last_attempt %}
+                                    {{ quiz.last_attempt.completed_at|date:"d.m.Y" }}
+                                {% else %}
+                                    {% trans "Not attempted yet" %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if quiz.last_attempt %}
+                                    {% blocktrans with score=quiz.last_attempt.score max=quiz.last_attempt.max_score %}
+                                    {{ score }}/{{ max }}
+                                {% endblocktrans %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'quizes:quiz_start' quiz_pk=quiz.pk %}"
+                                   class="btn btn-sm btn-teal">{% trans "Start Quiz" %}</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7">{% trans "No quizzes available" %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    {{ filter.form.media }}
 {% endblock %}
