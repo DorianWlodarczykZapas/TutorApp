@@ -20,16 +20,21 @@
                 {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
             </div>
         {% endif %}
-        <div class="form-group">
-            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
-            {{ form.title|add_class:"form-input" }}
+        <div class="floating-field field-char">
+            <div class="floating-field__input-wrapper">
+                {{ form.title|add_class:"form-input" }}
+                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+            </div>
             {% if form.title.errors %}<div class="field-errors">{{ form.title.errors|striptags }}</div>{% endif %}
         </div>
-        <div class="form-group">
-            <label for="{{ form.section.id_for_label }}">{{ form.section.label }}</label>
-            {{ form.section|add_class:"form-input" }}
+        <div class="floating-field field-search-single">
+            <div class="floating-field__input-wrapper">{{ form.section }}</div>
             {% if form.section.errors %}<div class="field-errors">{{ form.section.errors|striptags }}</div>{% endif %}
         </div>
-        <button type="submit" class="btn-submit">{% trans "Add Quiz" %}</button>
+        <button type="submit" class="btn-submit btn-submit--form">{% trans "Add Quiz" %}</button>
     </form>
+{% endblock %}
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    {{ form.media }}
 {% endblock %}
