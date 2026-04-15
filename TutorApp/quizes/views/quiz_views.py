@@ -45,8 +45,8 @@ class QuizList(LoginRequiredMixin, FilterView):
 
         user_attempts = (
             QuizAttempt.objects.filter(user=self.request.user)
-            .order_by("quiz", "-completed_at")
-            .distinct("quiz")
+            .order_by("quiz_id", "-completed_at")
+            .distinct("quiz_id")
         )
 
         last_attempts = {attempt.quiz_id: attempt for attempt in user_attempts}
