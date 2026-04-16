@@ -8,23 +8,23 @@
         </div>
         <div class="filters-container">
             <form method="get" class="filters-form" id="filter-form">
-                <div class="filters-grid">
-                    <div class="filter-group filter-search">
+                <div class="filters-row">
+                    <div class="filter-group">
                         <label for="{{ filter.form.title.id_for_label }}">{{ filter.form.title.label }}</label>
                         {{ filter.form.title }}
                     </div>
-                    <div class="filter-group filter-section field-search-single">
+                    <div class="filter-group">
                         <label for="{{ filter.form.section.id_for_label }}">{{ filter.form.section.label }}</label>
                         {{ filter.form.section }}
                     </div>
-                    <div class="filter-group filter-subject field-search-single">
+                    <div class="filter-group">
                         <label for="{{ filter.form.subject.id_for_label }}">{{ filter.form.subject.label }}</label>
                         {{ filter.form.subject }}
                     </div>
-                    <div class="filter-actions">
-                        <button type="submit" class="filter-btn-apply">{% trans "Apply Filters" %}</button>
-                        <a href="{% url 'quizes:quiz_list' %}" class="filter-btn-clear">{% trans "Clear Filters" %}</a>
-                    </div>
+                </div>
+                <div class="filters-actions-row">
+                    <button type="submit" class="filter-btn-apply">{% trans "Apply Filters" %}</button>
+                    <a href="{% url 'quizes:quiz_list' %}" class="filter-btn-clear">{% trans "Clear Filters" %}</a>
                 </div>
             </form>
         </div>
@@ -39,6 +39,9 @@
                         <th>{% trans "Last Attempt" %}</th>
                         <th>{% trans "Result" %}</th>
                         <th>{% trans "Action" %}</th>
+                        {% if user.role_type == 2 %}
+                            <th>{% trans "Add Question" %}</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +62,7 @@
                                 {% if quiz.last_attempt %}
                                     {% blocktrans with score=quiz.last_attempt.score max=quiz.last_attempt.max_score %}
                                     {{ score }}/{{ max }}
-                                {% endblocktrans %}
+                                    {% endblocktrans %}
                                 {% else %}
                                     -
                                 {% endif %}
@@ -68,10 +71,16 @@
                                 <a href="{% url 'quizes:quiz_start' quiz_pk=quiz.pk %}"
                                    class="btn btn-sm btn-teal">{% trans "Start Quiz" %}</a>
                             </td>
+                            {% if user.role_type == 2 %}
+                                <td>
+                                    <a href="{% url 'quizes:add_question' quiz_pk=quiz.pk %}"
+                                       class="btn btn-sm btn-teal">{% trans "Add Question" %}</a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="7">{% trans "No quizzes available" %}</td>
+                            <td colspan="{% if user.role_type == 2 %}8{% else %}7{% endif %}">{% trans "No quizzes available" %}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -79,6 +88,4 @@
         </div>
     </div>
 {% endblock %}
-{% block scripts %}
-    {{ filter.form.media }}
-{% endblock %}
+{% block scripts %}{{ filter.form.media }}{% endblock %}
