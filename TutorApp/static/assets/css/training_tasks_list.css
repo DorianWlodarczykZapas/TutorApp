@@ -39,6 +39,20 @@
 .filter-status     { grid-area: status; }
 .filter-checkboxes { grid-area: level; }
 .filter-actions    { grid-area: buttons; align-self: center; }
+.filter-title   { grid-area: title; }
+.filter-subject { grid-area: subject; }
+
+.filter-title {
+    grid-area: title;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-subject {
+    grid-area: subject;
+    display: flex;
+    flex-direction: column;
+}
 
 
 .filter-group label {
