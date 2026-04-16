@@ -24,3 +24,58 @@
   background-color: #008374;
   color: white;
 }
+
+.filters-grid--quiz {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "title  section  subject"
+        ".    buttons  .";
+}
+
+
+
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+}
+
+
+.filters-row,
+.filters-actions-row {
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    gap: 20px;
+}
+
+
+.filter-btn-apply,
+.filter-btn-clear {
+    width: fit-content;
+    padding: 10px 24px;
+
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap
+}
+
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
