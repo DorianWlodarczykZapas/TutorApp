@@ -1886,10 +1886,9 @@ msgid "Select section..."
 msgstr "Dział z książki"
 
 #: .\videos\filters.py:38
-#, fuzzy
-#| msgid "Subject"
+
 msgid "All Subjects"
-msgstr "Przedmiot szkolny"
+msgstr "Przedmioty szkolne"
 
 #: .\videos\filters.py:41
 msgid "Select subject..."
