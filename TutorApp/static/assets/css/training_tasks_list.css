@@ -411,3 +411,13 @@
 
     .tasks-grid { grid-template-columns: 1fr; }
 }
+
+.filter-btn-apply--quiz,
+.filter-btn-clear--quiz {
+    display: inline-flex;
+    width: auto;
+}
+
+.filter-actions--quiz {
+    flex-direction: row;
+}

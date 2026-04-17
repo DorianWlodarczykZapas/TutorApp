@@ -8,23 +8,24 @@
         </div>
         <div class="filters-container quiz-filters-container">
             <form method="get" class="filters-form" id="filter-form">
-                <div class="filters-row">
-                    <div class="filter-group">
+                <div class="filters-grid--quiz">
+                    <div class="filter-group filter-title">
                         <label for="{{ filter.form.title.id_for_label }}">{{ filter.form.title.label }}</label>
                         {{ filter.form.title }}
                     </div>
-                    <div class="filter-group">
+                    <div class="filter-group filter-section">
                         <label for="{{ filter.form.section.id_for_label }}">{{ filter.form.section.label }}</label>
                         {{ filter.form.section }}
                     </div>
-                    <div class="filter-group">
+                    <div class="filter-group filter-subject">
                         <label for="{{ filter.form.subject.id_for_label }}">{{ filter.form.subject.label }}</label>
                         {{ filter.form.subject }}
                     </div>
-                </div>
-                <div class="filters-actions-row">
-                    <button type="submit" class="filter-btn-apply">{% trans "Apply Filters" %}</button>
-                    <a href="{% url 'quizes:quiz_list' %}" class="filter-btn-clear">{% trans "Clear Filters" %}</a>
+                    <div class="filter-actions filter-actions--quiz">
+                        <button type="submit" class="filter-btn-apply filter-btn-apply--quiz">{% trans "Apply Filters" %}</button>
+                        <a href="{% url 'quizes:quiz_list' %}"
+                           class="filter-btn-clear filter-btn-clear--quiz">{% trans "Clear Filters" %}</a>
+                    </div>
                 </div>
             </form>
         </div>

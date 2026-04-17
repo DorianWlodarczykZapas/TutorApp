@@ -30,28 +30,34 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
         "title  section  subject"
-        ".    buttons  .";
+        ".      buttons  .";
+    gap: 16px;
 }
 
+.filter-title   { grid-area: title; }
+.filter-section { grid-area: section; }
+.filter-subject { grid-area: subject; }
+.filter-actions {
+    grid-area: buttons;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
 
 
 
 .filter-group {
+    width: 60%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    flex: 1;
+
     min-width: 200px;
 }
 
 
-.filters-row,
-.filters-actions-row {
-    max-width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    gap: 20px;
-}
+
 
 
 .filter-btn-apply,
@@ -87,3 +93,4 @@
     width: 70%;
     margin: 0 auto;
 }
+
