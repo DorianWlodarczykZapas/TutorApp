@@ -82,3 +82,8 @@
 .quiz-list-header {
     text-align: center;
 }
+
+.quiz-filters-container {
+    width: 70%;
+    margin: 0 auto;
+}
