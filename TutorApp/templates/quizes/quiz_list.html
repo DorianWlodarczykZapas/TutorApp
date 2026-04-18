@@ -30,7 +30,7 @@
             </form>
         </div>
         <div class="table-responsive">
-            <table class="exam-table">
+            <table class="exam-table exam-table--quiz">
                 <thead>
                     <tr>
                         <th>{% trans "LP" %}</th>
@@ -41,7 +41,7 @@
                         <th>{% trans "Result" %}</th>
                         <th>{% trans "Action" %}</th>
                         {% if user.role_type == 2 %}
-                            <th>{% trans "Add Question" %}</th>
+                            <th>{% trans "Manage" %}</th>
                         {% endif %}
                     </tr>
                 </thead>
