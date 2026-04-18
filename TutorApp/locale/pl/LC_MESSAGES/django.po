@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-18 09:13+0200\n"
+"POT-Creation-Date: 2026-04-18 09:21+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -101,7 +101,7 @@ msgid "Task content"
 msgstr "Treść Zadania"
 
 #: .\courses\filters.py:38 .\motifs\forms\motif_forms.py:18
-#: .\motifs\models.py:32 .\quizes\filters.py:24
+#: .\motifs\models.py:32 .\quizes\filters.py:27
 #: .\templates\courses\training_task_detail.html:25
 #: .\templates\examination_tasks\exam_task_search_engine.html:36
 #: .\templates\motifs\motif_list.html:35 .\videos\filters.py:22
@@ -110,7 +110,7 @@ msgstr "Treść Zadania"
 msgid "Section"
 msgstr "Dział z książki"
 
-#: .\courses\filters.py:39 .\quizes\filters.py:25 .\videos\filters.py:23
+#: .\courses\filters.py:39 .\quizes\filters.py:28 .\videos\filters.py:23
 msgid "All Sections"
 msgstr "Działy Z Książki"
 
@@ -158,12 +158,12 @@ msgstr "Poziom szkoły"
 
 #: .\courses\forms\book_forms.py:26 .\courses\forms\section_forms.py:12
 #: .\examination_tasks\forms\exam_forms.py:22 .\motifs\forms\motif_forms.py:17
-#: .\motifs\models.py:25 .\quizes\filters.py:40
+#: .\motifs\models.py:25 .\quizes\filters.py:43
 #: .\templates\motifs\motif_list.html:34 .\templates\quizes\quiz_list.html:37
 #: .\videos\filters.py:37 .\videos\forms\video_forms.py:18
 #: .\videos\models.py:23
 msgid "Subject"
-msgstr "Przedmiot szkolny"
+msgstr "Przedmiot Szkolny"
 
 #: .\courses\forms\book_forms.py:28 .\courses\forms\section_forms.py:13
 #: .\users\forms.py:36
@@ -731,21 +731,20 @@ msgstr "Próbny"
 msgid "Ultimate"
 msgstr "Dożytowni"
 
-#: .\quizes\filters.py:15 .\videos\filters.py:16
+#: .\quizes\filters.py:16 .\videos\filters.py:16
 #: .\videos\forms\video_forms.py:39
 msgid "Title"
 msgstr "Tytuł"
 
-#: .\quizes\filters.py:18
-
+#: .\quizes\filters.py:20
 msgid "Search by title"
 msgstr "Wpisz Tytuł"
 
-#: .\quizes\filters.py:30
+#: .\quizes\filters.py:33
 msgid "Search Section"
 msgstr "Wpisz Dział"
 
-#: .\quizes\filters.py:41
+#: .\quizes\filters.py:44
 msgid "Choose Subject"
 msgstr "Wybierz Przedmiot"
 
@@ -1553,10 +1552,9 @@ msgstr "Masz Już Najlepszy Możliwy Plan!"
 msgid "Lifetime"
 msgstr "Dożytowni"
 
-#: .\templates\quizes\add_question.html:4 .\templates\quizes\quiz_list.html:44
-#: .\templates\quizes\quiz_list.html:78
+#: .\templates\quizes\add_question.html:4 .\templates\quizes\quiz_list.html:78
 msgid "Add Question"
-msgstr ""
+msgstr "Dodaj Pytanie"
 
 #: .\templates\quizes\add_question.html:8
 msgid "Add Question to Quiz"
@@ -1616,18 +1614,21 @@ msgid "LP"
 msgstr ""
 
 #: .\templates\quizes\quiz_list.html:39
-#, fuzzy
-#| msgid "Number of tasks"
+
 msgid "Number of questions"
-msgstr "Liczba zadań"
+msgstr "Ilość Pytań"
 
 #: .\templates\quizes\quiz_list.html:40
 msgid "Last Attempt"
-msgstr ""
+msgstr "Ostatnie Podejście"
 
 #: .\templates\quizes\quiz_list.html:41
 msgid "Result"
-msgstr ""
+msgstr "Wynik"
+
+#: .\templates\quizes\quiz_list.html:44
+msgid "Manage"
+msgstr "Zarządzaj"
 
 #: .\templates\quizes\quiz_list.html:59
 msgid "Not attempted yet"
@@ -1654,7 +1655,7 @@ msgstr ""
 
 #: .\templates\quizes\quiz_list.html:73
 msgid "Start Quiz"
-msgstr "Rozpocznij quiz"
+msgstr "Rozpocznij Quiz"
 
 #: .\templates\quizes\quiz_list.html:84
 msgid "No quizzes available"
