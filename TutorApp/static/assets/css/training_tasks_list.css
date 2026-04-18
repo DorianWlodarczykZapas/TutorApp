@@ -421,3 +421,8 @@
 .filter-actions--quiz {
     flex-direction: row;
 }
+
+.exam-table--quiz th,
+.exam-table--quiz td {
+    text-align: center;
+}
