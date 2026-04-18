@@ -1,9 +1,10 @@
 import django_filters
 from courses.choices import SubjectChoices
 from courses.models import Section
+from django import forms
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
-from django_select2.forms import ModelSelect2Widget, Select2Widget
+from django_select2.forms import ModelSelect2Widget
 from quizes.models import Quiz
 
 
@@ -14,6 +15,11 @@ class QuizFilterSet(django_filters.FilterSet):
         lookup_expr="icontains",
         label=_("Title"),
         method="filter_strip_title",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Search by title"),
+            }
+        ),
     )
 
     section = django_filters.ModelChoiceFilter(
@@ -24,7 +30,7 @@ class QuizFilterSet(django_filters.FilterSet):
             model=Section,
             search_fields=["name__icontains"],
             attrs={
-                "data-placeholder": _("Select section..."),
+                "data-placeholder": _("Search Section"),
                 "data-allow-clear": "true",
                 "class": "form-control",
             },
@@ -35,14 +41,7 @@ class QuizFilterSet(django_filters.FilterSet):
         field_name="section__subject",
         choices=SubjectChoices.choices,
         label=_("Subject"),
-        empty_label=_("All Subjects"),
-        widget=Select2Widget(
-            attrs={
-                "data-placeholder": _("Select subject..."),
-                "data-allow-clear": "true",
-                "class": "form-control",
-            }
-        ),
+        empty_label=_("Choose Subject"),
     )
 
     class Meta:
