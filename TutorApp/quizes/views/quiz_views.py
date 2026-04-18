@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView
 from django_filters.views import FilterView
 from quizes.filters import QuizFilterSet
 from users.mixins import TeacherRequiredMixin
@@ -25,6 +26,15 @@ class AddQuiz(TeacherRequiredMixin, CreateView):
     def form_valid(self, form: QuizForm) -> HttpResponse:
         messages.success(self.request, _("Quiz created successfully!"))
         return super().form_valid(form)
+
+
+class DeleteQuiz(TeacherRequiredMixin, DeleteView):
+    model = Quiz
+    success_url = reverse_lazy("quizes:quiz_list")
+    template_name = "quizes/delete_quiz.html"
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Quiz, pk=self.kwargs.get("quiz_pk"))
 
 
 class QuizList(LoginRequiredMixin, FilterView):
