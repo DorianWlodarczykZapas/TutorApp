@@ -89,4 +89,16 @@
         </div>
     </div>
 {% endblock %}
-{% block scripts %}{{ filter.form.media }}{% endblock %}
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    {{ filter.form.media }}
+    <script>
+        document.querySelectorAll('.filter-select').forEach(select => {
+            const update = () => {
+                select.classList.toggle('selected', select.value !== '');
+            };
+            update();
+            select.addEventListener('change', update);
+        });
+    </script>
+{% endblock %}
