@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views.question_views import AddQuestion, QuestionReviewView
 from .views.quiz_solve_views import QuizStartView, SolveQuizWizard
-from .views.quiz_views import AddQuiz, QuizList
+from .views.quiz_views import AddQuiz, DeleteQuiz, QuizList
 
 app_name = "quizes"
 
@@ -19,4 +19,5 @@ urlpatterns = [
         QuestionReviewView.as_view(),
         name="question_review",
     ),
+    path("delete/<int:quiz_pk>/", DeleteQuiz.as_view(), name="delete_quiz"),
 ]
