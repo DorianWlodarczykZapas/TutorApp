@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <div class="training-tasks-container">
+        <div class="page-header">
+            <h1>{% trans "Delete Quiz" %}</h1>
+        </div>
+        <p>
+            {% trans "Are you sure you want to delete quiz:" %} <strong>{{ quiz.title }}</strong>?
+        </p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+            <a href="{% url 'quizes:quiz_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+        </form>
+    </div>
+{% endblock %}
