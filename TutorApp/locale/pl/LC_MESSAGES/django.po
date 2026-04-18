@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 21:53+0200\n"
+"POT-Creation-Date: 2026-04-18 09:13+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -101,7 +101,8 @@ msgid "Task content"
 msgstr "Treść Zadania"
 
 #: .\courses\filters.py:38 .\motifs\forms\motif_forms.py:18
-#: .\motifs\models.py:32 .\templates\courses\training_task_detail.html:25
+#: .\motifs\models.py:32 .\quizes\filters.py:24
+#: .\templates\courses\training_task_detail.html:25
 #: .\templates\examination_tasks\exam_task_search_engine.html:36
 #: .\templates\motifs\motif_list.html:35 .\videos\filters.py:22
 #: .\videos\forms\video_forms.py:24 .\videos\forms\video_forms.py:30
@@ -109,7 +110,7 @@ msgstr "Treść Zadania"
 msgid "Section"
 msgstr "Dział z książki"
 
-#: .\courses\filters.py:39 .\videos\filters.py:23
+#: .\courses\filters.py:39 .\quizes\filters.py:25 .\videos\filters.py:23
 msgid "All Sections"
 msgstr "Działy Z Książki"
 
@@ -157,7 +158,8 @@ msgstr "Poziom szkoły"
 
 #: .\courses\forms\book_forms.py:26 .\courses\forms\section_forms.py:12
 #: .\examination_tasks\forms\exam_forms.py:22 .\motifs\forms\motif_forms.py:17
-#: .\motifs\models.py:25 .\templates\motifs\motif_list.html:34
+#: .\motifs\models.py:25 .\quizes\filters.py:40
+#: .\templates\motifs\motif_list.html:34 .\templates\quizes\quiz_list.html:37
 #: .\videos\filters.py:37 .\videos\forms\video_forms.py:18
 #: .\videos\models.py:23
 msgid "Subject"
@@ -184,7 +186,8 @@ msgstr "Rok Publikacji"
 #: .\courses\forms\topic_forms.py:17 .\courses\forms\topic_forms.py:26
 #: .\courses\forms\topic_forms.py:27 .\courses\forms\training_tasks_forms.py:14
 #: .\courses\forms\training_tasks_forms.py:59
-#: .\courses\forms\training_tasks_forms.py:60
+#: .\courses\forms\training_tasks_forms.py:60 .\quizes\forms\quiz_forms.py:13
+#: .\quizes\forms\quiz_forms.py:26 .\quizes\forms\quiz_forms.py:27
 msgid "Section Name"
 msgstr "Nazwa Działu"
 
@@ -728,6 +731,24 @@ msgstr "Próbny"
 msgid "Ultimate"
 msgstr "Dożytowni"
 
+#: .\quizes\filters.py:15 .\videos\filters.py:16
+#: .\videos\forms\video_forms.py:39
+msgid "Title"
+msgstr "Tytuł"
+
+#: .\quizes\filters.py:18
+
+msgid "Search by title"
+msgstr "Wpisz Tytuł"
+
+#: .\quizes\filters.py:30
+msgid "Search Section"
+msgstr "Wpisz Dział"
+
+#: .\quizes\filters.py:41
+msgid "Choose Subject"
+msgstr "Wybierz Przedmiot"
+
 #: .\quizes\forms\question_forms.py:13
 msgid "Question Content"
 msgstr ""
@@ -744,12 +765,11 @@ msgstr ""
 msgid "Explanation By Illustration To The Question"
 msgstr ""
 
-#: .\quizes\forms\quiz_forms.py:12
-
+#: .\quizes\forms\quiz_forms.py:19 .\templates\quizes\quiz_list.html:38
 msgid "Quiz Title"
 msgstr "Tytuł Quizu"
 
-#: .\quizes\forms\quiz_forms.py:12
+#: .\quizes\forms\quiz_forms.py:19
 msgid "Subject Section"
 msgstr ""
 
@@ -822,8 +842,7 @@ msgstr ""
 msgid "Question has been successfully added."
 msgstr "Pytanie zostało pomyślnie dodane"
 
-#: .\quizes\views\quiz_views.py:24
-
+#: .\quizes\views\quiz_views.py:26
 msgid "Quiz created successfully!"
 msgstr "Quiz dodany pomyślnie"
 
@@ -943,12 +962,12 @@ msgid "Upgrade to Premium"
 msgstr ""
 
 #: .\templates\courses\training_tasks_list.html:38
-#: .\templates\videos\video_list.html:43
+#: .\templates\quizes\quiz_list.html:25 .\templates\videos\video_list.html:43
 msgid "Apply Filters"
 msgstr "Zastosuj Filtry"
 
 #: .\templates\courses\training_tasks_list.html:40
-#: .\templates\videos\video_list.html:48
+#: .\templates\quizes\quiz_list.html:27 .\templates\videos\video_list.html:48
 msgid "Clear Filters"
 msgstr "Wyczyść Filtry"
 
@@ -1133,6 +1152,7 @@ msgstr "Progres"
 
 #: .\templates\examination_tasks\exam_list.html:42
 #: .\templates\examination_tasks\exam_task_list.html:22
+#: .\templates\quizes\quiz_list.html:42
 #, fuzzy
 #| msgid "Functions"
 msgid "Action"
@@ -1419,13 +1439,11 @@ msgid "Quizes"
 msgstr "Quizy"
 
 #: .\templates\navigation_links\quizes.html:6
-#, fuzzy
-#| msgid "Title"
 msgid "Quiz List"
-msgstr "Tytuł"
+msgstr "Lista Quizów"
 
 #: .\templates\navigation_links\quizes.html:8
-#: .\templates\quizes\add_quiz.html:33
+#: .\templates\quizes\add_quiz.html:34
 msgid "Add Quiz"
 msgstr "Dodaj Quiz"
 
@@ -1459,21 +1477,21 @@ msgstr "Cofnij"
 msgid "Selected Plan"
 msgstr "Wybrany Plan"
 
-#: .\templates\plans\blik_payment.html:40
-#: .\templates\plans\card_payment.html:44 .\users\forms.py:11
+#: .\templates\plans\blik_payment.html:39
+#: .\templates\plans\card_payment.html:43 .\users\forms.py:11
 msgid "Email"
 msgstr "E-mail"
 
-#: .\templates\plans\blik_payment.html:43
+#: .\templates\plans\blik_payment.html:42
 msgid "BLIK Code"
 msgstr "Kod BLIK"
 
-#: .\templates\plans\blik_payment.html:53
+#: .\templates\plans\blik_payment.html:52
 msgid "Enter 6-digit code"
 msgstr "Wpisz 6 cyfrowy kod"
 
-#: .\templates\plans\blik_payment.html:57
-#: .\templates\plans\card_payment.html:53
+#: .\templates\plans\blik_payment.html:56
+#: .\templates\plans\card_payment.html:52
 msgid "Pay"
 msgstr "Zapłać"
 
@@ -1481,7 +1499,7 @@ msgstr "Zapłać"
 msgid "Card Payment"
 msgstr "Płatność Kartą"
 
-#: .\templates\plans\card_payment.html:47
+#: .\templates\plans\card_payment.html:46
 msgid "Card Details"
 msgstr "Dane Karty"
 
@@ -1535,7 +1553,8 @@ msgstr "Masz Już Najlepszy Możliwy Plan!"
 msgid "Lifetime"
 msgstr "Dożytowni"
 
-#: .\templates\quizes\add_question.html:4
+#: .\templates\quizes\add_question.html:4 .\templates\quizes\quiz_list.html:44
+#: .\templates\quizes\quiz_list.html:78
 msgid "Add Question"
 msgstr ""
 
@@ -1559,7 +1578,6 @@ msgid "Save Question"
 msgstr ""
 
 #: .\templates\quizes\add_quiz.html:5 .\templates\quizes\add_quiz.html:17
-
 msgid "Add New Quiz"
 msgstr "Dodaj Nowy Quiz"
 
@@ -1589,39 +1607,56 @@ msgstr ""
 msgid "Explanation image"
 msgstr "Egzaminy"
 
-#: .\templates\quizes\quiz_list.html:5
-
+#: .\templates\quizes\quiz_list.html:7
 msgid "Available Quizzes"
 msgstr "Dostępne Quizy"
 
-#: .\templates\quizes\quiz_list.html:10
-#, python-format
-msgid ""
-"\n"
-"                    Questions: %(count)s\n"
-"                "
-msgstr ""
-"\n"
-"                    Pytania: %(count)s\n"
-"                "
-
-#: .\templates\quizes\quiz_list.html:16
-#, python-format
-msgid ""
-"\n"
-"                    Last result: %(score)s/%(max)s\n"
-"                "
+#: .\templates\quizes\quiz_list.html:36
+msgid "LP"
 msgstr ""
 
-#: .\templates\quizes\quiz_list.html:21
+#: .\templates\quizes\quiz_list.html:39
+#, fuzzy
+#| msgid "Number of tasks"
+msgid "Number of questions"
+msgstr "Liczba zadań"
+
+#: .\templates\quizes\quiz_list.html:40
+msgid "Last Attempt"
+msgstr ""
+
+#: .\templates\quizes\quiz_list.html:41
+msgid "Result"
+msgstr ""
+
+#: .\templates\quizes\quiz_list.html:59
 msgid "Not attempted yet"
 msgstr "Brak podejść"
 
-#: .\templates\quizes\quiz_list.html:23
+#: .\templates\quizes\quiz_list.html:64
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        Found %(counter)s task\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        Found %(counter)s tasks\n"
+#| "                    "
+msgid ""
+"\n"
+"                                    %(score)s/%(max)s\n"
+"                                    "
+msgstr ""
+"\n"
+"                        Znaleziono %(counter)s zadanie\n"
+"                    "
+
+#: .\templates\quizes\quiz_list.html:73
 msgid "Start Quiz"
 msgstr "Rozpocznij quiz"
 
-#: .\templates\quizes\quiz_list.html:26
+#: .\templates\quizes\quiz_list.html:84
 msgid "No quizzes available"
 msgstr ""
 
@@ -1875,10 +1910,6 @@ msgstr "Pomyślnie zalogowano."
 msgid "Invalid username or password."
 msgstr ""
 
-#: .\videos\filters.py:16 .\videos\forms\video_forms.py:39
-msgid "Title"
-msgstr "Tytuł"
-
 #: .\videos\filters.py:28
 #, fuzzy
 #| msgid "Book section"
@@ -1886,9 +1917,10 @@ msgid "Select section..."
 msgstr "Dział z książki"
 
 #: .\videos\filters.py:38
-
+#, fuzzy
+#| msgid "All Sections"
 msgid "All Subjects"
-msgstr "Przedmioty szkolne"
+msgstr "Działy Z Książki"
 
 #: .\videos\filters.py:41
 msgid "Select subject..."
@@ -1972,6 +2004,16 @@ msgstr ""
 #, python-format
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                    Questions: %(count)s\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "                    Pytania: %(count)s\n"
+#~ "                "
 
 #, fuzzy
 #~| msgid "Advanced"
