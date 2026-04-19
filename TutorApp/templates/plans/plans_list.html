@@ -17,14 +17,13 @@
                         <span class="plans-current-plan__label">{% trans "Plan" %}</span>
                         <p class="plans-card__title">{{ current_plan }}</p>
                     </div>
-                    <div class="plans-ultimate-banner__divider"></div>
-                    <div class="plans-ultimate-banner__col">
-                        <span class="plans-current-plan__label">{% trans "Valid To" %}</span>
-                        <p class="plans-card__title {% if days_left <= 5 %}plans-current-info__expiring{% endif %}">
-                            {{ valid_to }}
-                            {% if days_left <= 5 %}{% endif %}
-                        </p>
-                    </div>
+                    {% if current_plan != "Base" %}
+                        <div class="plans-ultimate-banner__divider"></div>
+                        <div class="plans-ultimate-banner__col">
+                            <span class="plans-current-plan__label">{% trans "Valid To" %}</span>
+                            <p class="plans-card__title {% if days_left <= 5 %}plans-current-info__expiring{% endif %}">{{ valid_to }}</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="tasks-grid plans-grid">
