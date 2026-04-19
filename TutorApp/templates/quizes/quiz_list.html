@@ -76,9 +76,8 @@
                                 <td>
                                     <a href="{% url 'quizes:add_question' quiz_pk=quiz.pk %}"
                                        class="btn btn-sm btn-teal">{% trans "Add Question" %}</a>
-                                </td>
-                                <td>
-                                    <a href="{% url 'quizes:delete_quiz' quiz_pk=quiz.pk %}"></a>
+                                    <a href="{% url 'quizes:delete_quiz' quiz_pk=quiz.pk %}"
+                                       class="btn btn-sm btn-red">{% trans "Delete" %}</a>
                                 </td>
                             {% endif %}
                         </tr>
