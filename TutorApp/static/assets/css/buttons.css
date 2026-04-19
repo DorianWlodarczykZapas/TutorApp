@@ -279,3 +279,13 @@
     width: 100%;
     max-width: 50%;
 }
+
+.btn-red {
+    background: #dc3545;
+    color: white;
+    border-radius: 20px;
+}
+
+.btn-red:hover {
+    background: #c82333;
+}
