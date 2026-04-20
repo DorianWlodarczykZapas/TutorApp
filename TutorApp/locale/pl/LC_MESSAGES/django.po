@@ -709,7 +709,7 @@ msgstr ""
 
 #: .\motifs\models.py:76 .\templates\navigation_links\motifs.html:4
 msgid "Motifs"
-msgstr ""
+msgstr "Motywy"
 
 #: .\motifs\views\motif_views.py:23
 msgid "Successfully added motif"
@@ -1354,7 +1354,7 @@ msgstr ""
 #: .\templates\motifs\motif_list.html:5 .\templates\motifs\motif_list.html:9
 #: .\templates\navigation_links\motifs.html:6
 msgid "Motifs List"
-msgstr ""
+msgstr "Lista Motywów"
 
 #: .\templates\motifs\motif_list.html:37
 #, fuzzy
@@ -1419,10 +1419,9 @@ msgid "Add Exam Task"
 msgstr "Dodaj Zadanie Egzaminacyjne"
 
 #: .\templates\navigation_links\motifs.html:8
-#, fuzzy
-#| msgid "Book section"
+
 msgid "Add Motif"
-msgstr "Dział z książki"
+msgstr "Dodaj Motyw"
 
 #: .\templates\navigation_links\plans.html:4
 #: .\templates\plans\plans_list.html:5
