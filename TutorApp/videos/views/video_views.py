@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
-from django.db.models import Prefetch, QuerySet
+from django.db.models import Count, Prefetch, QuerySet
 from django.forms.formsets import formset_factory
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -189,6 +189,9 @@ class VideoListView(LoginRequiredMixin, FilterView):
         context["has_filters_applied"] = (
             self._are_filters_applied(filterset) if filterset else False
         )
+        context["sections_summary"] = Section.objects.annotate(
+            video_count=Count("videos")
+        ).order_by("subject", "name")
 
         return context
 
