@@ -1,0 +1,229 @@
+
+.video-library-container {
+    max-width: 100%;
+    padding: 30px 40px;
+}
+
+.video-library-header {
+    margin-bottom: 30px;
+}
+
+.video-library-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    color: #008374;
+    margin-bottom: 0;
+}
+
+.video-library-count {
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+
+.filters-grid--video {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    grid-template-areas: "title section subject buttons";
+    gap: 16px;
+    align-items: end;
+}
+
+.filters-grid--video .filter-title   { grid-area: title; }
+.filters-grid--video .filter-section { grid-area: section; }
+.filters-grid--video .filter-subject { grid-area: subject; }
+.filters-grid--video .filter-actions { grid-area: buttons; }
+
+.filter-actions--video {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.filter-btn-apply--sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+
+.video-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.video-card {
+    background: white;
+    border: 3px solid #e1e4e8;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.video-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 131, 116, 0.15);
+    border-color: #008374;
+}
+
+.video-card__body {
+    flex: 1;
+}
+
+.video-card__title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.video-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.video-card__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+.video-card__badge--section {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.video-card__badge--subject {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.video-card__badge--level {
+    background: #d4edda;
+    color: #155724;
+}
+
+.video-card__footer {
+    border-top: 2px solid #e1e4e8;
+    padding-top: 14px;
+}
+
+.video-card__watch-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+.video-sections {
+    margin-top: 50px;
+}
+
+.video-sections__title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #008374;
+    margin-bottom: 24px;
+}
+
+.video-sections__group {
+    margin-bottom: 36px;
+}
+
+.video-sections__subject {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    padding: 8px 0;
+    border-bottom: 3px solid #008374;
+    margin-bottom: 12px;
+}
+
+.video-library-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+}
+
+.video-library-table thead tr {
+    background-color: #008374;
+    color: white;
+}
+
+.video-library-table th,
+.video-library-table td {
+    padding: 14px 20px;
+    border-bottom: 2px solid #e0e0e0;
+    text-align: left;
+}
+
+.video-library-table tbody tr:hover {
+    background-color: #e6f4f2;
+}
+
+
+.video-library-pagination {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.video-library-page-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+
+@media (max-width: 900px) {
+    .filters-grid--video {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "title   section"
+            "subject buttons";
+    }
+}
+
+@media (max-width: 600px) {
+    .video-library-container {
+        padding: 20px;
+    }
+
+    .filters-grid--video {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title"
+            "section"
+            "subject"
+            "buttons";
+    }
+
+    .filter-actions--video {
+        flex-direction: row;
+    }
+
+    .video-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
