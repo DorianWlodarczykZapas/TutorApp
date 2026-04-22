@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-18 09:21+0200\n"
+"POT-Creation-Date: 2026-04-22 22:10+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -104,13 +104,13 @@ msgstr "Treść Zadania"
 #: .\motifs\models.py:32 .\quizes\filters.py:27
 #: .\templates\courses\training_task_detail.html:25
 #: .\templates\examination_tasks\exam_task_search_engine.html:36
-#: .\templates\motifs\motif_list.html:35 .\videos\filters.py:22
-#: .\videos\forms\video_forms.py:24 .\videos\forms\video_forms.py:30
-#: .\videos\forms\video_forms.py:33
+#: .\templates\motifs\motif_list.html:35 .\templates\videos\video_list.html:171
+#: .\videos\filters.py:26 .\videos\forms\video_forms.py:24
+#: .\videos\forms\video_forms.py:30 .\videos\forms\video_forms.py:33
 msgid "Section"
 msgstr "Dział z książki"
 
-#: .\courses\filters.py:39 .\quizes\filters.py:28 .\videos\filters.py:23
+#: .\courses\filters.py:39 .\quizes\filters.py:28 .\videos\filters.py:27
 msgid "All Sections"
 msgstr "Działy Z Książki"
 
@@ -160,7 +160,7 @@ msgstr "Poziom szkoły"
 #: .\examination_tasks\forms\exam_forms.py:22 .\motifs\forms\motif_forms.py:17
 #: .\motifs\models.py:25 .\quizes\filters.py:43
 #: .\templates\motifs\motif_list.html:34 .\templates\quizes\quiz_list.html:37
-#: .\videos\filters.py:37 .\videos\forms\video_forms.py:18
+#: .\videos\filters.py:42 .\videos\forms\video_forms.py:18
 #: .\videos\models.py:23
 msgid "Subject"
 msgstr "Przedmiot Szkolny"
@@ -669,7 +669,7 @@ msgstr ""
 
 #: .\motifs\models.py:38 .\templates\examination_tasks\exam_list.html:13
 #: .\templates\examination_tasks\exam_list.html:40
-#: .\templates\motifs\motif_list.html:36 .\videos\filters.py:50
+#: .\templates\motifs\motif_list.html:36
 msgid "Level"
 msgstr "Poziom"
 
@@ -736,15 +736,15 @@ msgstr "Dożytowni"
 msgid "Title"
 msgstr "Tytuł"
 
-#: .\quizes\filters.py:20
+#: .\quizes\filters.py:20 .\videos\filters.py:19
 msgid "Search by title"
 msgstr "Wpisz Tytuł"
 
-#: .\quizes\filters.py:33
+#: .\quizes\filters.py:33 .\videos\filters.py:32
 msgid "Search Section"
 msgstr "Wpisz Dział"
 
-#: .\quizes\filters.py:44
+#: .\quizes\filters.py:44 .\videos\filters.py:43
 msgid "Choose Subject"
 msgstr "Wybierz Przedmiot"
 
@@ -841,7 +841,7 @@ msgstr ""
 msgid "Question has been successfully added."
 msgstr "Pytanie zostało pomyślnie dodane"
 
-#: .\quizes\views\quiz_views.py:26
+#: .\quizes\views\quiz_views.py:27
 msgid "Quiz created successfully!"
 msgstr "Quiz dodany pomyślnie"
 
@@ -961,12 +961,12 @@ msgid "Upgrade to Premium"
 msgstr ""
 
 #: .\templates\courses\training_tasks_list.html:38
-#: .\templates\quizes\quiz_list.html:25 .\templates\videos\video_list.html:43
+#: .\templates\quizes\quiz_list.html:25
 msgid "Apply Filters"
 msgstr "Zastosuj Filtry"
 
 #: .\templates\courses\training_tasks_list.html:40
-#: .\templates\quizes\quiz_list.html:27 .\templates\videos\video_list.html:48
+#: .\templates\quizes\quiz_list.html:27
 msgid "Clear Filters"
 msgstr "Wyczyść Filtry"
 
@@ -1056,6 +1056,7 @@ msgstr ""
 #: .\templates\examination_tasks\add_exam_task.html:123
 #: .\templates\motifs\add_motif.html:31
 #: .\templates\motifs\motif_confirm_delete.html:18
+#: .\templates\quizes\delete_quiz.html:14
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -1151,7 +1152,7 @@ msgstr "Progres"
 
 #: .\templates\examination_tasks\exam_list.html:42
 #: .\templates\examination_tasks\exam_task_list.html:22
-#: .\templates\quizes\quiz_list.html:42
+#: .\templates\quizes\quiz_list.html:42 .\templates\videos\video_list.html:173
 #, fuzzy
 #| msgid "Functions"
 msgid "Action"
@@ -1306,6 +1307,7 @@ msgstr ""
 #: .\templates\examination_tasks\exam_task_search_engine.html:25
 #: .\templates\motifs\motif_list.html:15
 #: .\templates\videos\section_video_list.html:12
+#: .\templates\videos\video_list.html:35
 msgid "Clear"
 msgstr ""
 
@@ -1388,7 +1390,8 @@ msgstr ""
 msgid "In matriculation"
 msgstr "Matura"
 
-#: .\templates\motifs\motif_list.html:53
+#: .\templates\motifs\motif_list.html:53 .\templates\quizes\delete_quiz.html:13
+#: .\templates\quizes\quiz_list.html:80
 msgid "Delete"
 msgstr ""
 
@@ -1419,7 +1422,6 @@ msgid "Add Exam Task"
 msgstr "Dodaj Zadanie Egzaminacyjne"
 
 #: .\templates\navigation_links\motifs.html:8
-
 msgid "Add Motif"
 msgstr "Dodaj Motyw"
 
@@ -1447,6 +1449,7 @@ msgstr "Dodaj Quiz"
 
 #: .\templates\navigation_links\videos.html:4
 #: .\templates\videos\section_video_list.html:4
+#: .\templates\videos\video_list.html:172
 msgid "Videos"
 msgstr "Nagrania"
 
@@ -1525,29 +1528,29 @@ msgstr "Powrót do listy planów"
 msgid "Choose Your Plan"
 msgstr "Wybierz Swój Plan"
 
-#: .\templates\plans\plans_list.html:17 .\templates\plans\plans_list.html:67
+#: .\templates\plans\plans_list.html:17 .\templates\plans\plans_list.html:66
 #, fuzzy
 #| msgid "Plans"
 msgid "Plan"
 msgstr "Plany"
 
-#: .\templates\plans\plans_list.html:22 .\templates\plans\plans_list.html:72
+#: .\templates\plans\plans_list.html:23 .\templates\plans\plans_list.html:71
 msgid "Valid To"
 msgstr "Ważny Do"
 
-#: .\templates\plans\plans_list.html:36
+#: .\templates\plans\plans_list.html:35
 msgid "Subscription"
 msgstr "Subskrypcja"
 
-#: .\templates\plans\plans_list.html:55
+#: .\templates\plans\plans_list.html:54
 msgid "Choose"
 msgstr "Wybierz"
 
-#: .\templates\plans\plans_list.html:64
+#: .\templates\plans\plans_list.html:63
 msgid "You have the best plan!"
 msgstr "Masz Już Najlepszy Możliwy Plan!"
 
-#: .\templates\plans\plans_list.html:73
+#: .\templates\plans\plans_list.html:72
 msgid "Lifetime"
 msgstr "Dożytowni"
 
@@ -1577,6 +1580,16 @@ msgstr ""
 #: .\templates\quizes\add_quiz.html:5 .\templates\quizes\add_quiz.html:17
 msgid "Add New Quiz"
 msgstr "Dodaj Nowy Quiz"
+
+#: .\templates\quizes\delete_quiz.html:6
+#, fuzzy
+#| msgid "Start Quiz"
+msgid "Delete Quiz"
+msgstr "Rozpocznij quiz"
+
+#: .\templates\quizes\delete_quiz.html:9
+msgid "Are you sure you want to delete quiz:"
+msgstr ""
 
 #: .\templates\quizes\question_review.html:14
 #, python-format
@@ -1613,7 +1626,6 @@ msgid "LP"
 msgstr ""
 
 #: .\templates\quizes\quiz_list.html:39
-
 msgid "Number of questions"
 msgstr "Ilość Pytań"
 
@@ -1656,7 +1668,7 @@ msgstr ""
 msgid "Start Quiz"
 msgstr "Rozpocznij Quiz"
 
-#: .\templates\quizes\quiz_list.html:84
+#: .\templates\quizes\quiz_list.html:86
 msgid "No quizzes available"
 msgstr ""
 
@@ -1822,49 +1834,76 @@ msgstr "Tytuł Filmu"
 
 #: .\templates\videos\video_list.html:5 .\templates\videos\video_list.html:11
 msgid "Video Library"
-msgstr ""
+msgstr "Biblioteka Nagrań"
 
-#: .\templates\videos\video_list.html:17
-#, fuzzy
-#| msgid "Videos"
-msgid "Filter Videos"
-msgstr "Nagrania"
+#: .\templates\videos\video_list.html:31
+msgid "Apply"
+msgstr "Zastosuj"
 
-#: .\templates\videos\video_list.html:60
-#, python-format
+#: .\templates\videos\video_list.html:45
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                    Questions: %(count)s\n"
+#| "                "
 msgid ""
 "\n"
-"                        Showing %(start)s-%(end)s of %(total)s videos\n"
-"                    "
+"                Showing %(start)s–%(end)s of %(total)s videos\n"
+"            "
 msgstr ""
+"\n"
+"                    Pytania: %(count)s\n"
+"                "
 
-#: .\templates\videos\video_list.html:67
-msgid "No videos found matching your criteria."
-msgstr ""
-
-#: .\templates\videos\video_list.html:69
-msgid "Clear filters"
-msgstr ""
-
-#: .\templates\videos\video_list.html:70
-msgid "to see all videos."
-msgstr ""
-
-#: .\templates\videos\video_list.html:107
+#: .\templates\videos\video_list.html:74
 msgid "Watch Video"
 msgstr ""
 
-#: .\templates\videos\video_list.html:115
+#: .\templates\videos\video_list.html:82
 msgid "Video pagination"
 msgstr ""
 
-#: .\templates\videos\video_list.html:190
-#, python-format
+#: .\templates\videos\video_list.html:143
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        Found %(counter)s task\n"
+#| "                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        Found %(counter)s tasks\n"
+#| "                    "
 msgid ""
 "\n"
-"                    Page %(current)s of %(total)s\n"
-"                "
+"                        Page %(current)s of %(total)s\n"
+"                    "
 msgstr ""
+"\n"
+"                        Znaleziono %(counter)s zadanie\n"
+"                    "
+
+#: .\templates\videos\video_list.html:152
+msgid "No videos found matching your criteria."
+msgstr ""
+
+#: .\templates\videos\video_list.html:154
+msgid "Clear filters"
+msgstr ""
+
+#: .\templates\videos\video_list.html:155
+msgid "to see all videos."
+msgstr ""
+
+#: .\templates\videos\video_list.html:162
+
+msgid "Browse by Section"
+msgstr "Szukaj Przez Dział"
+
+#: .\templates\videos\video_list.html:186
+#, fuzzy
+#| msgid "Save Video"
+msgid "See Videos"
+msgstr "Zapisz Nagranie"
 
 #: .\users\forms.py:17 .\users\forms.py:48 .\users\forms.py:50
 msgid "Username"
@@ -1908,32 +1947,6 @@ msgstr "Pomyślnie zalogowano."
 
 #: .\users\views.py:93
 msgid "Invalid username or password."
-msgstr ""
-
-#: .\videos\filters.py:28
-#, fuzzy
-#| msgid "Book section"
-msgid "Select section..."
-msgstr "Dział z książki"
-
-#: .\videos\filters.py:38
-#, fuzzy
-#| msgid "All Sections"
-msgid "All Subjects"
-msgstr "Działy Z Książki"
-
-#: .\videos\filters.py:41
-msgid "Select subject..."
-msgstr ""
-
-#: .\videos\filters.py:51
-#, fuzzy
-#| msgid "Level"
-msgid "All Levels"
-msgstr "Poziom"
-
-#: .\videos\filters.py:54
-msgid "Select level..."
 msgstr ""
 
 #: .\videos\forms\video_forms.py:12
@@ -2005,15 +2018,25 @@ msgstr ""
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
-#, python-format
-#~ msgid ""
-#~ "\n"
-#~ "                    Questions: %(count)s\n"
-#~ "                "
-#~ msgstr ""
-#~ "\n"
-#~ "                    Pytania: %(count)s\n"
-#~ "                "
+#, fuzzy
+#~| msgid "Videos"
+#~ msgid "Filter Videos"
+#~ msgstr "Nagrania"
+
+#, fuzzy
+#~| msgid "Book section"
+#~ msgid "Select section..."
+#~ msgstr "Dział z książki"
+
+#, fuzzy
+#~| msgid "All Sections"
+#~ msgid "All Subjects"
+#~ msgstr "Działy Z Książki"
+
+#, fuzzy
+#~| msgid "Level"
+#~ msgid "All Levels"
+#~ msgstr "Poziom"
 
 #, fuzzy
 #~| msgid "Advanced"
@@ -2069,9 +2092,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 #~ msgid "YouTube link"
 #~ msgstr "Link do YouTube"
-
-#~ msgid "Book section"
-#~ msgstr "Dział z książki"
 
 #~ msgid "Topic title from the book"
 #~ msgstr "Tytuł tematu z książki"
