@@ -6,6 +6,7 @@
 
 .video-library-header {
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .video-library-title {
@@ -43,6 +44,12 @@
     flex-direction: column;
     gap: 8px;
     align-items: center;
+}
+
+.filter-actions--video .filter-btn-apply {
+    width: 100%;
+    padding: 10px 24px;
+    white-space: nowrap;
 }
 
 .filter-btn-apply--sm {
