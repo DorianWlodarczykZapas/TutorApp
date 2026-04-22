@@ -39,7 +39,6 @@
                 </div>
             </form>
         </div>
-        {# ── LICZNIK WYNIKÓW ── #}
         {% if total_count > 0 %}
             <p class="video-library-count">
                 {% blocktrans with start=start_idx end=end_idx total=total_count %}
@@ -47,7 +46,6 @@
             {% endblocktrans %}
             </p>
         {% endif %}
-        {# ── LISTA FILMÓW ── #}
         {% if videos %}
             <div class="video-cards-grid">
                 {% for video in videos %}
@@ -156,7 +154,6 @@
                 {% endif %}
             </div>
         {% endif %}
-        {# ── TABELA SEKCJI ── #}
         {% if sections_summary %}
             <div class="video-sections">
                 <h2 class="video-sections__title">{% trans "Browse by Section" %}</h2>
