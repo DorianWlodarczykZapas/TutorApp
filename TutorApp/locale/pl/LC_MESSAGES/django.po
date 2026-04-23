@@ -1857,7 +1857,7 @@ msgstr ""
 
 #: .\templates\videos\video_list.html:74
 msgid "Watch Video"
-msgstr ""
+msgstr "Obejrz Film"
 
 #: .\templates\videos\video_list.html:82
 msgid "Video pagination"
