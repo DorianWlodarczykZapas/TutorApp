@@ -151,6 +151,8 @@ class VideoListView(LoginRequiredMixin, FilterView):
     context_object_name = "videos"
 
     def get_queryset(self) -> QuerySet[Video]:
+        if not self.request.GET:
+            return Video.objects.none()
 
         return Video.objects.select_related("section").order_by(
             "section__name", "level", "title"
