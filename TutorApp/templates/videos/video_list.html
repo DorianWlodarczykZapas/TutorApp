@@ -6,11 +6,9 @@
 {% endblock %}
 {% block content %}
     <div class="video-library-container">
-        {# ── NAGŁÓWEK ── #}
         <div class="video-library-header">
             <h1 class="video-library-title">{% trans "Video Library" %}</h1>
         </div>
-        {# ── FILTRY ── #}
         <div class="filters-container">
             <form method="get" action="{% url 'videos:video_list' %}" id="filter-form">
                 <div class="filters-grid--video">
@@ -43,7 +41,7 @@
             <p class="video-library-count">
                 {% blocktrans with start=start_idx end=end_idx total=total_count %}
                 Showing {{ start }}–{{ end }} of {{ total }} videos
-            {% endblocktrans %}
+                {% endblocktrans %}
             </p>
         {% endif %}
         {% if videos %}
@@ -75,7 +73,6 @@
                     </div>
                 {% endfor %}
             </div>
-            {# ── PAGINACJA ── #}
             {% if page_obj.has_other_pages %}
                 <nav aria-label="{% trans 'Video pagination' %}"
                      class="video-library-pagination">
@@ -140,18 +137,16 @@
                     <p class="video-library-page-info">
                         {% blocktrans with current=current_page total=total_pages %}
                         Page {{ current }} of {{ total }}
-                    {% endblocktrans %}
+                        {% endblocktrans %}
                     </p>
                 </nav>
             {% endif %}
-        {% else %}
+        {% elif has_filters_applied %}
             <div class="alert alert-info">
                 <i class="bi bi-info-circle"></i>
                 {% trans "No videos found matching your criteria." %}
-                {% if has_filters_applied %}
-                    <a href="{% url 'videos:video_list' %}">{% trans "Clear filters" %}</a>
-                    {% trans "to see all videos." %}
-                {% endif %}
+                <a href="{% url 'videos:video_list' %}">{% trans "Clear filters" %}</a>
+                {% trans "to see all videos." %}
             </div>
         {% endif %}
         {% if sections_summary %}
@@ -161,32 +156,21 @@
                 {% for group in sections_grouped %}
                     <div class="video-sections__group">
                         <h3 class="video-sections__subject">{{ group.grouper }}</h3>
-                        <div class="table-responsive">
-                            <table class="video-library-table">
-                                <thead>
-                                    <tr>
-                                        <th>{% trans "Section" %}</th>
-                                        <th>{% trans "Videos" %}</th>
-                                        <th>{% trans "Action" %}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for section in group.list %}
-                                        <tr>
-                                            <td>{{ section.name }}</td>
-                                            <td>
-                                                <span class="video-card__badge video-card__badge--section">{{ section.video_count }}</span>
-                                            </td>
-                                            <td>
-                                                <a href="{% url 'videos:video_list' %}?section={{ section.id }}"
-                                                   class="filter-btn-apply filter-btn-apply--sm">
-                                                    <i class="bi bi-play-circle"></i> {% trans "See Videos" %}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                        <div class="video-sections__list">
+                            {% for section in group.list %}
+                                <div class="video-section-row">
+                                    <span class="video-section-row__name">
+                                        <i class="bi bi-folder"></i> {{ section.name }}
+                                    </span>
+                                    <span class="video-section-row__count">
+                                        {% blocktrans count count=section.video_count %}{{ count }} Video{% plural %}{{ count }} Videos{% endblocktrans %}
+                                    </span>
+                                    <a href="{% url 'videos:video_list' %}?section={{ section.id }}"
+                                       class="filter-btn-apply filter-btn-apply--sm">
+                                        <i class="bi bi-play-circle"></i> {% trans "See Videos" %}
+                                    </a>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 {% endfor %}
