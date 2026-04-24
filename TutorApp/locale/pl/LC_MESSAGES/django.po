@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 22:10+0200\n"
+"POT-Creation-Date: 2026-04-24 23:43+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -104,9 +104,9 @@ msgstr "Treść Zadania"
 #: .\motifs\models.py:32 .\quizes\filters.py:27
 #: .\templates\courses\training_task_detail.html:25
 #: .\templates\examination_tasks\exam_task_search_engine.html:36
-#: .\templates\motifs\motif_list.html:35 .\templates\videos\video_list.html:171
-#: .\videos\filters.py:26 .\videos\forms\video_forms.py:24
-#: .\videos\forms\video_forms.py:30 .\videos\forms\video_forms.py:33
+#: .\templates\motifs\motif_list.html:35 .\videos\filters.py:26
+#: .\videos\forms\video_forms.py:24 .\videos\forms\video_forms.py:30
+#: .\videos\forms\video_forms.py:33
 msgid "Section"
 msgstr "Dział z książki"
 
@@ -1152,7 +1152,7 @@ msgstr "Progres"
 
 #: .\templates\examination_tasks\exam_list.html:42
 #: .\templates\examination_tasks\exam_task_list.html:22
-#: .\templates\quizes\quiz_list.html:42 .\templates\videos\video_list.html:173
+#: .\templates\quizes\quiz_list.html:42
 #, fuzzy
 #| msgid "Functions"
 msgid "Action"
@@ -1449,7 +1449,6 @@ msgstr "Dodaj Quiz"
 
 #: .\templates\navigation_links\videos.html:4
 #: .\templates\videos\section_video_list.html:4
-#: .\templates\videos\video_list.html:172
 msgid "Videos"
 msgstr "Nagrania"
 
@@ -1840,7 +1839,7 @@ msgstr "Biblioteka Nagrań"
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: .\templates\videos\video_list.html:45
+#: .\templates\videos\video_list.html:44
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -1849,21 +1848,21 @@ msgstr "Zastosuj"
 msgid ""
 "\n"
 "                Showing %(start)s–%(end)s of %(total)s videos\n"
-"            "
+"                "
 msgstr ""
 "\n"
 "                    Pytania: %(count)s\n"
 "                "
 
-#: .\templates\videos\video_list.html:74
+#: .\templates\videos\video_list.html:72
 msgid "Watch Video"
 msgstr "Obejrz Film"
 
-#: .\templates\videos\video_list.html:82
+#: .\templates\videos\video_list.html:79
 msgid "Video pagination"
 msgstr ""
 
-#: .\templates\videos\video_list.html:143
+#: .\templates\videos\video_list.html:134
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -1876,34 +1875,41 @@ msgstr ""
 msgid ""
 "\n"
 "                        Page %(current)s of %(total)s\n"
-"                    "
+"                        "
 msgstr ""
 "\n"
 "                        Znaleziono %(counter)s zadanie\n"
 "                    "
 
-#: .\templates\videos\video_list.html:152
+#: .\templates\videos\video_list.html:143
 msgid "No videos found matching your criteria."
 msgstr ""
 
-#: .\templates\videos\video_list.html:154
+#: .\templates\videos\video_list.html:144
 msgid "Clear filters"
 msgstr ""
 
-#: .\templates\videos\video_list.html:155
+#: .\templates\videos\video_list.html:145
 msgid "to see all videos."
 msgstr ""
 
-#: .\templates\videos\video_list.html:162
-
+#: .\templates\videos\video_list.html:152
 msgid "Browse by Section"
 msgstr "Szukaj Przez Dział"
 
-#: .\templates\videos\video_list.html:186
-#, fuzzy
-#| msgid "Save Video"
+#: .\templates\videos\video_list.html:164
+
+#| msgid "%(count)s Video"
+#| msgid_plural "%(count)s Videos"
+msgid "%(count)s Video"
+msgid_plural "%(count)s Videos"
+msgstr[0] "%(count)s Nagranie"
+msgstr[1] "%(count)s Nagrania"
+msgstr[2] "%(count)s Nagrań"
+
+#: .\templates\videos\video_list.html:172
 msgid "See Videos"
-msgstr "Zapisz Nagranie"
+msgstr "Przejdź Do Nagrań"
 
 #: .\users\forms.py:17 .\users\forms.py:48 .\users\forms.py:50
 msgid "Username"
