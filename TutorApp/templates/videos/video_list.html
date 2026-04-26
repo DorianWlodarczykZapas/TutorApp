@@ -63,9 +63,7 @@
                             </div>
                         </div>
                         <div class="video-card__footer">
-                            <a href="{{ video.youtube_url }}"
-                               target="_blank"
-                               rel="noopener noreferrer"
+                            <a href="{% url 'videos:video_details' pk=video.pk %}"
                                class="filter-btn-apply video-card__watch-btn">
                                 <i class="bi bi-play-circle"></i> {% trans "Watch Video" %}
                             </a>
