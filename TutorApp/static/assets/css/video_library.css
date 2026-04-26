@@ -239,6 +239,12 @@
 
 }
 
+.filter-actions--video .filter-btn-clear {
+    width: 100%;
+    padding: 10px 24px;
+    white-space: nowrap;
+}
+
 @media (max-width: 900px) {
     .filters-grid--video {
         grid-template-columns: 1fr 1fr;
