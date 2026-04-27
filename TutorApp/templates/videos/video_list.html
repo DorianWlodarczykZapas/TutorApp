@@ -147,7 +147,7 @@
                 {% trans "to see all videos." %}
             </div>
         {% endif %}
-        {% if sections_summary %}
+        {% if sections_summary and not has_filters_applied %}
             <div class="video-sections">
                 <h2 class="video-sections__title">{% trans "Browse by Section" %}</h2>
                 {% regroup sections_summary by get_subject_display as sections_grouped %}
