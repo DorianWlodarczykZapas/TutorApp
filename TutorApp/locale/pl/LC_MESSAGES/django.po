@@ -1194,10 +1194,9 @@ msgstr ""
 
 #: .\templates\examination_tasks\exam_progress.html:4
 #: .\templates\navigation_links\examination_tasks.html:8
-#, fuzzy
-#| msgid "In progress"
+
 msgid "My Progress"
-msgstr "W trakcie"
+msgstr "Postępy"
 
 #: .\templates\examination_tasks\exam_progress.html:8
 #, fuzzy
