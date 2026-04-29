@@ -1205,10 +1205,9 @@ msgid "My Exam Progress"
 msgstr "W trakcie"
 
 #: .\templates\examination_tasks\exam_progress.html:14
-#, fuzzy
-#| msgid "Password reset complete"
-msgid "tasks completed"
-msgstr "Resetowanie hasła zakończone"
+
+msgid "Tasks Completed"
+msgstr "Ukończone Zadania"
 
 #: .\templates\examination_tasks\exam_progress.html:29
 msgid "No exams available yet"
