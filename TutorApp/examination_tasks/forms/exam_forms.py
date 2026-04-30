@@ -1,10 +1,20 @@
+from core.forms import TypedChoiceMixin
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from examination_tasks.choices import ExamTypeChoices
 
 from ..models import Exam
 
 
-class ExamForm(forms.ModelForm):
+class ExamForm(TypedChoiceMixin, forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["exam_type"] = self._make_typed_choice(
+            ExamTypeChoices, _("Exam Type")
+        )
+
     class Meta:
         model = Exam
         fields = [
