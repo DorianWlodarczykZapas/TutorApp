@@ -34,9 +34,11 @@
             </div>
             {% if form.year.errors %}<div class="field-errors">{{ form.year.errors|striptags }}</div>{% endif %}
         </div>
-        <div class="form-group">
-            <label for="{{ form.month.id_for_label }}">{{ form.month.label }}</label>
-            {{ form.month|add_class:"form-input" }}
+        <div class="floating-field field-select">
+            <div class="floating-field__input-wrapper">
+                {{ form.month|add_class:"form-input" }}
+                <label for="{{ form.month.id_for_label }}">{{ form.month.label }}</label>
+            </div>
             {% if form.month.errors %}<div class="field-errors">{{ form.month.errors|striptags }}</div>{% endif %}
         </div>
         <div class="form-group">
