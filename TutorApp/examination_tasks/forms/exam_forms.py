@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from examination_tasks.choices import ExamTypeChoices
 
-from ..choices import MONTH_CHOICES, YEAR_CHOICES
+from ..choices import LEVEL_CHOICES, MONTH_CHOICES, YEAR_CHOICES
 from ..models import Exam
 
 
@@ -17,6 +17,7 @@ class ExamForm(TypedChoiceMixin, forms.ModelForm):
         )
         self.fields["year"] = self._make_typed_choice(YEAR_CHOICES, _("Year"))
         self.fields["month"] = self._make_typed_choice(MONTH_CHOICES, _("Month"))
+        self.fields["level_type"] = self._make_typed_choice(LEVEL_CHOICES, _("Level"))
 
     class Meta:
         model = Exam
