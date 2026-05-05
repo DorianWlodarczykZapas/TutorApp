@@ -623,7 +623,7 @@ msgstr ""
 #: .\templates\examination_tasks\add_exam.html:5
 #: .\templates\examination_tasks\add_exam.html:17
 msgid "Add New Exam"
-msgstr "Dodaj nowy egzamin"
+msgstr "Dodaj Nowy Egzamin"
 
 #: .\examination_tasks\views\exam_views.py:40
 msgid "Exam added successfully!"
