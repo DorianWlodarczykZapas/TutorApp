@@ -630,8 +630,6 @@ msgid "Exam added successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
 #: .\motifs\forms\motif_forms.py:19
-#, fuzzy
-#| msgid "Level Type"
 msgid "Level type"
 msgstr "Poziom Trudności"
 
