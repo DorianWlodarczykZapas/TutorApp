@@ -579,10 +579,9 @@ msgid "Task %(task_id)s added successfully!"
 msgstr "Egzamin dodany pomyślnie"
 
 #: .\examination_tasks\views\exam_task_views.py:244
-#, fuzzy
-#| msgid "Exam level"
+
 msgid "Invalid level"
-msgstr "Poziom egzaminu"
+msgstr "Niepoprawny Poziom"
 
 #: .\examination_tasks\views\exam_task_views.py:251
 #, fuzzy
