@@ -567,10 +567,9 @@ msgid "Temporary PDF missing."
 msgstr ""
 
 #: .\examination_tasks\views\exam_task_views.py:197
-#, fuzzy
-#| msgid "Error reading extracted PDF"
+
 msgid "Error saving task PDF."
-msgstr "Błąd podczas odczytu wyodrębnionego pliku PDF"
+msgstr "Błąd zapisu zadania PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:219
 #, fuzzy, python-format
