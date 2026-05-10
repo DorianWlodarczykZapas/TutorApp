@@ -557,10 +557,9 @@ msgid "Error reading extracted PDF"
 msgstr "Błąd podczas odczytu wyodrębnionego pliku PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:165
-#, fuzzy
-#| msgid "Task creation cancelled. No data was saved"
+
 msgid "Task creation cancelled. No data was saved."
-msgstr "Tworzenie zadania anulowane. Żadne dane nie zostały zapisane"
+msgstr "Tworzenie zadania anulowano. Żadne dane nie zostały zapisane."
 
 #: .\examination_tasks\views\exam_task_views.py:178
 msgid "Temporary PDF missing."
