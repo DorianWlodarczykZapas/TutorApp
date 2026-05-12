@@ -513,7 +513,7 @@ msgstr ""
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:135
 msgid "You can edit the extracted text before saving."
-msgstr ""
+msgstr "Przed zapisaniem możesz edytować wyodrębniony tekst."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:139
 msgid "I confirm that the task preview is correct"
