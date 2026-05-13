@@ -517,7 +517,7 @@ msgstr "Przed zapisaniem możesz edytować wyodrębniony tekst."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:139
 msgid "I confirm that the task preview is correct"
-msgstr ""
+msgstr "Potwierdzam, że podgląd zadania jest poprawny"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:142
 msgid "You must confirm the preview before saving."
