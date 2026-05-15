@@ -502,10 +502,9 @@ msgid "Path to the extracted task PDF file (automatically generated)."
 msgstr ""
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:126
-#, fuzzy
-#| msgid "Task content"
+
 msgid "Task Content (editable)"
-msgstr "Treść zadania"
+msgstr "Treść zadania (edytowalne)"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:131
 msgid "Extracted task content..."
