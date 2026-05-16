@@ -491,7 +491,7 @@ msgstr ""
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:93
 msgid "Invalid page format. Use '5' or '5-6'."
-msgstr ""
+msgstr "Nieprawidłowy format strony. Użyj „5” lub „5-6”."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:114
 msgid "Generated PDF Path"
