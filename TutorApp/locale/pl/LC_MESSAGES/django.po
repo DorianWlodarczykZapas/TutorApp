@@ -487,7 +487,7 @@ msgstr ""
 #: .\examination_tasks\forms\exam_tasks_forms.py:87
 #, python-format
 msgid "Task %(task_id)s already exists for this exam."
-msgstr ""
+msgstr "Do wybranego egzaminu nie dołączono pliku PDF."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:93
 msgid "Invalid page format. Use '5' or '5-6'."
