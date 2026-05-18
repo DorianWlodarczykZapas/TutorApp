@@ -495,7 +495,7 @@ msgstr "Nieprawidłowy format strony. Użyj „5” lub „5-6”."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:114
 msgid "Generated PDF Path"
-msgstr ""
+msgstr "Ścieżka do wygenerowanego pliku PDF"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:122
 msgid "Path to the extracted task PDF file (automatically generated)."
