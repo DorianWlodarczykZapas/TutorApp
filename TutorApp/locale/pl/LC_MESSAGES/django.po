@@ -482,7 +482,7 @@ msgstr "Dostępne Egzaminy"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:82
 msgid "Selected exam has no PDF file attached."
-msgstr ""
+msgstr "Do wybranego egzaminu nie dołączono pliku PDF."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:87
 #, python-format
