@@ -475,10 +475,9 @@ msgid "Page number(s) in the solutions PDF."
 msgstr "Numery stron w pliku PDF z rozwiązaniami."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:70
-#, fuzzy
-#| msgid "Available Exams"
+
 msgid "Available task numbers: "
-msgstr "Dostępne Egzaminy"
+msgstr "Dostępne numery zadań"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:82
 msgid "Selected exam has no PDF file attached."
