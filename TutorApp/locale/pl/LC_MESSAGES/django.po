@@ -498,7 +498,7 @@ msgstr "Ścieżka do wygenerowanego pliku PDF"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:122
 msgid "Path to the extracted task PDF file (automatically generated)."
-msgstr ""
+msgstr "Ścieżka do wyodrębnionego pliku PDF zadania (wygenerowanego automatycznie)."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:126
 
