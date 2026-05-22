@@ -522,8 +522,7 @@ msgid "You must confirm the preview before saving."
 msgstr "Przed zapisaniem należy zatwierdzić podgląd."
 
 #: .\examination_tasks\views\exam_task_views.py:79
-#, fuzzy
-#| msgid "Add Exam Task"
+
 msgid "Add New Exam Task"
 msgstr "Dodaj Zadanie Egzaminacyjne"
 
