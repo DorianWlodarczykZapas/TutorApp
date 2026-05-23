@@ -576,10 +576,9 @@ msgid "Invalid level"
 msgstr "Niepoprawny Poziom"
 
 #: .\examination_tasks\views\exam_task_views.py:251
-#, fuzzy
-#| msgid "Exam file not found"
+
 msgid "Exam not found"
-msgstr "Nie znaleziono pliku egzaminacyjnego"
+msgstr "Nie znaleziono egzaminu"
 
 #: .\examination_tasks\views\exam_task_views.py:288
 msgid "Incorrect PDF source type."
