@@ -623,7 +623,7 @@ msgstr "Poziom Trudności"
 
 #: .\motifs\forms\motif_forms.py:20 .\motifs\models.py:45
 msgid "Whole motif content"
-msgstr ""
+msgstr "Cała treść motywu"
 
 #: .\motifs\forms\motif_forms.py:21 .\motifs\models.py:50
 msgid "Explanation about chosen motif"
