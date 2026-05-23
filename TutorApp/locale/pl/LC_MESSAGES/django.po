@@ -587,7 +587,7 @@ msgstr "Nieprawidłowy typ źródła pliku PDF"
 #: .\examination_tasks\views\exam_task_views.py:304
 #, python-format
 msgid "No PDF file for the selected type: %(kind)s"
-msgstr ""
+msgstr "Brak pliku PDF dla wybranego typu: %(kind)s"
 
 #: .\examination_tasks\views\exam_task_views.py:310
 #, fuzzy
