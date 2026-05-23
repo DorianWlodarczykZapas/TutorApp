@@ -528,8 +528,7 @@ msgstr "Dodaj Zadanie Egzaminacyjne"
 
 #: .\examination_tasks\views\exam_task_views.py:116
 #: .\examination_tasks\views\exam_task_views.py:117
-#, fuzzy
-#| msgid "Invalid page number format"
+
 msgid "Invalid page number format."
 msgstr "Nieprawidłowy typ strony"
 
