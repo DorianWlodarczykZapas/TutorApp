@@ -599,8 +599,7 @@ msgid "Pages to be cut have not been defined."
 msgstr "Nie określono stron do wycięcia."
 
 #: .\examination_tasks\views\exam_task_views.py:321
-#, fuzzy
-#| msgid "Unable to read the path to the PDF"
+
 msgid "Unable to generate PDF file."
 msgstr "Nie można odczytać ścieżki do pliku PDF"
 
