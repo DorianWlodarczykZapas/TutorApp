@@ -566,10 +566,9 @@ msgid "Error saving task PDF."
 msgstr "Błąd zapisu zadania PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:219
-#, fuzzy, python-format
-#| msgid "Exam added successfully!"
+
 msgid "Task %(task_id)s added successfully!"
-msgstr "Egzamin dodany pomyślnie"
+msgstr "Zadanie %(task_id)s zostało pomyślnie dodane!"
 
 #: .\examination_tasks\views\exam_task_views.py:244
 
