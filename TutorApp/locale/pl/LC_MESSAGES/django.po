@@ -631,7 +631,7 @@ msgstr "Wyjaśnienie dotyczące wybranego motywu"
 
 #: .\motifs\forms\motif_forms.py:22
 msgid "\"Motif explanation picture if needed"
-msgstr ""
+msgstr "\"W razie potrzeby ilustracja wyjaśniająca motyw"
 
 #: .\motifs\forms\motif_forms.py:23 .\motifs\models.py:60
 msgid "If exists in matriculation sheets"
