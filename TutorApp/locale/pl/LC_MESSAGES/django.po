@@ -627,7 +627,7 @@ msgstr "Cała treść motywu"
 
 #: .\motifs\forms\motif_forms.py:21 .\motifs\models.py:50
 msgid "Explanation about chosen motif"
-msgstr ""
+msgstr "Wyjaśnienie dotyczące wybranego motywu"
 
 #: .\motifs\forms\motif_forms.py:22
 msgid "\"Motif explanation picture if needed"
