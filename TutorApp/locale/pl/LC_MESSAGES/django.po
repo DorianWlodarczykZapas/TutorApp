@@ -590,8 +590,7 @@ msgid "No PDF file for the selected type: %(kind)s"
 msgstr "Brak pliku PDF dla wybranego typu: %(kind)s"
 
 #: .\examination_tasks\views\exam_task_views.py:310
-#, fuzzy
-#| msgid "Unable to read the path to the PDF"
+
 msgid "Unable to read the path to the PDF."
 msgstr "Nie można odczytać ścieżki do pliku PDF"
 
