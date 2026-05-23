@@ -543,8 +543,7 @@ msgid "Exam file not found"
 msgstr "Nie znaleziono pliku egzaminacyjnego"
 
 #: .\examination_tasks\views\exam_task_views.py:135
-#, fuzzy
-#| msgid "Unexpected error while extracting PDF task"
+
 msgid "Unexpected PDF extraction error"
 msgstr "Nieoczekiwany błąd podczas wyodrębniania zadania PDF"
 
