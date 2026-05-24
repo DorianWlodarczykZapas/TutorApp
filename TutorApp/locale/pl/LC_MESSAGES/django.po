@@ -680,7 +680,7 @@ msgstr "W razie potrzeby ilustracja wyjaśniająca motyw"
 
 #: .\motifs\models.py:65
 msgid "Mandatory for students"
-msgstr ""
+msgstr "Obowiązkowe dla uczniów"
 
 #: .\motifs\models.py:70 .\motifs\models.py:71
 #, fuzzy
