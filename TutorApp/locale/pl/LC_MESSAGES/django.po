@@ -666,10 +666,9 @@ msgid "Motif level: basic or extended (Matriculation only)"
 msgstr "Poziom egzaminu: podstawowy lub rozszerzony"
 
 #: .\motifs\models.py:44
-#, fuzzy
-#| msgid "Task content"
+
 msgid "Motif content"
-msgstr "Treść zadania"
+msgstr "Treść motywu"
 
 #: .\motifs\models.py:49
 msgid "answer"
