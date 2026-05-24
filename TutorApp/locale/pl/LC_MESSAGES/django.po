@@ -683,10 +683,9 @@ msgid "Mandatory for students"
 msgstr "Obowiązkowe dla uczniów"
 
 #: .\motifs\models.py:70 .\motifs\models.py:71
-#, fuzzy
-#| msgid "Examination Tasks"
+
 msgid "Link to explanation video"
-msgstr "Egzaminy"
+msgstr "Link do video wyjaśniającego"
 
 #: .\motifs\models.py:75
 msgid "Motif"
