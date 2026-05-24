@@ -651,7 +651,7 @@ msgstr "np. Jak rozwiązywać równania kwadratowe"
 
 #: .\motifs\forms\motif_forms.py:51
 msgid "Step-by-step explanation..."
-msgstr ""
+msgstr "Wyjaśnienie krok po kroku"
 
 #: .\motifs\models.py:38 .\templates\examination_tasks\exam_list.html:13
 #: .\templates\examination_tasks\exam_list.html:40
