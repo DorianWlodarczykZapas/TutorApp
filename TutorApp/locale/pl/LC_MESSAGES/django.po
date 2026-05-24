@@ -676,7 +676,7 @@ msgstr "odpowiedź"
 
 #: .\motifs\models.py:56
 msgid "Motif explanation picture if needed"
-msgstr ""
+msgstr "W razie potrzeby ilustracja wyjaśniająca motyw"
 
 #: .\motifs\models.py:65
 msgid "Mandatory for students"
