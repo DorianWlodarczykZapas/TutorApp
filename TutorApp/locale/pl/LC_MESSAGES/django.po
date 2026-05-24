@@ -639,7 +639,7 @@ msgstr "Jeśli występuje w kartach maturalnych"
 
 #: .\motifs\forms\motif_forms.py:24 .\motifs\models.py:66
 msgid "Whether students must learn this motif"
-msgstr ""
+msgstr "Czy uczniowie muszą nauczyć się tego motywu"
 
 #: .\motifs\forms\motif_forms.py:37
 msgid "Select a section..."
