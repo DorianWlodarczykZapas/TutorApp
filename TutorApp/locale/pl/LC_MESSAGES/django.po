@@ -643,7 +643,7 @@ msgstr "Czy uczniowie muszą nauczyć się tego motywu"
 
 #: .\motifs\forms\motif_forms.py:37
 msgid "Select a section..."
-msgstr ""
+msgstr "Wybierz sekcje..."
 
 #: .\motifs\forms\motif_forms.py:44
 msgid "e.g., How to solve quadratic equations"
