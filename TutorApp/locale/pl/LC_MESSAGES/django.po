@@ -647,7 +647,7 @@ msgstr "Wybierz sekcje..."
 
 #: .\motifs\forms\motif_forms.py:44
 msgid "e.g., How to solve quadratic equations"
-msgstr ""
+msgstr "np. Jak rozwiązywać równania kwadratowe"
 
 #: .\motifs\forms\motif_forms.py:51
 msgid "Step-by-step explanation..."
