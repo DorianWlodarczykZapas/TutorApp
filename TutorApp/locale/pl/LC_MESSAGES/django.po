@@ -689,7 +689,7 @@ msgstr "Link do video wyjaśniającego"
 
 #: .\motifs\models.py:75
 msgid "Motif"
-msgstr ""
+msgstr "Motyw"
 
 #: .\motifs\models.py:76 .\templates\navigation_links\motifs.html:4
 msgid "Motifs"
