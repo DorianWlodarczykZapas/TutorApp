@@ -673,7 +673,7 @@ msgstr "Treść zadania"
 
 #: .\motifs\models.py:49
 msgid "answer"
-msgstr ""
+msgstr "odpowiedź"
 
 #: .\motifs\models.py:56
 msgid "Motif explanation picture if needed"
