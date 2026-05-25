@@ -722,7 +722,7 @@ msgstr "Tytuł"
 
 #: .\quizes\filters.py:20 .\videos\filters.py:19
 msgid "Search by title"
-msgstr "Wpisz Tytuł"
+msgstr "Szukaj po tytule"
 
 #: .\quizes\filters.py:33 .\videos\filters.py:32
 msgid "Search Section"
