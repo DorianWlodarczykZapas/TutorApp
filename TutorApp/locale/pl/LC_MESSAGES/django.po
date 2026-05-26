@@ -734,7 +734,7 @@ msgstr "Wybierz Przedmiot"
 
 #: .\quizes\forms\question_forms.py:13
 msgid "Question Content"
-msgstr ""
+msgstr "Treść pytania"
 
 #: .\quizes\forms\question_forms.py:15
 msgid "Illustration for the question"
