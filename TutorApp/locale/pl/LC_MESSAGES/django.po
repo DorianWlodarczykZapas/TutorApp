@@ -758,7 +758,7 @@ msgstr "Przedmiot dotyczący działu"
 
 #: .\quizes\forms\quiz_wizard_forms.py:20
 msgid "10 questions"
-msgstr ""
+msgstr "10 pytań"
 
 #: .\quizes\forms\quiz_wizard_forms.py:21
 msgid "20 questions"
