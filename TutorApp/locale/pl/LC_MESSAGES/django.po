@@ -738,7 +738,7 @@ msgstr "Treść pytania"
 
 #: .\quizes\forms\question_forms.py:15
 msgid "Illustration for the question"
-msgstr ""
+msgstr "Ilustracja do pytania"
 
 #: .\quizes\forms\question_forms.py:16
 msgid "Explanation To The Question"
