@@ -746,7 +746,7 @@ msgstr "Wyjaśnienie do pytania"
 
 #: .\quizes\forms\question_forms.py:17
 msgid "Explanation By Illustration To The Question"
-msgstr ""
+msgstr "Wyjaśnienie do pytania w postaci ilustracji"
 
 #: .\quizes\forms\quiz_forms.py:19 .\templates\quizes\quiz_list.html:38
 msgid "Quiz Title"
