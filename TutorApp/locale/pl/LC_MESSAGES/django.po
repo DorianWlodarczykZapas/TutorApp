@@ -766,7 +766,7 @@ msgstr "20 pytań"
 
 #: .\quizes\forms\quiz_wizard_forms.py:22
 msgid "50 questions"
-msgstr ""
+msgstr "50 pytań"
 
 #: .\quizes\forms\quiz_wizard_forms.py:23
 msgid "All questions"
