@@ -803,7 +803,7 @@ msgstr ""
 
 #: .\quizes\services\solve_quiz_services.py:86
 msgid "Question must have both correct and incorrect answers"
-msgstr ""
+msgstr "Pytanie musi mieć poprawne oraz niepoprawne odpowiedzi"
 
 #: .\quizes\services\solve_quiz_services.py:133
 msgid "Score cannot be negative"
