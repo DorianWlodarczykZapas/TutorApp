@@ -754,7 +754,7 @@ msgstr "Tytuł Quizu"
 
 #: .\quizes\forms\quiz_forms.py:19
 msgid "Subject Section"
-msgstr ""
+msgstr "Przedmiot dotyczący działu"
 
 #: .\quizes\forms\quiz_wizard_forms.py:20
 msgid "10 questions"
