@@ -988,7 +988,7 @@ msgstr "Pierwszy"
 #: .\templates\quizes\quiz_solve_wizard.html:20
 #: .\templates\videos\section_video_list.html:28
 msgid "Previous"
-msgstr ""
+msgstr "Wcześniej"
 
 #: .\templates\courses\training_tasks_list.html:86
 msgid "of"
