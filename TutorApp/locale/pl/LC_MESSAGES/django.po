@@ -924,8 +924,7 @@ msgid "Show Answer"
 msgstr "Pokaż Odpowiedź"
 
 #: .\templates\courses\training_task_detail.html:72
-#, fuzzy
-#| msgid "Mark As Completed"
+
 msgid "Mark as Completed"
 msgstr "Oznacz Jako Ukończone"
 
