@@ -915,10 +915,9 @@ msgid "Page"
 msgstr "Strona"
 
 #: .\templates\courses\training_task_detail.html:49
-#, fuzzy
-#| msgid "Task Number"
+
 msgid "Task image"
-msgstr "Numer zadania"
+msgstr "Zdjęcie do zadania"
 
 #: .\templates\courses\training_task_detail.html:55
 msgid "Show Answer"
