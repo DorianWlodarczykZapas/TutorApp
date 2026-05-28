@@ -855,7 +855,7 @@ msgstr "Kontakt"
 
 #: .\templates\base.html:64
 msgid "Your trial has ended"
-msgstr ""
+msgstr "Twój okres próbny się zakończył"
 
 #: .\templates\base.html:65
 msgid "Upgrade to Premium to keep access."
