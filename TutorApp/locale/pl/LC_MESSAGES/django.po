@@ -859,7 +859,7 @@ msgstr "Twój okres próbny się zakończył"
 
 #: .\templates\base.html:65
 msgid "Upgrade to Premium to keep access."
-msgstr ""
+msgstr "Ulepsz do premium by zachować dostęp"
 
 #: .\templates\base.html:67
 msgid "See plans"
