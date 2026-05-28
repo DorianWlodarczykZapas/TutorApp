@@ -935,7 +935,7 @@ msgstr "Wyjaśnienie"
 
 #: .\templates\courses\training_task_detail.html:95
 msgid "This explanation is available for Premium users only."
-msgstr ""
+msgstr "To wyjaśnienie jest dostępne tylko dla użytkowników premium"
 
 #: .\templates\courses\training_task_detail.html:96
 msgid "Upgrade to Premium"
