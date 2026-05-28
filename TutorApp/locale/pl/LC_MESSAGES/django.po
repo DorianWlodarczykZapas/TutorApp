@@ -817,7 +817,7 @@ msgstr "Liczba pytań musi być dodatnia"
 
 #: .\quizes\services\solve_quiz_services.py:139
 msgid "Score cannot be greater than max score"
-msgstr ""
+msgstr "Wynik nie może być większy od maksymalnego wyniku"
 
 #: .\quizes\views\question_views.py:44
 #, fuzzy
