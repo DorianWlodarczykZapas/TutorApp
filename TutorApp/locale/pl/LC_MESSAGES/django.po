@@ -992,7 +992,7 @@ msgstr "Wcześniej"
 
 #: .\templates\courses\training_tasks_list.html:86
 msgid "of"
-msgstr ""
+msgstr "z"
 
 #: .\templates\courses\training_tasks_list.html:90
 #: .\templates\examination_tasks\exam_task_search_engine.html:81
