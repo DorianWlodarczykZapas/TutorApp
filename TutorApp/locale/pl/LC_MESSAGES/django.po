@@ -863,7 +863,7 @@ msgstr "Ulepsz do premium by zachować dostęp"
 
 #: .\templates\base.html:67
 msgid "See plans"
-msgstr ""
+msgstr "Zobacz plany"
 
 #: .\templates\base.html:70
 msgid "Maybe later"
