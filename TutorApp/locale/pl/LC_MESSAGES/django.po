@@ -807,7 +807,7 @@ msgstr "Pytanie musi mieć poprawne oraz niepoprawne odpowiedzi"
 
 #: .\quizes\services\solve_quiz_services.py:133
 msgid "Score cannot be negative"
-msgstr ""
+msgstr "Wynik nie może być ujemny"
 
 #: .\quizes\services\solve_quiz_services.py:136
 #, fuzzy
