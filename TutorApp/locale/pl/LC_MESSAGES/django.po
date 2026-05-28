@@ -980,7 +980,7 @@ msgstr "Rozwiąż"
 
 #: .\templates\courses\training_tasks_list.html:81
 msgid "First"
-msgstr ""
+msgstr "Pierwszy"
 
 #: .\templates\courses\training_tasks_list.html:83
 #: .\templates\examination_tasks\exam_task_search_engine.html:75
