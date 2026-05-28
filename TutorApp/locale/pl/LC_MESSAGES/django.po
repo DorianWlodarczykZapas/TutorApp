@@ -867,7 +867,7 @@ msgstr "Zobacz plany"
 
 #: .\templates\base.html:70
 msgid "Maybe later"
-msgstr ""
+msgstr "Może później"
 
 #: .\templates\courses\add_book.html:67
 #: .\templates\navigation_links\courses.html:8
