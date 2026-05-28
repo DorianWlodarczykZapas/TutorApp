@@ -893,8 +893,7 @@ msgid "Add Task"
 msgstr "Dodaj Zadanie"
 
 #: .\templates\courses\training_task_detail.html:6
-#, fuzzy
-#| msgid "Training Tasks"
+
 msgid "Training Task"
 msgstr "Zadania Treningowe"
 
