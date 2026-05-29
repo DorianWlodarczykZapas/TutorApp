@@ -939,7 +939,7 @@ msgstr "To wyjaśnienie jest dostępne tylko dla użytkowników premium"
 
 #: .\templates\courses\training_task_detail.html:96
 msgid "Upgrade to Premium"
-msgstr ""
+msgstr "Ulepsz do premium"
 
 #: .\templates\courses\training_tasks_list.html:38
 #: .\templates\quizes\quiz_list.html:25
