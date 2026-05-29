@@ -1065,7 +1065,7 @@ msgstr "Informacje do wygenerowanego pliku"
 
 #: .\templates\examination_tasks\add_exam_task.html:80
 msgid "File location:"
-msgstr ""
+msgstr "Lokalizacja pliku"
 
 #: .\templates\examination_tasks\add_exam_task.html:84
 msgid "This file will be moved to the final location after saving."
