@@ -1057,7 +1057,7 @@ msgstr "Podgląd zadania"
 
 #: .\templates\examination_tasks\add_exam_task.html:66
 msgid "Open PDF in new tab"
-msgstr ""
+msgstr "Otwórz PDF w nowej karcie"
 
 #: .\templates\examination_tasks\add_exam_task.html:71
 msgid "Generated File Information"
