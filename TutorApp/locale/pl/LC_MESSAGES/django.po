@@ -1027,7 +1027,7 @@ msgstr "Podstawowy"
 
 #: .\templates\examination_tasks\add_exam_task.html:16
 msgid "Preview & Confirm"
-msgstr ""
+msgstr "Pogląd i Potwierdź"
 
 #: .\templates\examination_tasks\add_exam_task.html:29
 msgid "Step 1: Enter Task Information"
