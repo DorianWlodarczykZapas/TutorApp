@@ -1031,7 +1031,7 @@ msgstr "Pogląd i Potwierdź"
 
 #: .\templates\examination_tasks\add_exam_task.html:29
 msgid "Step 1: Enter Task Information"
-msgstr ""
+msgstr "Krok 1: Wpisz informacje do zadania"
 
 #: .\templates\examination_tasks\add_exam_task.html:44
 #: .\templates\examination_tasks\add_exam_task.html:123
