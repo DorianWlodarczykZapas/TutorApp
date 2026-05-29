@@ -1043,7 +1043,7 @@ msgstr "Anuluj"
 
 #: .\templates\examination_tasks\add_exam_task.html:47
 msgid "Next: Preview"
-msgstr ""
+msgstr "Następny: Podgląd"
 
 #: .\templates\examination_tasks\add_exam_task.html:53
 msgid "Step 2: Preview Task"
