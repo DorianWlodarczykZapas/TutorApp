@@ -294,7 +294,7 @@ msgstr "Zadania Treningowe"
 
 #: .\courses\tests\training_tasks_tests.py:385
 msgid "Task Details"
-msgstr ""
+msgstr "Szczegóły zadania"
 
 #: .\courses\views\book_views.py:28 .\templates\courses\add_book.html:5
 #: .\templates\courses\add_book.html:10
