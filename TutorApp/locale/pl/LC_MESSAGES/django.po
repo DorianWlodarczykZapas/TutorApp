@@ -1079,7 +1079,7 @@ msgstr "Treść zadania"
 
 #: .\templates\examination_tasks\add_exam_task.html:100
 msgid "Characters:"
-msgstr ""
+msgstr "Znaki:"
 
 #: .\templates\examination_tasks\add_exam_task.html:119
 msgid "Preview Error:"
