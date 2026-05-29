@@ -1061,7 +1061,7 @@ msgstr "Otwórz PDF w nowej karcie"
 
 #: .\templates\examination_tasks\add_exam_task.html:71
 msgid "Generated File Information"
-msgstr ""
+msgstr "Informacje do wygenerowanego pliku"
 
 #: .\templates\examination_tasks\add_exam_task.html:80
 msgid "File location:"
