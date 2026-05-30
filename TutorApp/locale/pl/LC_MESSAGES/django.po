@@ -1149,7 +1149,7 @@ msgstr "Brak dostępnych egzaminów"
 #: .\templates\examination_tasks\exam_list.html:69
 #: .\templates\examination_tasks\exam_task_list.html:60
 msgid "first"
-msgstr ""
+msgstr "pierwszy"
 
 #: .\templates\examination_tasks\exam_list.html:70
 #: .\templates\examination_tasks\exam_task_list.html:61
