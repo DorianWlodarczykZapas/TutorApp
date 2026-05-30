@@ -1195,7 +1195,7 @@ msgstr "Egzaminy nie są jeszcze dostępne"
 
 #: .\templates\examination_tasks\exam_task_list.html:5
 msgid "Tasks for Exam"
-msgstr ""
+msgstr "Zadania z egzaminu"
 
 #: .\templates\examination_tasks\exam_task_list.html:12
 msgid "Back to Exam List"
