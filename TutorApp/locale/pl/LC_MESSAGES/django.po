@@ -1092,10 +1092,9 @@ msgid "Back to Edit"
 msgstr "Powrót do listy egzaminów"
 
 #: .\templates\examination_tasks\add_exam_task.html:129
-#, fuzzy
-#| msgid "Save"
+
 msgid "Save Task"
-msgstr "Zapisz"
+msgstr "Zapisz Zadanie"
 
 #: .\templates\examination_tasks\add_exam_task.html:190
 msgid "Are you sure you want to cancel? All entered data will be lost."
