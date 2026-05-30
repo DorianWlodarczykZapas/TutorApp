@@ -1154,7 +1154,7 @@ msgstr "pierwszy"
 #: .\templates\examination_tasks\exam_list.html:70
 #: .\templates\examination_tasks\exam_task_list.html:61
 msgid "previous"
-msgstr ""
+msgstr "wcześniejszy"
 
 #: .\templates\examination_tasks\exam_list.html:73
 #: .\templates\examination_tasks\exam_task_list.html:64
