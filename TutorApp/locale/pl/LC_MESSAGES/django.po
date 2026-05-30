@@ -1098,7 +1098,7 @@ msgstr "Zapisz Zadanie"
 
 #: .\templates\examination_tasks\add_exam_task.html:190
 msgid "Are you sure you want to cancel? All entered data will be lost."
-msgstr ""
+msgstr "Czy na pewno chcesz anulować? Wszystkie wprowadzone dane zostaną utracone."
 
 #: .\templates\examination_tasks\exam_list.html:5
 #: .\templates\navigation_links\examination_tasks.html:6
