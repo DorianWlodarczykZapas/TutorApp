@@ -1170,7 +1170,7 @@ msgstr "następny"
 #: .\templates\examination_tasks\exam_list.html:77
 #: .\templates\examination_tasks\exam_task_list.html:68
 msgid "last"
-msgstr ""
+msgstr "ostatni"
 
 #: .\templates\examination_tasks\exam_progress.html:4
 #: .\templates\navigation_links\examination_tasks.html:8
