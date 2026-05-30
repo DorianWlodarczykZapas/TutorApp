@@ -1112,7 +1112,7 @@ msgstr "Dostępne Egzaminy"
 #: .\templates\examination_tasks\exam_list.html:15
 #: .\templates\examination_tasks\exam_list.html:24
 msgid "All"
-msgstr ""
+msgstr "Wszystko"
 
 #: .\templates\examination_tasks\exam_list.html:26
 msgid "Not started"
