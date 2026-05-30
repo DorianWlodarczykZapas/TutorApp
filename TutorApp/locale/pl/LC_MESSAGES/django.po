@@ -1182,7 +1182,7 @@ msgstr "Postępy"
 #, fuzzy
 #| msgid "In progress"
 msgid "My Exam Progress"
-msgstr "W trakcie"
+msgstr "Mój postęp w egzaminie"
 
 #: .\templates\examination_tasks\exam_progress.html:14
 
