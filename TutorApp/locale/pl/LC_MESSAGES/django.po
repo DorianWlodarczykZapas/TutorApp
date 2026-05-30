@@ -1191,7 +1191,7 @@ msgstr "Ukończone Zadania"
 
 #: .\templates\examination_tasks\exam_progress.html:29
 msgid "No exams available yet"
-msgstr ""
+msgstr "Egzaminy nie są jeszcze dostępne"
 
 #: .\templates\examination_tasks\exam_task_list.html:5
 msgid "Tasks for Exam"
