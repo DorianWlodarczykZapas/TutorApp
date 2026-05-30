@@ -1083,7 +1083,7 @@ msgstr "Znaki:"
 
 #: .\templates\examination_tasks\add_exam_task.html:119
 msgid "Preview Error:"
-msgstr ""
+msgstr "Błąd podglądu:"
 
 #: .\templates\examination_tasks\add_exam_task.html:128
 #, fuzzy
