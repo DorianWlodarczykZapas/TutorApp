@@ -1165,7 +1165,7 @@ msgstr ""
 #: .\templates\examination_tasks\exam_list.html:76
 #: .\templates\examination_tasks\exam_task_list.html:67
 msgid "next"
-msgstr ""
+msgstr "następny"
 
 #: .\templates\examination_tasks\exam_list.html:77
 #: .\templates\examination_tasks\exam_task_list.html:68
