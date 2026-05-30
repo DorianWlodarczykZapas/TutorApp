@@ -1144,7 +1144,7 @@ msgstr "Przejdź do egzaminu"
 
 #: .\templates\examination_tasks\exam_list.html:59
 msgid "No exams available."
-msgstr ""
+msgstr "Brak dostępnych egzaminów"
 
 #: .\templates\examination_tasks\exam_list.html:69
 #: .\templates\examination_tasks\exam_task_list.html:60
