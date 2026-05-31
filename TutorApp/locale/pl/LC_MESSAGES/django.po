@@ -1287,7 +1287,7 @@ msgstr "Filtr"
 #: .\templates\videos\section_video_list.html:12
 #: .\templates\videos\video_list.html:35
 msgid "Clear"
-msgstr ""
+msgstr "Wyczyść"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:37
 msgid "Topic"
