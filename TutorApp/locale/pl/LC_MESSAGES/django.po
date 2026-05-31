@@ -1271,7 +1271,7 @@ msgstr "Otwórz plik PDF w nowej karcie"
 #: .\templates\examination_tasks\exam_task_search_engine.html:8
 #: .\templates\navigation_links\examination_tasks.html:4
 msgid "Examination Tasks"
-msgstr "Egzaminy"
+msgstr "Zadania Egzaminacyjne"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:10
 msgid "Filter tasks"
