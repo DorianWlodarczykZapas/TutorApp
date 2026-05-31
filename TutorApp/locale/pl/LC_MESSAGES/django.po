@@ -1280,7 +1280,7 @@ msgstr "Filtruj Zadania"
 #: .\templates\examination_tasks\exam_task_search_engine.html:24
 #: .\templates\motifs\motif_list.html:14
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:25
 #: .\templates\motifs\motif_list.html:15
