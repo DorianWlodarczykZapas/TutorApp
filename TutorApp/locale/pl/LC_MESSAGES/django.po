@@ -1291,7 +1291,7 @@ msgstr "Wyczyść"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:37
 msgid "Topic"
-msgstr ""
+msgstr "Temat"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:38
 #, fuzzy
