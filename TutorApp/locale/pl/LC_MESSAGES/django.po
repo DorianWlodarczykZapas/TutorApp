@@ -1315,7 +1315,7 @@ msgstr "Dodaj Nową Książke"
 
 #: .\templates\motifs\add_motif.html:28
 msgid "Save Motif"
-msgstr ""
+msgstr "Zapisz Motyw"
 
 #: .\templates\motifs\motif_confirm_delete.html:4
 #: .\templates\motifs\motif_confirm_delete.html:8
