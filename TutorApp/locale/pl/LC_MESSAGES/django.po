@@ -1251,7 +1251,7 @@ msgstr "Resetowanie hasła zakończone"
 
 #: .\templates\examination_tasks\exam_task_preview.html:31
 msgid "Show task"
-msgstr ""
+msgstr "Pokaż zadanie"
 
 #: .\templates\examination_tasks\exam_task_preview.html:33
 #, fuzzy
