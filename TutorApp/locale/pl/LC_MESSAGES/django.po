@@ -1261,7 +1261,7 @@ msgstr "Pokaż Odpowiedź"
 
 #: .\templates\examination_tasks\exam_task_preview.html:37
 msgid "Open answer in a new tab"
-msgstr ""
+msgstr "Otwórz odpowiedź w nowej karcie"
 
 #: .\templates\examination_tasks\exam_task_preview.html:57
 msgid "Open PDF in a new tab"
