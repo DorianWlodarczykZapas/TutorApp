@@ -1215,7 +1215,7 @@ msgstr "Do zrobienia"
 
 #: .\templates\examination_tasks\exam_task_list.html:41
 msgid "Review Task"
-msgstr ""
+msgstr "Oceń Zadanie"
 
 #: .\templates\examination_tasks\exam_task_list.html:43
 msgid "Go to Task"
