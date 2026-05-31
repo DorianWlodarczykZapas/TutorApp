@@ -1265,7 +1265,7 @@ msgstr "Otwórz odpowiedź w nowej karcie"
 
 #: .\templates\examination_tasks\exam_task_preview.html:57
 msgid "Open PDF in a new tab"
-msgstr ""
+msgstr "Otwórz plik PDF w nowej karcie"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:4
 #: .\templates\examination_tasks\exam_task_search_engine.html:8
