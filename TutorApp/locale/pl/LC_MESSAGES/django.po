@@ -1294,9 +1294,8 @@ msgid "Topic"
 msgstr "Temat"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:38
-#, fuzzy
-#| msgid "Month"
-msgid "Year/Month"
+
+msgid "Month"
 msgstr "Miesiąc"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:66
