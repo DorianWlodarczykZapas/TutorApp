@@ -1275,7 +1275,7 @@ msgstr "Zadania Egzaminacyjne"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:10
 msgid "Filter tasks"
-msgstr ""
+msgstr "Filtruj Zadania"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:24
 #: .\templates\motifs\motif_list.html:14
