@@ -1323,7 +1323,7 @@ msgstr "Usuń motyw"
 
 #: .\templates\motifs\motif_confirm_delete.html:11
 msgid "Are you sure you want to delete this motif?"
-msgstr ""
+msgstr "Czy na pewno chcesz usunąć ten motyw?"
 
 #: .\templates\motifs\motif_confirm_delete.html:17
 msgid "Yes, delete"
