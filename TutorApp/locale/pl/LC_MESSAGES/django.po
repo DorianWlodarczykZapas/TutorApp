@@ -1369,7 +1369,7 @@ msgstr "Matura"
 #: .\templates\motifs\motif_list.html:53 .\templates\quizes\delete_quiz.html:13
 #: .\templates\quizes\quiz_list.html:80
 msgid "Delete"
-msgstr ""
+msgstr "Usuń"
 
 #: .\templates\motifs\motif_list.html:60
 #, fuzzy
