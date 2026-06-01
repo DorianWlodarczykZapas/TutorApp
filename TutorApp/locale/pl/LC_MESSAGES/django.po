@@ -1342,7 +1342,7 @@ msgstr "Treść zadania"
 
 #: .\templates\motifs\motif_list.html:41
 msgid "Picture"
-msgstr ""
+msgstr "Zdjęcie"
 
 #: .\templates\motifs\motif_list.html:45
 #, fuzzy
