@@ -1535,7 +1535,7 @@ msgstr "Dodaj Pytanie"
 
 #: .\templates\quizes\add_question.html:8
 msgid "Add Question to Quiz"
-msgstr ""
+msgstr "Dodaj pytanie do quizu"
 
 #: .\templates\quizes\add_question.html:11
 #: .\templates\quizes\quiz_solve_wizard.html:9
