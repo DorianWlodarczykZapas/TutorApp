@@ -1308,10 +1308,9 @@ msgid "Page %(page_obj.number)s of %(page_obj.paginator.num_pages)s"
 msgstr ""
 
 #: .\templates\motifs\add_motif.html:5 .\templates\motifs\add_motif.html:11
-#, fuzzy
-#| msgid "Add New Book"
+
 msgid "Add New Motif"
-msgstr "Dodaj Nową Książke"
+msgstr "Dodaj Nowy Motyw"
 
 #: .\templates\motifs\add_motif.html:28
 msgid "Save Motif"
