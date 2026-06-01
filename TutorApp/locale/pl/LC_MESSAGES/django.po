@@ -1543,10 +1543,9 @@ msgid "Question"
 msgstr "Pytanie"
 
 #: .\templates\quizes\add_question.html:13
-#, fuzzy
-#| msgid "Powers"
+
 msgid "Answers"
-msgstr "Potęgowanie"
+msgstr "Odpowiedzi"
 
 #: .\templates\quizes\add_question.html:16
 msgid "Save Question"
