@@ -1493,7 +1493,7 @@ msgstr "Karta"
 
 #: .\templates\plans\confirm_plan.html:35
 msgid "BLIK"
-msgstr ""
+msgstr "BLIK"
 
 #: .\templates\plans\confirm_plan.html:39
 msgid "Back to Plans"
