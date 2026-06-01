@@ -1540,7 +1540,7 @@ msgstr "Dodaj pytanie do quizu"
 #: .\templates\quizes\add_question.html:11
 #: .\templates\quizes\quiz_solve_wizard.html:9
 msgid "Question"
-msgstr ""
+msgstr "Pytanie"
 
 #: .\templates\quizes\add_question.html:13
 #, fuzzy
