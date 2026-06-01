@@ -1375,7 +1375,7 @@ msgstr "Usuń"
 #, fuzzy
 #| msgid "Exam file not found"
 msgid "No motifs found"
-msgstr "Nie znaleziono pliku egzaminacyjnego"
+msgstr "Nie znaleziono motywów"
 
 #: .\templates\navigation_links\courses.html:6
 msgid "Training Tasks List"
