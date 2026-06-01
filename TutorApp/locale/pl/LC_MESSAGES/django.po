@@ -1319,7 +1319,7 @@ msgstr "Zapisz Motyw"
 #: .\templates\motifs\motif_confirm_delete.html:4
 #: .\templates\motifs\motif_confirm_delete.html:8
 msgid "Delete Motif"
-msgstr ""
+msgstr "Usuń motyw"
 
 #: .\templates\motifs\motif_confirm_delete.html:11
 msgid "Are you sure you want to delete this motif?"
