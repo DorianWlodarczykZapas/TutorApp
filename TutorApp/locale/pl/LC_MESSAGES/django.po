@@ -1387,7 +1387,7 @@ msgstr "Dodaj Zadanie Treningowe"
 
 #: .\templates\navigation_links\examination_tasks.html:7
 msgid "Task Search Engine"
-msgstr ""
+msgstr "Silnik do szukania zadań"
 
 #: .\templates\navigation_links\examination_tasks.html:10
 msgid "Add Exam"
