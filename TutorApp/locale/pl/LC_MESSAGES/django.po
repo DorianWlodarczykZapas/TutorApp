@@ -1659,7 +1659,7 @@ msgstr "Wybierz egzamin"
 
 #: .\templates\quizes\quiz_solve_wizard.html:24
 msgid "Finish"
-msgstr ""
+msgstr "Zakończ"
 
 #: .\templates\users\home.html:7
 msgid "Welcome to the Dashboard!"
