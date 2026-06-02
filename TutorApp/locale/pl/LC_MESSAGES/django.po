@@ -1663,7 +1663,8 @@ msgstr "Zakończ"
 
 #: .\templates\users\home.html:7
 msgid "Welcome to the Dashboard!"
-msgstr ""
+msgstr "Witaj w ekranie głównym"
+
 
 #: .\templates\users\login.html:5 .\templates\users\login.html:10
 msgid "Login"
