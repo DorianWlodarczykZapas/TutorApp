@@ -1674,7 +1674,7 @@ msgstr "Logowanie"
 #: .\templates\users\password_reset_complete.html:11
 #: .\templates\users\register.html:64
 msgid "Log in"
-msgstr ""
+msgstr "Zaloguj"
 
 #: .\templates\users\login.html:32
 msgid "Don’t have an account yet?"
