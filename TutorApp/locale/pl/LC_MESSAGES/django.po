@@ -1582,7 +1582,7 @@ msgstr ""
 
 #: .\templates\quizes\question_review.html:27
 msgid "Question image"
-msgstr ""
+msgstr "Obrazek do pytania"
 
 #: .\templates\quizes\question_review.html:52
 #, fuzzy
