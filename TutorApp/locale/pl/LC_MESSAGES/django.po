@@ -1556,10 +1556,9 @@ msgid "Add New Quiz"
 msgstr "Dodaj Nowy Quiz"
 
 #: .\templates\quizes\delete_quiz.html:6
-#, fuzzy
-#| msgid "Start Quiz"
+
 msgid "Delete Quiz"
-msgstr "Rozpocznij quiz"
+msgstr "Usuń quiz"
 
 #: .\templates\quizes\delete_quiz.html:9
 msgid "Are you sure you want to delete quiz:"
