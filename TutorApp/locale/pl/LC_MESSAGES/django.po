@@ -1562,7 +1562,7 @@ msgstr "Usuń quiz"
 
 #: .\templates\quizes\delete_quiz.html:9
 msgid "Are you sure you want to delete quiz:"
-msgstr ""
+msgstr "Czy na pewno chcesz usunąć quiz:"
 
 #: .\templates\quizes\question_review.html:14
 #, python-format
