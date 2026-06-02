@@ -1596,7 +1596,7 @@ msgstr "Dostępne Quizy"
 
 #: .\templates\quizes\quiz_list.html:36
 msgid "LP"
-msgstr ""
+msgstr "LP"
 
 #: .\templates\quizes\quiz_list.html:39
 msgid "Number of questions"
