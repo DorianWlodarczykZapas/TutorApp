@@ -1549,7 +1549,7 @@ msgstr "Odpowiedzi"
 
 #: .\templates\quizes\add_question.html:16
 msgid "Save Question"
-msgstr ""
+msgstr "Zapisz Pytanie"
 
 #: .\templates\quizes\add_quiz.html:5 .\templates\quizes\add_quiz.html:17
 msgid "Add New Quiz"
