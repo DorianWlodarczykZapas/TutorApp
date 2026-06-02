@@ -1767,7 +1767,7 @@ msgstr "Tytuł I Timestampy"
 
 #: .\templates\videos\add_video_wizard.html:77
 msgid "Time"
-msgstr ""
+msgstr "Czas"
 
 #: .\templates\videos\add_video_wizard.html:78 .\videos\forms\video_forms.py:46
 msgid "Label"
