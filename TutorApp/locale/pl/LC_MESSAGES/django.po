@@ -1643,7 +1643,7 @@ msgstr "Rozpocznij Quiz"
 
 #: .\templates\quizes\quiz_list.html:86
 msgid "No quizzes available"
-msgstr ""
+msgstr "Brak dostępnych quizów"
 
 #: .\templates\quizes\quiz_solve_wizard.html:4
 #, fuzzy
