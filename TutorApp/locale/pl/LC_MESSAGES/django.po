@@ -1791,7 +1791,7 @@ msgstr "Marzec"
 
 #: .\templates\videos\section_video_list.html:18
 msgid "Watch"
-msgstr ""
+msgstr "Obejrz"
 
 #: .\templates\videos\section_video_list.html:21
 msgid "No videos available."
