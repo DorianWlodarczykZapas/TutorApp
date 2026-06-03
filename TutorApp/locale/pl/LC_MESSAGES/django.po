@@ -1984,7 +1984,7 @@ msgstr "Timestamp nagrania"
 
 #: .\videos\models.py:96
 msgid "Video Timestamps"
-msgstr ""
+msgstr "Timestampy nagrania"
 
 #: .\videos\services.py:117
 msgid "No valid timestamps found"
