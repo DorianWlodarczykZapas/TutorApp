@@ -1866,7 +1866,7 @@ msgstr "Wyczyść filtry"
 
 #: .\templates\videos\video_list.html:145
 msgid "to see all videos."
-msgstr ""
+msgstr "by zobaczyc wszystkie nagrania"
 
 #: .\templates\videos\video_list.html:152
 msgid "Browse by Section"
