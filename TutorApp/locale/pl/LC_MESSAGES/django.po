@@ -1992,7 +1992,7 @@ msgstr "Nie znaleziono poprawnych timestampów"
 
 #: .\videos\views\video_views.py:48
 msgid "Invalid timestamp data. Please check your changes."
-msgstr ""
+msgstr "Niepoprawny timestamp. Sprawdź swoje zmiany."
 
 #: .\videos\views\video_views.py:73
 #, python-format
