@@ -1858,7 +1858,7 @@ msgstr ""
 
 #: .\templates\videos\video_list.html:143
 msgid "No videos found matching your criteria."
-msgstr ""
+msgstr "Brak nagrań spełniających twoje kryteria"
 
 #: .\templates\videos\video_list.html:144
 msgid "Clear filters"
