@@ -1835,7 +1835,7 @@ msgstr "Obejrz Film"
 
 #: .\templates\videos\video_list.html:79
 msgid "Video pagination"
-msgstr ""
+msgstr "Paginacja nagrań"
 
 #: .\templates\videos\video_list.html:134
 #, fuzzy, python-format
