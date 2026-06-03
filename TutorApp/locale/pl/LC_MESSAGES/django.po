@@ -1980,7 +1980,7 @@ msgstr "Format: GG:MM:SS"
 
 #: .\videos\models.py:95
 msgid "Video Timestamp"
-msgstr ""
+msgstr "Timestamp nagrania"
 
 #: .\videos\models.py:96
 msgid "Video Timestamps"
