@@ -1988,7 +1988,7 @@ msgstr "Timestampy nagrania"
 
 #: .\videos\services.py:117
 msgid "No valid timestamps found"
-msgstr ""
+msgstr "Nie znaleziono poprawnych timestampów"
 
 #: .\videos\views\video_views.py:48
 msgid "Invalid timestamp data. Please check your changes."
