@@ -1795,7 +1795,7 @@ msgstr "Obejrz"
 
 #: .\templates\videos\section_video_list.html:21
 msgid "No videos available."
-msgstr ""
+msgstr "Brak dostępnych nagrań."
 
 #: .\templates\videos\video_details.html:10
 #, python-format
