@@ -1862,7 +1862,7 @@ msgstr "Brak nagrań spełniających twoje kryteria"
 
 #: .\templates\videos\video_list.html:144
 msgid "Clear filters"
-msgstr ""
+msgstr "Wyczyść filtry"
 
 #: .\templates\videos\video_list.html:145
 msgid "to see all videos."
