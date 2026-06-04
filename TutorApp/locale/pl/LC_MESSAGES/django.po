@@ -2006,10 +2006,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Advanced"
-#~ msgid "Advanced Features"
-#~ msgstr "Zaawansowany"
+
 
 #~ msgid "Current Plan"
 #~ msgstr "Obecny Plan"
