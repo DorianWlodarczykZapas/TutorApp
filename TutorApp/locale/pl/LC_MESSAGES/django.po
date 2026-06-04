@@ -2014,10 +2014,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "In progress"
-#~ msgid "Progress"
-#~ msgstr "W trakcie"
+
 
 #, fuzzy
 #~| msgid "Add Book"
