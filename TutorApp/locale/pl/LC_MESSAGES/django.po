@@ -2013,8 +2013,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Search..."
-#~ msgstr "Wyszukiwanie..."
 
 #, fuzzy
 #~| msgid "In progress"
