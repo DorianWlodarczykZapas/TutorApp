@@ -2015,12 +2015,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-
-#, fuzzy
-#~| msgid "Add Book"
-#~ msgid "Book:"
-#~ msgstr "Dodaj Książkę"
-
 #, fuzzy
 #~| msgid "Book section"
 #~ msgid "Section:"
