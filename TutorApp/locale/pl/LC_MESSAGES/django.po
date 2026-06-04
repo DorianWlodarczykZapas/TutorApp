@@ -1999,10 +1999,7 @@ msgstr "Niepoprawny timestamp. Sprawdź swoje zmiany."
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
-#, fuzzy
-#~| msgid "Videos"
-#~ msgid "Filter Videos"
-#~ msgstr "Nagrania"
+
 
 #, fuzzy
 #~| msgid "Book section"
