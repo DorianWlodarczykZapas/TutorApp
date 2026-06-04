@@ -2007,10 +2007,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-
-#~ msgid "Current Plan"
-#~ msgstr "Obecny Plan"
-
 #, fuzzy
 #~| msgid "Functions"
 #~ msgid "Active"
