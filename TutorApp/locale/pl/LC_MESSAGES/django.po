@@ -2011,10 +2011,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Book section"
-#~ msgid "All sections"
-#~ msgstr "Dział z książki"
+
 
 #~ msgid "Search..."
 #~ msgstr "Wyszukiwanie..."
