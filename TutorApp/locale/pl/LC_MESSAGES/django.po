@@ -2003,11 +2003,8 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-\
-#, fuzzy
-#~| msgid "Level"
-#~ msgid "All Levels"
-#~ msgstr "Poziom"
+
+
 
 #, fuzzy
 #~| msgid "Advanced"
