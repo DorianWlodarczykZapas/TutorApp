@@ -2009,8 +2009,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Your current plan"
-#~ msgstr "Twój Obecny Plan"
+
 
 #, fuzzy
 #~| msgid "Book section"
