@@ -792,7 +792,7 @@ msgstr "Liczba pytań musi być dodatnia"
 #: .\quizes\models.py:50
 #, python-format
 msgid "Cannot request %(requested)d questions. Only %(available)d available."
-msgstr ""
+msgstr "Nie można wybrać %(requested)d pytań. Dostępnych jest tylko %(available)d."
 
 #: .\quizes\services\solve_quiz_services.py:47
 #, python-format
