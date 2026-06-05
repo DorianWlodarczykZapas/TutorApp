@@ -331,10 +331,9 @@ msgid "Training task added successfully!"
 msgstr "Zadanie dodano pomyślnie"
 
 #: .\courses\views\training_task_views.py:115
-#, fuzzy
-#| msgid "Password reset complete"
+
 msgid "Task marked as completed!"
-msgstr "Resetowanie hasła zakończone"
+msgstr "Zadanie oznaczone jako ukończone!"
 
 #: .\examination_tasks\choices.py:10
 msgid "January"
