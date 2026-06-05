@@ -797,7 +797,7 @@ msgstr "Nie można wybrać %(requested)d pytań. Dostępnych jest tylko %(availa
 #: .\quizes\services\solve_quiz_services.py:47
 #, python-format
 msgid "Question %(id)s does not exist"
-msgstr ""
+msgstr "Pytanie %(id)s nie istnieje"
 
 #: .\quizes\services\solve_quiz_services.py:86
 msgid "Question must have both correct and incorrect answers"
