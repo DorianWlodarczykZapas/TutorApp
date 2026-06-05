@@ -811,7 +811,7 @@ msgstr "Wynik nie może być ujemny"
 #, fuzzy
 #| msgid "Number of questions must be positive"
 msgid "Max score must be positive"
-msgstr "Liczba pytań musi być dodatnia"
+msgstr "Maksymalny wynik musi być dodatni"
 
 #: .\quizes\services\solve_quiz_services.py:139
 msgid "Score cannot be greater than max score"
