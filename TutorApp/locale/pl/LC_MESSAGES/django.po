@@ -251,7 +251,7 @@ msgstr ""
 
 #: .\courses\models.py:83 .\courses\models.py:86
 msgid "Use $...$ for inline math, e.g., $x=2$"
-msgstr ""
+msgstr "Użyj $...$ dla matematyki inline, np. $x=2$"
 
 #: .\courses\models.py:137
 msgid "Book task requires a book."
