@@ -262,10 +262,9 @@ msgid "Book task requires a page number."
 msgstr "Zadanie z ksiązki wymaga podania numeru strony"
 
 #: .\courses\models.py:149 .\users\models.py:24
-#, fuzzy
-#| msgid "Username"
+
 msgid "User"
-msgstr "Nazwa użytkownika"
+msgstr "Użytkownik"
 
 #: .\courses\models.py:154
 #: .\templates\examination_tasks\exam_task_preview.html:4
