@@ -281,10 +281,9 @@ msgid "User Task Completion"
 msgstr "Zbiór zadań"
 
 #: .\courses\models.py:163
-#, fuzzy
-#| msgid "Task Collection"
+
 msgid "User Task Completions"
-msgstr "Zbiór zadań"
+msgstr "Zadania ukończone przez użytkownika"
 
 #: .\courses\tests\training_tasks_tests.py:199
 #: .\templates\navigation_links\courses.html:4
