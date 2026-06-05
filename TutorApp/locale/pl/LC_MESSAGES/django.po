@@ -602,7 +602,7 @@ msgstr "Nie można odczytać ścieżki do pliku PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:332
 msgid "An internal server error has occurred."
-msgstr ""
+msgstr "Wystąpił wewnętrzny błąd serwera."
 
 #: .\examination_tasks\views\exam_views.py:33
 #: .\templates\examination_tasks\add_exam.html:5
