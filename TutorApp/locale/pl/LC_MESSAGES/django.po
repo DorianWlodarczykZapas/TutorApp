@@ -782,6 +782,8 @@ msgid ""
 "This quiz has only %(available)d question(s). You cannot select "
 "%(requested)d."
 msgstr ""
+"Ten quiz zawiera tylko %(available)d pytanie/pytań. Nie możesz wybrać "
+"%(requested)d."
 
 #: .\quizes\models.py:45
 msgid "Number of questions must be positive"
