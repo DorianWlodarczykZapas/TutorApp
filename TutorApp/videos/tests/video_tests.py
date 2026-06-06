@@ -93,3 +93,18 @@ class AddVideoViewTest(TestCase):
             timestamp = VideoTimestamp.objects.get(video=video)
             self.assertEqual(timestamp.label, "Introduction")
             self.assertEqual(timestamp.start_time, timedelta(seconds=10))
+
+    def test_invalid_youtube_url(self):
+        """Test case that contains invalid youtube url"""
+        self.client.force_login(self.teacher)
+        invalid_step_1 = {
+            **self.step_1_data,
+            "step_1-youtube_url": "xyz",
+        }
+
+        response = self.client.post(self.url, invalid_step_1)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(Video.objects.exists())
+        form = response.context["form"]
+        self.assertFormError(form, "youtube_url", "Enter a valid URL.")
