@@ -52,3 +52,11 @@ class AddVideoViewTest(TestCase):
         """Test case that checks if unauthorized access is working"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
+
+    def test_can_teacher_access(self):
+        """
+        Test case that checks if teacher can access adding topic page
+        """
+        self.client.force_login(self.teacher)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
