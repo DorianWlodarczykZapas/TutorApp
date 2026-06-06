@@ -164,3 +164,20 @@ class AddVideoViewTest(TestCase):
             self.assertEqual(
                 str(messages[0]), "Invalid timestamp data. Please check your changes."
             )
+
+    def test_missing_section(self):
+        """Test case that contains missing section"""
+
+        self.client.force_login(self.teacher)
+
+        invalid_step_1 = {
+            **self.step_1_data,
+            "step_1-section": "",
+        }
+
+        response = self.client.post(self.url, invalid_step_1)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(Video.objects.exists())
+        form = response.context["form"]
+        self.assertFormError(form, "section", "This field is required.")
