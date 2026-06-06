@@ -108,3 +108,30 @@ class AddVideoViewTest(TestCase):
         self.assertFalse(Video.objects.exists())
         form = response.context["form"]
         self.assertFormError(form, "youtube_url", "Enter a valid URL.")
+
+    def test_missing_title(self):
+        """Test case that contains missing title"""
+
+        self.client.force_login(self.teacher)
+
+        invalid_step_2 = {
+            **self.step_2_data,
+            "step_2-title": "",
+        }
+
+        with patch("videos.views.video_views.YoutubeService") as MockService:
+            instance = MockService.return_value
+            instance.extract_video_title_and_description.return_value = (
+                self.mock_service_data
+            )
+            instance.parse_timestamps.return_value = self.mock_timestamps
+
+            response = self.client.post(self.url, self.step_1_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(Video.objects.exists())
+
+            response = self.client.post(self.url, invalid_step_2)
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(Video.objects.exists())
+            form = response.context["form"]
+            self.assertFormError(form, "title", "This field cannot be blank.")
