@@ -1,4 +1,5 @@
 from datetime import timedelta
+from unittest.mock import patch
 
 from courses.choices import SubjectChoices
 from courses.tests.factories import SectionFactory
@@ -6,7 +7,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from users.factories import TeacherFactory, UserFactory
 
-from TutorApp.videos.models import VideoTimestamp
+from .videos.models import Video, VideoTimestamp
 
 
 class AddVideoViewTest(TestCase):
@@ -66,3 +67,29 @@ class AddVideoViewTest(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
+    def test_teacher_can_add_video(self):
+        """Test case that checks if teacher can add video"""
+        self.client.force_login(self.teacher)
+
+        with patch("videos.views.video_views.YoutubeService") as MockService:
+            instance = MockService.return_value
+            instance.extract_video_title_and_description.return_value = (
+                self.mock_service_data
+            )
+            instance.parse_timestamps.return_value = self.mock_timestamps
+
+            response = self.client.post(self.url, self.step_1_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(Video.objects.exists())
+
+            response = self.client.post(self.url, self.step_2_data)
+            self.assertRedirects(response, reverse("videos:video_list"))
+
+            video = Video.objects.get(title="Test Video")
+            self.assertEqual(video.youtube_url, "https://www.youtube.com/watch?v=xxxxx")
+            self.assertEqual(video.section, self.section)
+
+            timestamp = VideoTimestamp.objects.get(video=video)
+            self.assertEqual(timestamp.label, "Introduction")
+            self.assertEqual(timestamp.start_time, timedelta(seconds=10))
