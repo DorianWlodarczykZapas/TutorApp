@@ -135,3 +135,32 @@ class AddVideoViewTest(TestCase):
             self.assertFalse(Video.objects.exists())
             form = response.context["form"]
             self.assertFormError(form, "title", "This field cannot be blank.")
+
+    def test_invalid_timestamp_data(self):
+        """Test case that checks with invalid timestamp data"""
+        self.client.force_login(self.teacher)
+
+        invalid_step_2 = {
+            **self.step_2_data,
+            "timestamps-0-label": "",
+        }
+
+        with patch("videos.views.video_views.YoutubeService") as MockService:
+            instance = MockService.return_value
+            instance.extract_video_title_and_description.return_value = (
+                self.mock_service_data
+            )
+            instance.parse_timestamps.return_value = self.mock_timestamps
+
+            response = self.client.post(self.url, self.step_1_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(Video.objects.exists())
+
+            response = self.client.post(self.url, invalid_step_2)
+            self.assertEqual(response.status_code, 302)
+            self.assertRedirects(response, reverse("videos:add_video"))
+            self.assertFalse(Video.objects.exists())
+            messages = list(response.wsgi_request._messages)
+            self.assertEqual(
+                str(messages[0]), "Invalid timestamp data. Please check your changes."
+            )
