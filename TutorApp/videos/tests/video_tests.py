@@ -1,8 +1,12 @@
+from datetime import timedelta
+
 from courses.choices import SubjectChoices
 from courses.tests.factories import SectionFactory
 from django.test import Client, TestCase
 from django.urls import reverse
 from users.factories import TeacherFactory, UserFactory
+
+from TutorApp.videos.models import VideoTimestamp
 
 
 class AddVideoViewTest(TestCase):
@@ -35,3 +39,11 @@ class AddVideoViewTest(TestCase):
             "title": "Test Video Title",
             "description": "Test Video Description",
         }
+
+        self.mock_timestamps = [
+            {
+                "label": "Introduction",
+                "start_time": timedelta(seconds=10),
+                "timestamp_type": VideoTimestamp.TimestampType.MATRICULATION_BASIC,
+            }
+        ]
