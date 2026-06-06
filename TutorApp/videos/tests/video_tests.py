@@ -30,3 +30,8 @@ class AddVideoViewTest(TestCase):
             "timestamps-0-start_time": "00:00:10",
             "timestamps-0-timestamp_type": 4,
         }
+
+        self.mock_service_data = {
+            "title": "Test Video Title",
+            "description": "Test Video Description",
+        }
