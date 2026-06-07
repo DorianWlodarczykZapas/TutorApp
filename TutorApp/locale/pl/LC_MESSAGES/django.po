@@ -2032,8 +2032,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Submit"
-#~ msgstr "Zatwierdź"
+
 
 #, fuzzy
 #~| msgid "Back to Exam List"
