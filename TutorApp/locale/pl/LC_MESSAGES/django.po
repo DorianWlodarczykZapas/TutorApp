@@ -2016,10 +2016,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Task preview"
-#~ msgid "Preview"
-#~ msgstr "Podgląd zadania"
+
 
 #~ msgid "Education level"
 #~ msgstr "Poziom edukacji"
