@@ -2018,8 +2018,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Education level"
-#~ msgstr "Poziom edukacji"
+
 
 #~ msgid "YouTube link"
 #~ msgstr "Link do YouTube"
