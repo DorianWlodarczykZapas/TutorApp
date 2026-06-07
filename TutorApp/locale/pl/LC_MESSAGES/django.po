@@ -2014,10 +2014,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Go to Task"
-#~ msgid "Next Task"
-#~ msgstr "Przejdź do zadania"
+
 
 #, fuzzy
 #~| msgid "Task preview"
