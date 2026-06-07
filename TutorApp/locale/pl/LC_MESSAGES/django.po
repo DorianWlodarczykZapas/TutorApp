@@ -2029,10 +2029,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Functions"
-#~ msgid "Sections"
-#~ msgstr "Funkcje"
 
 #, fuzzy
 #~| msgid "Book section"
