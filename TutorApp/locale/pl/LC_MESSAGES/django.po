@@ -2022,8 +2022,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Topic title from the book"
-#~ msgstr "Tytuł tematu z książki"
+
 
 #~ msgid "https://youtube.com/..."
 #~ msgstr "https://youtube.com/..."
