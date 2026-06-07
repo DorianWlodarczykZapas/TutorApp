@@ -2026,8 +2026,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Calendar"
-#~ msgstr "Kalendarz"
 
 #, fuzzy
 #~| msgid "Task"
