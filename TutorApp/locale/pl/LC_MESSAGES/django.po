@@ -2024,8 +2024,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "https://youtube.com/..."
-#~ msgstr "https://youtube.com/..."
+
 
 #~ msgid "Calendar"
 #~ msgstr "Kalendarz"
