@@ -2034,10 +2034,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Back to Exam List"
-#~ msgid "Back to topics"
-#~ msgstr "Powrót do listy egzaminów"
+
 
 #~ msgid "Subcategory"
 #~ msgstr "Podkategoria"
