@@ -2027,10 +2027,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#, fuzzy
-#~| msgid "Task"
-#~ msgid "Tasks"
-#~ msgstr "Zadanie"
+
 
 #, fuzzy
 #~| msgid "Functions"
