@@ -2036,8 +2036,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Subcategory"
-#~ msgstr "Podkategoria"
 
 #~ msgid "e.g. operations on fractions"
 #~ msgstr "np. działania na ułamkach"
