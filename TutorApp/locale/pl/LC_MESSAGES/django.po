@@ -2046,8 +2046,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Rational functions (x in denominator)"
-#~ msgstr "Funkcje wymierne (x w mianowniku)"
+
 
 #~ msgid "Prisms"
 #~ msgstr "Graniastosłupy"
