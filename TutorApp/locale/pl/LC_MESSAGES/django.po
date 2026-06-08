@@ -2050,8 +2050,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Limits"
-#~ msgstr "Granice"
+
 
 #~ msgid "Spheres, cylinders and cones"
 #~ msgstr "Bryły: kula, walec, stożek"
