@@ -2052,8 +2052,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Spheres, cylinders and cones"
-#~ msgstr "Bryły: kula, walec, stożek"
+
 
 #~ msgid "Logarithms"
 #~ msgstr "Logarytmy"
