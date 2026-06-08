@@ -2037,8 +2037,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "e.g. operations on fractions"
-#~ msgstr "np. działania na ułamkach"
+
 
 #~ msgid "Proofs (Special products)"
 #~ msgstr "Dowody (wzory skróconego mnożenia)"
