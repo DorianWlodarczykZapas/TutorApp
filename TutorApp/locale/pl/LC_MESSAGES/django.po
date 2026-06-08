@@ -2048,8 +2048,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Prisms"
-#~ msgstr "Graniastosłupy"
+
 
 #~ msgid "Limits"
 #~ msgstr "Granice"
