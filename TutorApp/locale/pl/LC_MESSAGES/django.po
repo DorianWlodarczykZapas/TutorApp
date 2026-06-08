@@ -2039,8 +2039,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Proofs (Special products)"
-#~ msgstr "Dowody (wzory skróconego mnożenia)"
 
 #~ msgid "Proofs (Divisibility)"
 #~ msgstr "Dowody (podzielność)"
