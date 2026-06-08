@@ -2044,8 +2044,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Quadratic function – optimization"
-#~ msgstr "Funkcja kwadratowa – optymalizacja"
+
 
 #~ msgid "Rational functions (x in denominator)"
 #~ msgstr "Funkcje wymierne (x w mianowniku)"
