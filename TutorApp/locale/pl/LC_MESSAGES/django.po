@@ -2054,8 +2054,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Logarithms"
-#~ msgstr "Logarytmy"
+
 
 #~ msgid "Inequalities and equations"
 #~ msgstr "Nierówności i równania"
