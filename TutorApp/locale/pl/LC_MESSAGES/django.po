@@ -2042,8 +2042,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Quadratic function – Viète's formulas"
-#~ msgstr "Funkcja kwadratowa – wzory Viète’a"
+
 
 #~ msgid "Quadratic function – optimization"
 #~ msgstr "Funkcja kwadratowa – optymalizacja"
