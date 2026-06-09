@@ -2076,8 +2076,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Geometric series"
-#~ msgstr "Ciągi geometryczne"
 
 #~ msgid "Special product formulas"
 #~ msgstr "Wzory skróconego mnożenia"
