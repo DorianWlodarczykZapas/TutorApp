@@ -2062,8 +2062,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Planimetry – quadrilaterals"
-#~ msgstr "Planimetria – czworokąty"
+
 
 #~ msgid "Planimetry – triangles and circles"
 #~ msgstr "Planimetria – trójkąty i okręgi"
