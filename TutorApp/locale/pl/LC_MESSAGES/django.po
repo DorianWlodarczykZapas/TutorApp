@@ -2066,8 +2066,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Derivative – optimization"
-#~ msgstr "Pochodna – optymalizacja"
+
 
 #~ msgid "Derivative"
 #~ msgstr "Pochodna"
