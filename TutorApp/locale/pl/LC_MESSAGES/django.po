@@ -2058,8 +2058,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Reading function properties"
-#~ msgstr "Odczytywanie właściwości funkcji"
+
 
 #~ msgid "Pyramids"
 #~ msgstr "Graniastosłupy prawidłowe (ostrosłupy)"
