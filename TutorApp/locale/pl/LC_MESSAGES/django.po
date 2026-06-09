@@ -2074,8 +2074,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Equations with absolute value"
-#~ msgstr "Równania z wartością bezwzględną"
+
 
 #~ msgid "Geometric series"
 #~ msgstr "Ciągi geometryczne"
