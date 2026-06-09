@@ -2070,8 +2070,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Percentages"
-#~ msgstr "Procenty"
+
 
 #~ msgid "Trigonometric equations and inequalities"
 #~ msgstr "Równania i nierówności trygonometryczne"
