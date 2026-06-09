@@ -2064,8 +2064,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Planimetry – triangles and circles"
-#~ msgstr "Planimetria – trójkąty i okręgi"
+
 
 #~ msgid "Derivative – optimization"
 #~ msgstr "Pochodna – optymalizacja"
