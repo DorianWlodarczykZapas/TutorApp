@@ -2072,8 +2072,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Trigonometric equations and inequalities"
-#~ msgstr "Równania i nierówności trygonometryczne"
+
 
 #~ msgid "Equations with absolute value"
 #~ msgstr "Równania z wartością bezwzględną"
