@@ -2060,8 +2060,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Pyramids"
-#~ msgstr "Graniastosłupy prawidłowe (ostrosłupy)"
+
 
 #~ msgid "Planimetry – quadrilaterals"
 #~ msgstr "Planimetria – czworokąty"
