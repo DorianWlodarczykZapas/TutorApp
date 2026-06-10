@@ -2077,8 +2077,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Special product formulas"
-#~ msgstr "Wzory skróconego mnożenia"
+
 
 #~ msgid "Non-standard tasks"
 #~ msgstr "Zadania niestandardowe"
