@@ -2078,8 +2078,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Start typing to search category"
-#~ msgstr "Zacznij wpisywać nazwę kategorii"
+
 
 #~ msgid "Choose a category for your math quiz"
 #~ msgstr "Wybierz kategorię do quizu z matematyki"
