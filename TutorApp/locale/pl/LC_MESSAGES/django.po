@@ -2080,8 +2080,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Choose a category for your math quiz"
-#~ msgstr "Wybierz kategorię do quizu z matematyki"
+
 
 #~ msgid "Real numbers"
 #~ msgstr "Liczby rzeczywiste"
