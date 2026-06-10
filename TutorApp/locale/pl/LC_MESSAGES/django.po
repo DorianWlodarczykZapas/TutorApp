@@ -2084,8 +2084,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Language of mathematics"
-#~ msgstr "Język matematyki"
+
 
 #~ msgid "Systems of equations"
 #~ msgstr "Układy równań"
