@@ -2076,8 +2076,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Task Category"
-#~ msgstr "Kategoria zadania"
+
 
 #~ msgid "Start typing to search category"
 #~ msgstr "Zacznij wpisywać nazwę kategorii"
