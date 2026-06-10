@@ -2079,8 +2079,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Non-standard tasks"
-#~ msgstr "Zadania niestandardowe"
+
 
 #~ msgid "You do not have permission to access this page."
 #~ msgstr "Nie masz uprawnień dostępu do tej strony"
