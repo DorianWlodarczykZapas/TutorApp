@@ -2081,8 +2081,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "You do not have permission to access this page."
-#~ msgstr "Nie masz uprawnień dostępu do tej strony"
+
 
 #~ msgid "Add Matriculation Task"
 #~ msgstr "Dodaj zadanie maturalne"
