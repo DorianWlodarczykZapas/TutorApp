@@ -2086,8 +2086,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Systems of equations"
-#~ msgstr "Układy równań"
 
 #~ msgid "Linear function"
 #~ msgstr "Funkcja liniowa"
