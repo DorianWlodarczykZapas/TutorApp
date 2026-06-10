@@ -2082,8 +2082,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Real numbers"
-#~ msgstr "Liczby rzeczywiste"
+
 
 #~ msgid "Language of mathematics"
 #~ msgstr "Język matematyki"
