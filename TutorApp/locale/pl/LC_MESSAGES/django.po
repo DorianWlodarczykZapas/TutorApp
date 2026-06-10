@@ -2075,8 +2075,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Add New Matriculation Task"
-#~ msgstr "Dodaj nowe zadanie maturalne"
 
 #~ msgid "Task Category"
 #~ msgstr "Kategoria zadania"
