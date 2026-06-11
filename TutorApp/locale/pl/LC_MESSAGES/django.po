@@ -2103,8 +2103,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Sequences"
-#~ msgstr "Ciągi"
 
 #~ msgid "Differential calculus"
 #~ msgstr "Rachunek różniczkowy"
