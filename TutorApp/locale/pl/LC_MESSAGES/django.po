@@ -2104,8 +2104,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Differential calculus"
-#~ msgstr "Rachunek różniczkowy"
+
 
 #~ msgid "Probability"
 #~ msgstr "Prawdopodobieństwo"
