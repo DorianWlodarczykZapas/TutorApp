@@ -2100,8 +2100,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Trigonometric functions"
-#~ msgstr "Funkcje trygonometryczne"
+
 
 #~ msgid "Analytical geometry"
 #~ msgstr "Geometria analityczna"
