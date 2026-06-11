@@ -2108,8 +2108,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Stereometry"
-#~ msgstr "Stereometria"
+
 
 #~ msgid ""
 #~ "To print or download, hover over the document and use the toolbar that "
