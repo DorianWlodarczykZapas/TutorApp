@@ -2092,8 +2092,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Polynomials"
-#~ msgstr "Wielomiany"
 
 #~ msgid "Measurable function"
 #~ msgstr "Funkcja wymierna"
