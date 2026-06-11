@@ -2089,8 +2089,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Planimetry"
-#~ msgstr "Planimetria"
 
 #~ msgid "Quadratic function"
 #~ msgstr "Funkcja kwadratowa"
