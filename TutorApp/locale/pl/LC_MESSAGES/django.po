@@ -2102,8 +2102,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Analytical geometry"
-#~ msgstr "Geometria analityczna"
 
 #~ msgid "Sequences"
 #~ msgstr "Ciągi"
