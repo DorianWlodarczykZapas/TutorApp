@@ -2096,8 +2096,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Planimetry circles"
-#~ msgstr "Okręgi w planimetrii"
+
 
 #~ msgid "Exponential and logarithmic functions"
 #~ msgstr "Funkcje wykładnicze i logarytmy"
