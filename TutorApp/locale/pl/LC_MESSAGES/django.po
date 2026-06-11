@@ -2090,8 +2090,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Quadratic function"
-#~ msgstr "Funkcja kwadratowa"
+
 
 #~ msgid "Polynomials"
 #~ msgstr "Wielomiany"
