@@ -2098,8 +2098,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Exponential and logarithmic functions"
-#~ msgstr "Funkcje wykładnicze i logarytmy"
+
 
 #~ msgid "Trigonometric functions"
 #~ msgstr "Funkcje trygonometryczne"
