@@ -2106,8 +2106,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Probability"
-#~ msgstr "Prawdopodobieństwo"
+
 
 #~ msgid "Stereometry"
 #~ msgstr "Stereometria"
