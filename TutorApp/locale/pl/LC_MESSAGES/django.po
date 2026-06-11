@@ -2094,8 +2094,7 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Trigonometry"
-#~ msgstr "Trygonometria"
+
 
 #~ msgid "Planimetry circles"
 #~ msgstr "Okręgi w planimetrii"
