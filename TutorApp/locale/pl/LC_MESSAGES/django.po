@@ -2093,8 +2093,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid "Measurable function"
-#~ msgstr "Funkcja wymierna"
 
 #~ msgid "Trigonometry"
 #~ msgstr "Trygonometria"
