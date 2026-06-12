@@ -2110,12 +2110,6 @@ msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
 
 
 
-#~ msgid ""
-#~ "To print or download, hover over the document and use the toolbar that "
-#~ "appears in the corner, or right-click on it."
-#~ msgstr ""
-#~ "Aby wydrukować lub pobrać, najedź myszką na dokument i użyj paska "
-#~ "narzędzi, który pojawi się w rogu, lub kliknij prawym przyciskiem myszy."
 
 #~ msgid "There is no question in this attempt"
 #~ msgstr "W tej próbie nie ma żadnych pytań"
