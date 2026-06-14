@@ -1966,8 +1966,7 @@ msgid "Matriculation Extended"
 msgstr "Matura"
 
 #: .\videos\models.py:43
-#, fuzzy
-#| msgid "Eighth Grade Exam"
+
 msgid "Eight Exam"
 msgstr "Egzamin Ósmoklasisty"
 
