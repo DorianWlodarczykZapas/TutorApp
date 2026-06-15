@@ -1960,10 +1960,9 @@ msgid "Matriculation Basic"
 msgstr "Matura"
 
 #: .\videos\models.py:42
-#, fuzzy
-#| msgid "Matriculation Exam"
+
 msgid "Matriculation Extended"
-msgstr "Matura"
+msgstr "Matura Rozszerzona"
 
 #: .\videos\models.py:43
 
@@ -1994,117 +1993,6 @@ msgstr "Niepoprawny timestamp. Sprawdź swoje zmiany."
 #, python-format
 msgid "Movie '%(title)s' added successfully!"
 msgstr "Nagranie '%(title)s' zostało dodane pomyślnie!"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
