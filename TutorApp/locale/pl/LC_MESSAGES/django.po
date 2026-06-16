@@ -1954,10 +1954,9 @@ msgid "Lecture"
 msgstr "Lekcja"
 
 #: .\videos\models.py:41
-#, fuzzy
-#| msgid "Matriculation Exam"
+
 msgid "Matriculation Basic"
-msgstr "Matura"
+msgstr "Matura Podstawowa"
 
 #: .\videos\models.py:42
 
