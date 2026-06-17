@@ -1940,10 +1940,9 @@ msgid "Start time"
 msgstr "Rozpocznij quiz"
 
 #: .\videos\forms\video_forms.py:69
-#, fuzzy
-#| msgid "Search in task"
+
 msgid "Search videos"
-msgstr "Wyszukiwanie w zadaniu"
+msgstr "Wyszukaj nagrania"
 
 #: .\videos\models.py:38
 msgid "Exercise"
