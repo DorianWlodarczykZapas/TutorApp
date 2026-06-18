@@ -1934,10 +1934,9 @@ msgid "YouTube URL"
 msgstr "Link do YouTube"
 
 #: .\videos\forms\video_forms.py:50
-#, fuzzy
-#| msgid "Start Quiz"
+
 msgid "Start time"
-msgstr "Rozpocznij quiz"
+msgstr "Czas rozpoczęcia"
 
 #: .\videos\forms\video_forms.py:69
 
