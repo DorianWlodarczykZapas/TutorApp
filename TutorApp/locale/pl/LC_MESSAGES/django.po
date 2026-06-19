@@ -1928,8 +1928,7 @@ msgid "Invalid username or password."
 msgstr "Niepoprawna nazwa użytkownika bądź hasło."
 
 #: .\videos\forms\video_forms.py:12
-#, fuzzy
-#| msgid "YouTube link"
+
 msgid "YouTube URL"
 msgstr "Link do YouTube"
 
