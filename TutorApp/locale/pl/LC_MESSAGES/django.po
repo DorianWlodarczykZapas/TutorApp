@@ -1369,8 +1369,7 @@ msgid "Delete"
 msgstr "Usuń"
 
 #: .\templates\motifs\motif_list.html:60
-#, fuzzy
-#| msgid "Exam file not found"
+
 msgid "No motifs found"
 msgstr "Nie znaleziono motywów"
 
