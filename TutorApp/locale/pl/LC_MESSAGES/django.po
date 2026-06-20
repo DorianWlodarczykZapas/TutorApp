@@ -1358,10 +1358,9 @@ msgid "Mandatory"
 msgstr "Wymagane"
 
 #: .\templates\motifs\motif_list.html:49
-#, fuzzy
-#| msgid "Matriculation Exam"
+
 msgid "In matriculation"
-msgstr "Matura"
+msgstr "W maturze"
 
 #: .\templates\motifs\motif_list.html:53 .\templates\quizes\delete_quiz.html:13
 #: .\templates\quizes\quiz_list.html:80
