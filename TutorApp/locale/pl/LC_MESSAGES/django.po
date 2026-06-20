@@ -1501,10 +1501,9 @@ msgid "Choose Your Plan"
 msgstr "Wybierz Swój Plan"
 
 #: .\templates\plans\plans_list.html:17 .\templates\plans\plans_list.html:66
-#, fuzzy
-#| msgid "Plans"
+
 msgid "Plan"
-msgstr "Plany"
+msgstr "Plan"
 
 #: .\templates\plans\plans_list.html:23 .\templates\plans\plans_list.html:71
 msgid "Valid To"
