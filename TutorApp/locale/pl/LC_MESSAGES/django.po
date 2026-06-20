@@ -1649,10 +1649,9 @@ msgid "Solve Quiz"
 msgstr "Rozpocznij quiz"
 
 #: .\templates\quizes\quiz_solve_wizard.html:17
-#, fuzzy
-#| msgid "Select Exam"
+
 msgid "Select answers:"
-msgstr "Wybierz egzamin"
+msgstr "Wybierz odpowiedzi:"
 
 #: .\templates\quizes\quiz_solve_wizard.html:24
 msgid "Finish"
