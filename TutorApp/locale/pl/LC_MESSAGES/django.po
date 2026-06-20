@@ -1771,10 +1771,9 @@ msgid "Label"
 msgstr "Etykieta"
 
 #: .\templates\videos\add_video_wizard.html:79 .\videos\forms\video_forms.py:56
-#, fuzzy
-#| msgid "Exam Type"
+
 msgid "Type"
-msgstr "Rodzaj egzaminu"
+msgstr "Typ"
 
 #: .\templates\videos\add_video_wizard.html:113
 msgid "Save Video"
