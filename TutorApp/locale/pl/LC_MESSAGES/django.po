@@ -1904,16 +1904,14 @@ msgid "This email is already in use."
 msgstr "Ten adres e-mail jest już używany."
 
 #: .\users\mixins.py:19
-#, fuzzy
-#| msgid "Only teachers can add exam tasks."
+
 msgid "Only teachers can perform this action."
-msgstr "Tylko nauczyciele mogą dodawać zadania egzaminacyjne."
+msgstr "Tylko nauczyciele mogą podejmować tą akcję."
 
 #: .\users\models.py:25
-#, fuzzy
-#| msgid "Username"
+
 msgid "Users"
-msgstr "Nazwa użytkownika"
+msgstr "Użytkownicy"
 
 #: .\users\views.py:36
 msgid "Account has been created. You can now log in."
