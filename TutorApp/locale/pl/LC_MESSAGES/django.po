@@ -1342,8 +1342,7 @@ msgid "Picture"
 msgstr "Zdjęcie"
 
 #: .\templates\motifs\motif_list.html:45
-#, fuzzy
-#| msgid "Videos"
+
 msgid "Video"
 msgstr "Nagrania"
 
