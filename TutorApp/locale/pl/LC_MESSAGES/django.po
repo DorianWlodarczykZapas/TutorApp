@@ -1348,10 +1348,9 @@ msgid "Video"
 msgstr "Nagrania"
 
 #: .\templates\motifs\motif_list.html:45
-#, fuzzy
-#| msgid "Examination Tasks"
+
 msgid "Watch explanation"
-msgstr "Egzaminy"
+msgstr "Zobacz wyjaśnienie"
 
 #: .\templates\motifs\motif_list.html:48
 msgid "Mandatory"
