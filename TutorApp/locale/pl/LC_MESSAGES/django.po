@@ -1582,10 +1582,9 @@ msgid "Question image"
 msgstr "Obrazek do pytania"
 
 #: .\templates\quizes\question_review.html:52
-#, fuzzy
-#| msgid "Examination Tasks"
+
 msgid "Explanation image"
-msgstr "Egzaminy"
+msgstr "Ilustracja wyjaśniająca"
 
 #: .\templates\quizes\quiz_list.html:7
 msgid "Available Quizzes"
