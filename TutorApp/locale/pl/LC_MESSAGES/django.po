@@ -1736,10 +1736,9 @@ msgid ""
 msgstr ""
 
 #: .\templates\users\password_reset_form.html:18
-#, fuzzy
-#| msgid "Password reset complete"
+
 msgid "Send password reset email"
-msgstr "Resetowanie hasła zakończone"
+msgstr "Wyślij email resetujący hasło"
 
 #: .\templates\users\register.html:6 .\templates\users\register.html:11
 msgid "Register"
