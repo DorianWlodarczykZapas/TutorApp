@@ -1332,10 +1332,9 @@ msgid "Motifs List"
 msgstr "Lista Motywów"
 
 #: .\templates\motifs\motif_list.html:37
-#, fuzzy
-#| msgid "Task content"
+
 msgid "Content"
-msgstr "Treść zadania"
+msgstr "Treść"
 
 #: .\templates\motifs\motif_list.html:41
 msgid "Picture"
