@@ -1219,10 +1219,9 @@ msgid "Go to Task"
 msgstr "Przejdź do zadania"
 
 #: .\templates\examination_tasks\exam_task_list.html:50
-#, fuzzy
-#| msgid "Number of tasks in this exam"
+
 msgid "There are no tasks for this exam yet."
-msgstr "Liczba zadań w tym egzaminie"
+msgstr "Nie ma jeszcze zadań do tego egzaminu"
 
 #: .\templates\examination_tasks\exam_task_preview.html:10
 msgid "Task preview"
