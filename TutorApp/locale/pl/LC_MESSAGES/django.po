@@ -1069,10 +1069,9 @@ msgid "This file will be moved to the final location after saving."
 msgstr "Ten plik zostanie przeniesiony do końcowej lokalizacji po zapisie"
 
 #: .\templates\examination_tasks\add_exam_task.html:92
-#, fuzzy
-#| msgid "Task content"
+
 msgid "Extracted Task Content"
-msgstr "Treść zadania"
+msgstr "Wyeksportowana treść zadania"
 
 #: .\templates\examination_tasks\add_exam_task.html:100
 msgid "Characters:"
