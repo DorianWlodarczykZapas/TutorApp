@@ -1130,10 +1130,9 @@ msgstr "Progres"
 #: .\templates\examination_tasks\exam_list.html:42
 #: .\templates\examination_tasks\exam_task_list.html:22
 #: .\templates\quizes\quiz_list.html:42
-#, fuzzy
-#| msgid "Functions"
+
 msgid "Action"
-msgstr "Funkcje"
+msgstr "Akcje"
 
 #: .\templates\examination_tasks\exam_list.html:54
 msgid "Go to exam"
