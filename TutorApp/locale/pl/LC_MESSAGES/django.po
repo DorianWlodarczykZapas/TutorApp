@@ -1047,10 +1047,9 @@ msgid "Step 2: Preview Task"
 msgstr "Krok 2: Podgląd zadania"
 
 #: .\templates\examination_tasks\add_exam_task.html:56
-#, fuzzy
-#| msgid "Task preview"
+
 msgid "Task PDF Preview"
-msgstr "Podgląd zadania"
+msgstr "Podgląd PDF zadania"
 
 #: .\templates\examination_tasks\add_exam_task.html:66
 msgid "Open PDF in new tab"
