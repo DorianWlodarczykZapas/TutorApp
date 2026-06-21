@@ -1234,10 +1234,9 @@ msgstr "Egzamin"
 
 #: .\templates\examination_tasks\exam_task_preview.html:24
 #: .\templates\examination_tasks\exam_task_preview.html:79
-#, fuzzy
-#| msgid "Password reset complete"
+
 msgid "Mark as not completed"
-msgstr "Resetowanie hasła zakończone"
+msgstr "Oznacz jako niezakończone"
 
 #: .\templates\examination_tasks\exam_task_preview.html:26
 #: .\templates\examination_tasks\exam_task_preview.html:84
