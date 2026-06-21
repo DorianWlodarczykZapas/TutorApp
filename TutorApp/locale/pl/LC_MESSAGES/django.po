@@ -1251,8 +1251,7 @@ msgid "Show task"
 msgstr "Pokaż zadanie"
 
 #: .\templates\examination_tasks\exam_task_preview.html:33
-#, fuzzy
-#| msgid "Show Answer"
+
 msgid "Show answer"
 msgstr "Pokaż Odpowiedź"
 
