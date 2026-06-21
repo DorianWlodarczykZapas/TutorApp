@@ -1241,10 +1241,9 @@ msgstr "Resetowanie hasła zakończone"
 
 #: .\templates\examination_tasks\exam_task_preview.html:26
 #: .\templates\examination_tasks\exam_task_preview.html:84
-#, fuzzy
-#| msgid "Password reset complete"
+
 msgid "Mark as completed"
-msgstr "Resetowanie hasła zakończone"
+msgstr "Oznacz jako zakończone"
 
 #: .\templates\examination_tasks\exam_task_preview.html:31
 msgid "Show task"
