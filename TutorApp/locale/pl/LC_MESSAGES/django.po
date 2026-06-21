@@ -1083,10 +1083,9 @@ msgid "Preview Error:"
 msgstr "Błąd podglądu:"
 
 #: .\templates\examination_tasks\add_exam_task.html:128
-#, fuzzy
-#| msgid "Back to Exam List"
+
 msgid "Back to Edit"
-msgstr "Powrót do listy egzaminów"
+msgstr "Powrót do edycji"
 
 #: .\templates\examination_tasks\add_exam_task.html:129
 
