@@ -1002,7 +1002,7 @@ msgstr "Dalej"
 
 #: .\templates\courses\training_tasks_list.html:92
 msgid "Last"
-msgstr ""
+msgstr "Ostatni"
 
 #: .\templates\courses\training_tasks_list.html:98
 msgid "No tasks found matching your criteria."
