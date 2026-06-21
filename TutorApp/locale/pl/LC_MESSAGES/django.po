@@ -1017,10 +1017,9 @@ msgid "Add exam"
 msgstr "Dodaj egzamin"
 
 #: .\templates\examination_tasks\add_exam_task.html:11
-#, fuzzy
-#| msgid "Basic"
+
 msgid "Basic Data"
-msgstr "Podstawowy"
+msgstr "Podstawa"
 
 #: .\templates\examination_tasks\add_exam_task.html:16
 msgid "Preview & Confirm"
