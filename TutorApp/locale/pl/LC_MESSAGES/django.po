@@ -230,10 +230,9 @@ msgid "Section (optional)"
 msgstr "Dział (opcjonalny)"
 
 #: .\courses\forms\training_tasks_forms.py:43
-#, fuzzy
-#| msgid "Topic (optional)"
+
 msgid "Book (optional)"
-msgstr "Temat (opcjonalny)"
+msgstr "Książka (opcjonalny)"
 
 #: .\courses\forms\training_tasks_forms.py:44
 msgid "Page Number"
