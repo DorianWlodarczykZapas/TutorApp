@@ -817,8 +817,7 @@ msgid "Score cannot be greater than max score"
 msgstr "Wynik nie może być większy od maksymalnego wyniku"
 
 #: .\quizes\views\question_views.py:44
-#, fuzzy
-#| msgid "Question has been successfully added"
+
 msgid "Question has been successfully added."
 msgstr "Pytanie zostało pomyślnie dodane"
 
