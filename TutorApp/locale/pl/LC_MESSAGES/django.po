@@ -275,10 +275,9 @@ msgid "Task"
 msgstr "Zadanie"
 
 #: .\courses\models.py:162
-#, fuzzy
-#| msgid "Task Collection"
+
 msgid "User Task Completion"
-msgstr "Zbiór zadań"
+msgstr "Zbiór ukończończenia zadań"
 
 #: .\courses\models.py:163
 
