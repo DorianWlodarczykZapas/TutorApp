@@ -121,10 +121,9 @@ msgstr "Poziom trudności"
 #: .\courses\filters.py:55 .\templates\examination_tasks\exam_list.html:22
 #: .\templates\examination_tasks\exam_task_list.html:21
 #: .\templates\examination_tasks\exam_task_search_engine.html:39
-#, fuzzy
-#| msgid "Statistics"
+
 msgid "Status"
-msgstr "Statystyka"
+msgstr "Status"
 
 #: .\courses\filters.py:57
 msgid "All tasks"
