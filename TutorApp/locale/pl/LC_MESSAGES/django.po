@@ -1710,7 +1710,7 @@ msgstr "Zresetuj swoje hasło"
 #: .\templates\users\password_reset_form.html:10
 msgid ""
 "Enter your email address and we'll send you a link to reset your password."
-msgstr ""
+msgstr "Wpisz swój adres e-mail, a wyślemy Ci link umożliwiający zresetowanie hasła."
 
 #: .\templates\users\password_reset_form.html:18
 
