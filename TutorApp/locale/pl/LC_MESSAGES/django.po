@@ -1898,7 +1898,7 @@ msgstr "Pomyślnie zalogowano."
 
 #: .\users\views.py:93
 msgid "Invalid username or password."
-msgstr "Niepoprawna nazwa użytkownika bądź hasło."
+msgstr "Niepoprawna nazwa użytkownika lub hasło."
 
 #: .\videos\forms\video_forms.py:12
 
