@@ -1715,7 +1715,7 @@ msgstr "Wpisz swój adres e-mail, a wyślemy Ci link umożliwiający zresetowani
 #: .\templates\users\password_reset_form.html:18
 
 msgid "Send password reset email"
-msgstr "Wyślij email resetujący hasło"
+msgstr "Wyślij wiadomość e-mail z linkiem do zresetowania hasła"
 
 #: .\templates\users\register.html:6 .\templates\users\register.html:11
 msgid "Register"
