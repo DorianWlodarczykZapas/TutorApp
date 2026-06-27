@@ -143,7 +143,7 @@
             <div class="alert alert-info">
                 <i class="bi bi-info-circle"></i>
                 {% trans "No videos found matching your criteria." %}
-                <a href="{% url 'videos:video_list' %}">{% trans "Clear filters" %}</a>
+                {% trans "Clear filters" %}
                 {% trans "to see all videos." %}
             </div>
         {% endif %}
