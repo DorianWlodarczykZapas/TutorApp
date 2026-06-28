@@ -501,7 +501,7 @@ msgstr "Treść zadania (edytowalne)"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:131
 msgid "Extracted task content..."
-msgstr "Wyodrębniono treść zadania..."
+msgstr "Wyodrębniona treść zadania..."
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:135
 msgid "You can edit the extracted text before saving."
