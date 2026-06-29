@@ -513,7 +513,7 @@ msgstr "Potwierdzam, że podgląd zadania jest poprawny"
 
 #: .\examination_tasks\forms\exam_tasks_forms.py:142
 msgid "You must confirm the preview before saving."
-msgstr "Przed zapisaniem należy zatwierdzić podgląd."
+msgstr "Przed zapisaniem musisz zatwierdzić podgląd."
 
 #: .\examination_tasks\views\exam_task_views.py:79
 
