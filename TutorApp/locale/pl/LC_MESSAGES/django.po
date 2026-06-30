@@ -518,7 +518,7 @@ msgstr "Przed zapisaniem musisz zatwierdzić podgląd."
 #: .\examination_tasks\views\exam_task_views.py:79
 
 msgid "Add New Exam Task"
-msgstr "Dodaj Zadanie Egzaminacyjne"
+msgstr "Dodaj Nowe Zadanie Egzaminacyjne"
 
 #: .\examination_tasks\views\exam_task_views.py:116
 #: .\examination_tasks\views\exam_task_views.py:117
