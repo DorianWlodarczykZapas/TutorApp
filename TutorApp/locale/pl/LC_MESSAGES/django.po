@@ -543,7 +543,7 @@ msgstr "Nieoczekiwany błąd podczas wyodrębniania zadania PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:143
 msgid "Error reading extracted PDF"
-msgstr "Błąd podczas odczytu wyodrębnionego pliku PDF"
+msgstr "Błąd podczas odczytu wyekstraktowanego pliku PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:165
 
