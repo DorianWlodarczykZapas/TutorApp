@@ -552,7 +552,7 @@ msgstr "Tworzenie zadania anulowano. Żadne dane nie zostały zapisane."
 
 #: .\examination_tasks\views\exam_task_views.py:178
 msgid "Temporary PDF missing."
-msgstr "Brak tymczasowego pliku PDF"
+msgstr "Brak tymczasowego PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:197
 
