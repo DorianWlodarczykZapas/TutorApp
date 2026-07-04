@@ -1891,7 +1891,7 @@ msgstr "Konto zostało utworzone. Teraz możesz się zalogować."
 
 #: .\users\views.py:90
 msgid "You have been successfully logged in."
-msgstr "Pomyślnie zalogowano."
+msgstr "Zalogowano się pomyślnie."
 
 #: .\users\views.py:93
 msgid "Invalid username or password."
