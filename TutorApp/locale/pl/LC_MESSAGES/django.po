@@ -325,7 +325,7 @@ msgstr "Dodaj Nowe Zadanie Treningowe"
 
 #: .\courses\views\training_task_views.py:35
 msgid "Training task added successfully!"
-msgstr "Zadanie dodano pomyślnie"
+msgstr "Zadanie treningowe dodano pomyślnie"
 
 #: .\courses\views\training_task_views.py:115
 
