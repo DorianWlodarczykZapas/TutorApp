@@ -275,12 +275,12 @@ msgstr "Zadanie"
 #: .\courses\models.py:162
 
 msgid "User Task Completion"
-msgstr "Zakończone zadania przez użytkownika"
+msgstr "Zakończone zadanie przez użytkownika"
 
 #: .\courses\models.py:163
 
 msgid "User Task Completions"
-msgstr "Zadania ukończone przez użytkownika"
+msgstr "Zakończone zadania przez użytkownika"
 
 #: .\courses\tests\training_tasks_tests.py:199
 #: .\templates\navigation_links\courses.html:4
