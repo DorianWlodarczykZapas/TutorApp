@@ -590,7 +590,7 @@ msgstr "Nie można odczytać ścieżki do pliku PDF"
 
 #: .\examination_tasks\views\exam_task_views.py:315
 msgid "Pages to be cut have not been defined."
-msgstr "Nie określono stron do wycięcia."
+msgstr "Nie określono stron, które mają zostać wycięte."
 
 #: .\examination_tasks\views\exam_task_views.py:321
 
