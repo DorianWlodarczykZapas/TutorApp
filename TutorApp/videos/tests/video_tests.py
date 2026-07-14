@@ -181,3 +181,13 @@ class AddVideoViewTest(TestCase):
         self.assertFalse(Video.objects.exists())
         form = response.context["form"]
         self.assertFormError(form, "section", "This field is required.")
+
+    def test_student_cannot_post(self):
+        """Test to verify a student's attempt to submit a form"""
+
+        self.client.force_login(self.student)
+
+        response = self.client.post(self.url, self.step_1_data)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(Video.objects.exists())
