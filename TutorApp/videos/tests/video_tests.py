@@ -191,3 +191,34 @@ class AddVideoViewTest(TestCase):
 
         self.assertEqual(response.status_code, 403)
         self.assertFalse(Video.objects.exists())
+
+    def test_process_step_saves_youtube_data_to_step_2_form(self):
+        """Test case that checks if process_step correctly passes YouTube
+        service data (title, timestamps) into the step_2 form/formset"""
+
+        self.client.force_login(self.teacher)
+
+        with patch("videos.views.video_views.YoutubeService") as MockService:
+            instance = MockService.return_value
+            instance.extract_video_title_and_description.return_value = (
+                self.mock_service_data
+            )
+            instance.parse_timestamps.return_value = self.mock_timestamps
+
+            response = self.client.post(self.url, self.step_1_data)
+
+            self.assertEqual(response.status_code, 200)
+
+            self.assertEqual(
+                response.context["form"].initial["title"],
+                self.mock_service_data["title"],
+            )
+
+            expected_timestamp_initial = {
+                "label": "Introduction",
+                "start_time": VideoTimestamp.format_duration(timedelta(seconds=10)),
+                "timestamp_type": int(VideoTimestamp.TimestampType.MATRICULATION_BASIC),
+            }
+
+            formset = response.context["formset"]
+            self.assertEqual(formset[0].initial, expected_timestamp_initial)
