@@ -1,5 +1,5 @@
 from datetime import timedelta
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from courses.choices import SubjectChoices
 from courses.tests.factories import SectionFactory
@@ -222,3 +222,42 @@ class AddVideoViewTest(TestCase):
 
             formset = response.context["formset"]
             self.assertEqual(formset[0].initial, expected_timestamp_initial)
+
+    def test_transaction_rollback_on_timestamp_creation_error(self):
+        """Test case that checks if Video creation is rolled back when
+        an error occurs while creating one of its VideoTimestamps"""
+
+        self.client.force_login(self.teacher)
+
+        two_timestamps_data = {
+            **self.step_2_data,
+            "timestamps-TOTAL_FORMS": "2",
+            "timestamps-1-label": "Functions",
+            "timestamps-1-start_time": "00:02:30",
+            "timestamps-1-timestamp_type": 4,
+        }
+
+        with patch("videos.views.video_views.YoutubeService") as MockService:
+            instance = MockService.return_value
+            instance.extract_video_title_and_description.return_value = (
+                self.mock_service_data
+            )
+            instance.parse_timestamps.return_value = self.mock_timestamps
+
+            response = self.client.post(self.url, self.step_1_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(Video.objects.exists())
+
+            with patch(
+                "videos.views.video_views.VideoTimestamp.objects.create"
+            ) as mock_create:
+                mock_create.side_effect = [
+                    Mock(),
+                    Exception("wrong timestamp data"),
+                ]
+
+                with self.assertRaises(Exception):
+                    self.client.post(self.url, two_timestamps_data)
+
+            self.assertFalse(Video.objects.exists())
+            self.assertFalse(VideoTimestamp.objects.exists())
