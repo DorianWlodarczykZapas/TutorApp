@@ -1900,7 +1900,7 @@ msgstr "Niepoprawna nazwa użytkownika lub hasło."
 #: .\videos\forms\video_forms.py:12
 
 msgid "YouTube URL"
-msgstr "Link do YouTube"
+msgstr "Adres URL na YouTube"
 
 #: .\videos\forms\video_forms.py:50
 
