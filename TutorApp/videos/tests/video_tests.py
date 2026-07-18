@@ -261,3 +261,50 @@ class AddVideoViewTest(TestCase):
 
             self.assertFalse(Video.objects.exists())
             self.assertFalse(VideoTimestamp.objects.exists())
+
+    def test_multiple_timestamps_are_created(self):
+        """Test case that checks if all timestamps from the formset
+        are correctly saved to the database, not just the first one"""
+
+        self.client.force_login(self.teacher)
+
+        three_timestamp_data = {
+            **self.step_2_data,
+            "timestamps-TOTAL_FORMS": "3",
+            "timestamps-1-label": "Functions",
+            "timestamps-1-start_time": "00:02:30",
+            "timestamps-1-timestamp_type": 4,
+            "timestamps-2-label": "Equations",
+            "timestamps-2-start_time": "00:03:30",
+            "timestamps-2-timestamp_type": 2,
+        }
+
+        with patch("videos.views.video_views.YoutubeService") as MockService:
+            instance = MockService.return_value
+            instance.extract_video_title_and_description.return_value = (
+                self.mock_service_data
+            )
+            instance.parse_timestamps.return_value = self.mock_timestamps
+
+            response = self.client.post(self.url, self.step_1_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertFalse(Video.objects.exists())
+
+            response = self.client.post(self.url, three_timestamp_data)
+            self.assertRedirects(response, reverse("videos:video_list"))
+
+            self.assertEqual(VideoTimestamp.objects.count(), 3)
+            self.assertTrue(Video.objects.exists())
+
+            video = Video.objects.get(title="Test Video")
+            timestamps = VideoTimestamp.objects.filter(video=video).order_by("label")
+
+            self.assertEqual(timestamps[0].label, "Equations")
+            self.assertEqual(timestamps[0].start_time, timedelta(minutes=3, seconds=30))
+            self.assertEqual(timestamps[0].timestamp_type, 2)
+            self.assertEqual(timestamps[1].label, "Functions")
+            self.assertEqual(timestamps[1].start_time, timedelta(minutes=2, seconds=30))
+            self.assertEqual(timestamps[1].timestamp_type, 4)
+            self.assertEqual(timestamps[2].label, "Introduction")
+            self.assertEqual(timestamps[2].start_time, timedelta(minutes=0, seconds=10))
+            self.assertEqual(timestamps[2].timestamp_type, 4)
