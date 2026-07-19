@@ -224,14 +224,10 @@ class AddVideoViewTest(TestCase):
                 self.mock_service_data["title"],
             )
 
-            expected_timestamp_initial = {
-                "label": "Introduction",
-                "start_time": VideoTimestamp.format_duration(timedelta(seconds=10)),
-                "timestamp_type": int(VideoTimestamp.TimestampType.MATRICULATION_BASIC),
-            }
-
             formset = response.context["formset"]
-            self.assertEqual(formset[0].initial, expected_timestamp_initial)
+            self.assertEqual(formset[0]["label"].value(), "Introduction")
+            self.assertEqual(formset[0]["start_time"].value(), "00:00:10")
+            self.assertEqual(formset[0]["timestamp_type"].value(), 4)
 
     def test_transaction_rollback_on_timestamp_creation_error(self):
         """Test case that checks if Video creation is rolled back when
