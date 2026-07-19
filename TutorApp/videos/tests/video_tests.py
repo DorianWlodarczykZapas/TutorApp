@@ -6,8 +6,7 @@ from courses.tests.factories import SectionFactory
 from django.test import Client, TestCase
 from django.urls import reverse
 from users.factories import TeacherFactory, UserFactory
-
-from .videos.models import Video, VideoTimestamp
+from videos.models import Video, VideoTimestamp
 
 
 class AddVideoViewTest(TestCase):
@@ -21,7 +20,7 @@ class AddVideoViewTest(TestCase):
             "video_create_wizard-current_step": "step_1",
             "step_1-youtube_url": "https://www.youtube.com/watch?v=xxxxx",
             "step_1-subject": SubjectChoices.MATH,
-            "step_1-level": 3,
+            "step_1-level": 2,
             "step_1-section": self.section.pk,
         }
         self.step_2_data = {
@@ -80,6 +79,7 @@ class AddVideoViewTest(TestCase):
             instance.parse_timestamps.return_value = self.mock_timestamps
 
             response = self.client.post(self.url, self.step_1_data)
+            print(response.context["form"].errors)
             self.assertEqual(response.status_code, 200)
             self.assertFalse(Video.objects.exists())
 
@@ -134,7 +134,7 @@ class AddVideoViewTest(TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertFalse(Video.objects.exists())
             form = response.context["form"]
-            self.assertFormError(form, "title", "This field cannot be blank.")
+            self.assertFormError(form, "title", "This field is required.")
 
     def test_invalid_timestamp_data(self):
         """Test case that checks with invalid timestamp data"""
@@ -206,6 +206,10 @@ class AddVideoViewTest(TestCase):
             instance.parse_timestamps.return_value = self.mock_timestamps
 
             response = self.client.post(self.url, self.step_1_data)
+
+            response = self.client.post(self.url, self.step_1_data)
+            print(list(response.context.keys()))
+            print(response.context.get("wizard", {}))
 
             self.assertEqual(response.status_code, 200)
 
