@@ -47,6 +47,7 @@ class AddVideoViewTest(TestCase):
                 "timestamp_type": VideoTimestamp.TimestampType.MATRICULATION_BASIC,
             }
         ]
+        self.mock_parsed_duration = timedelta(seconds=10)
 
     def test_unauthorized_access(self):
         """Test case that checks if unauthorized access is working"""
@@ -72,6 +73,7 @@ class AddVideoViewTest(TestCase):
         self.client.force_login(self.teacher)
 
         with patch("videos.views.video_views.YoutubeService") as MockService:
+            MockService._parse_duration.return_value = self.mock_parsed_duration
             instance = MockService.return_value
             instance.extract_video_title_and_description.return_value = (
                 self.mock_service_data
@@ -120,6 +122,7 @@ class AddVideoViewTest(TestCase):
         }
 
         with patch("videos.views.video_views.YoutubeService") as MockService:
+            MockService._parse_duration.return_value = self.mock_parsed_duration
             instance = MockService.return_value
             instance.extract_video_title_and_description.return_value = (
                 self.mock_service_data
@@ -146,6 +149,7 @@ class AddVideoViewTest(TestCase):
         }
 
         with patch("videos.views.video_views.YoutubeService") as MockService:
+            MockService._parse_duration.return_value = self.mock_parsed_duration
             instance = MockService.return_value
             instance.extract_video_title_and_description.return_value = (
                 self.mock_service_data
@@ -199,6 +203,7 @@ class AddVideoViewTest(TestCase):
         self.client.force_login(self.teacher)
 
         with patch("videos.views.video_views.YoutubeService") as MockService:
+            MockService._parse_duration.return_value = self.mock_parsed_duration
             instance = MockService.return_value
             instance.extract_video_title_and_description.return_value = (
                 self.mock_service_data
@@ -242,6 +247,7 @@ class AddVideoViewTest(TestCase):
         }
 
         with patch("videos.views.video_views.YoutubeService") as MockService:
+            MockService._parse_duration.return_value = self.mock_parsed_duration
             instance = MockService.return_value
             instance.extract_video_title_and_description.return_value = (
                 self.mock_service_data
@@ -284,6 +290,7 @@ class AddVideoViewTest(TestCase):
         }
 
         with patch("videos.views.video_views.YoutubeService") as MockService:
+            MockService._parse_duration.return_value = self.mock_parsed_duration
             instance = MockService.return_value
             instance.extract_video_title_and_description.return_value = (
                 self.mock_service_data
