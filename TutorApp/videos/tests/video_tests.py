@@ -81,7 +81,7 @@ class AddVideoViewTest(TestCase):
             instance.parse_timestamps.return_value = self.mock_timestamps
 
             response = self.client.post(self.url, self.step_1_data)
-            print(response.context["form"].errors)
+
             self.assertEqual(response.status_code, 200)
             self.assertFalse(Video.objects.exists())
 
@@ -211,10 +211,6 @@ class AddVideoViewTest(TestCase):
             instance.parse_timestamps.return_value = self.mock_timestamps
 
             response = self.client.post(self.url, self.step_1_data)
-
-            response = self.client.post(self.url, self.step_1_data)
-            print(list(response.context.keys()))
-            print(response.context.get("wizard", {}))
 
             self.assertEqual(response.status_code, 200)
 
