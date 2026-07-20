@@ -719,7 +719,7 @@ msgstr "Szukaj po tytule"
 
 #: .\quizes\filters.py:33 .\videos\filters.py:32
 msgid "Search Section"
-msgstr "Wpisz Dział"
+msgstr "Sekcja Wyszukiwania"
 
 #: .\quizes\filters.py:44 .\videos\filters.py:43
 msgid "Choose Subject"
