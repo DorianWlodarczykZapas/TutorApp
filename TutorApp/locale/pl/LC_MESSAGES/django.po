@@ -767,7 +767,7 @@ msgstr "Wszystkie pytania"
 
 #: .\quizes\forms\quiz_wizard_forms.py:29
 msgid "How many questions would you like?"
-msgstr "Ile pytać cie interesuje?"
+msgstr "Ile pytań chcesz?"
 
 #: .\quizes\forms\quiz_wizard_forms.py:43
 msgid "This quiz has no questions yet. Cannot start!"
