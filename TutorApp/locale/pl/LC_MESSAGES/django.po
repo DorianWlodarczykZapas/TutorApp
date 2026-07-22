@@ -784,7 +784,7 @@ msgstr ""
 
 #: .\quizes\models.py:45
 msgid "Number of questions must be positive"
-msgstr "Liczba pytań musi być dodatnia"
+msgstr "Liczba pytań musi być liczbą dodatnią"
 
 #: .\quizes\models.py:50
 #, python-format
