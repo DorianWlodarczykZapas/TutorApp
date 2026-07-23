@@ -198,6 +198,7 @@ class VideoListView(LoginRequiredMixin, FilterView):
         context["has_filters_applied"] = (
             self._are_filters_applied(filterset) if filterset else False
         )
+        context["is_premium"] = self._is_user_premium()
         context["sections_summary"] = Section.objects.annotate(
             video_count=Count("videos")
         ).order_by("subject", "name")
