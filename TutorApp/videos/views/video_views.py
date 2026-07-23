@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
-from django.db.models import Count, Prefetch, QuerySet
+from django.db.models import Count, Exists, OuterRef, Prefetch, QuerySet
 from django.forms.formsets import formset_factory
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -154,8 +154,15 @@ class VideoListView(LoginRequiredMixin, FilterView):
         if not self.request.GET:
             return Video.objects.none()
 
-        return Video.objects.select_related("section").order_by(
-            "section__name", "level", "title"
+        exercise_timestamps = VideoTimestamp.objects.filter(
+            video=OuterRef("pk"),
+            timestamp_type=VideoTimestamp.TimestampType.EXERCISE,
+        )
+
+        return (
+            Video.objects.select_related("section")
+            .annotate(is_free=Exists(exercise_timestamps))
+            .order_by("section__name", "level", "title")
         )
 
     def _get_pagination_context(
@@ -191,6 +198,7 @@ class VideoListView(LoginRequiredMixin, FilterView):
         context["has_filters_applied"] = (
             self._are_filters_applied(filterset) if filterset else False
         )
+        context["is_premium"] = self._is_user_premium()
         context["sections_summary"] = Section.objects.annotate(
             video_count=Count("videos")
         ).order_by("subject", "name")
@@ -214,6 +222,15 @@ class VideoListView(LoginRequiredMixin, FilterView):
             for key, value in filterset.data.items()
             if key not in excluded_params
         )
+
+    def _is_user_premium(self) -> bool:
+        """
+        Helper method for checking user premium status.
+        """
+        try:
+            return self.request.user.userplan.is_premium_or_trial
+        except UserPlan.DoesNotExist:
+            return False
 
 
 class SectionVideoListView(LoginRequiredMixin, ListView):

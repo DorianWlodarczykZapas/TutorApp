@@ -45,6 +45,7 @@ class UserPlan(models.Model):
         return self.is_active and self.plan.type in [
             Plan.PlanType.PREMIUM,
             Plan.PlanType.TRIAL,
+            Plan.PlanType.ULTIMATE,
         ]
 
     def __str__(self):
