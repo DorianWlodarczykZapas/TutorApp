@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page
 from django.db import transaction
-from django.db.models import Count, Prefetch, QuerySet
+from django.db.models import Count, Exists, OuterRef, Prefetch, QuerySet
 from django.forms.formsets import formset_factory
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -154,8 +154,15 @@ class VideoListView(LoginRequiredMixin, FilterView):
         if not self.request.GET:
             return Video.objects.none()
 
-        return Video.objects.select_related("section").order_by(
-            "section__name", "level", "title"
+        exercise_timestamps = VideoTimestamp.objects.filter(
+            video=OuterRef("pk"),
+            timestamp_type=VideoTimestamp.TimestampType.EXERCISE,
+        )
+
+        return (
+            Video.objects.select_related("section")
+            .annotate(is_free=Exists(exercise_timestamps))
+            .order_by("section__name", "level", "title")
         )
 
     def _get_pagination_context(
