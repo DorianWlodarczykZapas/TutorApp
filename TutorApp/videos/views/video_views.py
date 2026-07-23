@@ -222,6 +222,15 @@ class VideoListView(LoginRequiredMixin, FilterView):
             if key not in excluded_params
         )
 
+    def _is_user_premium(self) -> bool:
+        """
+        Helper method for checking user premium status.
+        """
+        try:
+            return self.request.user.userplan.is_premium_or_trial
+        except UserPlan.DoesNotExist:
+            return False
+
 
 class SectionVideoListView(LoginRequiredMixin, ListView):
     model = Video
