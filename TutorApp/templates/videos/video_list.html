@@ -63,10 +63,16 @@
                             </div>
                         </div>
                         <div class="video-card__footer">
-                            <a href="{% url 'videos:video_details' pk=video.pk %}"
-                               class="filter-btn-apply video-card__watch-btn">
-                                <i class="bi bi-play-circle"></i> {% trans "Watch Video" %}
-                            </a>
+                            {% if video.is_free or is_premium %}
+                                <a href="{% url 'videos:video_details' pk=video.pk %}"
+                                   class="filter-btn-apply video-card__watch-btn">
+                                    <i class="bi bi-play-circle"></i> {% trans "Watch Video" %}
+                                </a>
+                            {% else %}
+                                <span class="video-card__badge video-card__badge--premium">
+                                    <i class="bi bi-lock"></i> {% trans "Available for premium" %}
+                                </span>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
