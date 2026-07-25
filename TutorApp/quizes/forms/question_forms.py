@@ -1,5 +1,6 @@
 from django import forms
-from django.forms import inlineformset_factory
+from django.core.exceptions import ValidationError
+from django.forms import BaseInlineFormSet, inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
 from ..models import Answer, Question
@@ -18,6 +19,38 @@ class QuestionForm(forms.ModelForm):
         }
 
 
+class BaseAnswerFormSet(BaseInlineFormSet):
+    def clean(self) -> None:
+        """
+        A method that prevents the form from being submitted with empty fields and checks whether at least one answer is correct
+        """
+        super().clean()
+
+        if any(self.errors):
+            return
+
+        correct_answers_count = 0
+
+        for form in self.forms:
+
+            if not form.cleaned_data:
+                continue
+
+            text = form.cleaned_data["text"]
+
+            if not text:
+                continue
+
+            if form.cleaned_data.get("DELETE"):
+                continue
+
+            if form.cleaned_data["is_correct"]:
+                correct_answers_count += 1
+
+        if correct_answers_count < 1:
+            raise ValidationError(_("At least one answer must be marked as correct."))
+
+
 AnswerFormSet = inlineformset_factory(
-    Question, Answer, fields=["text", "is_correct"], extra=4
+    Question, Answer, fields=["text", "is_correct"], extra=4, formset=BaseAnswerFormSet
 )
