@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load widget_tweaks %}
 {% block title %}
     {% trans "Add Question" %}
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>{% trans "Add Question to Quiz" %}</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>{% trans "Question" %}</h2>
-            {{ form.as_p }}
-            <h2>{% trans "Answers" %}</h2>
-            {{ formset.management_form }}
-            {% for answer_form in formset %}<div class="answer-form">{{ answer_form.as_p }}</div>{% endfor %}
-            <button type="submit">{% trans "Save Question" %}</button>
-        </form>
-    </div>
+    <form method="post"
+          class="form-container form-container--wide"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="form-title">{% trans "Add Question to Quiz" %}</h1>
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        <div class="floating-field field-long">
+            <div class="floating-field__input-wrapper">
+                {{ form.text|add_class:"form-input" }}
+                <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+            </div>
+            {% if form.text.errors %}<div class="field-errors">{{ form.text.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-???">...</div>
+        <div class="floating-field field-???">...</div>
+        <div class="floating-field field-???">...</div>
+        <div class="floating-field field-???">...</div>
+        <h2>{% trans "Answers" %}</h2>
+        {{ formset.management_form }}
+        {% for answer_form in formset %}{% endfor %}
+        <button type="submit" class="btn-submit">{% trans "Save Question" %}</button>
+    </form>
 {% endblock %}
