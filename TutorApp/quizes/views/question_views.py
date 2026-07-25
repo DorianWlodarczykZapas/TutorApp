@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView
 from users.mixins import TeacherRequiredMixin
@@ -49,7 +49,7 @@ class AddQuestion(TeacherRequiredMixin, CreateView):
 
     def get_success_url(self) -> str:
         quiz_pk = self.kwargs["quiz_pk"]
-        return reverse_lazy("quizes:add_question", kwargs={"quiz_pk": quiz_pk})
+        return reverse("quizes:add_question", kwargs={"quiz_pk": quiz_pk})
 
 
 class QuestionReviewView(LoginRequiredMixin, DetailView):

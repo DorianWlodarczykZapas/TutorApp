@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-24 21:05+0000\n"
+"POT-Creation-Date: 2026-07-25 10:45+0000\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -196,7 +196,8 @@ msgstr "Wpisz Nazwę Tematu"
 msgid "Book Name"
 msgstr "Nazwa Książki"
 
-#: courses/forms/training_tasks_forms.py:17 quizes/forms/question_forms.py:14
+#: courses/forms/training_tasks_forms.py:17 quizes/forms/question_forms.py:17
+#: quizes/forms/question_forms.py:25
 msgid "Level Type"
 msgstr "Poziom Trudności"
 
@@ -210,6 +211,7 @@ msgid "Task Content"
 msgstr "Treść Zadania"
 
 #: courses/forms/training_tasks_forms.py:39 templates/motifs/motif_list.html:38
+#: templates/quizes/add_question.html:77
 msgid "Answer"
 msgstr "Odpowiedź"
 
@@ -701,21 +703,30 @@ msgstr "Sekcja Wyszukiwania"
 msgid "Choose Subject"
 msgstr "Wybierz Przedmiot"
 
-#: quizes/forms/question_forms.py:13
+#: quizes/forms/question_forms.py:24
 msgid "Question Content"
 msgstr "Treść pytania"
 
-#: quizes/forms/question_forms.py:15
+#: quizes/forms/question_forms.py:26
 msgid "Illustration for the question"
 msgstr "Ilustracja do pytania"
 
-#: quizes/forms/question_forms.py:16
+#: quizes/forms/question_forms.py:27
 msgid "Explanation To The Question"
 msgstr "Wyjaśnienie do pytania"
 
-#: quizes/forms/question_forms.py:17
+#: quizes/forms/question_forms.py:28
 msgid "Explanation By Illustration To The Question"
 msgstr "Wyjaśnienie do pytania w postaci ilustracji"
+
+#: quizes/forms/question_forms.py:66
+msgid "At least one answer must be marked as correct."
+msgstr ""
+
+#: quizes/forms/question_forms.py:70
+
+msgid "Enter Answer"
+msgstr "Wpisz Odpowiedź"
 
 #: quizes/forms/quiz_forms.py:19 templates/quizes/quiz_list.html:38
 msgid "Quiz Title"
@@ -1456,24 +1467,29 @@ msgstr "Masz Już Najlepszy Możliwy Plan!"
 msgid "Lifetime"
 msgstr "Dożytowni"
 
-#: templates/quizes/add_question.html:4 templates/quizes/quiz_list.html:78
+#: templates/quizes/add_question.html:5 templates/quizes/quiz_list.html:78
 msgid "Add Question"
 msgstr "Dodaj Pytanie"
 
-#: templates/quizes/add_question.html:8
+#: templates/quizes/add_question.html:12
 msgid "Add Question to Quiz"
 msgstr "Dodaj pytanie do quizu"
 
-#: templates/quizes/add_question.html:11
+#: templates/quizes/add_question.html:13
 #: templates/quizes/quiz_solve_wizard.html:9
 msgid "Question"
 msgstr "Pytanie"
 
-#: templates/quizes/add_question.html:13
+#: templates/quizes/add_question.html:66
 msgid "Answers"
 msgstr "Odpowiedzi"
 
-#: templates/quizes/add_question.html:16
+#: templates/quizes/add_question.html:95
+
+msgid "Correct answer"
+msgstr "Poprawna Odpowiedź"
+
+#: templates/quizes/add_question.html:101
 msgid "Save Question"
 msgstr "Zapisz Pytanie"
 
@@ -1730,7 +1746,7 @@ msgid "Apply"
 msgstr "Zastosuj"
 
 #: templates/videos/video_list.html:42
-
+#, python-format
 msgid ""
 "\n"
 "                Showing %(start)s–%(end)s of %(total)s videos\n"
