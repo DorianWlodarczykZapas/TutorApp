@@ -17,6 +17,10 @@ class QuestionForm(forms.ModelForm):
             "explanation": _("Explanation To The Question"),
             "explanation_picture": _("Explanation By Illustration To The Question"),
         }
+        widgets = {
+            "text": forms.Textarea(attrs={"placeholder": " "}),
+            "explanation": forms.Textarea(attrs={"placeholder": " "}),
+        }
 
 
 class BaseAnswerFormSet(BaseInlineFormSet):
