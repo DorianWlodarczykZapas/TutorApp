@@ -29,7 +29,13 @@
             </div>
             {% if form.level_type.errors %}<div class="field-errors">{{ form.level_type.errors|striptags }}</div>{% endif %}
         </div>
-        <div class="floating-field field-???">...</div>
+        <div class="floating-field field-file">
+            <div class="floating-field__input-wrapper">
+                {{ form.picture|add_class:"form-input" }}
+                <label for="{{ form.picture.id_for_label }}" class="field-file__label">{{ form.picture.label }}</label>
+            </div>
+            {% if form.picture.errors %}<div class="field-errors">{{ form.picture.errors|striptags }}</div>{% endif %}
+        </div>
         <div class="floating-field field-???">...</div>
         <div class="floating-field field-???">...</div>
         <h2>{% trans "Answers" %}</h2>
