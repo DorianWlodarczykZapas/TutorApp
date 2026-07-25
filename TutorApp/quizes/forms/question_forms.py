@@ -66,5 +66,13 @@ class BaseAnswerFormSet(BaseInlineFormSet):
 
 
 AnswerFormSet = inlineformset_factory(
-    Question, Answer, fields=["text", "is_correct"], extra=4, formset=BaseAnswerFormSet
+    Question,
+    Answer,
+    fields=["text", "is_correct"],
+    extra=4,
+    formset=BaseAnswerFormSet,
+    labels={"text": _("Enter Answer")},
+    widgets={
+        "text": forms.TextInput(attrs={"placeholder": " "}),
+    },
 )
