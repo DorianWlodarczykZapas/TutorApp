@@ -1,0 +1,10 @@
+.answer-form {
+
+
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.form-container + .form-container {
+    margin-top: 20px;
+}
