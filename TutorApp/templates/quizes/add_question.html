@@ -22,7 +22,13 @@
             </div>
             {% if form.text.errors %}<div class="field-errors">{{ form.text.errors|striptags }}</div>{% endif %}
         </div>
-        <div class="floating-field field-???">...</div>
+        <div class="floating-field field-select">
+            <div class="floating-field__input-wrapper">
+                {{ form.level_type|add_class:"form-input" }}
+                <label for="{{ form.level_type.id_for_label }}">{{ form.level_type.label }}</label>
+            </div>
+            {% if form.level_type.errors %}<div class="field-errors">{{ form.level_type.errors|striptags }}</div>{% endif %}
+        </div>
         <div class="floating-field field-???">...</div>
         <div class="floating-field field-???">...</div>
         <div class="floating-field field-???">...</div>
