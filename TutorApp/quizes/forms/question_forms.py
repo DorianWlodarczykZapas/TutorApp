@@ -1,12 +1,22 @@
+from core.forms import TypedChoiceMixin
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet, inlineformset_factory
 from django.utils.translation import gettext_lazy as _
+from examination_tasks.choices import LEVEL_CHOICES
 
 from ..models import Answer, Question
 
 
-class QuestionForm(forms.ModelForm):
+class QuestionForm(TypedChoiceMixin, forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["level_type"] = self._make_typed_choice(
+            LEVEL_CHOICES, _("Level Type")
+        )
+
     class Meta:
         model = Question
         fields = ["text", "level_type", "picture", "explanation", "explanation_picture"]
