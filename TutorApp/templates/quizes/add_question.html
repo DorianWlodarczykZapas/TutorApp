@@ -36,8 +36,23 @@
             </div>
             {% if form.picture.errors %}<div class="field-errors">{{ form.picture.errors|striptags }}</div>{% endif %}
         </div>
-        <div class="floating-field field-???">...</div>
-        <div class="floating-field field-???">...</div>
+        <div class="floating-field field-long">
+            <div class="floating-field__input-wrapper">
+                {{ form.explanation|add_class:"form-input" }}
+                <label for="{{ form.explanation.id_for_label }}">{{ form.explanation.label }}</label>
+            </div>
+            {% if form.explanation.errors %}<div class="field-errors">{{ form.explanation.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="floating-field field-file">
+            <div class="floating-field__input-wrapper">
+                {{ form.explanation_picture|add_class:"form-input" }}
+                <label for="{{ form.explanation_picture.id_for_label }}"
+                       class="field-file__label">{{ form.explanation_picture.label }}</label>
+            </div>
+            {% if form.explanation_picture.errors %}
+                <div class="field-errors">{{ form.explanation_picture.errors|striptags }}</div>
+            {% endif %}
+        </div>
         <h2>{% trans "Answers" %}</h2>
         {{ formset.management_form }}
         {% for answer_form in formset %}{% endfor %}
