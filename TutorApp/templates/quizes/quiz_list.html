@@ -74,8 +74,8 @@
                             </td>
                             {% if user.role_type == 2 %}
                                 <td>
-                                    <a href="{% url 'quizes:add_question' quiz_pk=quiz.pk %}"
-                                       class="btn btn-sm btn-teal">{% trans "Add Question" %}</a>
+                                    <a href="{% url 'quizes:question_list' quiz_pk=quiz.pk %}"
+                                       class="btn btn-sm btn-teal">{% trans "Manage Questions" %}</a>
                                     <a href="{% url 'quizes:delete_quiz' quiz_pk=quiz.pk %}"
                                        class="btn btn-sm btn-red">{% trans "Delete" %}</a>
                                 </td>
