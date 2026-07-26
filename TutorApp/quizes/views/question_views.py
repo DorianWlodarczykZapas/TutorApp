@@ -1,13 +1,20 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
+from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 from users.mixins import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
@@ -105,3 +112,68 @@ class QuestionReviewView(LoginRequiredMixin, DetailView):
         context["next_number"] = question_number + 1
 
         return context
+
+
+class QuestionListView(TeacherRequiredMixin, ListView):
+    model = Question
+    template_name = "quizes/question_list.html"
+    context_object_name = "questions"
+
+    def get_queryset(self) -> QuerySet[Question]:
+        self.quiz = get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
+        return self.quiz.questions.all()
+
+    def get_context_data(self, *args, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["quiz"] = self.quiz
+        return context
+
+
+class QuestionDeleteView(TeacherRequiredMixin, DeleteView):
+    model = Question
+    template_name = "quizes/question_confirm_delete.html"
+    context_object_name = "question"
+
+    def get_success_url(self) -> Union[str, Promise]:
+        return reverse_lazy(
+            "quizes:question_list", kwargs={"quiz_pk": self.object.quiz.pk}
+        )
+
+
+class QuestionUpdateView(TeacherRequiredMixin, UpdateView):
+    model = Question
+    form_class = QuestionForm
+    template_name = "quizes/edit_question.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        if self.request.POST:
+            context["formset"] = AnswerFormSet(
+                instance=self.object, data=self.request.POST
+            )
+        else:
+            context["formset"] = AnswerFormSet(instance=self.object)
+
+        return context
+
+    def form_valid(self, form: QuestionForm) -> HttpResponse:
+        formset = AnswerFormSet(instance=self.object, data=self.request.POST)
+
+        if formset.is_valid():
+
+            self.object = form.save()
+
+            formset.instance = self.object
+            formset.save()
+
+            messages.success(self.request, _("Question has been successfully updated."))
+
+            return redirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+    def get_success_url(self) -> Union[str, Promise]:
+        return reverse_lazy(
+            "quizes:question_list", kwargs={"quiz_pk": self.object.quiz.pk}
+        )

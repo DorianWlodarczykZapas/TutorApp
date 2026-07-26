@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block title %}
+    {% trans "Edit Question" %}  {# <- zmienione #}
+{% endblock %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-container form-container--wide">
+            <h1 class="form-title">{% trans "Edit Question" %}</h1>
+            {# <- zmienione #}
+            <h2>{% trans "Question" %}</h2>
+            {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                </div>
+            {% endif %}
+            <div class="floating-field field-long">
+                <div class="floating-field__input-wrapper">
+                    {{ form.text|add_class:"form-input" }}
+                    <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+                </div>
+                {% if form.text.errors %}<div class="field-errors">{{ form.text.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-select">
+                <div class="floating-field__input-wrapper">
+                    {{ form.level_type|add_class:"form-input" }}
+                    <label for="{{ form.level_type.id_for_label }}">{{ form.level_type.label }}</label>
+                </div>
+                {% if form.level_type.errors %}<div class="field-errors">{{ form.level_type.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-file">
+                <div class="floating-field__input-wrapper">
+                    {{ form.picture|add_class:"form-input" }}
+                    <label for="{{ form.picture.id_for_label }}" class="field-file__label">{{ form.picture.label }}</label>
+                </div>
+                {% if form.picture.errors %}<div class="field-errors">{{ form.picture.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-long">
+                <div class="floating-field__input-wrapper">
+                    {{ form.explanation|add_class:"form-input" }}
+                    <label for="{{ form.explanation.id_for_label }}">{{ form.explanation.label }}</label>
+                </div>
+                {% if form.explanation.errors %}<div class="field-errors">{{ form.explanation.errors|striptags }}</div>{% endif %}
+            </div>
+            <div class="floating-field field-file">
+                <div class="floating-field__input-wrapper">
+                    {{ form.explanation_picture|add_class:"form-input" }}
+                    <label for="{{ form.explanation_picture.id_for_label }}"
+                           class="field-file__label">{{ form.explanation_picture.label }}</label>
+                </div>
+                {% if form.explanation_picture.errors %}
+                    <div class="field-errors">{{ form.explanation_picture.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-container form-container--wide">
+            <h2>{% trans "Answers" %}</h2>
+            {{ formset.management_form }}
+            {% if formset.non_form_errors %}
+                <div class="form-errors">
+                    {% for error in formset.non_form_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                </div>
+            {% endif %}
+            {% for answer_form in formset %}
+                <div class="answer-form">
+                    <h3>{% trans "Answer" %} {{ forloop.counter }}</h3>
+                    {% if answer_form.non_field_errors %}
+                        <div class="form-errors">
+                            {% for error in answer_form.non_field_errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="floating-field field-char">
+                        <div class="floating-field__input-wrapper">
+                            {{ answer_form.text|add_class:"form-input" }}
+                            <label for="{{ answer_form.text.id_for_label }}">{{ answer_form.text.label }}</label>
+                        </div>
+                        {% if answer_form.text.errors %}<div class="field-errors">{{ answer_form.text.errors|striptags }}</div>{% endif %}
+                    </div>
+                    <label class="checkbox-label">
+                        {{ answer_form.is_correct }}
+                        <span>{% trans "Correct answer" %}</span>
+                    </label>
+                    {% if answer_form.instance.pk %}
+                        <label class="checkbox-label">
+                            {{ answer_form.DELETE }}
+                            <span>{% trans "Delete this answer" %}</span>
+                        </label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn-submit">{% trans "Save Changes" %}</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,51 @@
+Jasne, dam Ci szkielet z lukami — mniej do wymyślenia od zera niż poprzednio, bo masz świetny wzorzec w quiz_list.html, ale kilka miejsc musisz świadomie uzupełnić sam:
+django
+{% extends "base.html" %}
+{% load i18n %}
+{% block main_class %}main-content--full{% endblock %}
+{% block content %}
+    <div class="training-tasks-container">
+        <div class="page-header quiz-list-header">
+            <h1>{% trans "Questions for" %}: {{ quiz.title }}</h1>
+        </div>
+        <a href="{% url 'quizes:add_question' quiz_pk=quiz.pk %}"
+           class="btn btn-sm btn-teal">{% trans "Add Question" %}</a>
+        <div class="table-responsive">
+            <table class="exam-table exam-table--quiz">
+                <thead>
+                    <tr>
+                        <th>{% trans "LP" %}</th>
+                        <th>{% trans "Question" %}</th>
+                        <th>{% trans "Level" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                {% if question.level_type %}
+                                    {{ question.get_level_type_display }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'quizes:question_update' pk=question.pk %}"
+                                   class="btn btn-sm btn-teal">{% trans "Edit Question" %}</a>
+                                <a href="{% url 'quizes:question_delete' pk=question.pk %}"
+                                   class="btn btn-sm btn-red">{% trans "Delete Question" %}</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">{% trans "No questions available" %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
