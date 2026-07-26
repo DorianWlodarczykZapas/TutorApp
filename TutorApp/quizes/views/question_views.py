@@ -114,3 +114,8 @@ class QuestionListView(TeacherRequiredMixin, ListView):
     def get_queryset(self) -> QuerySet[Question]:
         self.quiz = get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
         return self.quiz.questions.all()
+
+    def get_context_data(self, *args, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["quiz"] = self.quiz
+        return context
