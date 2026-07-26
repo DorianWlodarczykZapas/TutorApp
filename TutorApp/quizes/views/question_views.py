@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
+from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from users.mixins import TeacherRequiredMixin
@@ -127,7 +128,7 @@ class QuestionDeleteView(TeacherRequiredMixin, DeleteView):
     template_name = "quizes/question_confirm_delete.html"
     context_object_name = "question"
 
-    def get_success_url(self) -> str:
+    def get_success_url(self) -> Union[str, Promise]:
         return reverse_lazy(
             "quizes:question_list", kwargs={"quiz_pk": self.object.quiz.pk}
         )
