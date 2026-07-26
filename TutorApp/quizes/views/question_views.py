@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
@@ -156,3 +156,24 @@ class QuestionUpdateView(TeacherRequiredMixin, UpdateView):
             context["formset"] = AnswerFormSet(instance=self.object)
 
         return context
+
+    def form_valid(self, form: QuestionForm) -> HttpResponse:
+        formset = AnswerFormSet(instance=self.object, data=self.request.POST)
+
+        if formset.is_valid():
+
+            self.object = form.save()
+
+            formset.instance = self.object
+            formset.save()
+
+            messages.success(self.request, _("Question has been successfully updated."))
+
+            return redirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+    def get_success_url(self) -> Union[str, Promise]:
+        return reverse_lazy(
+            "quizes:question_list", kwargs={"quiz_pk": self.object.quiz.pk}
+        )
