@@ -8,7 +8,13 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, DetailView, ListView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 from users.mixins import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
@@ -132,3 +138,21 @@ class QuestionDeleteView(TeacherRequiredMixin, DeleteView):
         return reverse_lazy(
             "quizes:question_list", kwargs={"quiz_pk": self.object.quiz.pk}
         )
+
+
+class QuestionUpdateView(TeacherRequiredMixin, UpdateView):
+    model = Question
+    form_class = QuestionForm
+    template_name = "quizes/edit_question.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        if self.request.POST:
+            context["formset"] = AnswerFormSet(
+                instance=self.object, data=self.request.POST
+            )
+        else:
+            context["formset"] = AnswerFormSet(instance=self.object)
+
+        return context
