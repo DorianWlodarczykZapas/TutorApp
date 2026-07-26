@@ -5,9 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from users.mixins import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
@@ -120,3 +120,14 @@ class QuestionListView(TeacherRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["quiz"] = self.quiz
         return context
+
+
+class QuestionDeleteView(TeacherRequiredMixin, DeleteView):
+    model = Question
+    template_name = "quizes/question_confirm_delete.html"
+    context_object_name = "question"
+
+    def get_success_url(self) -> str:
+        return reverse_lazy(
+            "quizes:question_list", kwargs={"quiz_pk": self.object.quiz.pk}
+        )
