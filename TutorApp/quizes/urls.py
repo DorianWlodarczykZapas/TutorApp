@@ -5,6 +5,7 @@ from .views.question_views import (
     QuestionDeleteView,
     QuestionListView,
     QuestionReviewView,
+    QuestionUpdateView,
 )
 from .views.quiz_solve_views import QuizStartView, SolveQuizWizard
 from .views.quiz_views import AddQuiz, DeleteQuiz, QuizList
@@ -26,6 +27,9 @@ urlpatterns = [
     ),
     path("delete/<int:quiz_pk>/", DeleteQuiz.as_view(), name="delete_quiz"),
     path("<int:quiz_pk>/questions/", QuestionListView.as_view(), name="question_list"),
+    path(
+        "questions/<int:pk>/edit/", QuestionUpdateView.as_view(), name="question_update"
+    ),
     path(
         "questions/<int:pk>/delete/",
         QuestionDeleteView.as_view(),
