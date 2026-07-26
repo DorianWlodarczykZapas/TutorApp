@@ -110,6 +110,7 @@ class QuestionReviewView(LoginRequiredMixin, DetailView):
 class QuestionListView(TeacherRequiredMixin, ListView):
     model = Question
     template_name = "quizes/question_list.html"
+    context_object_name = "questions"
 
     def get_queryset(self) -> QuerySet[Question]:
         self.quiz = get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
