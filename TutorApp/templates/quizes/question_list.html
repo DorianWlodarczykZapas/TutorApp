@@ -31,7 +31,12 @@ django
                                     -
                                 {% endif %}
                             </td>
-                            <td></td>
+                            <td>
+                                <a href="{% url 'quizes:question_update' pk=question.pk %}"
+                                   class="btn btn-sm btn-teal">{% trans "Edit Question" %}</a>
+                                <a href="{% url 'quizes:question_delete' pk=question.pk %}"
+                                   class="btn btn-sm btn-red">{% trans "Delete Question" %}</a>
+                            </td>
                             <td></td>
                         </tr>
                     {% empty %}
