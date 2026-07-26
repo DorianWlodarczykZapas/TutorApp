@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 from users.mixins import TeacherRequiredMixin
 
 from ..forms.question_forms import AnswerFormSet, QuestionForm
@@ -105,3 +105,12 @@ class QuestionReviewView(LoginRequiredMixin, DetailView):
         context["next_number"] = question_number + 1
 
         return context
+
+
+class QuestionListView(TeacherRequiredMixin, ListView):
+    model = Question
+    template_name = "quizes/question_list.html"
+
+    def get_queryset(self) -> QuerySet[Question]:
+        self.quiz = get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
+        return self.quiz.questions.all()
