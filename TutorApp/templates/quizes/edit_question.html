@@ -82,10 +82,12 @@
                         {{ answer_form.is_correct }}
                         <span>{% trans "Correct answer" %}</span>
                     </label>
-                    <label class="checkbox-label">
-                        {{ answer_form.DELETE }}
-                        <span>{% trans "Delete this answer" %}</span>
-                    </label>
+                    {% if answer_form.instance.pk %}
+                        <label class="checkbox-label">
+                            {{ answer_form.DELETE }}
+                            <span>{% trans "Delete this answer" %}</span>
+                        </label>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
