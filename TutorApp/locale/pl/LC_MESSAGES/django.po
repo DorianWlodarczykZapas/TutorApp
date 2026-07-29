@@ -1564,10 +1564,9 @@ msgid "Are you sure you want to delete question:"
 msgstr "Czy na pewno chcesz usunąć quiz:"
 
 #: .\templates\quizes\question_list.html:9
-#, fuzzy
-#| msgid "Question"
+
 msgid "Questions for"
-msgstr "Pytanie"
+msgstr "Pytanie do"
 
 #: .\templates\quizes\question_list.html:17
 #: .\templates\quizes\quiz_list.html:36
