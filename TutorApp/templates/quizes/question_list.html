@@ -1,5 +1,3 @@
-Jasne, dam Ci szkielet z lukami — mniej do wymyślenia od zera niż poprzednio, bo masz świetny wzorzec w quiz_list.html, ale kilka miejsc musisz świadomie uzupełnić sam:
-django
 {% extends "base.html" %}
 {% load i18n %}
 {% block main_class %}main-content--full{% endblock %}
@@ -9,7 +7,7 @@ django
             <h1>{% trans "Questions for" %}: {{ quiz.title }}</h1>
         </div>
         <a href="{% url 'quizes:add_question' quiz_pk=quiz.pk %}"
-           class="btn btn-sm btn-teal">{% trans "Add Question" %}</a>
+           class="btn btn-sm btn-teal btn-centered">{% trans "Add Question" %}</a>
         <div class="table-responsive">
             <table class="exam-table exam-table--quiz">
                 <thead>
