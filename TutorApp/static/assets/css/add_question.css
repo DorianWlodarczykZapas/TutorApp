@@ -8,3 +8,11 @@
 .form-container + .form-container {
     margin-top: 20px;
 }
+
+.btn-centered {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 0.6rem 1rem;
+    font-size: 1.5rem;
+}
