@@ -111,10 +111,8 @@ class QuizStartView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
-        quiz_pk = self.kwargs["quiz_pk"]
-        quiz = get_object_or_404(Quiz, pk=quiz_pk)
-        context["quiz"] = quiz
-        context["question_count"] = quiz.questions.count()
+        context["quiz"] = self.quiz
+        context["question_count"] = self.quiz.questions.count()
 
         return context
 
