@@ -119,8 +119,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
     def form_valid(self, form: QuizStartForm) -> HttpResponseRedirect:
         question_count = form.cleaned_data["question_count"]
 
-        quiz_pk = self.kwargs["quiz_pk"]
         return redirect(
-            reverse("quizes:solve_quiz", kwargs={"quiz_pk": quiz_pk})
+            reverse("quizes:solve_quiz", kwargs={"quiz_pk": self.quiz.pk})
             + f"?question_count={question_count}"
         )
