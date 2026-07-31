@@ -1579,10 +1579,9 @@ msgid "Actions"
 msgstr "Akcje"
 
 #: .\templates\quizes\question_list.html:44
-#, fuzzy
-#| msgid "No quizzes available"
+
 msgid "No questions available"
-msgstr "Brak dostępnych quizów"
+msgstr "Brak pytań"
 
 #: .\templates\quizes\question_review.html:14
 #, python-format
