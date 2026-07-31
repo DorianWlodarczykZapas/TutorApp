@@ -1566,7 +1566,7 @@ msgstr "Czy na pewno chcesz usunąć quiz:"
 #: .\templates\quizes\question_list.html:9
 
 msgid "Questions for"
-msgstr "Pytanie do"
+msgstr "Pytania do"
 
 #: .\templates\quizes\question_list.html:17
 #: .\templates\quizes\quiz_list.html:36
