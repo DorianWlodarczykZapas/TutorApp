@@ -1574,8 +1574,7 @@ msgid "LP"
 msgstr "LP"
 
 #: .\templates\quizes\question_list.html:20
-#, fuzzy
-#| msgid "Action"
+
 msgid "Actions"
 msgstr "Akcje"
 
