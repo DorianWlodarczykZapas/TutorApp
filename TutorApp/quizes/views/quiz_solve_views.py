@@ -105,8 +105,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
     def get_form_kwargs(self) -> Dict[str, Any]:
         kwargs = super().get_form_kwargs()
 
-        quiz = get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
-        kwargs["quiz"] = quiz
+        kwargs["quiz"] = self.quiz
         return kwargs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
