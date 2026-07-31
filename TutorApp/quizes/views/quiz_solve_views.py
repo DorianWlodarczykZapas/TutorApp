@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.views.generic import FormView
 from formtools.wizard.views import SessionWizardView
 
@@ -93,6 +94,20 @@ class QuizStartView(LoginRequiredMixin, FormView):
     model = Quiz
     form_class = QuizStartForm
     template_name = "quizes/quiz_solve_start.html"
+
+    @cached_property
+    def quiz(self) -> Quiz:
+        """
+        Quiz instance resolved from the URL's quiz_pk, cached per request.
+        """
+        return get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
+
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+
+        quiz = get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
+        kwargs["quiz"] = quiz
+        return kwargs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
