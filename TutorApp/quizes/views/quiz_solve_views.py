@@ -1,5 +1,6 @@
 import logging
 from typing import Any, Dict, OrderedDict
+from urllib.parse import urlencode
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
@@ -118,8 +119,14 @@ class QuizStartView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form: QuizStartForm) -> HttpResponseRedirect:
         question_count = form.cleaned_data["question_count"]
+        level_type = form.cleaned_data.get("level_type", 1)
 
-        return redirect(
-            reverse("quizes:solve_quiz", kwargs={"quiz_pk": self.quiz.pk})
-            + f"?question_count={question_count}"
-        )
+        params = {
+            "question_count": question_count,
+            "level_type": level_type,
+        }
+        query_string = urlencode(params)
+
+        base_url = reverse("quizes:solve_quiz", kwargs={"quiz_pk": self.quiz.pk})
+
+        return redirect(f"{base_url}?{query_string}")
