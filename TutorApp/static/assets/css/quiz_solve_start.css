@@ -1,0 +1,17 @@
+.quiz-start-info {
+    margin: 0 auto 25px auto;
+    padding: 12px 20px;
+    max-width: 60%;
+
+    text-align: center;
+}
+
+.quiz-start-info__count {
+    font-size: 1.0rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.quiz-start-title {
+    color: #008374;
+}
