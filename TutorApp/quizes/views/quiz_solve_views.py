@@ -115,6 +115,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
         context["quiz"] = self.quiz
         context["question_count"] = self.quiz.questions.count()
         context["seconds_per_question"] = SECONDS_PER_QUESTION
+        context["last_attempt"] = self.quiz.get_last_attempt_for_user(self.request.user)
 
         return context
 
