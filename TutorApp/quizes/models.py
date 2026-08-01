@@ -82,6 +82,13 @@ class Question(models.Model):
     def __str__(self):
         return f"{self.quiz.title} - {self.text[:50]}"
 
+    @property
+    def is_primary_school(self) -> bool:
+        """
+        Property that checks if section is in primary school
+        """
+        return self.section.is_primary_school
+
 
 class Answer(models.Model):
     question = models.ForeignKey(
