@@ -58,6 +58,15 @@ class Section(models.Model):
             f"{self.name} - {self.get_subject_display()} - {self.get_grade_display()}"
         )
 
+    @property
+    def is_primary_school(self) -> bool:
+        """
+        Property that checks if section is in primary school
+        """
+        primary_school_values = [GradeChoices.PRIMARY_7, GradeChoices.PRIMARY_8]
+
+        return self.grade in primary_school_values
+
 
 class Topic(models.Model):
     section = models.ForeignKey(
