@@ -1,7 +1,8 @@
-from typing import List
+from typing import List, Optional
 
 from courses.models import Section
 from django.conf import settings
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from examination_tasks import choices
@@ -24,6 +25,30 @@ class Quiz(models.Model):
 
     def __str__(self):
         return f"{self.title} {self.section}"
+
+    @property
+    def is_primary_school(self) -> bool:
+        """
+        Property that checks if section is in primary school
+        """
+        return self.section.is_primary_school
+
+    def get_last_attempt_for_user(
+        self, user: AbstractBaseUser
+    ) -> Optional["QuizAttempt"]:
+        """
+        Return the most recently completed attempt for the given user on this quiz.
+
+        Args:
+            user: The user whose attempt history should be checked.
+
+        Returns:
+            The latest completed QuizAttempt, or None if the user has never
+            completed this quiz.
+        """
+        return QuizAttempt.objects.filter(
+            quiz=self, user=user, completed_at__isnull=False
+        ).first()
 
     def get_random_questions(self, number_of_questions: int) -> List["Question"]:
         """
@@ -83,13 +108,6 @@ class Question(models.Model):
 
     def __str__(self):
         return f"{self.quiz.title} - {self.text[:50]}"
-
-    @property
-    def is_primary_school(self) -> bool:
-        """
-        Property that checks if section is in primary school
-        """
-        return self.section.is_primary_school
 
 
 class Answer(models.Model):
