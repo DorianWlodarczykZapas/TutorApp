@@ -26,7 +26,7 @@ class QuizStartForm(forms.Form):
 
     question_count = forms.ChoiceField(
         choices=QUESTION_CHOICES,
-        widget=forms.RadioSelect,
+        widget=forms.Select,
         label=_("How many questions would you like?"),
         initial=10,
     )
@@ -34,6 +34,7 @@ class QuizStartForm(forms.Form):
     level_type = forms.ChoiceField(
         choices=LEVEL_CHOICES,
         label=_("Level Type"),
+        widget=forms.Select,
         initial=1,
     )
 
