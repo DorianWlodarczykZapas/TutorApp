@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from examination_tasks.choices import LEVEL_CHOICES
 
 from ..models import Quiz
 
@@ -30,9 +31,17 @@ class QuizStartForm(forms.Form):
         initial=10,
     )
 
+    level_type = forms.ChoiceField(
+        choices=LEVEL_CHOICES,
+        label=_("Level Type"),
+        initial=1,
+    )
+
     def __init__(self, quiz: Quiz, *args, **kwargs):
         self.quiz = quiz
         super().__init__(*args, **kwargs)
+        if quiz.is_primary_school:
+            del self.fields["level_type"]
 
     def clean_question_count(self) -> str:
         question_count = self.cleaned_data["question_count"]
