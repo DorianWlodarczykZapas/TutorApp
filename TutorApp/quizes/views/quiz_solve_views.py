@@ -1,15 +1,17 @@
 import logging
 from typing import Any, Dict, OrderedDict
+from urllib.parse import urlencode
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.views.generic import FormView
 from formtools.wizard.views import SessionWizardView
 
 from ..forms.quiz_wizard_forms import QuizStartForm, QuizStepForm
-from ..models import Question, Quiz
+from ..models import SECONDS_PER_QUESTION, Question, Quiz
 from ..services.solve_quiz_services import QuizSolveService
 
 logger = logging.getLogger(__name__)
@@ -94,21 +96,39 @@ class QuizStartView(LoginRequiredMixin, FormView):
     form_class = QuizStartForm
     template_name = "quizes/quiz_solve_start.html"
 
+    @cached_property
+    def quiz(self) -> Quiz:
+        """
+        Quiz instance resolved from the URL's quiz_pk, cached per request.
+        """
+        return get_object_or_404(Quiz, pk=self.kwargs["quiz_pk"])
+
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+
+        kwargs["quiz"] = self.quiz
+        return kwargs
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
-        quiz_pk = self.kwargs["quiz_pk"]
-        quiz = get_object_or_404(Quiz, pk=quiz_pk)
-        context["quiz"] = quiz
-        context["question_count"] = quiz.questions.count()
+        context["quiz"] = self.quiz
+        context["question_count"] = self.quiz.questions.count()
+        context["seconds_per_question"] = SECONDS_PER_QUESTION
+        context["last_attempt"] = self.quiz.get_last_attempt_for_user(self.request.user)
 
         return context
 
     def form_valid(self, form: QuizStartForm) -> HttpResponseRedirect:
         question_count = form.cleaned_data["question_count"]
+        level_type = form.cleaned_data.get("level_type", 1)
 
-        quiz_pk = self.kwargs["quiz_pk"]
-        return redirect(
-            reverse("quizes:solve_quiz", kwargs={"quiz_pk": quiz_pk})
-            + f"?question_count={question_count}"
-        )
+        params = {
+            "question_count": question_count,
+            "level_type": level_type,
+        }
+        query_string = urlencode(params)
+
+        base_url = reverse("quizes:solve_quiz", kwargs={"quiz_pk": self.quiz.pk})
+
+        return redirect(f"{base_url}?{query_string}")
