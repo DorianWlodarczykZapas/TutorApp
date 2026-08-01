@@ -11,7 +11,7 @@ from django.views.generic import FormView
 from formtools.wizard.views import SessionWizardView
 
 from ..forms.quiz_wizard_forms import QuizStartForm, QuizStepForm
-from ..models import Question, Quiz
+from ..models import SECONDS_PER_QUESTION, Question, Quiz
 from ..services.solve_quiz_services import QuizSolveService
 
 logger = logging.getLogger(__name__)
@@ -114,6 +114,7 @@ class QuizStartView(LoginRequiredMixin, FormView):
 
         context["quiz"] = self.quiz
         context["question_count"] = self.quiz.questions.count()
+        context["seconds_per_question"] = SECONDS_PER_QUESTION
 
         return context
 
