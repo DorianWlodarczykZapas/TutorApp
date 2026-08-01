@@ -6,6 +6,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from examination_tasks import choices
 
+SECONDS_PER_QUESTION: int = 15
+
 
 class Quiz(models.Model):
     title = models.CharField(max_length=100)
