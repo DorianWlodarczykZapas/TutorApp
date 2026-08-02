@@ -14,4 +14,16 @@
 
 .quiz-start-title {
     color: #008374;
+     margin-bottom: 20px;
 }
+
+.main-content--auto-height {
+    align-items: flex-start;
+}
+
+.form-container--narrow {
+    width: min(500px, 90%);
+    padding: 25px 50px;
+}
+}
+
