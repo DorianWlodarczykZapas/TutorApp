@@ -14,4 +14,31 @@
 
 .quiz-start-title {
     color: #008374;
+     margin-bottom: 20px;
+}
+
+.main-content--auto-height {
+    align-items: flex-start;
+}
+
+.form-container--narrow {
+    width: min(500px, 90%);
+    padding: 25px 50px;
+}
+
+
+.quiz-start-form .floating-field label {
+    position: static;
+    transform: none;
+    display: block;
+    text-align: center;
+    margin-bottom: 8px;
+    padding: 0;
+    background: none;
+    color: #333;
+}
+
+.quiz-start-form .floating-field .form-input:focus + label,
+.quiz-start-form .floating-field .form-input:not(:placeholder-shown) + label {
+    display: block;
 }
