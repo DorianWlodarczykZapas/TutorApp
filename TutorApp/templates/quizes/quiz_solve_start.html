@@ -16,12 +16,12 @@
             {% else %}
                 <p class="quiz-start-info__last-attempt">{% translate "You haven't attempted this quiz yet." %}</p>
             {% endif %}
-            <form method="post">
+            <form method="post" class="quiz-start-form">
                 {% csrf_token %}
                 <div class="floating-field field-select">
                     <div class="floating-field__input-wrapper">
-                        {{ form.question_count|add_class:"form-input" }}
                         <label for="{{ form.question_count.id_for_label }}">{{ form.question_count.label }}</label>
+                        {{ form.question_count|add_class:"form-input" }}
                     </div>
                     {% if form.question_count.errors %}
                         <div class="field-errors">{{ form.question_count.errors|striptags }}</div>
@@ -30,8 +30,8 @@
                 {% if form.level_type %}
                     <div class="floating-field field-select">
                         <div class="floating-field__input-wrapper">
-                            {{ form.level_type|add_class:"form-input" }}
                             <label for="{{ form.level_type.id_for_label }}">{{ form.level_type.label }}</label>
+                            {{ form.level_type|add_class:"form-input" }}
                         </div>
                         {% if form.level_type.errors %}<div class="field-errors">{{ form.level_type.errors|striptags }}</div>{% endif %}
                     </div>
