@@ -1682,10 +1682,9 @@ msgstr ""
 "                    "
 
 #: .\templates\quizes\quiz_solve_start.html:17
-#, fuzzy
-#| msgid "Not attempted yet"
+
 msgid "You haven't attempted this quiz yet."
-msgstr "Brak podejść"
+msgstr "Nie podszedłeś/aś jeszcze do tego quizu."
 
 #: .\templates\quizes\quiz_solve_start.html:44
 msgid "Estimated time to complete:"
