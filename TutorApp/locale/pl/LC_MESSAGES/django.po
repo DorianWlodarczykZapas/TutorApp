@@ -1663,15 +1663,7 @@ msgid "Total questions available: %(question_count)s"
 msgstr "Ilość dostępnych pytań: %(question_count)s"
 
 #: .\templates\quizes\quiz_solve_start.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        Found %(counter)s task\n"
-#| "                    "
-#| msgid_plural ""
-#| "\n"
-#| "                        Found %(counter)s tasks\n"
-#| "                    "
+
 msgid ""
 "\n"
 "                    Your last score: %(score)s / %(max_score)s\n"
