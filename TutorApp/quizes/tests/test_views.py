@@ -18,6 +18,11 @@ class AddQuizViewTests(TestCase):
         """Test case that checks if unauthorized access is working"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            "/accounts/login/?next=%s" % self.url,
+            fetch_redirect_response=False,
+        )
 
     def test_can_teacher_access(self) -> None:
         """
@@ -26,3 +31,10 @@ class AddQuizViewTests(TestCase):
         self.client.force_login(self.teacher)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.template_name)
+
+    def test_can_student_access(self) -> None:
+        """Test case that checks if student can access adding quiz page"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
