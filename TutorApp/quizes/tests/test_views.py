@@ -12,6 +12,7 @@ class AddQuizViewTests(TestCase):
         self.teacher = TeacherFactory.create()
         self.section = SectionFactory.create()
         self.valid_data = {"title": "Sequences", "section": self.section.pk}
+        self.template_name = "quizes/add_quiz.html"
 
     def test_unauthorized_access(self) -> None:
         """Test case that checks if unauthorized access is working"""
