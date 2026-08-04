@@ -50,3 +50,19 @@ class AddQuizViewTests(TestCase):
         quiz = Quiz.objects.first()
         self.assertEqual(quiz.title, self.valid_data["title"])
         self.assertEqual(quiz.section_id, self.valid_data["section"])
+
+    def test_post_empty_title_quiz(self) -> None:
+        """Test case that post empty title quiz"""
+        self.client.force_login(self.teacher)
+        invalid_data = {**self.valid_data, "title": ""}
+        response = self.client.post(self.url, data=invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Quiz.objects.count(), 0)
+
+    def test_post_invalid_section(self) -> None:
+        """Test case that post invalid section"""
+        self.client.force_login(self.teacher)
+        invalid_data = {**self.valid_data, "section": -1}
+        response = self.client.post(self.url, data=invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Quiz.objects.count(), 0)
