@@ -12,3 +12,8 @@ class AddQuizViewTests(TestCase):
         self.teacher = TeacherFactory.create()
         self.section = SectionFactory.create()
         self.valid_data = {"title": "Sequences", "section": self.section.pk}
+
+    def test_unauthorized_access(self):
+        """Test case that checks if unauthorized access is working"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
