@@ -1,6 +1,7 @@
 from courses.tests.factories import SectionFactory
 from django.test import Client, TestCase
 from django.urls import reverse
+from quizes.models import Quiz
 from users.factories import TeacherFactory, UserFactory
 
 
@@ -13,6 +14,7 @@ class AddQuizViewTests(TestCase):
         self.section = SectionFactory.create()
         self.valid_data = {"title": "Sequences", "section": self.section.pk}
         self.template_name = "quizes/add_quiz.html"
+        self.success_url = reverse("quizes:quiz_list")
 
     def test_unauthorized_access(self) -> None:
         """Test case that checks if unauthorized access is working"""
@@ -38,3 +40,10 @@ class AddQuizViewTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
+    def test_post_valid_data_as_teacher(self) -> None:
+        """Test case that post valid data as teacher"""
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertRedirects(response, self.success_url)
+        self.assertEqual(Quiz.objects.count(), 1)
