@@ -8,7 +8,7 @@ class AddQuizViewTests(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.url = reverse("quizes:add_quiz")
-        self.student = UserFactory()
-        self.teacher = TeacherFactory()
+        self.student = UserFactory.create()
+        self.teacher = TeacherFactory.create()
         self.section = SectionFactory.create()
         self.valid_data = {"title": "Sequences", "section": self.section.pk}
