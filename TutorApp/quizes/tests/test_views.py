@@ -47,3 +47,6 @@ class AddQuizViewTests(TestCase):
         response = self.client.post(self.url, data=self.valid_data)
         self.assertRedirects(response, self.success_url)
         self.assertEqual(Quiz.objects.count(), 1)
+        quiz = Quiz.objects.first()
+        self.assertEqual(quiz.title, self.valid_data["title"])
+        self.assertEqual(quiz.section_id, self.valid_data["section"])
