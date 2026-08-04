@@ -66,3 +66,10 @@ class AddQuizViewTests(TestCase):
         response = self.client.post(self.url, data=invalid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Quiz.objects.count(), 0)
+
+    def test_student_post_data(self) -> None:
+        """Test case that post valid data as student"""
+        self.client.force_login(self.student)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(Quiz.objects.count(), 0)
