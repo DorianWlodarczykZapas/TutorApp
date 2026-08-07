@@ -1,6 +1,6 @@
 {% load i18n %}
 <div class="nav-menu">
-    <input type="checkbox" id="examToggle" hidden>
+    <input type="radio" id="examToggle" name="navigation-link" hidden>
     <label for="examToggle">{% trans "Examination Tasks" %}</label>
     <div class="dropdown-content">
         <a href="{% url 'examination_tasks:exam_list' %}">{% trans "Exam List" %}</a>

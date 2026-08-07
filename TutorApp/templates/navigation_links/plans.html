@@ -1,6 +1,6 @@
 {% load i18n %}
 <div class="nav-menu">
-    <input type="checkbox" id="plansToggle" hidden>
+    <input type="radio" id="plansToggle" name="navigation-link" hidden>
     <label for="plansToggle">{% trans "Plans" %}</label>
     <div class="dropdown-content">
         <a href="{% url 'plans:plans' %}">{% trans "Plans List" %}</a>

@@ -1,6 +1,6 @@
 {% load i18n %}
 <div class="nav-menu">
-    <input type="checkbox" id="quizesToggle" hidden>
+    <input type="radio" id="quizesToggle" name="navigation-link" hidden>
     <label for="quizesToggle">{% trans "Quizes" %}</label>
     <div class="dropdown-content">
         <a href="{% url 'quizes:quiz_list' %}">{% trans "Quiz List" %}</a>
