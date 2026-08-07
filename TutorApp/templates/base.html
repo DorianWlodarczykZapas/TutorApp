@@ -81,6 +81,8 @@
         <main class="{% block main_class %}main-content{% endblock %}">
             {% block content %}{% endblock %}
         </main>
-        {% block scripts %}{% endblock %}
+        {% block scripts %}
+            <script defer src="{% static 'assets/js/nav_link_closing.js' %}"></script>
+        {% endblock %}
     </body>
 </html>
