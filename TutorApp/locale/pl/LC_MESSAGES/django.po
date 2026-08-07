@@ -1161,9 +1161,8 @@ msgid "My Exam Progress"
 msgstr "Mój postęp w egzaminie"
 
 #: .\templates\examination_tasks\exam_progress.html:14
-#, fuzzy
-#| msgid "Tasks Completed"
-msgid "tasks completed"
+
+msgid "Tasks completed"
 msgstr "Ukończone Zadania"
 
 #: .\templates\examination_tasks\exam_progress.html:29
