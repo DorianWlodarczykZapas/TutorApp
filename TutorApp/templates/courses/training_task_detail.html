@@ -93,7 +93,7 @@
                 {% else %}
                     <div class="task-detail-locked">
                         <p class="task-detail-locked__text">🔒 {% trans "This explanation is available for Premium users only." %}</p>
-                        <a href="{% url 'plans:plans_list' %}" class="btn-submit">{% trans "Upgrade to Premium" %}</a>
+                        <a href="{% url 'plans:plans' %}" class="btn-submit">{% trans "Upgrade to Premium" %}</a>
                     </div>
                 {% endif %}
             </div>
