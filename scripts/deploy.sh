@@ -21,7 +21,8 @@ echo "Waiting for services t o be healthy..."
 sleep 15
 
 echo "Collecting static files..."
-docker compose -f docker-compose.prod.yml --env-file exec -T web python TutorApp/manage.py collectstatic --no-input
+
+docker compose -f docker-compose.prod.yml --env-file .env exec -T web python TutorApp/manage.py collectstatic --no-input
 
 echo "Cleaning up old images..."
 docker image prune -f
