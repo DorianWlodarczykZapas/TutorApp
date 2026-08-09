@@ -15,7 +15,7 @@ echo "Building new Docker images..."
 docker compose -f docker-compose.prod.yml --env-file .env build --no-cache
 
 echo "Performing rolling update..."
-docker compose -f docker-compoes.prod.yml --env-file .env up -d --force-recreate --remove-oprhans
+docker compose -f docker-compoes.prod.yml --env-file .env up -d --force-recreate --remove-orphans
 
 echo "Waiting for services t o be healthy..."
 sleep 15
