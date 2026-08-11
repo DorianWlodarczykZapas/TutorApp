@@ -1530,10 +1530,8 @@ msgstr "Czy na pewno chcesz usunąć quiz:"
 #: .\templates\quizes\edit_question.html:5
 #: .\templates\quizes\edit_question.html:11
 #: .\templates\quizes\question_list.html:34
-#, fuzzy
-#| msgid "Add Question"
 msgid "Edit Question"
-msgstr "Dodaj Pytanie"
+msgstr "Edytuj Pytanie"
 
 #: .\templates\quizes\edit_question.html:88
 #, fuzzy
