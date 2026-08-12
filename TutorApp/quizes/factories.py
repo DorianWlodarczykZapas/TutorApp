@@ -1,16 +1,27 @@
 import factory
+from examination_tasks.choices import LEVEL_CHOICES
 
-from .models import Answer, Quiz
+from TutorApp.courses.tests.factories import SectionFactory
+from TutorApp.quizes.models import Answer, Question, Quiz
 
 
 class QuizFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Quiz
 
-    type = 1  # Real numbers
-    question = factory.Faker("sentence")
-    explanation = factory.Faker("paragraph")
-    question_picture = None
+    section = factory.SubFactory(SectionFactory)
+    title = factory.Faker("sentence", nb_words=3)
+
+
+class QuestionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Question
+
+    text = factory.Faker("text", max_nb_chars=250)
+    quiz = factory.SubFactory(QuizFactory)
+    level_type = factory.fuzzy.FuzzyChoice(choice[0] for choice in LEVEL_CHOICES)
+    picture = None
+    explanation = factory.Faker("text", max_nb_chars=250)
     explanation_picture = None
 
 
@@ -18,6 +29,6 @@ class AnswerFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Answer
 
-    quiz = factory.SubFactory(QuizFactory)
-    text = factory.Faker("word")
-    is_correct = False
+    question = factory.SubFactory(QuestionFactory)
+    text = factory.Faker("text", max_nb_chars=100)
+    is_correct = True
