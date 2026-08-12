@@ -2,7 +2,7 @@ import factory
 from examination_tasks.choices import LEVEL_CHOICES
 
 from TutorApp.courses.tests.factories import SectionFactory
-from TutorApp.quizes.models import Question, Quiz
+from TutorApp.quizes.models import Answer, Question, Quiz
 
 
 class QuizFactory(factory.django.DjangoModelFactory):
@@ -23,3 +23,12 @@ class QuestionFactory(factory.django.DjangoModelFactory):
     picture = None
     explanation = factory.Faker("text", max_nb_chars=250)
     explanation_picture = None
+
+
+class AnswerFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Answer
+
+    question = factory.SubFactory(QuestionFactory)
+    text = factory.Faker("text", max_nb_chars=100)
+    is_correct = True
