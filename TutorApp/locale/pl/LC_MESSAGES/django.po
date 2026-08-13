@@ -1534,10 +1534,9 @@ msgid "Edit Question"
 msgstr "Edytuj Pytanie"
 
 #: .\templates\quizes\edit_question.html:88
-#, fuzzy
-#| msgid "Select answers:"
+
 msgid "Delete this answer"
-msgstr "Wybierz odpowiedzi:"
+msgstr "Usuń tą odpowiedź"
 
 #: .\templates\quizes\edit_question.html:94
 #, fuzzy
