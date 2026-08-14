@@ -1539,10 +1539,8 @@ msgid "Delete this answer"
 msgstr "Usuń tą odpowiedź"
 
 #: .\templates\quizes\edit_question.html:94
-#, fuzzy
-#| msgid "Save Task"
 msgid "Save Changes"
-msgstr "Zapisz Zadanie"
+msgstr "Zapisz Zmiany"
 
 #: .\templates\quizes\question_confirm_delete.html:6
 #: .\templates\quizes\question_list.html:36
