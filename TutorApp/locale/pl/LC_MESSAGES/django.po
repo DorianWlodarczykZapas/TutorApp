@@ -1847,10 +1847,8 @@ msgid "Watch Video"
 msgstr "Obejrz Film"
 
 #: .\templates\videos\video_list.html:73
-#, fuzzy
-#| msgid "Available Exams"
 msgid "Available for premium"
-msgstr "Dostępne Egzaminy"
+msgstr "Dostępne dla użytkowników premium"
 
 #: .\templates\videos\video_list.html:81
 msgid "Video pagination"
