@@ -1544,10 +1544,9 @@ msgstr "Zapisz Zmiany"
 
 #: .\templates\quizes\question_confirm_delete.html:6
 #: .\templates\quizes\question_list.html:36
-#, fuzzy
-#| msgid "Delete Quiz"
+
 msgid "Delete Question"
-msgstr "Usuń quiz"
+msgstr "Usuń Pytanie"
 
 #: .\templates\quizes\question_confirm_delete.html:9
 #, fuzzy
