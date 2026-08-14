@@ -1802,10 +1802,9 @@ msgid "Save Video"
 msgstr "Zapisz Nagranie"
 
 #: .\templates\videos\section_video_list.html:10
-#, fuzzy
-#| msgid "March"
+
 msgid "Search"
-msgstr "Marzec"
+msgstr "Wyszukaj"
 
 #: .\templates\videos\section_video_list.html:18
 msgid "Watch"
