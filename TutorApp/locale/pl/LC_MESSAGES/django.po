@@ -1855,22 +1855,13 @@ msgid "Video pagination"
 msgstr "Paginacja nagrań"
 
 #: .\templates\videos\video_list.html:142
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        Found %(counter)s task\n"
-#| "                    "
-#| msgid_plural ""
-#| "\n"
-#| "                        Found %(counter)s tasks\n"
-#| "                    "
 msgid ""
 "\n"
 "                        Page %(current)s of %(total)s\n"
 "                        "
 msgstr ""
 "\n"
-"                        Znaleziono %(counter)s zadanie\n"
+"                        Strona %(current)s z %(total)s\n"
 "                    "
 
 #: .\templates\videos\video_list.html:151
