@@ -1619,19 +1619,14 @@ msgid "Not attempted yet"
 msgstr "Brak podejść"
 
 #: .\templates\quizes\quiz_list.html:64
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                                    %(score)s/%(max)s\n"
-#| "                                    "
 msgid ""
 "\n"
 "                                    %(score)s/%(max)s\n"
 "                                    "
 msgstr ""
 "\n"
-"                        Znaleziono %(counter)s zadanie\n"
-"                    "
+"                                    %(score)s/%(max)s zadanie\n"
+"                                    "
 
 #: .\templates\quizes\quiz_list.html:73
 #: .\templates\quizes\quiz_solve_start.html:47
