@@ -1654,7 +1654,7 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                        Znaleziono %(counter)s zadanie\n"
+"                        Twój ostatni wynik:  %(score)s / %(max_score)s\n"
 "                    "
 
 #: .\templates\quizes\quiz_solve_start.html:17
