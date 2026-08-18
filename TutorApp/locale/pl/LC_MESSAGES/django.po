@@ -1664,7 +1664,7 @@ msgstr "Nie podszedłeś/aś jeszcze do tego quizu."
 
 #: .\templates\quizes\quiz_solve_start.html:44
 msgid "Estimated time to complete:"
-msgstr "Szacowany czas realizacji:"
+msgstr "Szacowany czas na rozwiązanie:"
 
 #: .\templates\quizes\quiz_solve_wizard.html:4
 msgid "Solve Quiz"
