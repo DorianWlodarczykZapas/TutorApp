@@ -4,6 +4,8 @@ from django.urls import reverse
 from quizes.models import Quiz
 from users.factories import TeacherFactory, UserFactory
 
+from TutorApp.quizes.factories import QuizFactory
+
 
 class AddQuizViewTests(TestCase):
     def setUp(self) -> None:
@@ -73,3 +75,29 @@ class AddQuizViewTests(TestCase):
         response = self.client.post(self.url, data=self.valid_data)
         self.assertEqual(response.status_code, 403)
         self.assertEqual(Quiz.objects.count(), 0)
+
+
+class AddQuestionViewTests(TestCase):
+    def setUp(self) -> None:
+        self.quiz = QuizFactory.create()
+        self.url = reverse("quizes:add_question", kwargs={"quiz_pk": self.quiz.pk})
+        self.student = UserFactory.create()
+        self.teacher = TeacherFactory.create()
+
+        self.valid_data = {
+            "text": "What is the value of e?",
+            "level_type": 1,
+            "explanation": "2.7",
+            "answer_set-TOTAL_FORMS": 4,
+            "answer_set-INITIAL_FORMS": 0,
+            "answer_set-MIN_NUM_FORMS": 0,
+            "answer_set-MAX_NUM_FORMS": 10,
+            "answer_set-0-text": "3.14",
+            "answer_set-0-is_correct": False,
+            "answer_set-1-text": "0",
+            "answer_set-1-is_correct": False,
+            "answer_set-2-text": "2.7",
+            "answer_set-2-is_correct": True,
+            "answer_set-3-text": "109",
+            "answer_set-3-is_correct": False,
+        }
