@@ -112,3 +112,9 @@ class AddQuestionViewTests(TestCase):
             "/accounts/login/?next=%s" % self.url,
             fetch_redirect_response=False,
         )
+
+    def test_can_student_access(self) -> None:
+        """Test case that checks if student can access adding quiz page"""
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
