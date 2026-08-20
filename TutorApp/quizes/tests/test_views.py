@@ -101,3 +101,13 @@ class AddQuestionViewTests(TestCase):
             "answer_set-3-text": "109",
             "answer_set-3-is_correct": False,
         }
+
+    def test_unauthorized_access(self) -> None:
+        """Test case that checks if unauthorized access is working"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            "/accounts/login/?next=%s" % self.url,
+            fetch_redirect_response=False,
+        )
