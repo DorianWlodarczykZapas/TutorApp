@@ -118,3 +118,12 @@ class AddQuestionViewTests(TestCase):
         self.client.force_login(self.student)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
+    def test_can_teacher_access(self) -> None:
+        """
+        Test case that checks if teacher can access adding quiz page
+        """
+        self.client.force_login(self.teacher)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.template_name)
