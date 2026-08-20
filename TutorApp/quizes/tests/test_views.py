@@ -83,6 +83,7 @@ class AddQuestionViewTests(TestCase):
         self.url = reverse("quizes:add_question", kwargs={"quiz_pk": self.quiz.pk})
         self.student = UserFactory.create()
         self.teacher = TeacherFactory.create()
+        self.template_name = "quizes/add_question.html"
 
         self.valid_data = {
             "text": "What is the value of e?",
