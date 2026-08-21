@@ -1,7 +1,7 @@
 from courses.tests.factories import SectionFactory
 from django.test import Client, TestCase
 from django.urls import reverse
-from quizes.models import Quiz
+from quizes.models import Answer, Question, Quiz
 from users.factories import TeacherFactory, UserFactory
 
 from TutorApp.quizes.factories import QuizFactory
@@ -127,3 +127,15 @@ class AddQuestionViewTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, self.template_name)
+
+    def test_teacher_post_valid_data(self) -> None:
+        """
+        Test case that checks if teacher can add question
+        """
+        self.client.force_login(self.teacher)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Question.objects.count(), 1)
+        self.assertEqual(Answer.objects.count(), 4)
+        self.assertEqual(Question.objects.filter(quiz_id=self.quiz.pk).count(), 1)
+        self.assertRedirects(response, self.url)
