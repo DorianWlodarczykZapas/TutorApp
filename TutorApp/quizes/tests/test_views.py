@@ -139,3 +139,15 @@ class AddQuestionViewTests(TestCase):
         self.assertEqual(Answer.objects.count(), 4)
         self.assertEqual(Question.objects.filter(quiz_id=self.quiz.pk).count(), 1)
         self.assertRedirects(response, self.url)
+
+    def test_teacher_post_data_without_text(self) -> None:
+        """Test case that checks if teacher can post blank question"""
+        self.client.force_login(self.teacher)
+        invalid_data = self.valid_data.copy()
+        invalid_data["text"] = ""
+        response = self.client.post(self.url, data=invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertFormError(
+            response.context["form"], "text", "This field is required."
+        )
