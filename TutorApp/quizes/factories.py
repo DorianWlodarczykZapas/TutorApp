@@ -1,8 +1,7 @@
 import factory
+from courses.tests.factories import SectionFactory
 from examination_tasks.choices import LEVEL_CHOICES
-
-from TutorApp.courses.tests.factories import SectionFactory
-from TutorApp.quizes.models import Answer, Question, Quiz
+from quizes.models import Answer, Question, Quiz
 
 
 class QuizFactory(factory.django.DjangoModelFactory):
