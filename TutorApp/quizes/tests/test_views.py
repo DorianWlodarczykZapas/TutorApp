@@ -150,3 +150,17 @@ class AddQuestionViewTests(TestCase):
         self.assertFormError(
             response.context["form"], "text", "This field is required."
         )
+
+    def test_post_no_correct_answer(self) -> None:
+        """Test case that post no correct answer"""
+        self.client.force_login(self.teacher)
+        invalid_data = self.valid_data.copy()
+        invalid_data["answer_set-2-is_correct"] = False
+        response = self.client.post(self.url, data=invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Answer.objects.count(), 0)
+        formset = response.context["formset"]
+        self.assertIn(
+            "At least one answer must be marked as correct.",
+            formset.non_form_errors(),
+        )
