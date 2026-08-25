@@ -164,3 +164,10 @@ class AddQuestionViewTests(TestCase):
             "At least one answer must be marked as correct.",
             formset.non_form_errors(),
         )
+
+    def test_non_existing_quiz(self) -> None:
+        """Test case that post with non existing quiz"""
+        self.client.force_login(self.teacher)
+        invalid_url = reverse("quizes:add_question", kwargs={"quiz_pk": -2})
+        response = self.client.get(invalid_url)
+        self.assertEqual(response.status_code, 200)
