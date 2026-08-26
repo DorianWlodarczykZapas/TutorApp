@@ -179,3 +179,11 @@ class AddQuestionViewTests(TestCase):
         response = self.client.post(invalid_url, data=self.valid_data)
         self.assertEqual(response.status_code, 404)
         self.assertEqual(Question.objects.count(), 0)
+
+    def test_student_cannot_post_data(self) -> None:
+        """Test case that post with student can't post data"""
+        self.client.force_login(self.student)
+        response = self.client.post(self.url, data=self.valid_data)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
