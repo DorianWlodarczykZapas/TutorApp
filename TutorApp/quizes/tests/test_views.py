@@ -187,3 +187,18 @@ class AddQuestionViewTests(TestCase):
         self.assertEqual(response.status_code, 403)
         self.assertEqual(Question.objects.count(), 0)
         self.assertEqual(Answer.objects.count(), 0)
+
+    def test_invalid_level_type_in_question(self) -> None:
+        """Test case that post with invalid level type in question"""
+        self.client.force_login(self.teacher)
+        invalid_data = self.valid_data.copy()
+        invalid_data["level_type"] = -1
+        response = self.client.post(self.url, data=invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
+        self.assertFormError(
+            response.context["form"],
+            "level_type",
+            "Select a valid choice. -1 is not one of the available choices.",
+        )
