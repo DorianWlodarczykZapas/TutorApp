@@ -1588,6 +1588,9 @@ msgid ""
 "            Points earned: %(points)s\n"
 "        "
 msgstr ""
+"\n"
+"            Zdobyte punkty: %(points)s\n"
+"        "
 
 #: .\templates\quizes\question_review.html:27
 msgid "Question image"
