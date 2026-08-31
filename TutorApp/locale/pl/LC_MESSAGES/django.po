@@ -1648,23 +1648,20 @@ msgid "No quizzes available"
 msgstr "Brak dostępnych quizów"
 
 #: .\templates\quizes\quiz_solve_start.html:8
-
 msgid "Total questions available: %(question_count)s"
 msgstr "Ilość dostępnych pytań: %(question_count)s"
 
 #: .\templates\quizes\quiz_solve_start.html:12
-
 msgid ""
 "\n"
 "                    Your last score: %(score)s / %(max_score)s\n"
 "                "
 msgstr ""
 "\n"
-"                        Twój ostatni wynik:  %(score)s / %(max_score)s\n"
-"                    "
+"                    Twój ostatni wynik: %(score)s / %(max_score)s\n"
+"                "
 
 #: .\templates\quizes\quiz_solve_start.html:17
-
 msgid "You haven't attempted this quiz yet."
 msgstr "Nie podszedłeś/aś jeszcze do tego quizu."
 
