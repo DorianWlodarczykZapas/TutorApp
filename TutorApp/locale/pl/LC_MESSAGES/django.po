@@ -244,10 +244,6 @@ msgstr "Numer Strony"
 msgid "Explanation Timestamp"
 msgstr "Timestamp z wyjaśnieniem"
 
-#: .\courses\forms\training_tasks_forms.py:54
-msgid " "
-msgstr ""
-
 #: .\courses\models.py:92 .\courses\models.py:95
 msgid "Use $...$ for inline math, e.g., $x=2$"
 msgstr "Użyj $...$ dla matematyki inline, np. $x=2$"
