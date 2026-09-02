@@ -726,7 +726,7 @@ msgstr "Wyjaśnienie do pytania w postaci ilustracji"
 
 #: .\quizes\forms\question_forms.py:65
 msgid "At least one answer must be marked as correct."
-msgstr ""
+msgstr "Co najmniej jedna odpowiedź musi zostać zaznaczona jako poprawna."
 
 #: .\quizes\forms\question_forms.py:74
 msgid "Enter Answer"
