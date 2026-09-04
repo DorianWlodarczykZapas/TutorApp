@@ -810,7 +810,7 @@ msgstr "Pytanie zostało pomyślnie dodane"
 
 #: .\quizes\views\question_views.py:170
 msgid "Question has been successfully updated."
-msgstr "Pytanie zostało pomyślnie dodane"
+msgstr "Pytanie zostało pomyślnie zaktualizowane."
 
 #: .\quizes\views\quiz_views.py:27
 msgid "Quiz created successfully!"
