@@ -814,7 +814,7 @@ msgstr "Pytanie zostało pomyślnie zaktualizowane."
 
 #: .\quizes\views\quiz_views.py:27
 msgid "Quiz created successfully!"
-msgstr "Quiz dodany pomyślnie"
+msgstr "Quiz został pomyślnie utworzony!"
 
 #: .\templates\base.html:46
 msgid "Logout"
