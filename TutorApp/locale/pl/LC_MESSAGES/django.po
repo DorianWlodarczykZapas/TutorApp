@@ -1269,7 +1269,7 @@ msgstr "Żadne zadanie nie spełnia twoich kryteriów."
 #: .\templates\examination_tasks\exam_task_search_engine.html:78
 #, python-format
 msgid "Page %(page_obj.number)s of %(page_obj.paginator.num_pages)s"
-msgstr ""
+msgstr "Strona %(page_obj.number)s z %(page_obj.paginator.num_pages)s"
 
 #: .\templates\motifs\add_motif.html:5 .\templates\motifs\add_motif.html:11
 msgid "Add New Motif"
