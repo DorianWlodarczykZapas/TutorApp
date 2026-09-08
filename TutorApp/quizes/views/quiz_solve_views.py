@@ -29,27 +29,44 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
         quiz_pk = self.kwargs["quiz_pk"]
         quiz = get_object_or_404(Quiz, pk=quiz_pk)
-        question_count = self.request.GET.get("question_count", "all")
+        question_ids = self.storage.extra_data.get("question_ids")
 
-        if question_count == "all":
-            questions = quiz.questions.all().order_by("?")
+        if question_ids is None:
+
+            question_count = self.request.GET.get("question_count", "all")
+
+            if question_count == "all":
+
+                questions = quiz.questions.all().order_by("?")
+
+                if not questions:
+                    logger.error(f"Quiz {quiz_pk} has no questions!")
+                    raise ValueError(f"Quiz '{quiz.title}' has no questions.")
+            else:
+                try:
+                    count = int(question_count)
+                except (ValueError, TypeError):
+                    logger.warning(
+                        f"Invalid question_count '{question_count}', using 10"
+                    )
+                    count = 10
+                questions = quiz.get_random_questions(count)
+
+            question_ids = [question.pk for question in questions]
+            self.storage.extra_data["question_ids"] = question_ids
         else:
-            try:
-                count = int(question_count)
-            except (ValueError, TypeError):
-                logger.warning(f"Invalid question_count '{question_count}', using 10")
-                count = 10
-            questions = quiz.get_random_questions(count)
+            questions_qs = Question.objects.filter(id__in=question_ids)
 
-        if not questions:
-            logger.error(f"Quiz {quiz_pk} has no questions!")
-            raise ValueError(f"Quiz '{quiz.title}' has no questions.")
+            lookup = {question.pk: question for question in questions_qs}
 
-        form_list = [
-            (f"question_{question.id}", QuizStepForm) for question in questions
-        ]
+            questions = [lookup[question_id] for question_id in question_ids]
 
-        return OrderedDict(form_list)
+        dict_with_question_ids = OrderedDict(
+            [(f"question_{question.id}", QuizStepForm) for question in questions]
+        )
+        self.form_list = dict_with_question_ids
+
+        return dict_with_question_ids
 
     def done(self, form_list, **kwargs) -> HttpResponse:
 
@@ -88,6 +105,9 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         question_id = int(current_step.split("_")[1])
         question = get_object_or_404(Question, pk=question_id)
         context["question"] = question
+
+        logger.warning(f"self.form_list = {self.form_list}")
+        logger.warning(f"self.get_form_list() = {self.get_form_list()}")
         return context
 
     def get_form_kwargs(self, step=None) -> Dict[str, Any]:
