@@ -34,14 +34,15 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         if question_ids is None:
 
             question_count = self.request.GET.get("question_count", "all")
+            get_level_type = self.request.GET.get("level_type")
+            try:
+                level_type = int(get_level_type)
+            except (ValueError, TypeError):
+                logger.warning(f"Invalid level_type '{get_level_type}', not using")
+                level_type = None
 
             if question_count == "all":
-
-                questions = quiz.questions.all().order_by("?")
-
-                if not questions:
-                    logger.error(f"Quiz {quiz_pk} has no questions!")
-                    raise ValueError(f"Quiz '{quiz.title}' has no questions.")
+                count = None
             else:
                 try:
                     count = int(question_count)
@@ -50,7 +51,10 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
                         f"Invalid question_count '{question_count}', using 10"
                     )
                     count = 10
-                questions = quiz.get_random_questions(count)
+            questions = quiz.get_random_questions(count, level_type)
+            if not questions:
+                logger.error(f"Quiz {quiz_pk} has no questions!")
+                raise ValueError(f"Quiz '{quiz.title}' has no questions.")
 
             question_ids = [question.pk for question in questions]
             self.storage.extra_data["question_ids"] = question_ids
