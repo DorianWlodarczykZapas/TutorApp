@@ -50,12 +50,17 @@ class Quiz(models.Model):
             quiz=self, user=user, completed_at__isnull=False
         ).first()
 
-    def get_random_questions(self, number_of_questions: int) -> List["Question"]:
+    def get_random_questions(
+        self,
+        number_of_questions: Optional[int] = None,
+        level_type: Optional[int] = None,
+    ) -> List["Question"]:
         """
         Return a list of randomly selected questions for  quiz.
 
         Args:
         number_of_questions: The number of questions to pick
+        level_type: The level of question to pick
 
 
         Returns:
@@ -66,20 +71,28 @@ class Quiz(models.Model):
 
         """
 
-        available_questions = self.questions.count()
+        if level_type is not None:
+            collection_of_questions = self.questions.filter(level_type=level_type)
+        else:
+            collection_of_questions = self.questions.all()
 
-        if number_of_questions <= 0:
-            raise ValueError(_("Number of questions must be positive"))
+        if number_of_questions is not None:
+            if number_of_questions <= 0:
+                raise ValueError(_("Number of questions must be positive"))
+            available_questions = collection_of_questions.count()
 
-        if number_of_questions > available_questions:
-            raise ValueError(
-                _(
-                    "Cannot request %(requested)d questions. Only %(available)d available."
+            if number_of_questions > available_questions:
+                raise ValueError(
+                    _(
+                        "Cannot request %(requested)d questions. Only %(available)d available."
+                    )
+                    % {
+                        "requested": number_of_questions,
+                        "available": available_questions,
+                    }
                 )
-                % {"requested": number_of_questions, "available": available_questions}
-            )
 
-        questions = self.questions.order_by("?")
+        questions = collection_of_questions.order_by("?")
         questions = questions[:number_of_questions]
 
         return list(questions)
