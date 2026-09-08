@@ -51,7 +51,9 @@ class Quiz(models.Model):
         ).first()
 
     def get_random_questions(
-        self, number_of_questions: int, level_type: Optional[int] = None
+        self,
+        number_of_questions: Optional[int] = None,
+        level_type: Optional[int] = None,
     ) -> List["Question"]:
         """
         Return a list of randomly selected questions for  quiz.
@@ -74,18 +76,22 @@ class Quiz(models.Model):
         else:
             collection_of_questions = self.questions.all()
 
-        available_questions = collection_of_questions.count()
+        if number_of_questions is not None:
+            if number_of_questions <= 0:
+                raise ValueError(_("Number of questions must be positive"))
+            available_questions = collection_of_questions.count()
 
-        if number_of_questions <= 0:
-            raise ValueError(_("Number of questions must be positive"))
-
-        if number_of_questions > available_questions:
-            raise ValueError(
-                _(
-                    "Cannot request %(requested)d questions. Only %(available)d available."
+            if number_of_questions > available_questions:
+                raise ValueError(
+                    _(
+                        "Cannot request %(requested)d questions. Only %(available)d available."
+                    )
+                    % {
+                        "requested": number_of_questions,
+                        "available": available_questions,
+                    }
                 )
-                % {"requested": number_of_questions, "available": available_questions}
-            )
+
         questions = collection_of_questions.order_by("?")
         questions = questions[:number_of_questions]
 
