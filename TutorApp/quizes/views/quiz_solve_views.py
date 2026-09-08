@@ -90,6 +90,16 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         context["question"] = question
         return context
 
+    def get_form_kwargs(self, step=None) -> Dict[str, Any]:
+        if step is None:
+            return {}
+
+        kwargs = super().get_form_kwargs(step)
+        question_id = int(step.split("_")[1])
+        question = get_object_or_404(Question, pk=question_id)
+        kwargs["question"] = question
+        return kwargs
+
 
 class QuizStartView(LoginRequiredMixin, FormView):
     model = Quiz
