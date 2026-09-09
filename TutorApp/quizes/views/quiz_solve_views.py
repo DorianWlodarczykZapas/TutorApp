@@ -138,6 +138,12 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         else:
             return self.force_finish()
 
+    def get(self, *args, **kwargs) -> HttpResponse:
+        if self.storage.extra_data.get("question_ids") is None:
+            return super().get(*args, **kwargs)
+        else:
+            return self.render(self.get_form())
+
     def force_finish(self) -> HttpResponse:
         """
         Fills in all blank fields in the wizard forms with default values when time runs out
