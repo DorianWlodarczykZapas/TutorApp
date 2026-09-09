@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, OrderedDict
 from urllib.parse import urlencode
 
@@ -58,6 +59,11 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
             question_ids = [question.pk for question in questions]
             self.storage.extra_data["question_ids"] = question_ids
+
+            deadline = timezone.now() + timedelta(
+                seconds=SECONDS_PER_QUESTION * len(question_ids)
+            )
+            self.storage.extra_data["deadline"] = deadline.isoformat()
         else:
             questions_qs = Question.objects.filter(id__in=question_ids)
 
@@ -123,6 +129,14 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         question = get_object_or_404(Question, pk=question_id)
         kwargs["question"] = question
         return kwargs
+
+    def post(self, *args, **kwargs) -> HttpResponse:
+        deadline = datetime.fromisoformat(self.storage.extra_data["deadline"])
+
+        if deadline > timezone.now():
+            return super().post(*args, **kwargs)
+        else:
+            raise NotImplementedError("TODO: force finish")
 
 
 class QuizStartView(LoginRequiredMixin, FormView):
