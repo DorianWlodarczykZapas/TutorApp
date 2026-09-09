@@ -138,6 +138,25 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         else:
             raise NotImplementedError("TODO: force finish")
 
+    def force_finish(self) -> HttpResponse:
+        """
+        Fills in all blank fields in the wizard forms with default values when time runs out
+        """
+        for form_key in self.get_form_list().keys():
+            step_data = self.storage.get_step_data(form_key)
+            if step_data is None:
+                self.storage.set_step_data(form_key, {})
+
+        last_step = self.steps.last
+
+        form = self.get_form(
+            step=last_step,
+            data=self.storage.get_step_data(last_step),
+            files=self.storage.get_step_files(last_step),
+        )
+
+        return self.render_done(form)
+
 
 class QuizStartView(LoginRequiredMixin, FormView):
     model = Quiz
