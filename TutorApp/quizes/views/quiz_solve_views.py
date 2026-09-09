@@ -26,6 +26,17 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
     def get_form_list(self) -> OrderedDict[str, type]:
         """
         Build dynamic form list based on quiz questions.
+        Questions are randomly selected once and saved in the session.
+        The time limit is being counted down.
+
+        Returns:
+            OrderedDict[str, type]: mapping to [question_id: QuizStepForm]
+
+        Raises:
+            ValueError: If the quiz has no questions available (checked directly
+                        by this method), or if the underlying call to
+                        Quiz.get_random_questions() rejects the requested number of
+                        questions (not positive, or exceeding the available pool).
         """
 
         quiz_pk = self.kwargs["quiz_pk"]
