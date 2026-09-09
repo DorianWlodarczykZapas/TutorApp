@@ -136,7 +136,7 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         if deadline > timezone.now():
             return super().post(*args, **kwargs)
         else:
-            raise NotImplementedError("TODO: force finish")
+            return self.force_finish()
 
     def force_finish(self) -> HttpResponse:
         """
