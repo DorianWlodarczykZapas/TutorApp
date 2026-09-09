@@ -155,12 +155,14 @@ class QuizStartView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form: QuizStartForm) -> HttpResponseRedirect:
         question_count = form.cleaned_data["question_count"]
-        level_type = form.cleaned_data.get("level_type", 1)
+        level_type = form.cleaned_data.get("level_type")
 
         params = {
             "question_count": question_count,
-            "level_type": level_type,
         }
+
+        if level_type is not None:
+            params["level_type"] = level_type
         query_string = urlencode(params)
 
         base_url = reverse("quizes:solve_quiz", kwargs={"quiz_pk": self.quiz.pk})
