@@ -56,18 +56,20 @@ class Quiz(models.Model):
         level_type: Optional[int] = None,
     ) -> List["Question"]:
         """
-        Return a list of randomly selected questions for  quiz.
+        Return a list of randomly selected questions for quiz.
 
         Args:
-        number_of_questions: The number of questions to pick
-        level_type: The level of question to pick
+            number_of_questions(Optional[int]): The number of questions to pick, if none all questions are taken
+            level_type(Optional[int]): The level of question to pick, if none all levels are taken
 
 
         Returns:
-        List of Question objects
+            List of Question objects. Can be empty if the quiz has no questions,
+            or if number_of_questions is None and no questions match the given level_type.
 
         Raises:
-            ValueError: If number_of_questions is not positive or exceeds available questions"
+            ValueError:  Number of questions must be positive
+            ValueError:  Number of questions must be lower or even to available questions
 
         """
 
