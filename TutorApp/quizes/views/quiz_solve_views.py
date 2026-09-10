@@ -159,6 +159,8 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         """
         Fills in all blank fields in the wizard forms with default values when time runs out.
 
+        Returns:
+            HTTP Response rendered after successful filling all the remaining forms of all wizard steps.
         """
         for form_key in self.get_form_list().keys():
             step_data = self.storage.get_step_data(form_key)
