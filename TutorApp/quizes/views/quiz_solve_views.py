@@ -142,6 +142,17 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         return kwargs
 
     def post(self, *args, **kwargs) -> HttpResponse:
+        """
+        Checks whether the quiz time limit has been exceeded before processing
+        the submitted step. If time remains, delegates to the wizard's default
+        post() handling. If the deadline has passed, forces the quiz to finish
+        via force_finish().
+
+        Returns:
+            HttpResponse: The response from the default wizard post() handling
+            if time remains, or the redirect returned by force_finish() if the
+            deadline has passed.
+        """
         deadline = datetime.fromisoformat(self.storage.extra_data["deadline"])
 
         if deadline > timezone.now():
