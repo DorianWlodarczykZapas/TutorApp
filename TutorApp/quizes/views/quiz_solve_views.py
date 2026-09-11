@@ -161,6 +161,16 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
             return self.force_finish()
 
     def get(self, *args, **kwargs) -> HttpResponse:
+        """
+        Checks whether the `extra_data` dictionary contains question numbers to determine
+        if this is the user's first attempt at the test,
+        given that the original `get` method clears the dictionary when called.
+
+        Returns:
+            HttpResponse: A rendered form for the quiz question. The specific
+            question shown depends on whether this is the first attempt or a
+            resumed session.
+        """
         if self.storage.extra_data.get("question_ids") is None:
             return super().get(*args, **kwargs)
         else:
