@@ -119,6 +119,16 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         return redirect("quizes:quiz_summary", attempt_id=attempt.id)
 
     def get_context_data(self, form: QuizStepForm, **kwargs: Any) -> Dict[str, Any]:
+        """
+        Overrides the method then adds the `question` object to the context dictionary.
+
+        Args:
+            form: Form instance for the current step.
+
+        Returns:
+            Dict[str, Any]: Context dictionary with added question object.
+
+        """
         context = super().get_context_data(form=form, **kwargs)
 
         current_step = self.steps.current
