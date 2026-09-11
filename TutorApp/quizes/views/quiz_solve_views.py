@@ -131,7 +131,19 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         logger.warning(f"self.get_form_list() = {self.get_form_list()}")
         return context
 
-    def get_form_kwargs(self, step=None) -> Dict[str, Any]:
+    def get_form_kwargs(self, step: str = None) -> Dict[str, Any]:
+        """
+        Builds and returns a dictionary of arguments passed to the form
+        during its initialization for a single step. Adds a Question object to dict on question key.
+
+        Args:
+            step: Wizard step id in dict that represents on which step user is,
+            if none dict will be empty but in reality it's only
+            a defensive safeguard.
+
+        Returns:
+            Dict[str, Any]: Dictionary of arguments submitted to form while initializing it with question object.
+        """
         if step is None:
             return {}
 
