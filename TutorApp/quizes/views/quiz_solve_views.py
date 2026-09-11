@@ -157,10 +157,12 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
     def force_finish(self) -> HttpResponse:
         """
-        Fills in all blank fields in the wizard forms with default values when time runs out.
+        Fills in any unanswered wizard steps with empty data, resulting in
+        0 points for those questions, then finishes the wizard.
 
         Returns:
-            HTTP Response rendered after successful filling all the remaining forms of all wizard steps.
+            HttpResponse: A redirect to the quiz summary page for this attempt,
+            returned by the wizard's done() method.
         """
         for form_key in self.get_form_list().keys():
             step_data = self.storage.get_step_data(form_key)
