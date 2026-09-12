@@ -89,7 +89,7 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
         return dict_with_question_ids
 
-    def done(self, form_list, **kwargs) -> HttpResponse:
+    def done(self, form_list, form_dict, **kwargs) -> HttpResponse:
 
         service = QuizSolveService()
         user = self.request.user
@@ -98,11 +98,9 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         quiz = get_object_or_404(Quiz, pk=quiz_pk)
 
         user_answers = []
-        for step_name in self.get_form_list().keys():
-            selected = self.get_cleaned_data_for_step(step_name).get(
-                "selected_answers", []
-            )
-            selected_ids = [int(id) for id in selected]
+        for step_name, form_object in form_dict.items():
+            selected = form_object.cleaned_data.get("selected_answers", [])
+            selected_ids = [int(answer_id) for answer_id in selected]
             user_answers.append((step_name, selected_ids))
 
         max_score = len(user_answers)
