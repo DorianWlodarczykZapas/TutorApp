@@ -89,7 +89,25 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
         return dict_with_question_ids
 
-    def done(self, form_list, form_dict, **kwargs) -> HttpResponse:
+    def done(self, form_list: Any, form_dict: Dict, **kwargs) -> HttpResponse:
+        """
+        Collects and consolidates data on all the questions the user answered
+        while taking the quiz, and saves the entire sample,
+        the score, and the maximum possible score to the database.
+
+        Args:
+            form_list: List required by the framework but unused in this case.
+            form_dict: Dict containing all the forms from each step, along with the data entered by the user.
+
+        Returns:
+            HttpResponse: A redirect to the quiz summary page for this attempt.
+
+        Raises:
+            ValueError: If a question ID doesn't exist (raised by QuizSolveService.calculate_score()).
+            ValueError: If a question has no correct answer (raised by QuizSolveService.calculate_question_score()).
+            ValueError: If score is negative, max_score is not positive, or score exceeds
+            max_score (raised by QuizSolveService.save_quiz_attempt()).
+        """
 
         service = QuizSolveService()
         user = self.request.user
