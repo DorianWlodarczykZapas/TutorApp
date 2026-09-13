@@ -1319,7 +1319,7 @@ msgstr "Wymagane"
 
 #: .\templates\motifs\motif_list.html:49
 msgid "In matriculation"
-msgstr "W maturze"
+msgstr "Na maturze"
 
 #: .\templates\motifs\motif_list.html:53 .\templates\quizes\delete_quiz.html:13
 #: .\templates\quizes\question_confirm_delete.html:13
