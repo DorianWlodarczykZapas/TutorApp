@@ -152,9 +152,8 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         question_id = int(current_step.split("_")[1])
         question = get_object_or_404(Question, pk=question_id)
         context["question"] = question
+        context["deadline"] = self.storage.extra_data["deadline"]
 
-        logger.warning(f"self.form_list = {self.form_list}")
-        logger.warning(f"self.get_form_list() = {self.get_form_list()}")
         return context
 
     def get_form_kwargs(self, step: str = None) -> Dict[str, Any]:
