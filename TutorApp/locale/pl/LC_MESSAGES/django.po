@@ -1365,7 +1365,7 @@ msgid "Plans List"
 msgstr "Lista Planów"
 
 #: .\templates\navigation_links\quizes.html:4
-msgid "Quizes"
+msgid "Quizzes"
 msgstr "Quizy"
 
 #: .\templates\navigation_links\quizes.html:6

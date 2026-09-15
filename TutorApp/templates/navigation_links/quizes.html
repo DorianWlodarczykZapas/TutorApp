@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="nav-menu">
     <input type="radio" id="quizesToggle" name="navigation-link" hidden>
-    <label for="quizesToggle">{% trans "Quizes" %}</label>
+    <label for="quizesToggle">{% trans "Quizzes" %}</label>
     <div class="dropdown-content">
         <a href="{% url 'quizes:quiz_list' %}">{% trans "Quiz List" %}</a>
         {% if user.role_type == 2 %}
