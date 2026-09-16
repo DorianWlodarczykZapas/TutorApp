@@ -4,6 +4,7 @@
     {% trans "Solve Quiz" %}
 {% endblock %}
 {% block content %}
+    {{ deadline|json_script:"quiz-deadline" }}
     <div class="container">
         {# Progress #}
         <p>{% trans "Question" %} {{ wizard.steps.step1 }}/{{ wizard.steps.count }}</p>
