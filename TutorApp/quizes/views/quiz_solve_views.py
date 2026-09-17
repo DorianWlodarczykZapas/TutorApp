@@ -137,13 +137,13 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
     def get_context_data(self, form: QuizStepForm, **kwargs: Any) -> Dict[str, Any]:
         """
-        Overrides the method then adds the `question` object to the context dictionary and the quiz deadline.
+        Overrides the method then adds the `question` object to the context dictionary and the quiz deadline in string ISO format.
 
         Args:
             form: Form instance for the current step.
 
         Returns:
-            Dict[str, Any]: Context dictionary with added question object and quiz deadline.
+            Dict[str, Any]: Context dictionary with added question object and quiz deadline in string ISO format.
 
         """
         context = super().get_context_data(form=form, **kwargs)
