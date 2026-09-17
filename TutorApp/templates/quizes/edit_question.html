@@ -2,14 +2,13 @@
 {% load i18n %}
 {% load widget_tweaks %}
 {% block title %}
-    {% trans "Edit Question" %}  {# <- zmienione #}
+    {% trans "Edit Question" %}
 {% endblock %}
 {% block content %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-container form-container--wide">
             <h1 class="form-title">{% trans "Edit Question" %}</h1>
-            {# <- zmienione #}
             <h2>{% trans "Question" %}</h2>
             {% if form.non_field_errors %}
                 <div class="form-errors">

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load static widget_tweaks i18n %}
 {% block title %}
     {% trans "Solve Quiz" %}
 {% endblock %}
@@ -30,7 +30,8 @@
             </button>
         </form>
     </div>
-    {% block scripts %}
-        {{ block.super }}
-        <script>{% endblock %}</script>
-    {% endblock %}
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script defer src="{% static 'assets/js/quiz_deadline.js' %}"></script>
+{% endblock %}
