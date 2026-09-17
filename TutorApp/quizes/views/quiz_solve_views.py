@@ -133,7 +133,9 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
 
         service.save_user_answers(attempt, user_answers)
 
-        return redirect("quizes:quiz_summary", attempt_id=attempt.id)
+        return redirect(
+            "quizes:question_review", attempt_pk=attempt.pk, question_number=1
+        )
 
     def get_context_data(self, form: QuizStepForm, **kwargs: Any) -> Dict[str, Any]:
         """
@@ -192,6 +194,10 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
             deadline has passed.
         """
         deadline = datetime.fromisoformat(self.storage.extra_data["deadline"])
+        now = timezone.now()
+        logger.warning(
+            f"deadline={deadline}, now={now}, deadline > now = {deadline > now}"
+        )
 
         if deadline > timezone.now():
             return super().post(*args, **kwargs)
