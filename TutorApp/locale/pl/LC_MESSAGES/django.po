@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-02 22:21+0200\n"
+"POT-Creation-Date: 2026-09-18 22:17+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -217,7 +217,7 @@ msgstr "Treść Zadania"
 #: .\courses\forms\training_tasks_forms.py:39
 #: .\templates\motifs\motif_list.html:38
 #: .\templates\quizes\add_question.html:67
-#: .\templates\quizes\edit_question.html:68
+#: .\templates\quizes\edit_question.html:67
 msgid "Answer"
 msgstr "Odpowiedź"
 
@@ -243,6 +243,10 @@ msgstr "Numer Strony"
 #: .\courses\forms\training_tasks_forms.py:77
 msgid "Explanation Timestamp"
 msgstr "Timestamp z wyjaśnieniem"
+
+#: .\courses\forms\training_tasks_forms.py:54
+msgid " "
+msgstr ""
 
 #: .\courses\models.py:92 .\courses\models.py:95
 msgid "Use $...$ for inline math, e.g., $x=2$"
@@ -773,11 +777,11 @@ msgstr ""
 "Ten quiz zawiera tylko %(available)d pytanie/pytań. Nie możesz wybrać "
 "%(requested)d."
 
-#: .\quizes\models.py:72
+#: .\quizes\models.py:83
 msgid "Number of questions must be positive"
 msgstr "Liczba pytań musi być liczbą dodatnią"
 
-#: .\quizes\models.py:77
+#: .\quizes\models.py:89
 #, python-format
 msgid "Cannot request %(requested)d questions. Only %(available)d available."
 msgstr ""
@@ -969,7 +973,7 @@ msgstr "Pierwszy"
 #: .\templates\courses\training_tasks_list.html:83
 #: .\templates\examination_tasks\exam_task_search_engine.html:75
 #: .\templates\quizes\question_review.html:59
-#: .\templates\quizes\quiz_solve_wizard.html:20
+#: .\templates\quizes\quiz_solve_wizard.html:22
 #: .\templates\videos\section_video_list.html:28
 msgid "Previous"
 msgstr "Wcześniej"
@@ -981,7 +985,7 @@ msgstr "z"
 #: .\templates\courses\training_tasks_list.html:90
 #: .\templates\examination_tasks\exam_task_search_engine.html:81
 #: .\templates\quizes\question_review.html:63
-#: .\templates\quizes\quiz_solve_wizard.html:26
+#: .\templates\quizes\quiz_solve_wizard.html:28
 #: .\templates\videos\add_video_wizard.html:115
 #: .\templates\videos\section_video_list.html:33
 msgid "Next"
@@ -1157,8 +1161,9 @@ msgid "My Exam Progress"
 msgstr "Mój postęp w egzaminie"
 
 #: .\templates\examination_tasks\exam_progress.html:14
-
-msgid "Tasks completed"
+#, fuzzy
+#| msgid "Tasks completed"
+msgid "tasks completed"
 msgstr "Ukończone Zadania"
 
 #: .\templates\examination_tasks\exam_progress.html:29
@@ -1258,7 +1263,6 @@ msgid "Topic"
 msgstr "Temat"
 
 #: .\templates\examination_tasks\exam_task_search_engine.html:38
-
 msgid "Year/Month"
 msgstr "Rok/Miesiąc"
 
@@ -1491,19 +1495,19 @@ msgid "Add Question to Quiz"
 msgstr "Dodaj pytanie do quizu"
 
 #: .\templates\quizes\add_question.html:12
-#: .\templates\quizes\edit_question.html:13
+#: .\templates\quizes\edit_question.html:12
 #: .\templates\quizes\question_list.html:16
-#: .\templates\quizes\quiz_solve_wizard.html:9
+#: .\templates\quizes\quiz_solve_wizard.html:11
 msgid "Question"
 msgstr "Pytanie"
 
 #: .\templates\quizes\add_question.html:58
-#: .\templates\quizes\edit_question.html:59
+#: .\templates\quizes\edit_question.html:58
 msgid "Answers"
 msgstr "Odpowiedzi"
 
 #: .\templates\quizes\add_question.html:82
-#: .\templates\quizes\edit_question.html:83
+#: .\templates\quizes\edit_question.html:82
 msgid "Correct answer"
 msgstr "Poprawna Odpowiedź"
 
@@ -1529,23 +1533,20 @@ msgstr "Czy na pewno chcesz usunąć quiz:"
 msgid "Edit Question"
 msgstr "Edytuj Pytanie"
 
-#: .\templates\quizes\edit_question.html:88
-
+#: .\templates\quizes\edit_question.html:87
 msgid "Delete this answer"
 msgstr "Usuń tą odpowiedź"
 
-#: .\templates\quizes\edit_question.html:94
+#: .\templates\quizes\edit_question.html:93
 msgid "Save Changes"
 msgstr "Zapisz Zmiany"
 
 #: .\templates\quizes\question_confirm_delete.html:6
 #: .\templates\quizes\question_list.html:36
-
 msgid "Delete Question"
 msgstr "Usuń Pytanie"
 
 #: .\templates\quizes\question_confirm_delete.html:9
-
 msgid "Are you sure you want to delete question:"
 msgstr "Czy na pewno chcesz usunąć pytanie:"
 
@@ -1621,6 +1622,7 @@ msgid "Not attempted yet"
 msgstr "Brak podejść"
 
 #: .\templates\quizes\quiz_list.html:64
+#, python-format
 msgid ""
 "\n"
 "                                    %(score)s/%(max)s\n"
@@ -1631,7 +1633,7 @@ msgstr ""
 "                                    "
 
 #: .\templates\quizes\quiz_list.html:73
-#: .\templates\quizes\quiz_solve_start.html:47
+#: .\templates\quizes\quiz_solve_start.html:44
 msgid "Start Quiz"
 msgstr "Rozpocznij Quiz"
 
@@ -1644,10 +1646,12 @@ msgid "No quizzes available"
 msgstr "Brak dostępnych quizów"
 
 #: .\templates\quizes\quiz_solve_start.html:8
+#, python-format
 msgid "Total questions available: %(question_count)s"
 msgstr "Ilość dostępnych pytań: %(question_count)s"
 
 #: .\templates\quizes\quiz_solve_start.html:12
+#, python-format
 msgid ""
 "\n"
 "                    Your last score: %(score)s / %(max_score)s\n"
@@ -1661,7 +1665,7 @@ msgstr ""
 msgid "You haven't attempted this quiz yet."
 msgstr "Nie podszedłeś/aś jeszcze do tego quizu."
 
-#: .\templates\quizes\quiz_solve_start.html:44
+#: .\templates\quizes\quiz_solve_start.html:41
 msgid "Estimated time to complete:"
 msgstr "Szacowany czas na rozwiązanie:"
 
@@ -1669,11 +1673,11 @@ msgstr "Szacowany czas na rozwiązanie:"
 msgid "Solve Quiz"
 msgstr "Rozwiąż Quiz"
 
-#: .\templates\quizes\quiz_solve_wizard.html:17
+#: .\templates\quizes\quiz_solve_wizard.html:19
 msgid "Select answers:"
 msgstr "Wybierz odpowiedzi:"
 
-#: .\templates\quizes\quiz_solve_wizard.html:24
+#: .\templates\quizes\quiz_solve_wizard.html:26
 msgid "Finish"
 msgstr "Zakończ"
 
@@ -1796,7 +1800,6 @@ msgid "Save Video"
 msgstr "Zapisz Nagranie"
 
 #: .\templates\videos\section_video_list.html:10
-
 msgid "Search"
 msgstr "Wyszukaj"
 
@@ -1849,6 +1852,7 @@ msgid "Video pagination"
 msgstr "Paginacja nagrań"
 
 #: .\templates\videos\video_list.html:142
+#, python-format
 msgid ""
 "\n"
 "                        Page %(current)s of %(total)s\n"
