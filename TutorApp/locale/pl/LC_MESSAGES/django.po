@@ -1479,7 +1479,7 @@ msgstr "Wybierz"
 
 #: .\templates\plans\plans_list.html:63
 msgid "You have the best plan!"
-msgstr "Masz Już Najlepszy Możliwy Plan!"
+msgstr "Masz już najlepszy plan!"
 
 #: .\templates\plans\plans_list.html:72
 msgid "Lifetime"
