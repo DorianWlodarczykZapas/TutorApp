@@ -6,7 +6,6 @@
 {% block content %}
     {{ deadline|json_script:"quiz-deadline" }}
     <div class="container">
-        {# Progress #}
         <div id="quiz-timer"></div>
         <p>{% trans "Question" %} {{ wizard.steps.step1 }}/{{ wizard.steps.count }}</p>
         {# Pytanie #}
@@ -16,6 +15,16 @@
         <form method="post">
             {% csrf_token %}
             {{ wizard.management_form }}
+            <div class="question-nav">
+                {% for step, answered in steps_status.items %}
+                    <button type="submit"
+                            name="wizard_goto_step"
+                            value="{{ step }}"
+                            class="{% if answered %}answered{% else %}unanswered{% endif %}">
+                        {{ forloop.counter }}
+                    </button>
+                {% endfor %}
+            </div>
             <h3>{% trans "Select answers:" %}</h3>
             {{ form.as_p }}
             {% if wizard.steps.prev %}
