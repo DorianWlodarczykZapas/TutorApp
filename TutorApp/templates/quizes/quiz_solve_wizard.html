@@ -8,10 +8,8 @@
     <div class="container">
         <div id="quiz-timer"></div>
         <p>{% trans "Question" %} {{ wizard.steps.step1 }}/{{ wizard.steps.count }}</p>
-        {# Pytanie #}
         <h2>{{ question.text }}</h2>
         {% if question.picture %}<img src="{{ question.picture.url }}" alt="Question image">{% endif %}
-        {# Formularz #}
         <form method="post">
             {% csrf_token %}
             {{ wizard.management_form }}
