@@ -161,11 +161,11 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
         context["question"] = question
         context["deadline"] = self.storage.extra_data["deadline"]
 
-        steps_status = {
-            step: self.storage.get_step_data(step) is not None
-            for step in self.get_form_list().keys()
-        }
-        context["steps_status"] = steps_status
+        steps_navigation = [
+            (step, self.storage.get_step_data(step) is not None, index // 10)
+            for index, step in enumerate(self.get_form_list().keys())
+        ]
+        context["steps_navigation"] = steps_navigation
 
         return context
 
