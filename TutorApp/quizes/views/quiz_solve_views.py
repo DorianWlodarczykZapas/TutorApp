@@ -140,16 +140,15 @@ class SolveQuizWizard(LoginRequiredMixin, SessionWizardView):
     def get_context_data(self, form: QuizStepForm, **kwargs: Any) -> Dict[str, Any]:
         """
         Overrides the method then adds the `question` object to the context dictionary and the quiz deadline in string ISO format.
-        Adds a `steps_status` dict mapping each step name to whether the user
-        has already answered it.
+        Adds a `steps_navigation` list which contains tuples with check if user answered it and index page to paginate it.
 
         Args:
             form: Form instance for the current step.
 
         Returns:
             Dict[str, Any]: Context dictionary with added question object , quiz deadline in string ISO format
-            and steps_status dict mapping each step name to whether the user
-            has already answered it.
+            and steps_navigation list of tuples of (step_name, answered, page) mapping each step name to whether the user
+            has already answered it and contains index page.
 
         """
         context = super().get_context_data(form=form, **kwargs)
