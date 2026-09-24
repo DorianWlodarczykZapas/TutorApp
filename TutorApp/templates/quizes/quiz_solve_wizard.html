@@ -14,10 +14,11 @@
             {% csrf_token %}
             {{ wizard.management_form }}
             <div class="question-nav">
-                {% for step, answered in steps_status.items %}
+                {% for step, answered, page in steps_navigation %}
                     <button type="submit"
                             name="wizard_goto_step"
                             value="{{ step }}"
+                            data-page="{{ page }}"
                             class="{% if answered %}answered{% else %}unanswered{% endif %}">
                         {{ forloop.counter }}
                     </button>
