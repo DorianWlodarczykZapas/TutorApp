@@ -24,6 +24,10 @@
                     </button>
                 {% endfor %}
             </div>
+            <div class="question-nav-controls">
+                <button type="button" id="nav-prev-page">{% trans "Previous 10 questions" %}</button>
+                <button type="button" id="nav-next-page">{% trans "Next 10 questions" %}</button>
+            </div>
             <h3>{% trans "Select answers:" %}</h3>
             {{ form.as_p }}
             {% if wizard.steps.prev %}
