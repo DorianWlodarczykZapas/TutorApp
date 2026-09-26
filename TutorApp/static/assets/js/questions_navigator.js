@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", function() {
         let currentPage = 0
         const navButtons = document.querySelectorAll("[data-page]");
 
+        const pageValues = [];
+        navButtons.forEach(function (button) {
+            pageValues.push(parseInt(button.getAttribute("data-page"), 10));
+            });
+        const maxPage = Math.max(...pageValues);
+
         function showPage(page) {
             navButtons.forEach(function (button) {
                 const buttonPage = parseInt(button.getAttribute("data-page"), 10);
