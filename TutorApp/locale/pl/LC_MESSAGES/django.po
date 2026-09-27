@@ -1673,10 +1673,9 @@ msgid "Solve Quiz"
 msgstr "Rozwiąż Quiz"
 
 #: .\templates\quizes\quiz_solve_wizard.html:28
-#, fuzzy
-#| msgid "10 questions"
+
 msgid "Previous 10 questions"
-msgstr "10 pytań"
+msgstr "Wcześniejsze 10 pytań"
 
 #: .\templates\quizes\quiz_solve_wizard.html:29
 #, fuzzy
