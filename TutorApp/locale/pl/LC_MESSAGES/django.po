@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TutorApp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 22:17+0200\n"
+"POT-Creation-Date: 2026-09-27 20:53+0200\n"
 "PO-Revision-Date: 2025-06-14 23:37+0200\n"
 "Last-Translator: ChatGPT\n"
 "Language-Team: Polish <pl@translations>\n"
@@ -973,7 +973,7 @@ msgstr "Pierwszy"
 #: .\templates\courses\training_tasks_list.html:83
 #: .\templates\examination_tasks\exam_task_search_engine.html:75
 #: .\templates\quizes\question_review.html:59
-#: .\templates\quizes\quiz_solve_wizard.html:22
+#: .\templates\quizes\quiz_solve_wizard.html:34
 #: .\templates\videos\section_video_list.html:28
 msgid "Previous"
 msgstr "Wcześniej"
@@ -985,7 +985,7 @@ msgstr "z"
 #: .\templates\courses\training_tasks_list.html:90
 #: .\templates\examination_tasks\exam_task_search_engine.html:81
 #: .\templates\quizes\question_review.html:63
-#: .\templates\quizes\quiz_solve_wizard.html:28
+#: .\templates\quizes\quiz_solve_wizard.html:40
 #: .\templates\videos\add_video_wizard.html:115
 #: .\templates\videos\section_video_list.html:33
 msgid "Next"
@@ -1161,8 +1161,7 @@ msgid "My Exam Progress"
 msgstr "Mój postęp w egzaminie"
 
 #: .\templates\examination_tasks\exam_progress.html:14
-#, fuzzy
-#| msgid "Tasks completed"
+
 msgid "tasks completed"
 msgstr "Ukończone Zadania"
 
@@ -1497,7 +1496,7 @@ msgstr "Dodaj pytanie do quizu"
 #: .\templates\quizes\add_question.html:12
 #: .\templates\quizes\edit_question.html:12
 #: .\templates\quizes\question_list.html:16
-#: .\templates\quizes\quiz_solve_wizard.html:11
+#: .\templates\quizes\quiz_solve_wizard.html:10
 msgid "Question"
 msgstr "Pytanie"
 
@@ -1673,11 +1672,23 @@ msgstr "Szacowany czas na rozwiązanie:"
 msgid "Solve Quiz"
 msgstr "Rozwiąż Quiz"
 
-#: .\templates\quizes\quiz_solve_wizard.html:19
+#: .\templates\quizes\quiz_solve_wizard.html:28
+#, fuzzy
+#| msgid "10 questions"
+msgid "Previous 10 questions"
+msgstr "10 pytań"
+
+#: .\templates\quizes\quiz_solve_wizard.html:29
+#, fuzzy
+#| msgid "10 questions"
+msgid "Next 10 questions"
+msgstr "10 pytań"
+
+#: .\templates\quizes\quiz_solve_wizard.html:31
 msgid "Select answers:"
 msgstr "Wybierz odpowiedzi:"
 
-#: .\templates\quizes\quiz_solve_wizard.html:26
+#: .\templates\quizes\quiz_solve_wizard.html:38
 msgid "Finish"
 msgstr "Zakończ"
 
