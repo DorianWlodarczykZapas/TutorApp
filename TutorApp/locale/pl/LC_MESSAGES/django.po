@@ -1678,8 +1678,6 @@ msgid "Previous 10 questions"
 msgstr "Wcześniejsze 10 pytań"
 
 #: .\templates\quizes\quiz_solve_wizard.html:29
-#, fuzzy
-#| msgid "10 questions"
 msgid "Next 10 questions"
 msgstr "10 pytań"
 
