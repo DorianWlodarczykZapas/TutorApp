@@ -1679,7 +1679,7 @@ msgstr "Wcześniejsze 10 pytań"
 
 #: .\templates\quizes\quiz_solve_wizard.html:29
 msgid "Next 10 questions"
-msgstr "10 pytań"
+msgstr "Następne 10 pytań"
 
 #: .\templates\quizes\quiz_solve_wizard.html:31
 msgid "Select answers:"
