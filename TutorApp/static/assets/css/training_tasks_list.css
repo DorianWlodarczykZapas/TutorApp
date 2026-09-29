@@ -1,4 +1,3 @@
-
 .training-tasks-container {
     max-width: 100%;
     padding: 30px 40px;
@@ -12,7 +11,6 @@
     margin-bottom: 30px;
 }
 
-
 .filters-container {
     background: white;
     border: 5px solid #008374;
@@ -24,23 +22,19 @@
 
 .filters-grid {
     display: grid;
-   grid-template-columns: 50% 30% 20%;
+    grid-template-columns: 50% 30% 20%;
     grid-template-areas:
         "search  section  buttons"
         "search  status   buttons"
         "search  level    buttons";
     gap: 16px;
     align-items: start;
-
 }
 
 .filter-search     { grid-area: search; }
 .filter-section    { grid-area: section; }
 .filter-status     { grid-area: status; }
 .filter-checkboxes { grid-area: level; }
-.filter-actions    { grid-area: buttons; align-self: center; }
-.filter-title   { grid-area: title; }
-.filter-subject { grid-area: subject; }
 
 .filter-title {
     grid-area: title;
@@ -53,7 +47,6 @@
     display: flex;
     flex-direction: column;
 }
-
 
 .filter-group label {
     display: block;
@@ -69,8 +62,7 @@
 
 .filter-group input,
 .filter-group select,
-.filter-group textarea
-    {
+.filter-group textarea {
     width: 100%;
     height: 52px;
     padding: 0 20px;
@@ -95,6 +87,7 @@
     text-align: left;
     color: #333;
 }
+
 .filter-group input {
     color: #333;
     text-align: center;
@@ -107,6 +100,7 @@
     height: auto !important;
     min-height: 52px;
 }
+
 .filter-search {
     display: flex;
     flex-direction: column;
@@ -122,7 +116,6 @@
 .filter-select.selected {
     color: #333;
 }
-
 
 .filters-container .select2-container {
     width: 100% !important;
@@ -160,12 +153,11 @@
     flex-wrap: nowrap;
     margin-top: 8px;
     gap: 8px;
-
 }
 
 .checkbox-label {
-     flex: 1;
-     justify-content: center;
+    flex: 1;
+    justify-content: center;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -178,9 +170,8 @@
     transition: all 0.2s;
     background: white;
     color: #008374;
-     white-space: nowrap;
+    white-space: nowrap;
 }
-
 
 .checkbox-label:hover {
     background: #f0f8f7;
@@ -190,7 +181,6 @@
     font-weight: 700;
 }
 
-
 .filter-actions {
     grid-area: buttons;
     align-self: center;
@@ -198,12 +188,7 @@
     flex-direction: column;
     gap: 8px;
     align-items: center;
-
 }
-
-
-
-
 
 .filter-btn-apply,
 .filter-btn-clear {
@@ -254,13 +239,11 @@
     font-weight: 500;
 }
 
-
 .tasks-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 24px;
 }
-
 
 .task-card {
     background: white;
@@ -290,7 +273,6 @@
     box-shadow: 0 8px 24px rgba(40, 167, 69, 0.15);
 }
 
-
 .task-header {
     display: flex;
     justify-content: space-between;
@@ -304,7 +286,6 @@
     color: #666;
     font-weight: 500;
 }
-
 
 .difficulty-badge {
     display: inline-block;
@@ -322,7 +303,6 @@
 .level-1 { background: #d4edda; color: #155724; }
 .level-2 { background: #fff3cd; color: #856404; }
 .level-3 { background: #f8d7da; color: #721c24; }
-
 
 .task-content { flex: 1; }
 
@@ -342,7 +322,6 @@
     margin: 0;
 }
 
-
 .task-footer {
     display: flex;
     justify-content: space-between;
@@ -350,7 +329,6 @@
     border-top: 2px solid #e1e4e8;
     padding-top: 14px;
     margin-top: auto;
-
 }
 
 .completion-badge {
@@ -362,7 +340,6 @@
     font-weight: 600;
     color: #28a745;
 }
-
 
 .no-results {
     text-align: center;
@@ -376,7 +353,6 @@
     margin-bottom: 20px;
 }
 
-
 @media (max-width: 900px) {
     .filters-grid {
         grid-template-columns: 1fr 1fr;
@@ -386,6 +362,21 @@
             "level   level"
             "buttons buttons";
     }
+}
+
+.filter-btn-apply--quiz,
+.filter-btn-clear--quiz {
+    display: inline-flex;
+    width: auto;
+}
+
+.filter-actions--quiz {
+    flex-direction: row;
+}
+
+.exam-table--quiz th,
+.exam-table--quiz td {
+    text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -412,17 +403,3 @@
     .tasks-grid { grid-template-columns: 1fr; }
 }
 
-.filter-btn-apply--quiz,
-.filter-btn-clear--quiz {
-    display: inline-flex;
-    width: auto;
-}
-
-.filter-actions--quiz {
-    flex-direction: row;
-}
-
-.exam-table--quiz th,
-.exam-table--quiz td {
-    text-align: center;
-}
