@@ -52,7 +52,7 @@
 }
 
 .task-detail-card {
-    background: white;
+    background: #ffffff;
     padding: clamp(20px, 5vw, 40px);
     margin-bottom: 25px;
     border-radius: 15px;
@@ -111,7 +111,7 @@
     max-width: 250px;
     border: 2px solid var(--primary-color);
     border-radius: 25px;
-    background: white;
+    background: #ffffff;
 }
 
 .answer-content {

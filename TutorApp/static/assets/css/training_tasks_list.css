@@ -12,7 +12,7 @@
 }
 
 .filters-container {
-    background: white;
+    background: #ffffff;
     border: 5px solid #008374;
     border-radius: 40px;
     padding: 30px 40px;
@@ -168,7 +168,7 @@
     font-size: 0.85rem;
     font-family: 'Inter', sans-serif;
     transition: all 0.2s;
-    background: white;
+    background: #ffffff;
     color: #008374;
     white-space: nowrap;
 }
@@ -208,14 +208,14 @@
 
 .filter-btn-apply {
     background: #008374;
-    color: white;
+    color: #ffffff;
     border: none;
 }
 
 .filter-btn-apply:hover { background: #00695c; }
 
 .filter-btn-clear {
-    background: white;
+    background: #ffffff;
     color: #008374;
     border: 2px solid #008374;
 }
@@ -228,7 +228,7 @@
 
 .checkbox-label:has(input:checked) {
     background: #008374;
-    color: white;
+    color: #ffffff;
 }
 
 .tasks-count {
@@ -246,7 +246,7 @@
 }
 
 .task-card {
-    background: white;
+    background: #ffffff;
     border: 3px solid #e1e4e8;
     border-radius: 20px;
     padding: 24px;

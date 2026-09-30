@@ -75,14 +75,14 @@
 
 .floating-field.field-search .select2-selection__choice {
     background-color: #008374;
-    color: white;
+    color: #ffffff;
     border: none;
     border-radius: 20px;
     padding: 4px 12px;
 }
 
 .floating-field.field-search .select2-selection__choice__remove {
-    color: white;
+    color: #ffffff;
     margin-right: 6px;
 }
 
@@ -148,7 +148,7 @@
     margin: 10px auto 0 auto;
     padding: 10px 30px;
     background: #006b5e;
-    color: white;
+    color: #ffffff;
     border: none;
     border-radius: 30px;
     font-size: 16px;
@@ -233,7 +233,7 @@
 
 .floating-field.field-file .form-input::-webkit-file-upload-button {
     background-color: #008374;
-    color: white;
+    color: #ffffff;
     border: none;
     border-radius: 20px;
     padding: 8px 20px;

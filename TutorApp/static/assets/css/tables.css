@@ -7,7 +7,7 @@
 
 .exam-table thead tr {
   background-color: #008374;
-  color: white;
+  color: #ffffff;
 }
 
 .exam-table th,
@@ -34,7 +34,7 @@
 
 .exam-table--grid thead tr {
   background-color: #008374;
-  color: white;
+  color: #ffffff;
 }
 
 .exam-table--grid tbody tr:hover {
