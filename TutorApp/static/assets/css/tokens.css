@@ -1,16 +1,27 @@
+/* ==========================================================
+    Design tokens
+    ----------------------------------------------------------
+    A place for raw values.
+    Elsewhere in the project, we use var(...)
+    ========================================================== */
+
 :root {
+    /* ── Brand color ── */
     --color-primary: #008374;
     --color-primary-hover: #006b5e;
     --color-primary-subtle: #e6f4f2;
     --color-on-primary: #ffffff;
 
+    /* ── Text ── */
     --color-text: #333333;
     --color-text-muted: #666666;
 
+    /* ── Surfaces ── */
     --color-surface: #ffffff;
     --color-surface-alt: #f8f9fa;
     --color-border: #e0e0e0;
 
+    /* ── Alerts ── */
     --color-success: #1e7e34;
     --color-success-border: #155724;
     --color-error: #c82333;
@@ -20,9 +31,11 @@
     --color-info: #0f7785;
     --color-info-border: #0a464d;
 
+    /* ── Fonts ── */
     --font-heading: 'Roboto', sans-serif;
     --font-body: 'Inter', sans-serif;
 
+    /* ── Rays ── */
     --radius-sm: 4px;
     --radius-md: 12px;
     --radius-lg: 20px;
@@ -30,6 +43,7 @@
     --radius-2xl: 40px;
     --radius-pill: 999px;
 
+    /* ── Shadows ── */
     --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
