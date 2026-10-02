@@ -51,5 +51,20 @@
 
     /* ── Focus ── */
     --shadow-focus: 0 0 0 3px rgba(0, 131, 116, 0.15);   /* Replaces the browser’s default outline. */
-                                                         /* must not be removed without a replacement WCAG 2.4.7 */
+                                                         /* Must not be removed without a replacement (WCAG 2.4.7) */
 }
+
+/*  ==========================================================
+    Breakpoints
+    ----------------------------------------------------------
+    Mobile-first: base styles are for phones, media queries
+    add layout for wider screens using min-width only.
+
+    CSS variables do not work inside @media, so this scale
+    is a convention. Use ONLY these values.
+
+    phone       base styles (no media query) 0-639px
+    tablet      @media (min-width: 640px)
+    laptop      @media (min-width: 1024px)
+    wide        @media (min-width: 1280px)
+    ========================================================== */
