@@ -30,6 +30,7 @@
     --color-warning-border: #e0a800;
     --color-info: #0f7785;
     --color-info-border: #0a464d;
+    --color-on-state: #ffffff;                          /* Color used as text in states sections */
 
     /* ── Fonts ── */
     --font-heading: 'Roboto', sans-serif;
