@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #008374;
-    --bg-light: #f0f2f5;
-    --border-light: #e1e4e8;
-    --text-main: #333;
-    --text-muted: #666;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --primary-color: var(--color-primary);
+    --bg-light: var(--color-surface-alt);
+    --border-light: var(--color-border);
+    --text-main: var(--color-text);
+    --text-muted: var(--color-text-muted);
+    --card-shadow: var(--shadow-sm);
 }
 
 .task-detail-container {
