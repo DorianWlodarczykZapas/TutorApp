@@ -1,5 +1,4 @@
 :root {
-    --primary-color: var(--color-primary);
     --bg-light: var(--color-surface-alt);
     --border-light: var(--color-border);
     --text-main: var(--color-text);
@@ -99,7 +98,7 @@
     align-items: center;
     cursor: pointer;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--color-primary);
     list-style: none;
     transition: background 0.3s ease;
     border-radius: 23px;
@@ -109,7 +108,7 @@
 .task-detail-answer--centered {
     margin: 30px auto;
     max-width: 250px;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--color-primary);
     border-radius: 25px;
     background: #ffffff;
 }
@@ -164,7 +163,7 @@
 }
 
 .task-detail-locked {
-    border: 3px solid var(--primary-color);
+    border: 3px solid var(--color-primary);
     border-radius: 25px;
     padding: clamp(30px, 8vw, 60px);
     text-align: center;
