@@ -1,5 +1,4 @@
 :root {
-    --border-light: var(--color-border);
     --text-muted: var(--color-text-muted);
     --card-shadow: var(--shadow-sm);
 }
@@ -38,7 +37,7 @@
     border-radius: 20px;
     font-size: 0.85rem;
     color: var(--color-text);
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--color-border);
     transition: transform 0.2s ease;
 }
 
@@ -78,7 +77,7 @@
 
 .task-detail-answer {
     background: #f8f9fa;
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -125,7 +124,7 @@
 
 .task-detail-answer[open] {
     transform: none;
-    border-color: var(--border-light);
+    border-color: var(--color-border);
 }
 
 .task-detail-answer[open] .answer-summary {
