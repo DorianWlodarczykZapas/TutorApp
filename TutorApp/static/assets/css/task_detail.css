@@ -1,5 +1,4 @@
 :root {
-    --text-muted: var(--color-text-muted);
     --card-shadow: var(--shadow-sm);
 }
 
@@ -44,7 +43,7 @@
 .badge__label {
     font-weight: 600;
     margin-right: 5px;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
 }
 
 .task-detail-card {
@@ -128,7 +127,7 @@
 }
 
 .task-detail-answer[open] .answer-summary {
-    color: var(--text-muted);
+    color: var(--color-text-muted);
     background-color: transparent;
 }
 
