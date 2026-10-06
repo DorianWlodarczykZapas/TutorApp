@@ -1,7 +1,5 @@
 :root {
-    --bg-light: var(--color-surface-alt);
     --border-light: var(--color-border);
-    --text-main: var(--color-text);
     --text-muted: var(--color-text-muted);
     --card-shadow: var(--shadow-sm);
 }
@@ -36,10 +34,10 @@
     display: inline-flex;
     align-items: center;
     padding: 6px 14px;
-    background-color: var(--bg-light);
+    background-color: var(--color-surface-alt);
     border-radius: 20px;
     font-size: 0.85rem;
-    color: var(--text-main);
+    color: var(--color-text);
     border: 1px solid var(--border-light);
     transition: transform 0.2s ease;
 }
@@ -118,7 +116,7 @@
     text-align: center;
     background: #fdfdfd;
     font-size: 1.1rem;
-    color: var(--text-main);
+    color: var(--color-text);
 }
 
 .answer-content p {
@@ -150,7 +148,7 @@
     font-size: clamp(1.4rem, 3vw, 1.8rem);
     font-weight: 700;
     margin-bottom: 30px;
-    color: var(--text-main);
+    color: var(--color-text);
     text-align: center;
     width: 100%;
 }
@@ -158,7 +156,7 @@
 .task-detail-locked__text {
     font-size: 1.2rem;
     margin-bottom: 25px;
-    color: var(--text-main);
+    color: var(--color-text);
     line-height: 1.5;
 }
 
