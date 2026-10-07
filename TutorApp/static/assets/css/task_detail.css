@@ -29,7 +29,7 @@
     align-items: center;
     padding: 6px 14px;
     background-color: var(--color-surface-alt);
-    border-radius: var( --radius-lg);
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
     color: var(--color-text);
     border: 1px solid var(--color-border);
@@ -43,7 +43,7 @@
 }
 
 .task-detail-card {
-    background: var(--color-on-primary);
+    background: var(--color-surface);
     padding: clamp(20px, 5vw, 40px);
     margin-bottom: 25px;
     border-radius: var(--radius-md);
@@ -55,7 +55,7 @@
     font-size: clamp(1.06rem, 2vw, 1.3rem);
     font-family: var(--font-body);
     line-height: 1.7;
-    color: #2c3e50;
+    color: var(--color-text);
     margin-bottom: 25px;
     text-align: left;
     display: inline-block;
@@ -102,13 +102,13 @@
     max-width: 250px;
     border: 2px solid var(--color-primary);
     border-radius: var(--radius-pill);
-    background: var(--color-on-primary);
+    background: var(--color-surface);
 }
 
 .answer-content {
     padding: 20px;
     text-align: center;
-    background: #fdfdfd;
+    background: var(--color-surface-alt);
     font-size: 1.1rem;
     color: var(--color-text);
 }
@@ -128,17 +128,17 @@
 }
 
 .answer-summary:hover {
-    background-color: rgba(0, 131, 116, 0.05);
+    background-color: var(--color-surface-alt);
 }
 
 .task-detail-answer:hover {
-    background-color: #f9fdfc;
+    background-color: var(--color-surface-alt);
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0, 131, 116, 0.1);
 }
 
 .task-detail-video-title {
-    font-family: var('Roboto', sans-serif);
+    font-family: var(--font-heading);
     font-size: clamp(1.4rem, 3vw, 1.8rem);
     font-weight: 700;
     margin-bottom: 30px;
@@ -156,10 +156,10 @@
 
 .task-detail-locked {
     border: 3px solid var(--color-primary);
-    border-radius: 25px;
+    border-radius: var(--radius-xl);
     padding: clamp(30px, 8vw, 60px);
     text-align: center;
-    background: #fafafa;
+    background: var(--color-surface-alt);
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
@@ -198,7 +198,7 @@
     width: 100%;
     height: 4px;
     appearance: none;
-    background: #e0e0e0;
+    background: var( --color-border);
     border-radius: 2px;
     outline: none;
     cursor: pointer;
@@ -209,7 +209,7 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #2ecc71;
+    background: var(--color-success);
     cursor: pointer;
     transition: transform 0.1s;
 }
