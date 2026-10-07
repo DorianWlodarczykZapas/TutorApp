@@ -15,6 +15,7 @@
     /* ── Text ── */
     --color-text: #333333;
     --color-text-muted: #666666;
+    --color-text-headline: #000000;
 
     /* ── Surfaces ── */
     --color-surface: #ffffff;

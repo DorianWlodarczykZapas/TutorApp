@@ -198,7 +198,7 @@
     width: 100%;
     height: 4px;
     appearance: none;
-    background: var( --color-border);
+    background: var(--color-border);
     border-radius: 2px;
     outline: none;
     cursor: pointer;
