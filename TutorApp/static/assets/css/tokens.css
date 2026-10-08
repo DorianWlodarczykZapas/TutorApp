@@ -13,9 +13,9 @@
     --color-on-primary: #ffffff;                        /* Color used as text in primary colors sections */
 
     /* ── Text ── */
-    --color-text: #333333;
-    --color-text-muted: #666666;
-    --color-text-headline: #000000;
+    --color-text: #333333;                              /* Main text, softer than black to reduce eye strain in long reading */
+    --color-text-muted: #666666;                        /* Secondary information */
+    --color-text-headline: #000000;                     /* Big headlines, short to catch the eye */
 
     /* ── Surfaces ── */
     --color-surface: #ffffff;
@@ -27,6 +27,9 @@
     --color-success-border: #155724;
     --color-error: #c82333;
     --color-error-border: #a71d2a;
+    --color-error-subtle: #f8d7da;
+    --color-on-error-subtle: #721c24;
+    --color-error-subtle-border: #f5c6cb;
     --color-warning: #ffc107;
     --color-warning-border: #e0a800;
     --color-info: #0f7785;
@@ -34,7 +37,7 @@
     --color-on-state: #ffffff;                          /* Color used as text in states sections */
 
     /* ── Fonts ── */
-    --font-heading: 'Roboto', sans-serif;
+    --font-headline: 'Roboto', sans-serif;
     --font-body: 'Inter', sans-serif;
 
     /* ── Radii ── */

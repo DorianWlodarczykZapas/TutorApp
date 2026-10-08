@@ -1,5 +1,5 @@
 .form-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-headline);
     font-size: clamp(40px, 5vw, 60px);
     font-weight: 900;
     margin-bottom: 100px;
