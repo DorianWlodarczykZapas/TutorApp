@@ -20,7 +20,7 @@
 }
 
 .modal-box h2 {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-headline);
     font-size: clamp(24px, 3vw, 36px);
     font-weight: 900;
     margin-bottom: 20px;
@@ -28,7 +28,7 @@
 }
 
 .modal-box p {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 18px;
     color: #555;
     margin-bottom: 30px;
