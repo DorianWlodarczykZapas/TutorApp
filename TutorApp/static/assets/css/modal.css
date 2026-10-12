@@ -9,8 +9,8 @@
 }
 
 .modal-box {
-    background: #ffffff;
-    border: 5px solid #008374;
+    background: var(--color-surface);
+    border: 5px solid var(--color-primary);
     border-radius: 40px;
     padding: 50px;
     max-width: 500px;
@@ -24,7 +24,7 @@
     font-size: clamp(24px, 3vw, 36px);
     font-weight: 900;
     margin-bottom: 20px;
-    color: #000000;
+    color: var(--color-text-headline);
 }
 
 .modal-box p {
