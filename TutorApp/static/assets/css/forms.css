@@ -191,7 +191,7 @@
 }
 
 .floating-field .form-input:focus {
-    border-color: #006b5e;
+    border-color: var(--color-primary-hover);
     box-shadow: var(--shadow-focus);
 }
 
