@@ -16,7 +16,7 @@
     min-height: 140px;
     resize: vertical;
     padding-top: 36px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
 }
 
 /* ── SELECT – choose from select ── */
@@ -31,8 +31,8 @@
 }
 
 .floating-field.field-select .form-input:focus {
-    border-color: #006b5e;
-    box-shadow: 0 0 0 3px rgba(0, 131, 116, 0.15);
+    border-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-focus);
 }
 
 .floating-field.field-select {
@@ -60,29 +60,29 @@
 
 .floating-field.field-search .select2-selection--multiple {
     min-height: 76px;
-    border-radius: 30px;
-    border: 5px solid #008374 !important;
+    border-radius: var(--radius-xl);
+    border: 5px solid var(--color-primary) !important;
     padding: 10px 15px;
     box-sizing: border-box;
 }
 
 .floating-field.field-search .select2-selection--multiple:focus,
 .floating-field.field-search .select2-container--focus .select2-selection--multiple {
-    border-color: #006b5e !important;
-    box-shadow: 0 0 0 3px rgba(0, 131, 116, 0.15);
+    border-color: var(--color-primary-hover) !important;
+    box-shadow: var(--shadow-focus);
     outline: none;
 }
 
 .floating-field.field-search .select2-selection__choice {
-    background-color: #008374;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
     border: none;
-    border-radius: 20px;
+    border-radius: var(--radius-pill);
     padding: 4px 12px;
 }
 
 .floating-field.field-search .select2-selection__choice__remove {
-    color: #ffffff;
+    color: var(--color-on-primary);
     margin-right: 6px;
 }
 
@@ -98,8 +98,8 @@
 
 .floating-field.field-search-single .select2-container--default .select2-selection--single {
     height: 76px;
-    border-radius: 30px;
-    border: 5px solid #008374 !important;
+    border-radius: var(--radius-xl);
+    border: 5px solid var(--color-primary) !important;
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -107,8 +107,8 @@
 
 .floating-field.field-search-single .select2-container--default .select2-selection--single .select2-selection__rendered {
     font-size: 20px;
-    font-family: 'Inter', sans-serif;
-    color: #333;
+    font-family: var(--font-body);
+    color: var(--color-text);
     padding-left: 0;
     padding-right: 0;
     text-align: center;
@@ -127,8 +127,8 @@
 }
 
 .floating-field.field-search-single .select2-container--default.select2-container--focus .select2-selection--single {
-    border-color: #006b5e !important;
-    box-shadow: 0 0 0 3px rgba(0, 131, 116, 0.15);
+    border-color: var(--color-primary-hover) !important;
+    box-shadow: var(--shadow-focus);
     outline: none;
 }
 
@@ -147,12 +147,12 @@
     display: block;
     margin: 10px auto 0 auto;
     padding: 10px 30px;
-    background: #006b5e;
-    color: #ffffff;
+    background: var(--color-primary-hover);
+    color: var(--color-on-primary);
     border: none;
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
     font-size: 16px;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -177,7 +177,7 @@
 }
 
 .floating-field.field-url .url-preview__domain {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
 }
 
 .floating-field.field-url .url-preview--hidden {
@@ -195,10 +195,10 @@
 }
 
 .preview-card__title {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     text-align: center;
     margin-bottom: 15px;
 }
@@ -228,14 +228,14 @@
     height: auto;
     padding: 20px;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
 }
 
 .floating-field.field-file .form-input::-webkit-file-upload-button {
-    background-color: #008374;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
     border: none;
-    border-radius: 20px;
+    border-radius: var(--radius-pill);
     padding: 8px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -249,7 +249,7 @@
 .floating-field.field-file .field-file__label {
     display: block;
     font-size: 14px;
-    color: #008374;
+    color: var(--color-primary);
     font-weight: 600;
     margin-bottom: 8px;
     position: static;
