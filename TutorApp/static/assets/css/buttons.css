@@ -231,7 +231,7 @@
 }
 
 .btn-nav:hover {
-    background: #e6f4f2;
+    background: --color-primary-subtle;
 }
 
 .btn-wizard-submit {
