@@ -1,5 +1,5 @@
 const TIMESTAMP_CONFIG = {
-    1: { bg: "#008374", label: "Ćwiczenia" },
+    1: { bg: "var(--color-primary)", label: "Ćwiczenia" },
     2: { bg: "#c87f0a", label: "Zadania" },
     4: { bg: "#185FA5", label: "Matura Podstawowa" },
     5: { bg: "#534AB7", label: "Matura Rozszerzona" },
@@ -23,7 +23,7 @@ timestamps.forEach(ts => {
 
 
 Object.entries(groups).forEach(([type, items]) => {
-    const config = TIMESTAMP_CONFIG[type] || { bg: "#008374", label: "Inne" };
+    const config = TIMESTAMP_CONFIG[type] || { bg: "var(--color-primary)", label: "Inne" };
 
 
     const header = document.createElement('p');
