@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         style: {
             base: {
                 fontSize: '18px',
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "var(--font-body)",
                 color: '#333',
                 '::placeholder': { color: '#999' }
             },
