@@ -8,7 +8,7 @@
 :root {
     /* ── Brand color ── */
     --color-primary: #008374;
-    --color-primary-hover: var(--color-primary);
+    --color-primary-hover: #006b5e;
     --color-primary-subtle: #e6f4f2;
     --color-on-primary: #ffffff;                        /* Color used as text in primary colors sections */
 
