@@ -185,8 +185,8 @@
 }
 
 .timestamp-btn:hover {
-    background: #006b5e;
-    border-color: #006b5e;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
     transform: translateX(4px);
 }
 
