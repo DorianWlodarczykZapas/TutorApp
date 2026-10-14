@@ -2,7 +2,7 @@
   width: 420px;
   height: 80px;
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   border: none;
   border-radius: 30px;
   font-size: 32px;
@@ -62,7 +62,7 @@
 
 .btn-primary {
     background: #007bff;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-primary:hover {
@@ -71,7 +71,7 @@
 
 .btn-secondary {
     background: #6c757d;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-secondary:hover {
@@ -80,7 +80,7 @@
 
 .btn-success {
     background: #28a745;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-success:hover {
@@ -89,7 +89,7 @@
 
 .btn-danger {
     background: #dc3545;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-danger:hover {
@@ -97,36 +97,36 @@
 }
 
 .btn-outline-primary {
-    background: #ffffff;
+    background: var(--color-surface);
     color: #007bff;
     border: 1px solid #007bff;
 }
 
 .btn-outline-primary:hover {
     background: #007bff;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-outline-secondary {
-    background: #ffffff;
+    background: var(--color-surface);
     color: #6c757d;
     border: 1px solid #6c757d;
 }
 
 .btn-outline-secondary:hover {
     background: #6c757d;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-outline-danger {
-    background: #ffffff;
+    background: var(--color--surface);
     color: #dc3545;
     border: 1px solid #dc3545;
 }
 
 .btn-outline-danger:hover {
     background: #dc3545;
-    color: #ffffff;
+    color: var(--color-on-primary);
 }
 
 .btn-sm {
@@ -141,7 +141,7 @@
 
 .btn-teal {
     background: var(--color-primary);
-    color: #ffffff;
+    color: var(--color-on-primary);
     border-radius: 20px;
 }
 
@@ -155,7 +155,7 @@
     height: 68px;
     font-size: 32px;
     font-family: 'Inter', sans-serif;
-    background: #ffffff;
+    background: var(--color-surface);
     color: var(--color-primary);
     border: 3px solid var(--color-primary);
     border-radius: 30px;
@@ -193,14 +193,14 @@
 .timestamp-btn__time {
     font-size: 13px;
     font-family: 'Inter', sans-serif;
-     color: #ffffff;
+    color: var(--color-on-primary);
     font-weight: 600;
 }
 
 .timestamp-btn__label {
     font-size: 14px;
     font-family: 'Inter', sans-serif;
-     color: #ffffff;
+    color: var(--color-on-primary);
     line-height: 1.3;
 }
 
@@ -238,7 +238,7 @@
   width: 270px;
   height: 68px;
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   border: none;
   border-radius: 30px;
   font-size: 30px;
@@ -261,7 +261,7 @@
     margin: 20px auto;
     padding: 1rem 0;
     background: var(--color-primary);
-    color: #ffffff;
+    color: var(--color-on-primary);
     border: none;
     border-radius: 30px;
     font-size: 1.3rem;
@@ -282,7 +282,7 @@
 
 .btn-red {
     background: #dc3545;
-    color: #ffffff;
+    color: var(--color-on-primary);
     border-radius: 20px;
 }
 

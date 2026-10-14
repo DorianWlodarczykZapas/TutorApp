@@ -121,7 +121,7 @@
 
 .video-card__badge--level {
     background: #d4edda;
-    color: #155724;
+    color: var(--color-on-primary);
 }
 
 .video-card__footer {
