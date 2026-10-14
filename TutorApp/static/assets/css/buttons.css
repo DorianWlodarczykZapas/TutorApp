@@ -93,7 +93,7 @@
 }
 
 .btn-danger:hover {
-    background: #c82333;
+    background: var(--color-error);
 }
 
 .btn-outline-primary {
@@ -287,5 +287,5 @@
 }
 
 .btn-red:hover {
-    background: #c82333;
+    background: var(--color-error);
 }
