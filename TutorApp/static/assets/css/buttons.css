@@ -1,19 +1,19 @@
 .btn-submit {
-  width: 420px;
-  height: 80px;
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
-  border: none;
-  border-radius: var(--radius-xl);
-  font-size: 32px;
-  font-family: var(--font-body);
-  cursor: pointer;
-  margin: 30px auto 20px;
-  display: block;
+    width: 420px;
+    height: 80px;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border: none;
+    border-radius: var(--radius-xl);
+    font-size: 32px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    margin: 30px auto 20px;
+    display: block;
 }
 
 .btn-submit:hover {
-  background-color: #00695c;
+    background-color: #00695c;
 }
 
 .btn-small {
