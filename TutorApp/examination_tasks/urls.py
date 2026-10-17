@@ -3,7 +3,6 @@ from django.urls import path
 from .views.exam_task_views import (
     AddExamTaskWizard,
     ExamTaskListView,
-    ExamTaskSearchEngine,
     TaskCutPdfStreamView,
     TaskDisplayView,
     TaskPdfView,
@@ -34,9 +33,6 @@ urlpatterns = [
     path("exams/", ExamListView.as_view(), name="exam_list"),
     path(
         "exams/<int:exam_pk>/tasks/", ExamTaskListView.as_view(), name="exam_task_list"
-    ),
-    path(
-        "task_search_engine/", ExamTaskSearchEngine.as_view(), name="task_search_engine"
     ),
     path("progress/", StudentProgressView.as_view(), name="student_progress"),
 ]
