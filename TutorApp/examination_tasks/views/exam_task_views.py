@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
 from django.db import transaction
-from django.db.models import QuerySet
 from django.forms import Form
 from django.http import (
     Http404,
@@ -22,8 +21,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import DetailView, ListView, View
-from django_filters.views import FilterView
-from examination_tasks.filters import SCHOOL_TO_EXAM_TYPE
 from formtools.wizard.views import SessionWizardView
 from users.mixins import TeacherRequiredMixin
 
@@ -369,26 +366,3 @@ class ExamTaskListView(LoginRequiredMixin, ListView):
             task.is_completed_by_user = task_completion_map.get(task.task_id, False)
 
         return context
-
-
-class ExamTaskSearchEngine(LoginRequiredMixin, FilterView):
-    model = ExamTask
-
-    template_name = "examination_tasks/exam_task_search_engine.html"
-    paginate_by = 20
-
-    def get_filterset_class(self):
-        from examination_tasks.filters import ExamTaskFilter
-
-        return ExamTaskFilter
-
-    def get_queryset(self) -> QuerySet["ExamTask"]:
-        qs = ExamTask.objects.select_related("exam").select_related("section", "topic")
-        user = getattr(self.request, "user", None)
-        school_type = getattr(user, "school_type", None)
-
-        exam_type = SCHOOL_TO_EXAM_TYPE.get(school_type)
-        if exam_type is not None:
-            qs = qs.filter(exam__exam_type=exam_type)
-
-        return qs.order_by("-exam__year", "-exam__month", "-id")
