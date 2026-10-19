@@ -7,12 +7,11 @@ from .views.exam_task_views import (
     TaskDisplayView,
     TaskPdfView,
 )
-from .views.exam_views import AddExam, ExamListView, StudentProgressView
+from .views.exam_views import ExamListView, StudentProgressView
 
 app_name = "examination_tasks"
 
 urlpatterns = [
-    path("exams/add/", AddExam.as_view(), name="exam_add"),
     path(
         "exams/tasks/add/",
         AddExamTaskWizard.as_view(),
