@@ -9,6 +9,7 @@ from examination_tasks.choices import (
     MONTH_CHOICES,
     YEAR_CHOICES,
     ExamTypeChoices,
+    FormulaChoices,
 )
 
 
@@ -19,16 +20,18 @@ class Exam(models.Model):
         verbose_name="Exam type",
     )
     subject = models.IntegerField(
-        choices=SubjectChoices.choices, verbose_name="Subject", default=1
+        choices=SubjectChoices.choices,
+        verbose_name="Subject",
+    )
+    formula = models.IntegerField(
+        choices=FormulaChoices.choices,
+        verbose_name="Formula",
     )
     year = models.IntegerField(choices=YEAR_CHOICES)
     month = models.IntegerField(choices=MONTH_CHOICES)
-    tasks_link = models.FileField(upload_to="exam_pdfs/")
-    solutions_link = models.FileField(
+    tasks_file = models.FileField(upload_to="exam_pdfs/")
+    solutions_file = models.FileField(
         upload_to="exam_answers_pdfs/", blank=True, null=True
-    )
-    tasks_count = models.PositiveIntegerField(
-        default=0, help_text="Number of tasks in this exam"
     )
     level_type = models.IntegerField(
         choices=LEVEL_CHOICES,
@@ -38,7 +41,20 @@ class Exam(models.Model):
     )
 
     class Meta:
-        unique_together = ("year", "month", "level_type", "exam_type")
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "exam_type",
+                    "subject",
+                    "year",
+                    "month",
+                    "level_type",
+                    "formula",
+                ],
+                name="unique_exam_type",
+                nulls_distinct=False,
+            )
+        ]
         ordering = ["-year", "-month", "-exam_type", "-level_type"]
 
     def __str__(self):
