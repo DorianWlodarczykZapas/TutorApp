@@ -33,8 +33,8 @@ class ExamTypeChoices(models.IntegerChoices):
 
 
 class FormulaChoices(models.IntegerChoices):
-    Formula_2002_2004 = 1, _("2002 2004 Exam")
-    Formula_2005_2009 = 2, _("2005 2009 Exam")
-    Formula_2010_2014 = 3, _("2010 2014 Exam")
-    Formula_2015_2026 = 4, _("2015 2026 Exam")
-    Formula_2023 = 5, _("2023 Exam")
+    FORMULA_2002_2004 = 1, _("2002 2004 Exam")
+    FORMULA_2005_2009 = 2, _("2005 2009 Exam")
+    FORMULA_2010_2014 = 3, _("2010 2014 Exam")
+    FORMULA_2015_2026 = 4, _("2015 2026 Exam")
+    FORMULA_2023 = 5, _("2023 Exam")
