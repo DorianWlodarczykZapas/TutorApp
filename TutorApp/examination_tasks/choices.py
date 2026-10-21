@@ -40,3 +40,17 @@ class FormulaChoices(models.IntegerChoices):
     MATRICULATION_FORMULA_2023 = 5, _("2023 Matriculation Exam")
     E8_2018 = 6, _("E8 2018 Exam")
     EXAM_BEFORE_E8_2002_2019 = 7, _("2002 2019 Before E8 Exam")
+
+
+MATRICULATION_EXAM_FORMULAS = (
+    FormulaChoices.MATRICULATION_FORMULA_2002_2004,
+    FormulaChoices.MATRICULATION_FORMULA_2005_2009,
+    FormulaChoices.MATRICULATION_FORMULA_2010_2014,
+    FormulaChoices.MATRICULATION_FORMULA_2015_2026,
+    FormulaChoices.MATRICULATION_FORMULA_2023,
+)
+
+E8_EXAM_FORMULAS = (
+    FormulaChoices.E8_EXAM,
+    FormulaChoices.EXAM_BEFORE_E8_2002_2019,
+)

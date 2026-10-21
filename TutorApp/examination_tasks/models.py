@@ -4,8 +4,11 @@ from courses.choices import SubjectChoices
 from courses.models import Topic
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from examination_tasks.choices import (
+    E8_EXAM_FORMULAS,
     LEVEL_CHOICES,
+    MATRICULATION_EXAM_FORMULAS,
     MONTH_CHOICES,
     YEAR_CHOICES,
     ExamTypeChoices,
@@ -51,9 +54,24 @@ class Exam(models.Model):
                     "level_type",
                     "formula",
                 ],
-                name="unique_exam_type",
+                name="exam_unique_type_subject_year_month_level_formula",
                 nulls_distinct=False,
-            )
+            ),
+            models.CheckConstraint(
+                condition=(
+                    Q(
+                        exam_type=ExamTypeChoices.MATRICULATION,
+                        level_type__isnull=False,
+                        formula__in=MATRICULATION_EXAM_FORMULAS,
+                    )
+                    | Q(
+                        exam_type=ExamTypeChoices.EIGHTH_GRADE,
+                        level_type__isnull=True,
+                        formula__in=E8_EXAM_FORMULAS,
+                    )
+                ),
+                name="exam_fields_match_exam_type",
+            ),
         ]
         ordering = ["-year", "-month", "-exam_type", "-level_type"]
 
