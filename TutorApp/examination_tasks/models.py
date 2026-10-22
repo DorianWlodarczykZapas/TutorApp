@@ -138,14 +138,6 @@ class ExamTask(models.Model):
         validators=[MinValueValidator(1)],
         verbose_name="Number",
     )
-    section = models.ForeignKey(
-        "courses.Section",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="exam_tasks",
-        verbose_name="Section",
-    )
     task_screen = models.FileField(
         upload_to=exam_task_upload_path,
         null=False,
@@ -154,8 +146,8 @@ class ExamTask(models.Model):
     )
     topic = models.ForeignKey(
         Topic,
-        on_delete=models.CASCADE,
-        related_name="topics",
+        on_delete=models.SET_NULL,
+        related_name="exam_tasks",
         verbose_name="Topic",
         null=True,
         blank=True,
