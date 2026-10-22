@@ -3,6 +3,7 @@ import os
 from courses.choices import SubjectChoices
 from courses.models import Topic
 from django.conf import settings
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import Q
 from examination_tasks.choices import (
@@ -112,7 +113,7 @@ class Exam(models.Model):
             level_display = self.get_level_type_display()
             level_str = f"– {level_display.lower()}" if level_display else ""
             return (
-                f"{subject_display} {formula_display} "
+                f"{subject_display} formula: {formula_display} "
                 f"{self.year} {month_display} {level_str}"
             )
 
@@ -127,13 +128,16 @@ def exam_task_upload_path(instance, filename):
         str(exam.exam_type),
         str(exam.year),
         str(exam.month),
-        f"zadanie_{instance.task_id}.pdf",
+        f"zadanie_{instance.number}.pdf",
     )
 
 
 class ExamTask(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="tasks")
-    task_id = models.IntegerField()
+    number = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1)],
+        verbose_name="Number",
+    )
     section = models.ForeignKey(
         "courses.Section",
         on_delete=models.SET_NULL,
@@ -179,10 +183,28 @@ class ExamTask(models.Model):
     )
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["exam", "number"],
+                name="exam_task_unique_number",
+                violation_error_message="Exam task number already exists in this exam.",
+            ),
+            models.CheckConstraint(
+                condition=Q(
+                    number__gte=1,
+                ),
+                name="exam_task_positive_number",
+            ),
+        ]
         verbose_name = "Exam Task"
         verbose_name_plural = "Exam Tasks"
-        unique_together = ("exam", "task_id")
-        ordering = ["exam", "task_id"]
+        ordering = ["exam", "number"]
 
     def __str__(self) -> str:
-        return f"{self.exam} – Task {self.task_id}"
+        """
+        Return a human-readable description of the exam task.
+
+        Returns:
+            A string such as "Mathematics 2023 Matriculation Exam 2024 August - extended - Task 1"
+        """
+        return f"{self.exam} – Task {self.number}"
