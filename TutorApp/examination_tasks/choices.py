@@ -51,6 +51,6 @@ MATRICULATION_EXAM_FORMULAS = (
 )
 
 E8_EXAM_FORMULAS = (
-    FormulaChoices.E8_EXAM,
+    FormulaChoices.E8_2018,
     FormulaChoices.EXAM_BEFORE_E8_2002_2019,
 )

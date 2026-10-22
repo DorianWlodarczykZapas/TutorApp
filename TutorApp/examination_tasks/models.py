@@ -17,6 +17,28 @@ from examination_tasks.choices import (
 
 
 class Exam(models.Model):
+    """
+    A single compulsory state examination.
+
+    Each exam belongs to one subject.
+    Some fields like level only make sense for matriculation exam
+    which is enforced at the database level by constraints defined in Meta.
+
+    Attributes:
+        exam_type: Type of exam, a value from ExamTypeChoices.
+        subject: Subject of the exam, a value from SubjectChoices.
+        formula: Formula of the exam, a value from FormulaChoices
+            and it must belong to a specific type of exam.
+            E8 also contains EXAM_BEFORE_E8_2002_2019,
+            because before E8 there were lower secondary schools.
+        year: Year of the exam, a value from YEAR_CHOICES.
+        month: Month of the exam, a value from MONTH_CHOICES.
+        tasks_file: Pdf file containing exam tasks.
+        solutions_file: Pdf file containing exam tasks solutions.
+        level_type: Level of the exam (basic or extended,
+            only for matriculation exam).
+    """
+
     exam_type = models.IntegerField(
         choices=ExamTypeChoices.choices,
         default=ExamTypeChoices.MATRICULATION,
@@ -75,16 +97,26 @@ class Exam(models.Model):
         ]
         ordering = ["-year", "-month", "-exam_type", "-level_type"]
 
-    def __str__(self):
-        month_display = dict(MONTH_CHOICES).get(self.month)
-        type_display = self.get_exam_type_display()
+    def __str__(self) -> str:
+        """
+        Return a human-readable description of the exam.
+
+        Returns:
+            A string such "Mathematics 2023 Matriculation Exam 2024 August - extended"
+        """
+        month_display = self.get_month_display()
+        subject_display = self.get_subject_display()
+        formula_display = self.get_formula_display()
 
         if self.exam_type == ExamTypeChoices.MATRICULATION:
-            level_display = dict(LEVEL_CHOICES).get(self.level_type)
-            level_str = f" – {level_display.lower()}" if level_display else ""
-            return f"{type_display} {month_display} {self.year}{level_str}"
+            level_display = self.get_level_type_display()
+            level_str = f"– {level_display.lower()}" if level_display else ""
+            return (
+                f"{subject_display} {formula_display} "
+                f"{self.year} {month_display} {level_str}"
+            )
 
-        return f"{type_display} {month_display} {self.year}"
+        return f"{subject_display} {formula_display} " f"{self.year} {month_display}"
 
 
 def exam_task_upload_path(instance, filename):
