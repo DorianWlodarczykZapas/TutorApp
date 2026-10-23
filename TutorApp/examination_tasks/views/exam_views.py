@@ -75,35 +75,3 @@ class ExamListView(LoginRequiredMixin, ListView):
 
         context["exams"] = exams_on_page
         return context
-
-
-class StudentProgressView(LoginRequiredMixin, ListView):
-    model = Exam
-    template_name = "examination_tasks/exam_progress.html"
-    context_object_name = "exams"
-
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-
-        completion_map = ExamTaskDBService.get_user_completion_map_for_exams(
-            user=self.request.user, exams=context["exams"]
-        )
-
-        progress_data = []
-        for exam in context["exams"]:
-            completed = completion_map.get(exam.id, 0)
-            total = exam.tasks_count
-            percentage = (completed / total * 100) if total > 0 else 0
-
-            progress_data.append(
-                {
-                    "exam": exam,
-                    "completed": completed,
-                    "total": total,
-                    "percentage": round(percentage, 1),
-                }
-            )
-
-        context["progress_data"] = progress_data
-
-        return context

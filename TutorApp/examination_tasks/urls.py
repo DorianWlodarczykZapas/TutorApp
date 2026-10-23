@@ -7,7 +7,7 @@ from .views.exam_task_views import (
     TaskDisplayView,
     TaskPdfView,
 )
-from .views.exam_views import ExamListView, StudentProgressView
+from .views.exam_views import ExamListView
 
 app_name = "examination_tasks"
 
@@ -33,5 +33,4 @@ urlpatterns = [
     path(
         "exams/<int:exam_pk>/tasks/", ExamTaskListView.as_view(), name="exam_task_list"
     ),
-    path("progress/", StudentProgressView.as_view(), name="student_progress"),
 ]
